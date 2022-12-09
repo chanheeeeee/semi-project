@@ -39,53 +39,49 @@
                 </div>
   
                 <div class="col-md-4 pt-5">
-                    <h3 class="h2 text-light border-bottom pb-1 border-light">구독하기</h3>
-                    <div class="col-auto me-auto">
-                      <ul class="list-inline text-left footer-icons">
-                          <li class="list-inline-item border border-light rounded-circle text-center">
-                              <a rel="nofollow" class="text-light text-decoration-none" target="_blank" href="http://fb.com/templatemo"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                          </li>
-                          <li class="list-inline-item border border-light rounded-circle text-center">
-                              <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                          </li>
-                          <li class="list-inline-item border border-light rounded-circle text-center">
-                              <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
-                          </li>
-                          <li class="list-inline-item border border-light rounded-circle text-center">
-                              <a class="text-light text-decoration-none" target="_blank" href="https://www.github.com/"><i class="fab fa-github fa-lg fa-fw"></i></a>
-                          </li>
-                          <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://www.gmail.com//"><i class="fab fa-gmail fa-lg fa-fw"></i></a>
-                        </li>
-                      </ul>
-                  </div>
-                  <div class="w-100 bg-black py-3">
-                    <div class="container">
-                        <div class="row pt-2">
-                            <div class="col-12">
-                                <p class="text-left text-light">
-                                    Copyright ⓒ  운동행. All rights reserved.
-                                </p>
-                            </div>
+                <h3 class="h2 text-light border-bottom pb-1 border-light">SUBSCRIBE</h3>
+                <div class="col-auto me-auto">
+                  <ul class="list-inline text-left footer-icons">
+                      <li class="list-inline-item border border-light rounded-circle text-center">
+                          <a rel="nofollow" class="text-light text-decoration-none" target="_blank" href="http://www.facebook.com"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                      </li>
+                      <li class="list-inline-item border border-light rounded-circle text-center">
+                          <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                      </li>
+                      <li class="list-inline-item border border-light rounded-circle text-center">
+                          <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                      </li>
+                      <li class="list-inline-item border border-light rounded-circle text-center">
+                          <a class="text-light text-decoration-none" target="_blank" href="https://www.github.com/"><i class="fab fa-github fa-lg fa-fw"></i></a>
+                      </li>
+                      <li class="list-inline-item border border-light rounded-circle text-center">
+                        <a class="text-light text-decoration-none" target="_blank" href="https://www.gmail.com//"><i class="fab fa-google fa-lg fa-fw"></i></a>
+                    </li>
+                  </ul>
+              </div>
+              <div class="w-100 bg-black py-3">
+                <div class="container">
+                    <div class="row pt-2">
+                        <div class="col-12">
+                            <p class="text-left text-light">
+                                Copyright ⓒ  운동행. All rights reserved.
+                            </p>
                         </div>
                     </div>
                 </div>
-                
-                </div>
+            </div>
   
-              </div>
+         </div>
+      </div>
+   </div>
+         
              
     </footer>
     <!-- End Footer -->
     
 
 
-    <!-- Start Script -->
-    <script src="<%=request.getContextPath()%>/js/jquery-1.11.0.min.js"></script>
-    <script src="<%=request.getContextPath()%>/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="<%=request.getContextPath()%>/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/js/templatemo.js"></script>
-    <script src="<%=request.getContextPath()%>/js/custom.js"></script>
-    <!-- End Script -->
+
 </body>
+
 </html>

@@ -1,29 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
 <%@ include file="/views/common/header.jsp" %>
-
-    <!-- Modal -->
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="w-100 pt-1 mb-5 text-right">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="" method="get" class="modal-content modal-body border-0 p-0">
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
-                    <button type="submit" class="input-group-text bg-success text-light">
-                        <i class="fa fa-fw fa-search text-white"></i>
-                    </button>
-                    dfddsfs
-                    수정
-                    
-                </div>
-            </form>
-        </div>
-    </div>
-
-
+    
 
     <!-- Start Banner Hero -->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -37,7 +16,7 @@
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="<%=request.getContextPath()%>/images/ad2.png" alt="" width="100%">
+                            <img class="img-fluid" src="<%=request.getContextPath() %>/images/ad2.png" alt="" width="100%">
                         </div>
                     </div>
                 </div>
@@ -46,7 +25,7 @@
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="<%=request.getContextPath()%>/images/ad1.png" alt="">
+                            <img class="img-fluid" src="<%=request.getContextPath() %>/images/ad1.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -55,7 +34,7 @@
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="<%=request.getContextPath()%>/images/ad3.png" alt="">
+                            <img class="img-fluid" src="<%=request.getContextPath() %>/images/ad3.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -107,7 +86,7 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.html">
-                            <img src="<%=request.getContextPath()%>/images/main1.jpg" class="card-img-top" alt="...">
+                            <img src="<%=request.getContextPath() %>/images/main1.jpg" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <a href="shop-single.html" class="h2 text-decoration-none text-dark">ALWAYS WITH YOU</a>
@@ -123,7 +102,7 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.html">
-                            <img src="<%=request.getContextPath()%>/images/main3.jpg" class="card-img-top" alt="...">
+                            <img src="<%=request.getContextPath() %>/images/main3.jpg" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <a href="shop-single.html" class="h2 text-decoration-none text-dark">HEY, JOIN</a>
@@ -137,7 +116,7 @@
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
                         <a href="shop-single.html">
-                            <img src="<%=request.getContextPath()%>/images/main4.jpg" class="card-img-top" alt="...">
+                            <img src="<%=request.getContextPath() %>/images/main4.jpg" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <a href="shop-single.html" class="h2 text-decoration-none text-dark">START CHALLENGE</a>
@@ -152,8 +131,5 @@
         </div>
     </section>
     <!-- End Featured Product -->
-    
-    
-<%@ include file="/views/common/footer.jsp" %>
-
+<%@include file="/views/common/footer.jsp" %>
     
