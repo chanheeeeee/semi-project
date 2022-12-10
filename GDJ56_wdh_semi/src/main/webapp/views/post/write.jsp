@@ -41,27 +41,7 @@
 		}
 	</script>                    
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+
 
                     <input type="number" id="button1" placeholder="모집인원">      
                     
