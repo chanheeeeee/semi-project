@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/fontawesome.min.css">
     
     
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/write.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">
     <!-- 달력 -->
     <meta charset="utf-8" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
