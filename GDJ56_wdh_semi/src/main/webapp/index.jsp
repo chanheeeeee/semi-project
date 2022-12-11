@@ -43,7 +43,7 @@
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="<%=request.getContextPath()%>/images/ad1.png" alt="">
+                            <img class="img-fluid" src="<%=request.getContextPath()%>/images/ad1.png" alt="" width="100%">
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="<%=request.getContextPath()%>/images/ad3.png" alt="">
+                            <img class="img-fluid" src="<%=request.getContextPath()%>/images/ad3.png" alt="" width="100%">
                         </div>
                     </div>
                 </div>

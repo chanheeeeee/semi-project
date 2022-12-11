@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>:::운동행:::</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,6 +18,12 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/fontawesome.min.css">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/각자 발급받은 api key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
 <!--
     
 TemplateMo 559 Zay Shop
@@ -50,16 +56,16 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link fs-3" href="index.html">홈</a>
                         </li> -->
                         <li class="nav-item">
-                            <a class="nav-link fs-3" href="about.html">공지사항</a>
+                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/notice/notice.jsp">공지사항</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/board/postList.jsp">동행</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-3" href="shop.html">챌린지</a>
+                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fs-3" href="contact.html">고객센터</a>
+                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/cs/advertisement.jsp">고객센터</a>
                         </li>
                     </ul>
                 </div>
