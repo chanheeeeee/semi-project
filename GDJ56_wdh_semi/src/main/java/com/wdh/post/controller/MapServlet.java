@@ -1,4 +1,4 @@
-package com.wdh.write.controller;
+package com.wdh.post.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MapServlet
  */
-@WebServlet("/write/map.do")
+@WebServlet("/post/map.do")
 public class MapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,7 @@ public class MapServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/jusoPopup.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/post/jusoPopup.jsp").forward(request, response);
 	}
 
 	/**
