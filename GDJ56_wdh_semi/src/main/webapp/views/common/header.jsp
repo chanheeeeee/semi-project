@@ -58,7 +58,7 @@ https://templatemo.com/tm-559-zay-shop
 		<nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: rgba(255, 255, 255, 0.7);">
 			<div class="container d-flex justify-content-between align-items-center">
 				<!-- <div class="img-logo"> -->
-				<a href="/">
+				<a href="<%=request.getContextPath() %>/main.do">
 				<img src="<%=request.getContextPath() %>/images/logo.png" style="width: 200px;">
 				</a>
 				<!-- </div> -->
