@@ -38,9 +38,7 @@
 <!--
     
 TemplateMo 559 Zay Shop
-
 https://templatemo.com/tm-559-zay-shop
-
 수정한 부분
     1. 49, 52, 55, 58 a 태그에 fs-3 class 추가 (BootStrap 폰트 사이즈 변경하는 클래스)
     2. 307 Line custom.js 안에 header.fixedhead 태그에 스크롤이 최상단이 아닐 경우 fixed-top 클래스 추가 / 최상단이라면 fixed-top 클래스 제거 하는 scroll 이벤트 추가
@@ -112,9 +110,5 @@ https://templatemo.com/tm-559-zay-shop
 	});
 	
 	</script>
-	
-	
-	
-	
-	
+
 	
