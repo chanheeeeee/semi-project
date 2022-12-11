@@ -38,9 +38,7 @@
 <!--
     
 TemplateMo 559 Zay Shop
-
 https://templatemo.com/tm-559-zay-shop
-
 수정한 부분
     1. 49, 52, 55, 58 a 태그에 fs-3 class 추가 (BootStrap 폰트 사이즈 변경하는 클래스)
     2. 307 Line custom.js 안에 header.fixedhead 태그에 스크롤이 최상단이 아닐 경우 fixed-top 클래스 추가 / 최상단이라면 fixed-top 클래스 제거 하는 scroll 이벤트 추가
@@ -57,8 +55,8 @@ https://templatemo.com/tm-559-zay-shop
 		<nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: rgba(255, 255, 255, 0.7);">
 			<div class="container d-flex justify-content-between align-items-center">
 				<!-- <div class="img-logo"> -->
-				<a class="navbar-brand text-success logo h1 align-self-center" href="index.html"> 
-				<img class="logo" src="<%=request.getContextPath() %>/images/logo.png" alt="" style="width: 200px;">
+				<a href="/">
+				<img src="<%=request.getContextPath() %>/images/logo.png" style="width: 200px;">
 				</a>
 				<!-- </div> -->
 				<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav"
@@ -85,8 +83,8 @@ https://templatemo.com/tm-559-zay-shop
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
 						<div class="flex-fill">
 							<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-								<li class="nav-item" ><a class="nav-link fs-3">로그인</a></li>
-								<li class="nav-item" id="login"><a class="nav-link fs-3" >회원가입</a></li>
+								<li class="nav-item" id="login" ><a class="nav-link fs-3">로그인</a></li>
+								<li class="nav-item" id="join"><a class="nav-link fs-3" >회원가입</a></li>
 							</ul>
 						</div>
 					</div>
@@ -101,7 +99,14 @@ https://templatemo.com/tm-559-zay-shop
 	$("#login").on("click",function(){
 		$("#frm").attr("action","<%=request.getContextPath()%>/member/loginMember.do");
 		$("#frm").submit();
+	});
+	
+	
+	 $("#join").on("click",function(){
+		$("#frm").attr("action","<%=request.getContextPath()%>/member/joinMember.do");
+		$("#frm").submit();
 		
 	});
 	
 	</script>
+	
