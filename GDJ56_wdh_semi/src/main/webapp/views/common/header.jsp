@@ -48,6 +48,7 @@ https://templatemo.com/tm-559-zay-shop
 </head>
 
 <style>
+
 </style>
 
 
@@ -57,8 +58,8 @@ https://templatemo.com/tm-559-zay-shop
 		<nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: rgba(255, 255, 255, 0.7);">
 			<div class="container d-flex justify-content-between align-items-center">
 				<!-- <div class="img-logo"> -->
-				<a class="navbar-brand text-success logo h1 align-self-center" href="index.html"> 
-				<img class="logo" src="<%=request.getContextPath() %>/images/logo.png" alt="" style="width: 200px;">
+				<a href="/">
+				<img src="<%=request.getContextPath() %>/images/logo.png" style="width: 200px;">
 				</a>
 				<!-- </div> -->
 				<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav"
@@ -85,8 +86,8 @@ https://templatemo.com/tm-559-zay-shop
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
 						<div class="flex-fill">
 							<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-								<li class="nav-item" ><a class="nav-link fs-3">로그인</a></li>
-								<li class="nav-item" id="login"><a class="nav-link fs-3" >회원가입</a></li>
+								<li class="nav-item" id="login" ><a class="nav-link fs-3">로그인</a></li>
+								<li class="nav-item" id="join"><a class="nav-link fs-3" >회원가입</a></li>
 							</ul>
 						</div>
 					</div>
@@ -101,7 +102,19 @@ https://templatemo.com/tm-559-zay-shop
 	$("#login").on("click",function(){
 		$("#frm").attr("action","<%=request.getContextPath()%>/member/loginMember.do");
 		$("#frm").submit();
+	});
+	
+	
+	 $("#join").on("click",function(){
+		$("#frm").attr("action","<%=request.getContextPath()%>/member/joinMember.do");
+		$("#frm").submit();
 		
 	});
 	
 	</script>
+	
+	
+	
+	
+	
+	
