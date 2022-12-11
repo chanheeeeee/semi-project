@@ -35,6 +35,19 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/fontawesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">
+<!-- 달력 -->
+<meta charset="utf-8" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+<!-- 웹에디터 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tiny.cloud/1/각자 발급받은 api key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 <!--
     
 TemplateMo 559 Zay Shop
