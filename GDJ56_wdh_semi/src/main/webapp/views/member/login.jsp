@@ -114,15 +114,17 @@
                   <h2>LOG-IN</h2>
                     
                     <div class="login_id">
-                        <input type="id" name="" id="" placeholder="ID">
+                        <input type="text" name="" id="userId" placeholder="ID">
                     </div>
 
                     <div class="login_pw">
-                        <input type="password" name="" id="" placeholder="Password">
+                        <input type="password" name="" id="password" placeholder="Password">
                     </div>
 
+					<div id="login_result" style="color: red;"></div>
+
                     <div class="submit">
-                        <input type="submit" value="확인">
+                        <input type="button" value="확인" id="btnLogin">
                     </div>
                     
                     <br>
@@ -136,7 +138,45 @@
             </div>
         </center>
 
+	<script>
+		$(function(){
+			$("#btnLogin").on("click", function(){
+				//아이디와 비밀번호 가져오기
+				let id = $("#userId").val();
+				let pwd = $("#password").val();
+				
+				console.log("id : "+id);
+				console.log("pwd : "+pwd);
+				
+				//이걸 하는 이유는 로그인 시도시 결과창을 초기화하기 위함
+				$("#login_result").html("");
+				
+				//ajax 통신
+				$.ajax({
+					url : "<%=request.getContextPath()%>/loginAction.do",
+					data : {"loginId":id,"password":pwd},
+					type : "POST",
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
 
+						let loginYn = data.loginYn;
+						if(loginYn == "N") {
+							$("#login_result").html("<span>로그인에 실패하였습니다 다시 시도해주세요.</span>");
+						}else{
+							//페이지 이동
+							location.href="<%=request.getContextPath()%>/main.do";
+						}
+					},
+					error : function(e, r, m){
+						console.log(e);
+						console.log(r);
+						console.log(m);
+					}
+				});
+			});
+		});
+	</script>
 
 
 <%@include file="/views/common/footer.jsp"%>
