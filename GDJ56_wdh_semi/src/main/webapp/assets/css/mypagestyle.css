@@ -3067,6 +3067,7 @@ textarea.form-control-lg {
   border-radius: 3px;
   
 }
+<<<<<<< HEAD
 
 .btn.btn-lblue2 {
   background-color: #007bff;
@@ -3077,6 +3078,8 @@ textarea.form-control-lg {
   border-radius: 3px;
 }
 
+=======
+>>>>>>> refs/heads/dev
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #000;
   background-color: #385bbd;
