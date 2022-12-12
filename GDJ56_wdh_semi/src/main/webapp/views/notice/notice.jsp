@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.wdh.notice.model.vo.Notice" %>
+<%
+	List<Notice> notice=(List<Notice>)request.getAttribute("notice");
+%>
+
 <%@ include file="/views/common/header.jsp" %>
 
     <br>
@@ -14,34 +19,38 @@
                     <th>작성일</th>
                     <th>첨부파일</th>
                 </tr>
-                <!-- <tr>
-                    <td colspan="5">조회된 게시판이 없습니다.</td>
-                </tr> -->
+                <%if(notice.isEmpty()){ %>
                 <tr>
-                    <td>1</td>
-                    <td>제목</td>
-                    <td>관리자</td>
-                    <td>2022.12.08</td>
-                    <td>첨부파일이 없습니다.</td>
+                    <td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
                 </tr>
+                <%}else{
+                	for(Notice n : notice){ 
+                %>
                 <tr>
-                    <td>2</td>
-                    <td>제목</td>
-                    <td>관리자</td>
-                    <td>2022.12.08</td>
-                    <td>첨부파일이 없습니다.</td>
+                	<td><%=n.getNoticeNo() %></td>
+                	<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
                 </tr>
-                <tr>
-                    <td>3</td>
-                    <td>제목</td>
-                    <td>관리자</td>
-                    <td>2022.12.08</td>
-                    <td>첨부파일이 없습니다.</td>
-                </tr>
+                <td><%=n.getNoticeWriter() %></td>
+                <td>
+                	<%if(n.getFilePath()!=null){ %>
+                		<img src="<%=request.getContextPath()%>/images/file.png" width="20" height="20">
+                	<%}else{ %>
+                		첨부파일 없음
+                	<%} %>
+                </td>
+                <td><%=n.getNoticeEnroll() %></td>
                 </table>
-                <button onclick="location.href='<%=request.getContextPath()%>/views/notice/subNotice.jsp'">글쓰기</button>
+                <%if(loginMember!=null&&
+                		loginMember.getUser_id().equals("admin")) {%>
+                	<button onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">글쓰기</button>
+                <%} 
+                }%>
+                <%} %>
                 <br>
-                페이징처리
+                <%-- 페이징 처리 --%>
+                <div id="pageBar">
+                	<%=request.getAttribute("pageBar") %>
+                </div>
             </section>
             <br>
         </div>

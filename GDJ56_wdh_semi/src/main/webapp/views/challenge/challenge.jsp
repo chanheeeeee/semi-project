@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+ 
+<!-- <div id="challcontainer1"> -->
+<!-- <!--         <h3><strong>2022년 운동행&nbsp;NEW WINTER CHALLENGE</strong></h3> -->
 
+<!--     </div> -->
 <br>
-<div id="challcontainer1">
-        <h3><strong>2022년 운동행&nbsp;NEW WINTER CHALLENGE</strong></h3>
-
-    </div>
-    <div id="challcontainer2">
-        <img src="<%=request.getContextPath() %>/images/walk.jpg" id="challimg">
+    <div id="challcontainer2" style="background-image:url('<%=request.getContextPath()%>/images/airdrop.png');">
+    <br>
+    <br>
+        <img src="<%=request.getContextPath() %>/images/challenge.png" id="challimg">
+    
     </div>
     <div id="challcontainer3">
         <h4><strong>COMMING !! DEC WINTER CHALLENGE !</strong></h4>
@@ -26,7 +29,7 @@
     </nav>
     <br>
     <div id="challcontainer6">
-        <img src="<%=request.getContextPath() %>/images/chcallender.png" alt="" id="chcall" onclick="">
+        <img src="<%=request.getContextPath() %>/images/challengecall1.png" alt="" id="chcall" onclick="">
         <button id="checkbtn" type="file"><img src="<%=request.getContextPath() %>/images/check.png" width="100" height="100" id="chimg"></button>
         <input type="file" name="upfile" style="display: none;">
     </div>
@@ -58,7 +61,7 @@
     </div>
 
     <div id="challcontainer5">
-    	<p id="chall6"><strong>QnA.&lt; 특급챌린지 보상은 어떻게 하면 받을 수 있나요 ? &gt;</strong></p>
+    	<p id="chall6"><strong>Q&A.&lt; 특급챌린지 보상은 어떻게 하면 받을 수 있나요 ? &gt;</strong></p>
         	<ul id="chall7">
             	<li>
                		<strong>chap 1.</strong> 이벤트가 진행되는 28일간 꾸준히 열심히! 참여하기!
@@ -73,7 +76,7 @@
     </div>
     
     <div id="challcontainer5">
-        <p><strong>QnA.&lt; 상품은 어떻게 구성되어 있나요 ?&gt;</strong></p>
+        <p><strong>Q&A.&lt; 상품은 어떻게 구성되어 있나요 ?&gt;</strong></p>
         	<ul id="chall7">
             	<li>
                 	<strong>chap 1.</strong> 해당 이벤트의 상품은 매월 1회 진행되는 챌린지임을 참고해주세요!

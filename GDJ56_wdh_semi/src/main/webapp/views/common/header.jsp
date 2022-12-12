@@ -1,5 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.wdh.member.model.vo.Member" %>
+<%
+	Member loginMember=(Member)session.getAttribute("loginMember");
+	Cookie[] cookies=request.getCookies();
+	String saveId=null;
+	if(cookies!=null){
+		for(Cookie c : cookies){
+			if(c.getName().equals("saveId")){
+				saveId=c.getValue();
+				break;
+			}
+		}
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +70,7 @@ https://templatemo.com/tm-559-zay-shop
                             <a class="nav-link fs-3" href="index.html">홈</a>
                         </li> -->
                         <li class="nav-item">
-                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/notice/notice.jsp">공지사항</a>
+                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/board/postList.jsp">동행</a>
