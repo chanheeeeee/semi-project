@@ -97,16 +97,11 @@
 				<div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
 					<div class="flex-fill">
 						<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="index.html">홈</a></li>
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="about.html">공지사항</a></li>
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="contact.html">동행</a></li>
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="shop.html">챌린지</a></li>
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="contact.html">고객센터</a></li>
+							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/board/postList.jsp">동행</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/cs/advertisement.jsp">고객센터</a></li>
 						</ul>
 					</div>
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
@@ -123,7 +118,6 @@
 		<form id="frm"></form>
 	</header>
 	
-	
 	<script>
 	$("#login").on("click",function(){
 		$("#frm").attr("action","<%=request.getContextPath()%>/member/loginMember.do");
@@ -136,70 +130,6 @@
 		$("#frm").submit();
 		
 	});
-	
 	</script>
-
-	
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <!-- <li class="nav-item" >
-                            <a class="nav-link fs-3" href="index.html">홈</a>
-                        </li> -->
-                        <li class="nav-item">
-                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/board/postList.jsp">동행</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/cs/advertisement.jsp">고객센터</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <form action="//login.do" method="post">
-                        <div class="logintable">
-                            <table class="logintable1">
-                                <tbody><tr>
-                                    <td>
-                                        <input type="text" name="memberId" id="memberId" placeholder="아이디" value="">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="password" name="password" id="password" placeholder="패스워드">
-                                    </td>
-                                </tr>	
-                                <!-- <tr>
-                                    <td>
-                                        <input type="checkbox" name="saveId" id="saveId">
-                                        <label for="saveId">아이디저장</label>
-                                    </td>
-                                </tr> -->
-                            </tbody></table>
-                            <div class="logintable2">
-                                <input type="submit" id="submit" class="btn btn-outline-dark" value="로그인" style="height: 35px; font-size: 10px;">
-                                <input type="button" id="signup" class="btn btn-outline-dark" value="회원가입" style="height: 35px; font-size: 10px;" > 
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
     <!-- Close Header -->
 

@@ -58,32 +58,8 @@
                         <a class="text-light text-decoration-none" target="_blank" href="https://www.gmail.com//"><i class="fab fa-google fa-lg fa-fw"></i></a>
                     </li>
                   </ul>
-<<<<<<< HEAD
-                    
+
                 </div>
-  
-                <div class="col-md-4 pt-5">
-                <h3 class="h2 text-light border-bottom pb-1 border-light">SUBSCRIBE</h3>
-                <div class="col-auto me-auto">
-                  <ul class="list-inline text-left footer-icons">
-                      <li class="list-inline-item border border-light rounded-circle text-center">
-                          <a rel="nofollow" class="text-light text-decoration-none" target="_blank" href="http://www.facebook.com"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                      </li>
-                      <li class="list-inline-item border border-light rounded-circle text-center">
-                          <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                      </li>
-                      <li class="list-inline-item border border-light rounded-circle text-center">
-                          <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
-                      </li>
-                      <li class="list-inline-item border border-light rounded-circle text-center">
-                          <a class="text-light text-decoration-none" target="_blank" href="https://www.github.com/"><i class="fab fa-github fa-lg fa-fw"></i></a>
-                      </li>
-                      <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://www.gmail.com//"><i class="fab fa-google fa-lg fa-fw"></i></a>
-                    </li>
-                  </ul>
-=======
->>>>>>> branch 'juni' of https://github.com/chanheeeeee/wdhsemi.git
               </div>
               <div class="w-100 bg-black py-3">
                 <div class="container">
@@ -96,30 +72,10 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-  
          </div>
       </div>
-   </div>
-         
-             
-    </footer>
-    <!-- End Footer -->
-    
-=======
-            
-            </div>
->>>>>>> branch 'juni' of https://github.com/chanheeeeee/wdhsemi.git
-
-          </div>
-         
 </footer>
   
-    <!-- Start Script -->
-
-<<<<<<< HEAD
-
-=======
     <!-- Start Script -->
     <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
@@ -127,7 +83,6 @@
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
     <!-- End Script -->
->>>>>>> branch 'juni' of https://github.com/chanheeeeee/wdhsemi.git
 </body>
 
 </html>
