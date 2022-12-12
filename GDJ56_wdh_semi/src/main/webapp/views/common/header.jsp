@@ -132,7 +132,7 @@
 	
 	
 	 $("#join").on("click",function(){
-		$("#frm").attr("action","<%=request.getContextPath()%>/member/joinMember.do");
+		$("#frm").attr("action","<%=request.getContextPath()%>/member/joinTerms.do");
 		$("#frm").submit();
 		
 	});

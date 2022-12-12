@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Member {
-	private String user_id;
-	private String nick_name;
+	private int member_no;
+	private String member_id;
+	private String member_nickname;
 	private String name;
 	private String password;
 	private char gender;
@@ -21,6 +22,7 @@ public class Member {
 	private String email;
 	private String phone;
 	private String address;
+	private int grade;
 
 	
 }

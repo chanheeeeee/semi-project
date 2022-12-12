@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 
 import com.google.gson.Gson;
-import com.wdh.member.service.LoginActionService;
+import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 
 /**
@@ -36,7 +36,7 @@ public class LoginActionServlet extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 		
-		Member m = new LoginActionService().loginAction(loginId, password);
+		Member m = new MemberService().loginAction(loginId, password);
 		
 		/**
 		 * 로그인이 되는 조건
