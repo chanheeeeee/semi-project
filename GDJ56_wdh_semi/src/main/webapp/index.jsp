@@ -131,5 +131,7 @@
         </div>
     </section>
     <!-- End Featured Product -->
-<%@include file="/views/common/footer.jsp" %>
+    
+<%@ include file="/views/common/footer.jsp" %>
+
     
