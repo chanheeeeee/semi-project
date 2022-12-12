@@ -2,16 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 
-    <table id="step">
-        <tr>
-            <td id="step1" style="background-color: rgba(0, 136, 255, 0.297);">step1. 작성자 평가</td>
-            <td style="background-color: lightgray;">step2. 후기 작성</td>
-            <td style="background-color: lightgray;">step3. 작성완료</td>
-        </tr>
-    </table>
+    <div class="container">
+      <ul class="progressbar">
+        <li class="active">Step 1. 정보확인</li>
+        <li>Step 2. 작성자 평가</li>
+        <li>Step 3. 후기글 작성</li>
+      </ul>
+    </div>
 
 
-    <table id="info">
+<!--     <table id="info">
         <tr>
             <th>참여동행</th>
             <td>정보가져오기~~</td>
@@ -24,7 +24,7 @@
             <th>운동종목</th>
             <td>정보가져오기~~</td>
         </tr>
-    </table>
+    </table> -->
     <br><br><br>
 
 
@@ -109,7 +109,8 @@
             <tr>
                 <th colspan="2">
                     <div class="wrap" style="margin: 5%;">
-                        <button class="button">다음</button>
+                    	<button class="button" onclick="location.href='<%=request.getContextPath()%>/views/post/postscriptcheck.jsp';">이전</button>
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/post/postscript.do';">다음</button>
                     </div>
                 </th>
             </tr>
@@ -126,6 +127,62 @@
         </script>
         
     </div>
+    
+<style>
+	.container {
+	  width: 100%;
+	  
+	}
+	
+	.progressbar {
+	  counter-reset: step;
+	  margin: 5%;
+	}
+	.progressbar li {
+	  list-style: none;
+	  display: inline-block;
+	  width: 30.33%;
+	  position: relative;
+	  text-align: center;
+	  cursor: pointer;
+	}
+	.progressbar li:before {
+	  content: counter(step);
+	  counter-increment: step;
+	  width: 30px;
+	  height: 30px;
+	  line-height : 30px;
+	  border: 1px solid green;
+	  border-radius: 100%;
+	  display: block;
+	  text-align: center;
+	  margin: 0 auto 10px auto;
+	  background-color: #fff;
+	}
+	.progressbar li:after {
+	  content: "";
+	  position: absolute;
+	  width: 100%;
+	  height: 1px;
+	  background-color: #ddd;
+	  top: 15px;
+	  left: -50%;
+	  z-index : -1;
+	}
+	.progressbar li:first-child:after {
+	  content: none;
+	}
+	.progressbar li.active {
+	  color: green;
+	}
+	.progressbar li.active:before {
+	  border-color: green;
+	} 
+	 	.progressbar li.active + li:after {
+	  background-color: green;
+	} 
+
+</style>
 
 
 
