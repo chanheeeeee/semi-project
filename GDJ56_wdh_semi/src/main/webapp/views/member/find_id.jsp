@@ -10,15 +10,10 @@
         padding: 5px 15px 5px 15px;
         font-size: 20px;
       }
-      
-	
     </style>
-
 
 	<center>
 	<section>
-	
-	
 	<div class="find_id" style="height: 220px;">
 		<img src="<%=request.getContextPath() %>/images/logo.png" style="height: 300px;"/>
 	</div>
@@ -41,7 +36,6 @@
          <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="font-family:'Jua';border: outset;">아이디 찾기</button> 
          <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/joinMember.do';" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
          </div>
-    
        
 	</section>
 	</center>
@@ -65,6 +59,41 @@
         </div>
       </div>
     </div>
+    
+
+   
+    
+    <script>
+    $(function(){
+    	$("#modal").on("click",function(){
+    		
+    		let d = {
+    			"name" : $("#name").val(),
+    			"email" : $("#email").val() + "@" + $("#email2").val(),
+    		};
+    $.ajax({
+    	url:"<%=request.getContextPath()%>/member/findId.do",
+    	data:d,
+    	type:"POST",
+    	dataType:"json",
+    	sccess:data=>{
+    		console.log(data);
+    		
+    		if(result>0){
+    			$("#exampleModal").modal("show");
+    		} else{
+    			$("#exampleModal2").modal("show");
+    		}
+    	},error:function(e,r,m){
+    		console.log(e);
+			console.log(r);
+			console.log(m);
+    	}
+    });
+    	});
+
+    
+    </script>
 
 
 <%@include file="/views/common/footer.jsp"%>
