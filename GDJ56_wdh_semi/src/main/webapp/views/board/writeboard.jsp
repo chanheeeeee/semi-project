@@ -5,13 +5,20 @@
 <div id="write-container">
     <form action="<%=request.getContextPath() %>/views/board/finish.jsp" method="post">
 		<div class="wrap" style="margin-top: 3%;">
-			<select id="button1">
+			<select id="button1" onchange="selectValue(this)">
 				<option value="종목선택" style="text-align: center;">종목선택</option>
 				<option value="구기"> 구기 (축구, 야구 테니스 등)</option>
 				<option value="유산소"> 유산소 (등산, 자전거, 걷기 등)</option>
 				<option value="수상"> 수상 (수영, 서핑 등)</option>
 				<option value="기타"> 기타</option>
 			</select>  
+			
+			<script>
+				const selectValue=(target)=>{
+					
+				}
+				
+			</script>
 			
 			<form name="form" id="form" method="post">
 				<input type="button" onClick="goPopup();" class="button1" value="지역선택">
