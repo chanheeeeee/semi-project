@@ -40,11 +40,11 @@ public class MemberService {
 	
 	
 	//아이디 찾기
-	public List<Member> searchMemberId(String Member_id){
+	public Member searchMemberId(String name, String email){
 		Connection conn = getConnection();
-		List<Member> result = dao.searchId(conn,Member_id);
+		Member m = dao.searchMemberId(conn, name, email);
 		close(conn);
-		return result;
+		return m;
 	}
 	
 

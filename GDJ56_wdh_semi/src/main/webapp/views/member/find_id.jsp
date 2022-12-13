@@ -65,6 +65,56 @@
         </div>
       </div>
     </div>
+    
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">아이디 찾기</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            다시한번 확인 부탁드립니다.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="closeJoin">확인</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+    $(function(){
+    	$("#modal").on("click",function(){
+    		
+    		let d = {
+    			"name" : $("#name").val(),
+    			"email" : $("#email").val() + "@" + $("#email2").val(),
+    		};
+    $.ajax({
+    	url:"<%=request.getContextPath()%>/member/findId.do",
+    	data:d,
+    	type:"POST",
+    	dataType:"json",
+    	sccess:data=>{
+    		console.log(data);
+    		
+    		if(result>0){
+    			$("#exampleModal").modal("show");
+    		} else{
+    			$("#exampleModal2").modal("show");
+    		}
+    	},error:function(e,r,m){
+    		console.log(e);
+			console.log(r);
+			console.log(m);
+    	}
+    });
+    	});
+    
+    </script>
 
 
 <%@include file="/views/common/footer.jsp"%>

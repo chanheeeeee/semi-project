@@ -31,12 +31,13 @@ public class FindIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String member_id = request.getParameter("keyword");
-		System.out.println(member_id);
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
 		
-		List<Member>list = new MemberService().searchMemberId(member_id);
+		Member m = new MemberService().searchMemberId(name,email);
 		
-		request.setAttribute("member_id", list);
+		
+		request.setAttribute("Member", m);
 		
 		
 		request.getRequestDispatcher("/views/member/find_id.jsp").forward(request, response);

@@ -83,29 +83,19 @@ public class MemberDao {
 	}
 	
 	
-	public List<Member> searchId(Connection conn, String member_id) {
+	public Member searchMemberId(Connection conn, String name, String email) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		List<Member> result = new ArrayList();
+		Member m = null;
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("searchId"));
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				result.add(Member.builder()
-						.member_id(rs.getString("MEMBER_ID"))
-						.member_nickname(rs.getString("MEMBER_NICKNAME"))
-						.name(rs.getString("MEMBER_NAME"))
-						.password(rs.getString("MEMBER_PASSWORD"))
-						.gender(rs.getString("GENDER").charAt(0))
-						.birth(rs.getDate("BIRTH"))
-						.email(rs.getString("EMAIL"))
-						.phone(rs.getString("PHONE"))
-						.address(rs.getString("ADDRESS"))
-						.grade(rs.getInt("GRADE"))
-						.build()
-						);
-				
+				m = getMember(rs);
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,7 +103,7 @@ public class MemberDao {
 			close(rs);
 			close(pstmt);
 		}
-		return result;
+		return m;
 	}
 	
 
