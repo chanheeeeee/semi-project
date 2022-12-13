@@ -3,9 +3,9 @@
 <%@ include file="/views/common/header.jsp" %>
 
 <div id="write-container">
-    <form action="<%=request.getContextPath() %>/views/board/finish.jsp" method="post">
+    <form action="<%=request.getContextPath() %>/board/writeboardend.do" method="post">
 		<div class="wrap" style="margin-top: 3%;">
-			<select id="button1" onchange="selectValue(this)">
+			<select name="type" id="button1" onchange="selectValue()">
 				<option value="종목선택" style="text-align: center;">종목선택</option>
 				<option value="구기"> 구기 (축구, 야구 테니스 등)</option>
 				<option value="유산소"> 유산소 (등산, 자전거, 걷기 등)</option>
@@ -13,14 +13,7 @@
 				<option value="기타"> 기타</option>
 			</select>  
 			
-			<script>
-				const selectValue=(target)=>{
-					
-				}
-				
-			</script>
-			
-			<form name="form" id="form" method="post">
+			<!-- <form name="form" id="form" method="post"> -->
 				<input type="button" onClick="goPopup();" class="button1" value="지역선택">
 				<div id="list"></div>
 				<div id="callBackDiv">
@@ -28,7 +21,7 @@
 						<tr><td></td><td><input type="hidden"  style="width:500px;" id="roadFullAddr"  name="roadFullAddr" /></td></tr>
 					</table>
 				</div>
-			</form>
+			<!-- </form> -->
 
 			<script>
 				const goPopup=()=>{
@@ -39,8 +32,8 @@
 					document.getElementById("roadFullAddr").value=roadFullAddr
 				}
 			</script>                    
-			<input type="number" id="button1" placeholder="모집인원">      
-			<input class="button1" id="datepicker" value="모임 날짜 선택">
+			<input type="number" name="count" id="button1" placeholder="모집인원">      
+			<input class="button1" name="date" id="datepicker" value="모임 날짜 선택">
 			<script>
 				$('#datepicker').datepicker();
 			</script> 
@@ -50,9 +43,9 @@
 			<tr>
 				<th style="font-size: 13px;">성별</th>
 				<td>
-					&nbsp;&nbsp;&nbsp;<input type="radio">  여
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">  남
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">  무관
+					&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="여">  여
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="남">  남
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="무관">  무관
 				</td>
 				<th>목적</th>
 				<td>
