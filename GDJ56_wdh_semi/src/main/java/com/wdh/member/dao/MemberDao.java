@@ -81,12 +81,12 @@ public class MemberDao {
 		}
 		return result;
 	}
-	
+
 	public Member searchMemberId(Connection conn, String name, String email) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Member m = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("searchId"));
 			pstmt.setString(1, name);
@@ -97,6 +97,7 @@ public class MemberDao {
 			while(rs.next()) {
 				m = getMember(rs);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

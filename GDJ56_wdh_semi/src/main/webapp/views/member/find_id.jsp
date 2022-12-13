@@ -60,10 +60,38 @@
       </div>
     </div>
     
+
+   
+    
     <script>
+    $(function(){
+    	$("#modal").on("click",function(){
+    		
+    		let d = {
+    			"name" : $("#name").val(),
+    			"email" : $("#email").val() + "@" + $("#email2").val(),
+    		};
     $.ajax({
-    	url:"<%=request.getContextPath()%>/member/findId.do"
-    })
+    	url:"<%=request.getContextPath()%>/member/findId.do",
+    	data:d,
+    	type:"POST",
+    	dataType:"json",
+    	sccess:data=>{
+    		console.log(data);
+    		
+    		if(result>0){
+    			$("#exampleModal").modal("show");
+    		} else{
+    			$("#exampleModal2").modal("show");
+    		}
+    	},error:function(e,r,m){
+    		console.log(e);
+			console.log(r);
+			console.log(m);
+    	}
+    });
+    	});
+
     
     </script>
 

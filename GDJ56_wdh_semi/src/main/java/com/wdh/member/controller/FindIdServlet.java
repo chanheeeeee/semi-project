@@ -30,12 +30,14 @@ public class FindIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
+
 		
 		Member m = new MemberService().searchMemberId(name,email);
-		
+
 		
 		request.setAttribute("Member", m);
 		

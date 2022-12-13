@@ -42,7 +42,7 @@ public class MemberService {
 	//아이디 찾기
 	public Member searchMemberId(String name, String email){
 		Connection conn = getConnection();
-		Member m = dao.searchMemberId(conn,name,email);
+		Member m = dao.searchMemberId(conn, name, email);
 		close(conn);
 		return m;
 	}
