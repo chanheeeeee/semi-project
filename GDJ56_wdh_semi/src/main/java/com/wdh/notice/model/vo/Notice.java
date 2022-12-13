@@ -1,17 +1,28 @@
 package com.wdh.notice.model.vo;
 
+
 import java.sql.Date;
 
 import lombok.Builder;
 import lombok.Data;
+
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Notice {
 	
-	@Data
-	@Builder
-	public class Notice {
-		private int NOTICE_NO;
-		private String NOTICE_TITLE;
-		private String NOTICE_CONTENT;
-		private String NOTICE_WRITER; //admin
-		private Date NOTICE_DATED;
-	}
+	private int noticeNo;
+	private String noticeTitle;
+	private String noticeWriter;
+	private String noticeContent;
+	private Date noticeEnroll;
+	private String filePath;
+	//private char status;
+	
+}
 
