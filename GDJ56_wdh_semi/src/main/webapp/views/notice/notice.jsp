@@ -41,7 +41,7 @@
                 <td><%=n.getNoticeEnroll() %></td>
                 </table>
                 <%if(loginMember!=null&&
-                		loginMember.getUser_id().equals("admin")) {%>
+                		loginMember.getMember_id().equals("admin")) {%>
                 	<button onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">글쓰기</button>
                 <%} 
                 }%>
