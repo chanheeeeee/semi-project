@@ -24,11 +24,12 @@
 	href="<%=request.getContextPath() %>/css/templatemo.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/css/custom.css">
+	
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/assets/fullcalendar/main.css">
 
 <!-- Start Script -->
 <script src="<%=request.getContextPath() %>/js/jquery-1.11.0.min.js"></script>
-<script
-	src="<%=request.getContextPath() %>/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/templatemo.js"></script>
 <script src="<%=request.getContextPath() %>/js/custom.js"></script>
@@ -43,7 +44,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">
 <!-- 달력 -->
 <meta charset="utf-8" />
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
 <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
@@ -58,27 +59,26 @@
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
     <script src="https://cdn.tiny.cloud/1/각자 발급받은 api key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <!-- 마이페이지 -->
-<link rel="icon" type="image/x-icon" href="../../assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../../assets/css/mypagestyle.css" rel="stylesheet" />
+        <link href="<%=request.getContextPath() %>/assets/css/mypagestyle.css" rel="stylesheet" />
 
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="../../assets/css/all.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/all.min.css">
         <!-- fullCalendar -->
-        <link rel="stylesheet" href="../../assets/fullcalendar/main.css">
+        <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/fullcalendar/main.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="../../assets/css/adminlte.min.css">
+        <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/adminlte.min.css">
        
         
         

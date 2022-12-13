@@ -5,16 +5,16 @@
 		<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="#page-top">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="../../assets/img/pocha.jpg" alt="..." /></span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..." /></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">내 정보</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="lockscreen.html">정보수정</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="mycontent.html">내 활동</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="diary.html">다이어리</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="leave.html">탈퇴</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href='<%=request.getContextPath() %>/mypage/about.do#about'>내 정보</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href='<%=request.getContextPath() %>/mypage/lockscreen.do'>정보수정</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href='<%=request.getContextPath() %>/mypage/mycontent.do'>내 활동</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href='<%=request.getContextPath() %>/mypage/diary.do'>다이어리</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href='<%=request.getContextPath() %>/mypage/leave.do'>탈퇴</a></li>
                 </ul>
             </div>
         </nav>
@@ -31,7 +31,7 @@
   <div class="lockscreen-item">
     <!-- lockscreen image -->
     <div class="lockscreen-image">
-      <img src="../../assets/img/pocha.jpg" alt="User Image">
+      <img src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="User Image">
     </div>
     <!-- /.lockscreen-image -->
 
@@ -62,9 +62,9 @@
 
 
 <!-- jQuery -->
-<script src="../../assets/js/jquery-1.11.0.min.js"></script>
+<script src="<%=request.getContextPath() %>/assets/js/jquery-1.11.0.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="../../assets/js/bootstrap.bundle.min.js"></script>
+<script src="<%=request.getContextPath() %>/assets/js/bootstrap.bundle.min.js"></script>
 
 
 <%@ include file="/views/common/footer.jsp" %>
