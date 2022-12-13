@@ -1,3 +1,4 @@
+
 package com.wdh.common;
 
 import java.io.FileReader;
@@ -55,7 +56,20 @@ public class JDBCTemplate {
 		}
 	}
 	
-	
-	
-	
+	public static void commit(Connection conn) {
+		try {
+			if(conn!=null && !conn.isClosed()) conn.commit();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void rollback(Connection conn) {
+		try {
+			if(conn!=null && !conn.isClosed()) conn.rollback();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
+
