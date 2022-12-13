@@ -12,16 +12,16 @@ import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class FindIdServlet
+ * Servlet implementation class IdDuplicateServlet
  */
-@WebServlet("/member/findId.do")
-public class FindIdServlet extends HttpServlet {
+@WebServlet("/member/idduplicate.do")
+public class IdDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindIdServlet() {
+    public IdDuplicateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,9 +30,14 @@ public class FindIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String member_id = request.getParameter("member_id");
 		
-		//화면 전환
-		request.getRequestDispatcher("/views/member/find_id.jsp").forward(request, response);
+		//서비스 요청
+		Member m = new MemberService().Idduplicate(member_id);
+		
+		request.setAttribute("member", m);
+		
+		request.getRequestDispatcher("/views/member/idDuplicate.jsp").forward(request, response);
 	}
 
 	/**

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
+
 import com.wdh.member.vo.Member;
 
 public class MemberDao {
@@ -94,8 +96,9 @@ public class MemberDao {
 			
 			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
-				m = getMember(rs);
+			if(rs.next()) {
+				m = new Member();
+				m.setMember_id(rs.getString("MEMBER_ID"));
 			}
 
 		} catch (SQLException e) {
@@ -107,6 +110,29 @@ public class MemberDao {
 		return m;
 	}
 	
+	//아이디 중복
+	public Member Idduplicate(Connection conn, String member_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("idDuplicate"));
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				m = getMember(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
 
 	private Member getMember(ResultSet rs) throws SQLException {
 		Member m = new Member();
@@ -124,6 +150,8 @@ public class MemberDao {
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
 	}
+
+
 
 
 

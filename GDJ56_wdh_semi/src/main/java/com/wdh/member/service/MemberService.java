@@ -47,6 +47,15 @@ public class MemberService {
 		return m;
 	}
 	
+	//아이디 중복
+	public Member Idduplicate(String member_id) {
+		Connection conn = getConnection();
+		Member m = dao.Idduplicate(conn,member_id);
+		close(conn);
+		return m;
+		
+	}
+	
 	
 	
 

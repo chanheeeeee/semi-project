@@ -19,15 +19,15 @@
 	</div>
 	
 	<div class="id_body">
-	<form action="findid" class="form-signin" method="post">
+	<div class="form-signin">
 			<p class="text 2"> ${findid2}</p>
 		<input type="text" name="name" id="name" class="form_control" placeholder="이름" required="" autofocus="" style=" height: 55px; border-radius:20px; width:350px"><br><br>
 	    
 		<input type="email" name="email" id="email" class="form_control" placeholder="이메일" required="" style="height: 55px; width:350px; margin-bottom: -20px; border-radius:20px;">
 			<p class="check" id="check">${check}</p><br>
-			<button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" style="height: 65px; width: 184px; border-radius:20px;">아 이 디 찾 기</button>
+			<input type="button" id="btnFindId" class="btn btn-lg btn-primary btn-block" style="height: 65px; width: 184px; border-radius:20px;" value="아 이 디 찾 기">
 			
-	</form>
+	</div>
 
 	</div>
 	
@@ -46,15 +46,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">아이디 찾기</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnX">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="idSearchResult">
             당신의 아이디는 + MemberId 입니다.
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="closeJoin">확인</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnClose">확인</button>
           </div>
         </div>
       </div>
@@ -65,33 +65,39 @@
     
     <script>
     $(function(){
-    	$("#modal").on("click",function(){
-    		
+    	$("#btnFindId").on("click",function(){
     		let d = {
     			"name" : $("#name").val(),
-    			"email" : $("#email").val() + "@" + $("#email2").val(),
+    			"email" : $("#email").val()
     		};
-    $.ajax({
-    	url:"<%=request.getContextPath()%>/member/findId.do",
-    	data:d,
-    	type:"POST",
-    	dataType:"json",
-    	sccess:data=>{
-    		console.log(data);
     		
-    		if(result>0){
-    			$("#exampleModal").modal("show");
-    		} else{
-    			$("#exampleModal2").modal("show");
-    		}
-    	},error:function(e,r,m){
-    		console.log(e);
-			console.log(r);
-			console.log(m);
-    	}
-    });
+		    $.ajax({
+		    	url:"<%=request.getContextPath()%>/member/findIdActionServlet.do",
+		    	data:d,
+		    	type:"POST",
+		    	dataType:"json",
+		    	success:data=>{
+		    		console.log(data);
+		    		let memberId = data.memberId;
+		    		if(memberId != "") {
+		    			$("#idSearchResult").html("당신의 ID는 '" + memberId + "' 입니다.");
+		    		} else {
+		    			$("#idSearchResult").html("ID가 존재하지 않습니다.");
+		    		}
+		    		$("#exampleModal").modal("show");
+		    		
+		    	},error:function(e,r,m){
+		    		console.log(e);
+					console.log(r);
+					console.log(m);
+		    	}
+		    });
     	});
-
+    	
+    	$("#btnClose, #btnX").on("click", function(){
+    		$("#exampleModal").modal("hide");
+    	});
+    });
     
     </script>
 
