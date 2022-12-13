@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.wdh.del.model.vo.Declaration" %>
 <%
-	
+	List<Declaration> dcl=(List<Declaration>)request.getAttribute("dcl");
+%>
+<%@ page import="com.wdh.member.vo.Member" %>
+<%
+	Member loginMember=(Member)session.getAttribute("loginMember");
 %>
 <!DOCTYhPE tml>
 <html>
@@ -44,10 +48,10 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">메인</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/advertisement.jsp">광고문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/del.jsp">신고하기</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/qs.jsp">1대1 문의</a>
@@ -71,17 +75,37 @@
                     <th>번호</th>
                     <th>제목</th>
                     <th>작성자</th>
-                    <th>작성일</th>
                     <th>첨부파일</th>
+                    <th>작성일</th>
                 </tr>
+                <%if(dcl.isEmpty()){ %>
                 <tr>
                     <td colspan="5">조회된 게시판이 없습니다.</td>
                 </tr>
-
-                </table>
-                <button onclick="location.href='<%=request.getContextPath()%>/views/cs/subDel.jsp'">글쓰기</button>
-                <br>
-                페이징처리
+                <%}else{
+                	for(Declaration d : dcl){
+                	%>
+                <tr>
+                	<td><%=d.getDclNo() %></td>
+                	<td><a href="<%=request.getContextPath() %>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>"><%=d.getDclTitle() %></a></td>
+                	<td><%=d.getMemberNo() %></td>
+                	<td>
+                		<%if(d.getFilePath()!=null){ %>
+                			<img src="<%=request.getContextPath() %>/images/file.png" width="20" height="20">
+                			<%}else{ %>
+                			첨부파일 없음
+                			<%} %>
+                	</td>
+                	<td><%=d.getDclDate() %>
+                </tr>
+                <%} 
+                }%>
+           </table>
+      <button onclick="location.href='<%=request.getContextPath()%>/views/cs/subDcl.jsp'">글쓰기</button>
+      <br>
+        <div id="pageBar">
+        	<%=request.getAttribute("pageBar") %>
+        </div>
             </section>
             <br>
         </div>
