@@ -28,7 +28,7 @@
 </table>
     
 <div style="margin:5%; text-align:center;">
-	<button class="button" onclick="location.href='<%=request.getContextPath()%>/post/grade.do'">확인</button>
+	<button class="button" onclick="location.href='<%=request.getContextPath()%>/board/grade.do'">확인</button>
 </div>
 
 

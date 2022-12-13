@@ -109,8 +109,8 @@
             <tr>
                 <th colspan="2">
                     <div class="wrap" style="margin: 5%;">
-                    	<button class="button" onclick="location.href='<%=request.getContextPath()%>/views/post/postscriptcheck.jsp';">이전</button>
-                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/post/postscript.do';">다음</button>
+                    	<button class="button" onclick="location.href='<%=request.getContextPath()%>/views/board/afterboardck.jsp';">이전</button>
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/board/afterwriteboard.do';">다음</button>
                     </div>
                 </th>
             </tr>

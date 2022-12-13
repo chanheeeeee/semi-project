@@ -1,58 +1,92 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-    <div class="container">
-      <ul class="progressbar">
-        <li class="active">Step 1. 정보확인</li>
-        <li>Step 2. 작성자 평가</li>
-        <li>Step 3. 후기글 작성</li>
-      </ul>
-    </div>
 
+<div id="write-container">
+    <form action="<%=request.getContextPath() %>/views/board/finish.jsp" method="post">
+		<div class="wrap" style="margin-top: 3%;">
+			<select id="button1">
+				<option value="종목선택" style="text-align: center;">종목선택</option>
+				<option value="구기"> 구기 (축구, 야구 테니스 등)</option>
+				<option value="유산소"> 유산소 (등산, 자전거, 걷기 등)</option>
+				<option value="수상"> 수상 (수영, 서핑 등)</option>
+				<option value="기타"> 기타</option>
+			</select>  
+			
+			<form name="form" id="form" method="post">
+				<input type="button" onClick="goPopup();" class="button1" value="지역선택">
+				<div id="list"></div>
+				<div id="callBackDiv">
+					<table>
+						<tr><td></td><td><input type="hidden"  style="width:500px;" id="roadFullAddr"  name="roadFullAddr" /></td></tr>
+					</table>
+				</div>
+			</form>
 
-<!--     <table id="info">
-        <tr>
-            <th>참여동행</th>
-            <td>정보가져오기~~</td>
-            <th>동행자 닉네임</th>
-            <td>정보가져오기~~</td>
-        </tr>
-        <tr>
-            <th>참여날짜</th>
-            <td>정보가져오기~~</td>
-            <th>운동종목</th>
-            <td>정보가져오기~~</td>
-        </tr>
-    </table> -->
-    <br><br><br>
-    <table id="writeTable2">
-        <tr>
-            <th colspan="4" style="text-align: center;">
-                제목   <input type="text" id="title_input"><br>
-            </th>
-        </tr>
-        <tr>
-            <th></th>
-            <td colspan="3" style="text-align: center;">
-                <form method="post">
-                    <textarea id="editor"></textarea>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <th></th>
-            <th colspan="4">
-                <div class="wrap" style="margin: 5%;">
-                	<button class="button" onclick="location.replace('<%=request.getContextPath()%>/post/grade.do');">이전</button>&nbsp;&nbsp;&nbsp;
-                    <button class="button" onclick="location.replace('<%=request.getContextPath()%>/views/post/postscriptfinish.jsp');">등록</button>
-                </div>
+			<script>
+				const goPopup=()=>{
+					var pop=window.open("<%=request.getContextPath()%>/board/map.do","pop","width=700,height=550, scrollbars=yes, resizable=yes");
+				}
+				function jusoCallBack(roadFullAddr){
+					/* document.form.roadFullAddr.value = roadFullAddr; */
+					document.getElementById("roadFullAddr").value=roadFullAddr
+				}
+			</script>                    
+			<input type="number" id="button1" placeholder="모집인원">      
+			<input class="button1" id="datepicker" value="모임 날짜 선택">
+			<script>
+				$('#datepicker').datepicker();
+			</script> 
+		</div>
 
-            </th>
-        </tr>
-    </table>
-   
+		<table id="radio" style="margin:auto; width: 600px;">
+			<tr>
+				<th style="font-size: 13px;">성별</th>
+				<td>
+					&nbsp;&nbsp;&nbsp;<input type="radio">  여
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">  남
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">  무관
+				</td>
+				<th>목적</th>
+				<td>
+					&nbsp;&nbsp;<input type="radio">  취미
+					&nbsp;&nbsp;<input type="radio">  친목
+					&nbsp;&nbsp;<input type="radio">  다이어트
+					&nbsp;&nbsp;<input type="radio"> 건강    
+				</td>
+			</tr>
+		</table>
+        <div><br>
+        	<table id="writeTable2">
+        		<tr>
+            		<th colspan="4" style="text-align: center;">
+                		제목   <input type="text" id="title_input"><br>
+            		</th>
+        		</tr>
+        		<tr>
+            		<th></th>
+            		<td colspan="3" style="text-align: center;">
+                		<div id="summernote"></div>
+                			<form method="post">
+                    			<textarea id="editor"></textarea>
+                			</form>
+            		</td>
+				</tr>
+        		<tr>
+            		<th></th>
+            		<th colspan="4">
+                		<div class="wrap" style="margin: 5%;">
+                    	<!-- <input type="submit" class="button" value="등록"> -->
+                    	<button class="button" onclick="location.href=('<%=request.getContextPath()%>/views/board/finish.jsp');">등록</button>
+                		</div>
+            		</th>
+        		</tr>
+    		</table>
+ 		</div>
+ 	</form>
+ </div>
 
-        <!-- 웹에디터 -->
+    <!-- 웹에디터 -->
     <script>
         $(function(){
             var plugins = [
@@ -135,72 +169,8 @@
             
         });
         </script>
-        
-        
-<style>
-	.container {
-	  width: 100%;
-	  
-	}
-	
-	.progressbar {
-	  counter-reset: step;
-	  margin: 5%;
-	}
-	.progressbar li {
-	  list-style: none;
-	  display: inline-block;
-	  width: 30.33%;
-	  position: relative;
-	  text-align: center;
-	  cursor: pointer;
-	}
-	.progressbar li:before {
-	  content: counter(step);
-	  counter-increment: step;
-	  width: 30px;
-	  height: 30px;
-	  line-height : 30px;
-	  border: 1px solid green;
-	  border-radius: 100%;
-	  display: block;
-	  text-align: center;
-	  margin: 0 auto 10px auto;
-	  background-color: #fff;
-	}
-	
-	.progressbar li:after {
-		border: 1px solid green;
-	
-	}
-	
-	.progressbar li:before:eq(2){
-	  border: 1px solid red !important;
-	}
-	
-	.progressbar li:after {
-	  content: "";
-	  position: absolute;
-	  width: 100%;
-	  height: 1px;
-	  background-color: #ddd;
-	  top: 15px;
-	  left: -50%;
-	  z-index : -1;
-	}
-	.progressbar li:first-child:after {
-	  content: none;
-	}
-	.progressbar li.active {
-	  color: green;
-	}
-	.progressbar li.active:before {
-	  border-color: green;
-	} 
- 	.progressbar li.active + li:after {
-	  
-	}
 
-</style>
+
+
 
 <%@ include file="/views/common/footer.jsp" %>

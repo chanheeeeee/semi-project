@@ -1,6 +1,8 @@
-package com.wdh.post.controller;
+package com.wdh.notice.controller;
 
+import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class GradeServlet
+ * Servlet implementation class NoticeDeleteServlet
  */
-@WebServlet("/post/grade.do")
-public class GradeServlet extends HttpServlet {
+@WebServlet("/notice/noticeDelete.do")
+public class NoticeDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GradeServlet() {
+    public NoticeDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +28,26 @@ public class GradeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/post/grade.jsp").forward(request, response);
+		String fileName=request.getParameter("fileName");
+		int no=Integer.parseInt(request.getParameter("no"));
 		
+		int result=1;
+		String msg="",loc="";
+		if(result>0) {
+			msg="공지사항을 삭제했습니다.";
+			loc="/notice/noticeList.do";
+			String path=getServletContext().getRealPath("/upload/notice");
+			File delFile=new File(path+fileName);
+			if(delFile.exists()) delFile.delete();
+		}else {
+			msg="공지사항을 삭제하지 못했습니다.";
+			loc="notice/noticeView.do?noticeNo="+no;
+		}
+	
+	
+	
+	
+	
 	}
 
 	/**

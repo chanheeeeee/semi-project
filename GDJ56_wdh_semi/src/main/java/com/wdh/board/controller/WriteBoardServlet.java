@@ -1,4 +1,4 @@
-package com.wdh.post.controller;
+package com.wdh.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class PostServlet
  */
-@WebServlet("/post/post.do")
-public class PostServlet extends HttpServlet {
+@WebServlet("/board/writeboard.do")
+public class WriteBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PostServlet() {
+    public WriteBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class PostServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/post/post.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/writeboard.jsp").forward(request, response);
 	}
 
 	/**
