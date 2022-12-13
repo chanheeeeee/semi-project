@@ -13,7 +13,7 @@
 				<option value="기타"> 기타</option>
 			</select>  
 			
-			<!-- <form name="form" id="form" method="post"> -->
+			<!-- <form name="form" id="form" method="post"> -->`
 				<input type="button" onClick="goPopup();" class="button1" value="지역선택">
 				<div id="list"></div>
 				<div id="callBackDiv">
@@ -49,10 +49,10 @@
 				</td>
 				<th>목적</th>
 				<td>
-					&nbsp;&nbsp;<input type="radio">  취미
-					&nbsp;&nbsp;<input type="radio">  친목
-					&nbsp;&nbsp;<input type="radio">  다이어트
-					&nbsp;&nbsp;<input type="radio"> 건강    
+					&nbsp;&nbsp;<input type="radio" name="purpose" value="취미">  취미
+					&nbsp;&nbsp;<input type="radio" name="purpose" value="친목">  친목
+					&nbsp;&nbsp;<input type="radio" name="purpose" value="다이어트">  다이어트
+					&nbsp;&nbsp;<input type="radio" name="purpose" value="건강"> 건강    
 				</td>
 			</tr>
 		</table>
@@ -60,7 +60,7 @@
         	<table id="writeTable2">
         		<tr>
             		<th colspan="4" style="text-align: center;">
-                		제목   <input type="text" id="title_input"><br>
+                		제목   <input type="text" name="board_title" id="title_input"><br>
             		</th>
         		</tr>
         		<tr>
@@ -68,7 +68,7 @@
             		<td colspan="3" style="text-align: center;">
                 		<div id="summernote"></div>
                 			<form method="post">
-                    			<textarea id="editor"></textarea>
+                    			<textarea name="board_content" id="editor"></textarea>
                 			</form>
             		</td>
 				</tr>
@@ -76,8 +76,8 @@
             		<th></th>
             		<th colspan="4">
                 		<div class="wrap" style="margin: 5%;">
-                    	<!-- <input type="submit" class="button" value="등록"> -->
-                    	<button class="button" onclick="location.href=('<%=request.getContextPath()%>/views/board/finish.jsp');">등록</button>
+                    	<input type="submit" class="button" value="등록">
+                    	<%-- <button class="button" onclick="location.href=('<%=request.getContextPath()%>/views/board/finish.jsp');">등록</button> --%>
                 		</div>
             		</th>
         		</tr>
