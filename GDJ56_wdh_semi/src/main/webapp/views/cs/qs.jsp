@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page %>
 <!DOCTYPE html>
 <head>
     <title>고객센터 - 1대1 문의</title>
@@ -16,6 +17,10 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/fontawesome.min.css">
+    <!-- Load fonts style after rendering the layout styles -->
+
+	<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -62,30 +67,9 @@
                     <th>작성일</th>
                     <th>첨부파일</th>
                 </tr>
-                <!-- <tr>
+                <tr>
                     <td colspan="5">조회된 게시판이 없습니다.</td>
-                    </tr> -->
-                <tr>
-                    <td>1</td>
-                    <td>제목</td>
-                    <td>작성자</td>
-                    <td>2022.12.08</td>
-                    <td>첨부파일이 없습니다.</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>제목</td>
-                    <td>작성자</td>
-                    <td>2022.12.08</td>
-                    <td>첨부파일이 없습니다.</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>제목</td>
-                    <td>작성자</td>
-                    <td>2022.12.08</td>
-                    <td>첨부파일이 없습니다.</td>
-                </tr>
+                    </tr>
                 </table>
                 <button onclick="location.href='<%=request.getContextPath()%>/views/cs/subQs.jsp'">글쓰기</button>
                 <br>
