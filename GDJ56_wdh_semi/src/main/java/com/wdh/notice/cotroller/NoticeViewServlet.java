@@ -1,7 +1,6 @@
-package com.wdh.admin.controller;
+package com.wdh.notice.cotroller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,19 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import com.wdh.notice.model.service.NoticeService;
+import com.wdh.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class MemberListServlet
+ * Servlet implementation class NoticeViewServlet
  */
-@WebServlet("/admin/memberList.do")
-public class MemberListServlet extends HttpServlet {
+@WebServlet("/notice/noticeView.do")
+public class NoticeViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListServlet() {
+    public NoticeViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +31,16 @@ public class MemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int noticeNo=Integer.parseInt(request.getParameter("noticeNo"));
+		
+		Notice n=new NoticeService().selectNotice(noticeNo);
+		
+		request.setAttribute("notice",n);
+		
+		RequestDispatcher rd=request.getRequestDispatcher("/views/notice/noticeView.jsp");
+		rd.forward(request, response);
 		
 	
-		
-		
-		
-		RequestDispatcher rd=request.getRequestDispatcher("/views/admin/adminMemberList.jsp");
-		rd.forward(request,response);
-				
-		
-		
 	
 	
 	}

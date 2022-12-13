@@ -65,16 +65,7 @@
                             <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="collapseLayouts"> -->
                                 <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminNotice.jsp">
                                     <div class="sb-nav-link-icon"><i class=""></i></div>
-                                공지 관리
-                                
-                            </a>
-
-                            <div class="sb-sidenav-menu-heading">Content</div>
-                            <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="collapseLayouts"> -->
-                                <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminContent.jsp">
-                                    <div class="sb-nav-link-icon"><i class=""></i></div>
-                                게시글 관리
-                                
+                                공지 관리  
                             </a>
 
                             <div class="sb-sidenav-menu-heading">Service</div>

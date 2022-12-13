@@ -3,6 +3,7 @@
     
  <%@ include file="/views/common/adminHeader.jsp" %> 
  
+ 
   <style>
         #test_btn1{
             border-radius: 5px;
@@ -29,7 +30,8 @@
                             <li class="breadcrumb-item active">공지사항을 관리합니다.</li>
                         </ol>
                         <div id="btn_group">
-                        <p>선택된 항목을 <button id="test_btn1">삭제</button> <button id="test_btn1">수정</button> 합니다. <button id="test_btn1">공지 작성</button> 합니다.</p>
+                        <p>선택된 항목을 <button id="test_btn1">삭제</button> <button id="test_btn1">수정</button> 합니다. 
+                        <button id="test_btn1" onclick="location.assign('<%=request.getContextPath()%>/notice/write.do');">공지 작성</button> 합니다.</p>
                         </div>
                         <hr class="one">
 

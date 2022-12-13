@@ -23,7 +23,7 @@
 					<div class="container-fluid pt-4 px-4">
 		    			<div class="bg-light text-center rounded p-4">
 		        			<div class="d-flex align-items-center justify-content-between mb-4">
-		            			<h6 class="mb-0">공지 목록</h6>
+		            			<h6 class="mb-0">공지 목록 </h6>
 		            			<a href="<%=request.getContextPath()%>/views/admin/adminNotice.jsp">Show All</a>
 							</div>
 		
@@ -63,7 +63,7 @@
 					<div class="container-fluid pt-4 px-4">
 						<div class="bg-light text-center rounded p-4">
 							<div class="d-flex align-items-center justify-content-between mb-4">
-					      		<h6 class="mb-0">회원 목록</h6>
+					      		<h6 class="mb-0">회원 목록 [최근 가입순]</h6>
 					        	<a href="<%=request.getContextPath()%>/views/admin/adminMemberList.jsp">Show All</a>
 							</div>
 		                    
@@ -99,83 +99,107 @@
 		            <!-- 최근가입 회원 End -->
 		            
 		            <!-- 고객센터 5개 Start -->
+					<!-- 최근 문의 Start -->
 					<div class="container-fluid pt-4 px-4">
-		    			<div class="bg-light text-center rounded p-4">
-		        			<div class="d-flex align-items-center justify-content-between mb-4">
-		            			<h6 class="mb-0">1대1 문의 목록</h6>
-		            			<a href="<%=request.getContextPath()%>/views/admin/adminService_Questions.jsp">Show All</a>
+						<div class="bg-light text-center rounded p-4">
+							<div class="d-flex align-items-center justify-content-between mb-4">
+					      		<h6 class="mb-0">문의목록</h6>
+					        	<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp">Show All</a>
 							</div>
-		
-							<div class="table-responsive">
-		    					<table class="table text-start align-middle table-bordered table-hover mb-0">
-		        					<thead>
-							            <tr class="text-dark">
-							                <th Style="text-align:center;" scope="col">번호</th>
-									        <th Style="text-align:center;" scope="col">내용</th>
-									        <th Style="text-align:center;" scope="col">작성자</th>
-									        <th Style="text-align:center;" scope="col">작성일</th>
-									        <th Style="text-align:center;" scope="col">답변상태</th>
-							    		</tr>
-									</thead>
-		
-									<tbody>
-										<%
-											/* for( n : ){ */
+		                    
+		                    <div class="table-responsive">
+		                   		<table class="table text-start align-middle table-bordered table-hover mb-0">
+		                        	<thead>
+		                            	<tr class="text-dark">
+			                                <th Style="text-align:center;" scope="col">번호</th>
+			                                <th Style="text-align:center;" scope="col">문의내용</th>
+			                                <th Style="text-align:center;" scope="col">작성자</th>
+			                                <th Style="text-align:center;" scope="col">작성일</th>
+			                                <th Style="text-align:center;" scope="col">답변</th>
+			                            </tr>
+		                   			</thead>
+		                           
+		                           	<tbody>
+				                      <%--   <%
+				                        for(HashMap<String, Object> m : list){
 										%>
-												<tr>
-													<%-- <td Style="text-align:center;"><%=n.()%></td>
-													<td><%=n.() %></td>
-													<td><%=n.() %></td>
-													<td><%=n.() %></td>
-													<td><%=n.() %></td> --%>
-												</tr>
-										<%
-											/* } */
-										%>
-		                			</tbody>
-		            			</table>
-		        			</div>
-		    			</div>
+											<tr>
+												<td><%=m.get("helpNo")%></td>
+												<td><%=m.get("helpM")%></td>
+												<td><%=m.get("memberId")%></td>
+												<td><%=m.get("helpCreatedate")%></td>
+												<%
+												if(m.get("") != null) {
+												%>
+														<td>신규</td>
+													<%
+												} else {
+													%>
+														<td>답변 완료</td>
+												<%
+												}
+												%>
+											</tr>
+											<%
+											}
+											%> --%>
+		                            </tbody>
+								</table>
+							</div>
+						</div>
 					</div>
+		            <!-- 최근 문의 End -->
 					
 					<div class="container-fluid pt-4 px-4">
-		    			<div class="bg-light text-center rounded p-4">
-		        			<div class="d-flex align-items-center justify-content-between mb-4">
-		            			<h6 class="mb-0">신고 접수 목록</h6>
-		            			<a href="<%=request.getContextPath()%>/views/admin/adminService_Dcl.jsp">Show All</a>
+						<div class="bg-light text-center rounded p-4">
+							<div class="d-flex align-items-center justify-content-between mb-4">
+					      		<h6 class="mb-0">신고목록</h6>
+					        	<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp">Show All</a>
 							</div>
-		
-							<div class="table-responsive">
-		    					<table class="table text-start align-middle table-bordered table-hover mb-0">
-		        					<thead>
-							            <tr class="text-dark">
-							                <th Style="text-align:center;" scope="col">번호</th>
-									        <th Style="text-align:center;" scope="col">내용</th>
-									        <th Style="text-align:center;" scope="col">작성자</th>
-									        <th Style="text-align:center;" scope="col">작성일</th>
-									        <th Style="text-align:center;" scope="col">처리상태</th>
-							    		</tr>
-									</thead>
-		
-									<tbody>
-										<%
-											/* for( n : ){ */
+		                    
+		                    <!-- 최근 신고 Start -->
+		                    <div class="table-responsive">
+		                   		<table class="table text-start align-middle table-bordered table-hover mb-0">
+		                        	<thead>
+		                            	<tr class="text-dark">
+			                                <th Style="text-align:center;" scope="col">번호</th>
+			                                <th Style="text-align:center;" scope="col">신고내용</th>
+			                                <th Style="text-align:center;" scope="col">작성자</th>
+			                                <th Style="text-align:center;" scope="col">작성일</th>
+			                                <th Style="text-align:center;" scope="col">처리</th>
+			                            </tr>
+		                   			</thead>
+		                           
+		                           	<tbody>
+				                      <%--   <%
+				                        for(HashMap<String, Object> m : list){
 										%>
-												<tr>
-													<%-- <td Style="text-align:center;"><%=n.()%></td>
-													<td><%=n.() %></td>
-													<td><%=n.() %></td>
-													<td><%=n.() %></td>
-													<td><%=n.() %></td> --%>
-												</tr>
-										<%
-											/* } */
-										%>
-		                			</tbody>
-		            			</table>
-		        			</div>
-		    			</div>
+											<tr>
+												<td><%=m.get("No")%></td>
+												<td><%=m.get("")%></td>
+												<td><%=m.get("memberId")%></td>
+												<td><%=m.get("Createdate")%></td>
+												<%
+												if(m.get("") != null) {
+												%>
+														<td>신규</td>
+													<%
+												} else {
+													%>
+														<td>처리 완료</td>
+												<%
+												}
+												%>
+											</tr>
+											<%
+											}
+											%> --%>
+		                            </tbody>
+								</table>
+							</div>
+						</div>
 					</div>
+		            <!-- 신고 End -->
 					<!-- 고객센터 5개 End -->              
 
             
