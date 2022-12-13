@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.model.service.BoardService;
 import com.wdh.board.service.BoardService2;
 import com.wdh.board.vo.Board;
 
@@ -17,13 +16,13 @@ import com.wdh.board.vo.Board;
  * Servlet implementation class BoardListSevlet
  */
 @WebServlet("/board/boardList.do")
-public class BoardListSevlet extends HttpServlet {
+public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListSevlet() {
+    public BoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
