@@ -1,6 +1,6 @@
 package com.wdh.member.dao;
 
-import static com.wdh.common.JDBCTemplate.*;
+import static com.wdh.common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.wdh.member.vo.Member;
@@ -80,6 +81,41 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	
+	public List<Member> searchId(Connection conn, String member_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Member> result = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchId"));
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result.add(Member.builder()
+						.member_id(rs.getString("MEMBER_ID"))
+						.member_nickname(rs.getString("MEMBER_NICKNAME"))
+						.name(rs.getString("MEMBER_NAME"))
+						.password(rs.getString("MEMBER_PASSWORD"))
+						.gender(rs.getString("GENDER").charAt(0))
+						.birth(rs.getDate("BIRTH"))
+						.email(rs.getString("EMAIL"))
+						.phone(rs.getString("PHONE"))
+						.address(rs.getString("ADDRESS"))
+						.grade(rs.getInt("GRADE"))
+						.build()
+						);
+				
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 
 	private Member getMember(ResultSet rs) throws SQLException {
 		Member m = new Member();
@@ -97,6 +133,8 @@ public class MemberDao {
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
 	}
+
+
 
 
 
