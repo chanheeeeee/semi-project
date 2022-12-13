@@ -271,7 +271,7 @@ header {
 #templatemo_nav_top * { font-size: 100px;} */
 
 #templatemo_main_nav a { color: #212934;}
-#templatemo_main_nav a:hover { color: #cornflowerblue;}
+#templatemo_main_nav a:hover { color: cornflowerblue;}
 #templatemo_main_nav .navbar .nav-icon { margin-right: 20px;}
 #templatemo_main_nav{top:7%; left: 10px;}
 /* #templatemo_main_nav{position:fixed; align:center; top:7%; left: 16px; background-color: white;} */
