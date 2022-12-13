@@ -40,12 +40,23 @@ public class MemberService {
 	
 	
 	//아이디 찾기
-	public List<Member> searchMemberId(String Member_id){
+	public Member searchMemberId(String name, String email){
 		Connection conn = getConnection();
-		List<Member> result = dao.searchId(conn,Member_id);
+		Member m = dao.searchMemberId(conn, name, email);
 		close(conn);
-		return result;
+		return m;
 	}
+	
+	//아이디 중복
+	public Member Idduplicate(String member_id) {
+		Connection conn = getConnection();
+		Member m = dao.Idduplicate(conn,member_id);
+		close(conn);
+		return m;
+		
+	}
+	
+	
 	
 
 }
