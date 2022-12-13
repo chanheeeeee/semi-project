@@ -32,7 +32,7 @@
     		</td>
     	</tr>
     	
-    <%if(loginMember!=null&&loginMember.getUser_id().equals("admin")) {%>
+    <%if(loginMember!=null&&loginMember.getMember_id().equals("admin")) {%>
     	<tr>
     		<th colspan="2">
 <%--     			<input type="button" value="수정하기" onclick="fn_updateNotice(<%=n.getNoticeNo() %>)" > --%>
