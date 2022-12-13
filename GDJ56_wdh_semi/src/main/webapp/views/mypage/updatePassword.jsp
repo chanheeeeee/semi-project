@@ -22,9 +22,9 @@
     </style>
     
     <!-- Font Awesome -->
-        <link rel="stylesheet" href="../assets/css/all.min.css">
+        <link rel="stylesheet" href="../../assets/css/all.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="../assets/css/adminlte.min.css">
+        <link rel="stylesheet" href="../../assets/css/adminlte.min.css">
 
 </head>
 <body>

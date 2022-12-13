@@ -2,10 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
  
-<!-- <div id="challcontainer1"> -->
-<!-- <!--         <h3><strong>2022년 운동행&nbsp;NEW WINTER CHALLENGE</strong></h3> -->
 
-<!--     </div> -->
 <br>
     <div id="challcontainer2" style="background-image:url('<%=request.getContextPath()%>/images/airdrop.png');">
     <br>
@@ -90,6 +87,5 @@
         	</ul>
     </div>
         <br>
-
 
 <%@ include file="/views/common/footer.jsp" %>
