@@ -116,6 +116,8 @@ public class MemberDao {
 		return result;
 	}
 	
+	
+	
 
 	private Member getMember(ResultSet rs) throws SQLException {
 		Member m = new Member();
