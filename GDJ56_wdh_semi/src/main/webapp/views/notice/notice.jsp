@@ -31,13 +31,6 @@
                 	<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
                 </tr>
                 <td><%=n.getNoticeWriter() %></td>
-                <td>
-                	<%if(n.getFilePath()!=null){ %>
-                		<img src="<%=request.getContextPath()%>/images/file.png" width="20" height="20">
-                	<%}else{ %>
-                		첨부파일 없음
-                	<%} %>
-                </td>
                 <td><%=n.getNoticeEnroll() %></td>
                 </table>
                 <%if(loginMember!=null&&

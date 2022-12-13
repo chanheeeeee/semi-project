@@ -6,11 +6,13 @@ import java.util.List;
 import com.wdh.notice.model.dao.NoticeDao;
 import com.wdh.notice.model.vo.Notice;
 import static com.wdh.common.JDBCTemplate.*;
+import static com.wdh.common.JDBCTemplate.close;
+import static com.wdh.common.JDBCTemplate.getConnection;
 
 public class NoticeService {
 	private NoticeDao dao=new NoticeDao();
 	
-	public List<Notice> searchNotice(int cPage, int numPerpage){
+	public List<Notice> selectNoticeList(int cPage, int numPerpage){
 		Connection conn=getConnection();
 		List<Notice> result=dao.searchNotice(conn,cPage,numPerpage);
 		close(conn);
@@ -37,4 +39,4 @@ public class NoticeService {
 		return result;
 
 	}
-}
+}	

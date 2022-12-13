@@ -69,9 +69,9 @@ public class NoticeDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("insertNotice"));
-			pstmt.setString(1, n.getNOTICE_TITLE());
-			pstmt.setString(2, n.getNOTICE_WRITER());
-			pstmt.setString(3, n.getNOTICE_CONTENT());
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeWriter());
+			pstmt.setString(3, n.getNoticeContent());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -101,11 +101,11 @@ public class NoticeDao {
 	
 	private Notice getNotice(ResultSet rs) throws SQLException{
 		return Notice.builder()
-				.NOTICE_NO(rs.getInt("notice_no"))
-				.NOTICE_TITLE(rs.getString("notice_title"))
-				.NOTICE_CONTENT(rs.getString("notice_content"))
-				.NOTICE_WRITER(rs.getString("notice_writer"))
-				.NOTICE_DATED(rs.getDate("notice_dated"))
+				.noticeNo(rs.getInt("notice_no"))
+				.noticeTitle(rs.getString("notice_title"))
+				.noticeContent(rs.getString("notice_content"))
+				.noticeWriter(rs.getString("notice_writer"))
+				.noticeEnroll(rs.getDate("notice_date"))
 				.build();
 		
 	}

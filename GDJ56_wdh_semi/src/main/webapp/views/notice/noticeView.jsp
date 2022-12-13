@@ -22,13 +22,6 @@
     		<td><%=n.getNoticeContent() %></td>
     	</tr>
     	<tr>
-    		<td>첨 부 파 일</td>
-    		<td><%if(n.getFilePath()!=null){ %>
-    				<img src="<%=request.getContextPath()%>/images/file.png" width="20" onclick="fn_fileDown('<%=n.getFilePath() %>');">
-    				<%=n.getFilePath() %>
-    			<%}else{ %>
-    				첨부파일 없음
-    			<%} %>
     		</td>
     	</tr>
     	
@@ -36,7 +29,7 @@
     	<tr>
     		<th colspan="2">
 <%--     			<input type="button" value="수정하기" onclick="fn_updateNotice(<%=n.getNoticeNo() %>)" > --%>
-    			<input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=n.getNoticeNo() %>,'<%=n.getFilePath() %>');">
+    			<input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=n.getNoticeNo() %>);">
     		</th>
     	</tr>
     		<%} %>

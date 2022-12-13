@@ -21,7 +21,7 @@ public class Notice {
 	private String noticeWriter;
 	private String noticeContent;
 	private Date noticeEnroll;
-	private String filePath;
+	//private String filePath;
 	//private char status;
 	
 }
