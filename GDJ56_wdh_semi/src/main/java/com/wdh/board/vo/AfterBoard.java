@@ -2,6 +2,11 @@ package com.wdh.board.vo;
 
 import java.sql.Date;
 
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
 public class AfterBoard {
 
 	private int reviewSeq;
