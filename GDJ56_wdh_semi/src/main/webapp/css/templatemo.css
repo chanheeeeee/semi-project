@@ -196,7 +196,7 @@ table#tbl-board th, table#tbl-board td {border:1px solid; padding: 5px 0; }
 /*글쓰기버튼*/
 input#btn-add{float:right; margin: 0 0 15px;}
 /*페이지바*/
-div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 212, 0.3);}
+div#pageBar{margin-top:10px; text-align:center; background-color:#f71515;}
 div#pageBar span.cPage{color: #0066ff;}
 
 input#subBtn{
@@ -271,7 +271,7 @@ header {
 #templatemo_nav_top * { font-size: 100px;} */
 
 #templatemo_main_nav a { color: #212934;}
-#templatemo_main_nav a:hover { color: #cornflowerblue;}
+#templatemo_main_nav a:hover { color: cornflowerblue;}
 #templatemo_main_nav .navbar .nav-icon { margin-right: 20px;}
 #templatemo_main_nav{top:7%; left: 10px;}
 /* #templatemo_main_nav{position:fixed; align:center; top:7%; left: 16px; background-color: white;} */

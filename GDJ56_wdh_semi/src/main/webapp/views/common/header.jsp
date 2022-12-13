@@ -1,17 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.wdh.member.model.vo.Member" %>
+<%@ page import="com.wdh.member.vo.Member" %>
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember");
-	Cookie[] cookies=request.getCookies();
-	String saveId=null;
-	if(cookies!=null){
-		for(Cookie c : cookies){
-			if(c.getName().equals("saveId")){
-				saveId=c.getValue();
-				break;
-			}
-		}
-	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,7 +89,7 @@
 						<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
 							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a></li>
-							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/board/postList.jsp">동행</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/board/boardList.jsp">동행</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/cs/advertisement.jsp">고객센터</a></li>
 						</ul>
