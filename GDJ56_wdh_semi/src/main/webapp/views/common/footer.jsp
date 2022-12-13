@@ -58,6 +58,8 @@
                         <a class="text-light text-decoration-none" target="_blank" href="https://www.gmail.com//"><i class="fab fa-google fa-lg fa-fw"></i></a>
                     </li>
                   </ul>
+
+                </div>
               </div>
               <div class="w-100 bg-black py-3">
                 <div class="container">
@@ -70,15 +72,10 @@
                     </div>
                 </div>
             </div>
-            
-            </div>
-
-          </div>
-         
+         </div>
+      </div>
 </footer>
   
-    <!-- Start Script -->
-
     <!-- Start Script -->
     <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>

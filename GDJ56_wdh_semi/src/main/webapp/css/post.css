@@ -1,0 +1,250 @@
+#writeTable1{
+    height: 180px; 
+    /* width: 800px;     */
+    margin: auto;
+    border-radius: 50;
+    /* border: 1px solid blue; */
+}
+
+#writeTable2{
+    margin: auto;
+}
+/* #title{
+    text-align: 
+    left; width: 50px;
+} */
+#title_input{
+    width: 500px; 
+    height: 40px;
+    text-align: left;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid gray;
+    margin-bottom: 20px;
+    
+}
+#th_left{
+    /* text-align: left; */
+    text-align: center;
+}
+#th_right{
+    /* text-align: right; */
+    text-align: right;
+}
+#input{
+    width: 280px; 
+    height: 40px;
+}
+#content{
+    width: 680px; 
+    height: 350px;
+}
+#submit{
+    height: 30px; 
+    width: 80px; 
+    text-align: center;
+}
+/* 모집인원input */
+#count{
+    height: 40px;
+    margin-left: 70px;
+    /* margin-right: 0; */
+    text-align: center;
+    width: 280px;
+}
+
+
+/* 달력css */
+#datepicker{
+    text-align: center;
+    
+}
+
+달력아이콘
+.gj-icon{
+    display: none;
+}
+
+
+/* #datepicker{
+    right: 0 !important;
+    border: 1px solid black; 
+    height: 40px;
+    width: 280px;
+} */
+
+.gj-icon{
+    margin: 8px !important;
+    text-align: left;
+}
+
+td, th{
+    /* border: 1px solid red; */
+    height: 50px;
+}
+
+
+html, body {
+  height: 100%;
+}
+
+.wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 등록버튼 */
+.button {
+  width: 80px;
+  height: 35px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: rgba(223, 223, 223, 0.422);
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  }
+
+.button:hover {
+  background-color: #2e93e5af;
+  box-shadow: 0px 15px 20px #6dbcfcaf;
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.button1:hover {
+  background-color: #2e93e5af !important;
+  box-shadow: 0px 15px 20px #6dbcfcaf !important;
+  color: #fff !important;
+  transform: translateY(-7px) !important;
+}
+
+#button1:hover {
+  background-color: #2e93e5af;
+  box-shadow: 0px 15px 20px #6dbcfcaf;
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.button1 {
+  width: 150px !important;
+  height: 35px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2.5px !important;
+  font-weight: 500 !important;
+  color: #000 !important;
+  background-color: rgba(223, 223, 223, 0.422) !important;
+  border: none !important;
+  border-radius: 45px !important;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease 0s !important;
+  cursor: pointer !important;
+  outline: none !important;
+  margin: 20px !important;
+  text-align: center;
+  }
+
+  #button1 {
+    width: 150px;
+    height: 35px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: rgba(223, 223, 223, 0.422);
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    margin: 20px;
+    text-align: center;
+    }
+
+  #button1::placeholder{
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    text-align: center;
+  }
+
+  #radio>*{
+    font-size: 13px;
+  }
+
+
+  /* 웹에디터 경고창 없애기 */
+  .tox .tox-notification--warn, .tox .tox-notification--warning {
+    display: none !important;
+}
+
+
+  /* ---------------------------후기게시글작성 */
+
+  #info{
+    margin: auto; 
+    margin-top: 3%; 
+    width: 800px; 
+    font-size: 15px; 
+    text-align: center; 
+    border-radius: 10px;
+    background-color: rgba(124, 179, 255, 0.16); 
+    box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.265);
+  }
+
+
+
+/* 별점주기 */
+  .star_rating {font-size:0; letter-spacing:-4px;}
+
+.star_rating a {
+
+    font-size:40px !important;
+
+    letter-spacing:0;
+
+    display:inline-block;
+
+    margin-left:5px;
+
+    color:#ccc;
+
+    text-decoration:none;
+
+}
+
+.star_rating a:first-child {margin-left:0;}
+
+.star_rating a.on {color:rgb(255, 204, 0);}
+  /* #777;} */
+
+#star_table{
+  width: 800px; 
+  height: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+
+
+
+
+
