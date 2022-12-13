@@ -6,7 +6,7 @@
 
 
 <%@ include file="/views/common/innerheader.jsp" %>
-
+    <script	src="<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
     <style>
         /*페이지바*/
         div#pageBar {
