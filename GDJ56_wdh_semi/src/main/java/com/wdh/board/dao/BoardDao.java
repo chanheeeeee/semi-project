@@ -36,6 +36,7 @@ public class BoardDao {
 			pstmt.setDate(6, b.getWdDate());
 			pstmt.setInt(7, b.getWdCount());
 			pstmt.setInt(8, b.getMemberNo());
+			pstmt.setString(9, b.getWdPurpose());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
