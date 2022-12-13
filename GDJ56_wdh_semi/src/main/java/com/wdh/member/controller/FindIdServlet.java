@@ -1,11 +1,15 @@
 package com.wdh.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.wdh.member.service.MemberService;
+import com.wdh.member.vo.Member;
 
 /**
  * Servlet implementation class FindIdServlet
@@ -26,6 +30,18 @@ public class FindIdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+
+		
+		Member m = new MemberService().searchMemberId(name,email);
+
+		
+		request.setAttribute("Member", m);
+		
+		//화면 전환
 		request.getRequestDispatcher("/views/member/find_id.jsp").forward(request, response);
 	}
 
