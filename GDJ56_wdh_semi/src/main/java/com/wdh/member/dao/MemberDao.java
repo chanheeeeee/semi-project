@@ -87,8 +87,8 @@ public class MemberDao {
 		m.setMember_no(rs.getInt("MEMBER_NO"));
 		m.setMember_id(rs.getString("MEMBER_ID"));
 		m.setMember_nickname(rs.getString("MEMBER_NICKNAME"));
-		m.setName(rs.getString("NAME"));
-		m.setPassword(rs.getString("PASSWORD"));
+		m.setName(rs.getString("MEMBER_NAME"));
+		m.setPassword(rs.getString("MEMBER_PASSWORD"));
 		m.setGender(rs.getString("GENDER").charAt(0));
 		m.setBirth(rs.getDate("BIRTH"));
 		m.setEmail(rs.getString("EMAIL"));
