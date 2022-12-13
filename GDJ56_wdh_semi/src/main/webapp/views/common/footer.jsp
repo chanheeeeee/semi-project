@@ -76,9 +76,7 @@
       </div>
 </footer>
   
-    <!-- Start Script -->
-    
-    <!-- End Script -->
+
 </body>
 
 </html>
