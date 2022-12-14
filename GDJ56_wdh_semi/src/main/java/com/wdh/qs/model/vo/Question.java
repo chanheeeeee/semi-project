@@ -2,6 +2,8 @@ package com.wdh.qs.model.vo;
 
 import java.util.Date;
 
+import com.wdh.member.vo.Member;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +21,7 @@ public class Question {
 	private String qsHeadTitle;
 	private char qsResult;
 	private int memberNo;
+	private Member member;
 	
 	
 }

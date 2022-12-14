@@ -134,7 +134,7 @@ public class MemberDao {
 		return m;
 	}
 
-	private Member getMember(ResultSet rs) throws SQLException {
+	public static Member getMember(ResultSet rs) throws SQLException {
 		Member m = new Member();
 		
 		m.setMember_no(rs.getInt("MEMBER_NO"));

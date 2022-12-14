@@ -4,7 +4,7 @@
 <%
 	List<Declaration> dcl=(List<Declaration>)request.getAttribute("dcl");
 %>
-<%@ page import="com.wdh.member.vo.Member" %>
+<%@ page import="com.wdh.member.model.vo.Member" %>
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember");
 %>
@@ -54,7 +54,7 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/qs.jsp">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -74,6 +74,7 @@
                 <tr>
                     <th>번호</th>
                     <th>제목</th>
+                    <th>분류</th>
                     <th>작성자</th>
                     <th>첨부파일</th>
                     <th>작성일</th>
@@ -88,7 +89,8 @@
                 <tr>
                 	<td><%=d.getDclNo() %></td>
                 	<td><a href="<%=request.getContextPath() %>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>"><%=d.getDclTitle() %></a></td>
-                	<td><%=d.getMemberNo() %></td>
+                	<td><%=d.getDclHeadTitle() %></td>
+                	<td><%=d.getMember().getMember_id() %></td>
                 	<td>
                 		<%if(d.getFilePath()!=null){ %>
                 			<img src="<%=request.getContextPath() %>/images/file.png" width="20" height="20">
