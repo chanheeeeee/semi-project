@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 import static com.wdh.common.JDBCTemplate.*;
 import com.wdh.del.model.vo.Declaration;
+import com.wdh.member.dao.MemberDao;
 
 public class DclDao {
 	private Properties sql=new Properties();
@@ -35,7 +36,9 @@ public class DclDao {
 			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				result.add(getDcl(rs));
+				Declaration dcl=getDcl(rs);
+				dcl.setMember(MemberDao.getMember(rs));
+				result.add(dcl);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -91,7 +94,11 @@ public class DclDao {
 			pstmt=conn.prepareStatement(sql.getProperty("selectDcl"));
 			pstmt.setInt(1, no);
 			rs=pstmt.executeQuery();
-			if(rs.next()) dcl=getDcl(rs);
+			if(rs.next()) {
+				dcl=getDcl(rs);
+				dcl.setMember(MemberDao.getMember(rs));
+				
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

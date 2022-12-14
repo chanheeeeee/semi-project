@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%-- <%@ page import="java.util.List,com.wdh.board.model.vo.*" %>
+<%@ page import="java.util.List,com.wdh.board.vo.*" %>
 <% 
-    List<Board> boards = (List<Board>)request.getAttribute("boards");
-%> --%>
+	List<Board>	boards = (List<Board>)request.getAttribute("boards");
+%>
 
 
 <%@ include file="/views/common/innerheader.jsp" %>
     <script	src="<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
+<!-- innerheader에 없어서 스타일 일단 여기에 줌 -->
+<!-- Load fonts style after rendering the layout styles -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/fontawesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">
     <style>
         /*페이지바*/
         div#pageBar {
@@ -119,7 +126,7 @@
     <section class="container py-5">
         <div class="row text-center pt-5 pb-3">
             <div class="col-lg-6 m-auto">
-                <h1 class="h1">동행게시글화면</h1>
+                <h1 class="h1">동행 둘러보기</h1>
                 <p>
                     동행게시글화면목록입니다
                 </p>
@@ -133,35 +140,42 @@
 기타 : https://images.unsplash.com/photo-1610768764270-790fbec18178?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODJ8fHNwb3J0fGVufDB8MXwwfHw%3D&auto=format&fit=crop&w=500&q=60
 
 -->
+		
         <div class="row">
-            <%-- <%if(boards.isEmpty()) {%>
-                <%}else{ for(Board b : boards){%>
+            <%if(boards.isEmpty()) {%>
+                <%}else{ 
+                	for(Board b : boards){
 
-                <div class="col-md-6 col-lg-3 pb-5">
-                    <div class="h-100 py-5 services-icon-wap shadow">
-                        <div class="card rounded-0">
-                            <img class="card-img rounded-0 img-fluid"
-                                src="https://images.unsplash.com/photo-1500468756762-a401b6f17b46?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bWFyYXRob258ZW58MHwxfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60">
-                            <div
-                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                            </div>
-                        </div>
-                        <a href="<%=request.getContextPath() %>/views/board/shop-single.jsp">
-                            <h2 class="h5 mt-4 text-center">게시글 제목</h2></a>
-                            <a
-                                href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getBoardNo()%>">
-                                <h2 class="h5 mt-4 text-center">
-                                    <%=b.getBoardTitle() %>
-                                </h2>
-                            </a>
-                    </div>
-                </div>
-                <%} } %> --%>
+	                String categoryImg = null;
+	                switch(b.getWdCategory()){
+	                case "구기" : categoryImg = "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8c29jY2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60";break;
+	                case "육상" : categoryImg = "https://images.unsplash.com/photo-1500468756762-a401b6f17b46?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bWFyYXRob258ZW58MHwxfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60";break;
+	                case "수상" : categoryImg = "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHNwb3J0fGVufDB8MXwwfHw%3D&auto=format&fit=crop&w=500&q=60";break;
+	                case "등산" : categoryImg = "https://images.unsplash.com/photo-1627551885247-f9301e1d6101?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGhpa2luZ3xlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60";break;
+	                case "기타" : categoryImg = "https://images.unsplash.com/photo-1597769555495-c54a15cd8c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80";break;
+                	}%>
+	                <div class="col-md-6 col-lg-3 pb-5">
+	                    <div class="h-100 py-5 services-icon-wap shadow">
+	                        <div class="card rounded-0">
+	                            <img class="card-img rounded-0 img-fluid"
+	                                src="<%=categoryImg%>">
+	                            <div
+	                                class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+	                            </div>
+	                        </div>
+	                        <a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>">
+	                            <h2 class="a h5 mt-4 text-center"><%=b.getWdTitle() %></h2>
+	                        </a>
+	                        <h2 class="h5 mt-4 text-center"><%=b.getWdCategory()%></h2>
+	                    </div>
+	                </div>
+                <%} 
+            	} %>
         </div>
 
         <!-- 페이징처리 -->
         <div id="pageBar">
-            <%=request.getAttribute("pageBar") %>
+        	<%=request.getAttribute("pageBar") %>
         </div>
     </section>
     <!-- End Section -->

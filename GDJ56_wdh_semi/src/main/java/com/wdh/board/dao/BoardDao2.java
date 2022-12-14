@@ -5,15 +5,16 @@ import static com.wdh.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
 import com.wdh.board.vo.Board;
+import com.wdh.board.vo.BoardComment;
 
 public class BoardDao2 {
 	
@@ -67,6 +68,42 @@ public class BoardDao2 {
 		}return result;
 	}
 	
+	public Board selectBoard(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = null;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoard"));
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) b=getBoard(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return b;
+	}
+	
+	public List<BoardComment> selectBoardComment(Connection conn, int boardNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<BoardComment> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardComment"));
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) list.add(getBoardComment(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	
 	//공통으로 사용 
 	public static Board getBoard(ResultSet rs) throws SQLException{
@@ -82,6 +119,18 @@ public class BoardDao2 {
 				.wdTime(rs.getDate("WD_TIME"))
 				.memberNo(rs.getInt("MEMBER_NO"))
 				.wdPurpose(rs.getString("WD_PURPOSE"))
+				.build();
+	}
+	
+	public static BoardComment getBoardComment(ResultSet rs) throws SQLException{
+		return BoardComment.builder()
+				.commentNo(rs.getInt("COMMENT_NO"))
+				.wcContent(rs.getString("WC_CONTENT"))
+				.wcDate(rs.getDate("WC_DATE"))
+				.wcNo(rs.getInt("WC_NO"))
+				.memberNo(rs.getInt("MEMBER_NO"))
+				.wdCommentRef(rs.getInt("WD_COMMENT_REF"))
+				.wdCommentLev(rs.getInt("WD_COMMENT_LEV"))
 				.build();
 	}
 

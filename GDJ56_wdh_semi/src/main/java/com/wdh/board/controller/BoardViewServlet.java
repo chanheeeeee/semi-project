@@ -3,13 +3,15 @@ package com.wdh.board.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
+import com.wdh.board.vo.BoardComment;
 
 /**
  * Servlet implementation class BoardViewServlet
@@ -31,8 +33,15 @@ public class BoardViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/views/board/boardView.jsp");
-		rd.forward(request, response);
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		Board b = new BoardService2().selectBoard(boardNo);
+		List<BoardComment> list = new BoardService2().selectBoardComment(boardNo);
+		
+		request.setAttribute("board", b);
+		request.setAttribute("comments", list);
+		
+		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
 	}
 
 	/**

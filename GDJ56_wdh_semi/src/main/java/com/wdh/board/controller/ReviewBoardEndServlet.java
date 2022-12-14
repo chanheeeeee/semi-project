@@ -1,26 +1,26 @@
-package com.wdh.mypage.controller;
+package com.wdh.board.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.member.service.MemberService;
-import com.wdh.member.vo.Member;
+import com.wdh.board.vo.ReviewBoard;
 
 /**
- * Servlet implementation class AboutMember
+ * Servlet implementation class AfterWriteBoardEndServlet
  */
-@WebServlet("/mypage/about.do")
-public class AboutMemberServlet extends HttpServlet {
+@WebServlet("/board/reviewboardend.do")
+public class ReviewBoardEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AboutMemberServlet() {
+    public ReviewBoardEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,26 +29,16 @@ public class AboutMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
-		
-//		Member m = new MemberService().memberView(id);
-		
-		String grade = new MemberService().memberGrade(id);
-		
-//		try {
-//			
-//			m.setEmail(AESEncrypt.decryptData(m.getEmail()));
-//			
-//		} catch(Exception e) {
-//			
-//			e.printStackTrace();
-//			
-//		}
-		
-		request.setAttribute("grade", grade);
-//		request.setAttribute("member", m);
-		request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		String reviewTitle=request.getParameter("review_title");
+		String reviewContent=request.getParameter("review_content");
+		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
+		int score=(Integer.parseInt(request.getParameter("score")))/6;
+		System.out.println(reviewTitle+reviewContent+score);
+		ReviewBoard rb=ReviewBoard.builder()
+				.memberNo(memberNo).reviewTitle(reviewTitle).reviewContent(reviewContent)
+				.wdNo(22).reviewScore(score).build();
+		System.out.println(rb);
 		
 	}
 

@@ -58,6 +58,10 @@ public class BoardListServlet extends HttpServlet {
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
 		
+		if(pageNo<1) {
+			pageBar = pageBar;
+		}
+		
 		if(pageNo==1){
 			pageBar += "<span>[이전]</span>";
 		}else {

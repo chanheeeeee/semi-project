@@ -1,26 +1,27 @@
-package com.wdh.mypage.controller;
+package com.wdh.qs.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.member.service.MemberService;
-import com.wdh.member.vo.Member;
+import com.wdh.qs.model.service.QsService;
+import com.wdh.qs.model.vo.Question;
 
 /**
- * Servlet implementation class AboutMember
+ * Servlet implementation class QsViewEndServlet
  */
-@WebServlet("/mypage/about.do")
-public class AboutMemberServlet extends HttpServlet {
+@WebServlet("/cs/qsView.do")
+public class QsViewEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    //1대1문의 페이지 상세페이지 연결할 서블릿입니다    
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AboutMemberServlet() {
+    public QsViewEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,27 +30,12 @@ public class AboutMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int qsNo=Integer.parseInt(request.getParameter("qsNo"));
+		Question qs=new QsService().selectQs(qsNo);
 		
-		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
-		
-//		Member m = new MemberService().memberView(id);
-		
-		String grade = new MemberService().memberGrade(id);
-		
-//		try {
-//			
-//			m.setEmail(AESEncrypt.decryptData(m.getEmail()));
-//			
-//		} catch(Exception e) {
-//			
-//			e.printStackTrace();
-//			
-//		}
-		
-		request.setAttribute("grade", grade);
-//		request.setAttribute("member", m);
-		request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);
-		
+		request.setAttribute("qs", qs);
+		request.getRequestDispatcher("/views/cs/qsView.jsp").forward(request, response);
+	
 	}
 
 	/**

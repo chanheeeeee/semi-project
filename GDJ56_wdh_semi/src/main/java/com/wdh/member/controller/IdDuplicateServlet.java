@@ -35,7 +35,7 @@ public class IdDuplicateServlet extends HttpServlet {
 		System.out.println(member_id );
 		
 		//서비스 요청
-		Member m = new MemberService().Idduplicate(member_id);
+		Member m = new MemberService().memberView(member_id);
 		
 		request.setAttribute("member", m);
 		
