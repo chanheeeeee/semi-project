@@ -1,4 +1,4 @@
-package com.wdh.del.controller;
+package com.wdh.qs.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.del.model.service.DclService;
-import com.wdh.del.model.vo.Declaration;
+import com.wdh.qs.model.service.QsService;
+import com.wdh.qs.model.vo.Question;
 
 /**
- * Servlet implementation class DclViewServlet
+ * Servlet implementation class QsViewServlet
  */
-@WebServlet("/cs/dcl.do")
-public class DclViewServlet extends HttpServlet {
+@WebServlet("/cs/qs.do")
+public class QsViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    //고객센터 - 신고하기 페이지로 넘어갈 서블릿
+    //고객센터 - 1대1문의 페이지로 넘어갈 서블릿   
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DclViewServlet() {
+    public QsViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +31,6 @@ public class DclViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		//페이징 처리
 		int cPage;
 		try {
@@ -39,13 +38,12 @@ public class DclViewServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			cPage=1;
 		}
-		//한 페이지에 5개씩 출력
+		
 		int numPerpage=5;
-		List<Declaration> dcl=new DclService().searchDcl(cPage,numPerpage);
-		int totalData=new DclService().selectDclCount();
+		List<Question> qs=new QsService().searchQs(cPage,numPerpage);
+		int totalData=new QsService().selectQsCount();
 		
 		String pageBar="";
-		//pageBar의 번호 갯수
 		int pageBarSize=5;
 		//총 페이지의 수(총 데이터/페이지당 출력갯수)
 		//double->Math.ceil->int
@@ -61,7 +59,7 @@ public class DclViewServlet extends HttpServlet {
 			pageBar+="<span>[이전]</span>";
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-				+"/cs/dcl.do?cPage="+pageNo+"'>"+pageNo+"</a>";
+				+"/cs/qs.do?cPage="+pageNo+"'>"+pageNo+"</a>";
 		}
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
@@ -69,7 +67,7 @@ public class DclViewServlet extends HttpServlet {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()
-					+"/cs/dcl.do?cPage="+pageNo+"'>"+pageNo+"</a>";
+					+"/cs/qs.do?cPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -77,17 +75,12 @@ public class DclViewServlet extends HttpServlet {
 			pageBar+="<span>[다음]</span>";
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-				+"/cs/dcl.do?cPage="+pageNo+"'>[다음]</a>";
+				+"/cs/qs.do?cPage="+pageNo+"'>[다음]</a>";
 		}
 		request.setAttribute("pageBar", pageBar);
-		request.setAttribute("dcl", dcl);
+		request.setAttribute("qs", qs);
 		
-		
-		
-		request.getRequestDispatcher("/views/cs/dcl.jsp").forward(request, response);
-	
-	
-	
+		request.getRequestDispatcher("/views/cs/qs.jsp").forward(request, response);
 	}
 
 	/**

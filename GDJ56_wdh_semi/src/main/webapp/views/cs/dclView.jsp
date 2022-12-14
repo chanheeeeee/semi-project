@@ -55,7 +55,7 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/qs.jsp">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -65,9 +65,9 @@
         </div>
     </nav>
     <!-- Close Header -->
-    
+    <br>
 <div font-family:Jua;>
-    <div id="dcl-container">
+    <div id="tbl-board">
     	<h2><strong>신고하기 상세페이지</strong></h2>
     		<table id="tbl-dcl">
     			<tr>
@@ -75,9 +75,13 @@
     				<td><%=dcl.getDclTitle() %></td>
     			</tr>
     			<tr>
+    				<th>분 류</th>
+    				<td><%=dcl.getDclHeadTitle() %></td>
+    			</tr>
+    			<tr>
     				<th>작 성 자</th>
     				<!-- 작성자 번호 말고 아이디로 받아와야함 -->
-    				<td><%=dcl.getMemberNo() %></td>
+    				<td><%=dcl.getMember().getMember_id() %></td>
     			</tr>
     			<tr>
     				<th>첨부 파일</th>
@@ -104,6 +108,9 @@
     			</tr>
     			<%} %>
     		</table>
+    		<br>
+    		</div>
+    </div>
     <script>
     	const fn_fileDown=(fileName)=>{
     		//다운로드 스크립트
@@ -114,11 +121,4 @@
     		location.replace("<%=request.getContextPath()%>/cs/deleteDcl.do?no="+dclNo+"&fileName="+fileName);
     	}
     </script>
-    
-    
-    </div>
-</div>
-
-
-
 <%@ include file="/views/common/footer.jsp" %>

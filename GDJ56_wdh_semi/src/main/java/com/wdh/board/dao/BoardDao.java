@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.wdh.board.vo.Board;
+import com.wdh.board.vo.ReviewBoard;
 
 public class BoardDao {
 	
@@ -38,6 +39,24 @@ public class BoardDao {
 			pstmt.setInt(7, b.getWdCount());
 			pstmt.setInt(8, b.getMemberNo());
 			pstmt.setString(9, b.getWdPurpose());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	public int insertAfterBoard(Connection conn, ReviewBoard ab) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertReview"));
+			pstmt.setInt(1, ab.getMemberNo());
+			pstmt.setString(2, ab.getReviewTitle());
+			pstmt.setString(3, ab.getReviewContent());
+			pstmt.setInt(4, ab.getWdNo());
+			pstmt.setDouble(5, ab.getReviewScore());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
