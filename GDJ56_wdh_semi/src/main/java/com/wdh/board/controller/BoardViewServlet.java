@@ -37,6 +37,7 @@ public class BoardViewServlet extends HttpServlet {
 		
 		Board b = new BoardService2().selectBoard(boardNo);
 		List<BoardComment> list = new BoardService2().selectBoardComment(boardNo);
+		//List<ReviewBoard> list = new BoardService2().selectReviewBoard(boardNo);
 		
 		request.setAttribute("board", b);
 		request.setAttribute("comments", list);

@@ -9,12 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.BoardComment;
+import com.wdh.board.vo.ReviewBoard;
 
 public class BoardDao2 {
 	
@@ -95,6 +95,24 @@ public class BoardDao2 {
 			pstmt.setInt(1, boardNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()) list.add(getBoardComment(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public List<ReviewBoard> selectReviewBoard(Connection conn, int boardNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ReviewBoard> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectReviewBoard"));
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			//while(rs.next()) list.add(getBoardComment(rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
