@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.wdh.board.service.BoardService2;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.BoardComment;
+import com.wdh.board.vo.ReviewBoard;
 
 /**
  * Servlet implementation class BoardViewServlet
@@ -36,11 +37,12 @@ public class BoardViewServlet extends HttpServlet {
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
 		Board b = new BoardService2().selectBoard(boardNo);
-		List<BoardComment> list = new BoardService2().selectBoardComment(boardNo);
-		//List<ReviewBoard> list = new BoardService2().selectReviewBoard(boardNo);
+		List<BoardComment> bcList = new BoardService2().selectBoardComment(boardNo);
+		List<ReviewBoard> rbList = new BoardService2().selectReviewBoard(boardNo);
 		
 		request.setAttribute("board", b);
-		request.setAttribute("comments", list);
+		request.setAttribute("comments", bcList);
+		request.setAttribute("reviews", rbList);
 		
 		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
 	}

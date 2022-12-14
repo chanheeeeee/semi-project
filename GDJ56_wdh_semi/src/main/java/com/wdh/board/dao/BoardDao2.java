@@ -111,8 +111,10 @@ public class BoardDao2 {
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("selectReviewBoard"));
 			pstmt.setInt(1, boardNo);
+			pstmt.setInt(2, 1);
+			pstmt.setInt(3, 5);
 			rs = pstmt.executeQuery();
-			//while(rs.next()) list.add(getBoardComment(rs));
+			while(rs.next()) list.add(getReviewBoard(rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -149,6 +151,18 @@ public class BoardDao2 {
 				.memberNo(rs.getInt("MEMBER_NO"))
 				.wdCommentRef(rs.getInt("WD_COMMENT_REF"))
 				.wdCommentLev(rs.getInt("WD_COMMENT_LEV"))
+				.build();
+	}
+	
+	public static ReviewBoard getReviewBoard(ResultSet rs) throws SQLException{
+		return ReviewBoard.builder()
+				.reviewSeq(rs.getInt("REVIEW_SEQ"))
+				.memberNo(rs.getInt("MEMBER_NO"))
+				.reviewTitle(rs.getString("REVIEW_TITLE"))
+				.reviewContent(rs.getString("REVIEW_CONTENT"))
+				.reviewDate(rs.getDate("REVIEW_DATE"))
+				.wdNo(rs.getInt("WD_NO"))
+				.reviewScore(rs.getDouble("REVIEW_SCORE"))
 				.build();
 	}
 
