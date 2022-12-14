@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%-- <%@ page import="java.util.List,com.wdh.board.model.vo.*" %>
+<%@ page import="java.util.List,com.wdh.board.vo.*" %>
 <% 
-    List<Board> boards = (List<Board>)request.getAttribute("boards");
-%> --%>
+	List<Board>	boards = (List<Board>)request.getAttribute("boards");
+%>
 
 
 <%@ include file="/views/common/innerheader.jsp" %>
@@ -132,9 +132,9 @@
 등산 : https://images.unsplash.com/photo-1627551885247-f9301e1d6101?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGhpa2luZ3xlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60
 기타 : https://images.unsplash.com/photo-1610768764270-790fbec18178?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODJ8fHNwb3J0fGVufDB8MXwwfHw%3D&auto=format&fit=crop&w=500&q=60
 
--->
+--><%-- 
         <div class="row">
-            <%-- <%if(boards.isEmpty()) {%>
+            <%if(boards.isEmpty()) {%>
                 <%}else{ for(Board b : boards){%>
 
                 <div class="col-md-6 col-lg-3 pb-5">
