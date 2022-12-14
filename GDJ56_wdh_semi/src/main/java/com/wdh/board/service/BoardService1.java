@@ -4,6 +4,8 @@ import java.sql.Connection;
 
 import com.wdh.board.dao.BoardDao;
 import com.wdh.board.vo.Board;
+import com.wdh.board.vo.ReviewBoard;
+
 import static com.wdh.common.JDBCTemplate.*;
 
 public class BoardService1 {
@@ -13,6 +15,15 @@ public class BoardService1 {
 	public int insertBoard(Board b) {
 		Connection conn=getConnection();
 		int result=dao.insertBoard(conn, b);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int insertAfterBoard(ReviewBoard rb) {
+		Connection conn=getConnection();
+		int result=dao.insertAfterBoard(conn, rb);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
