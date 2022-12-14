@@ -26,7 +26,9 @@
             <!-- 정보수정 -->
             <section class="resume-section" id="update">
                     <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px">
-                    <form class="form-horizontal">
+  
+  			<!-- 폼 시작 -->
+                    <form class="form-horizontal" id="updateMemberFrm">
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">아이디</label>
                         <div class="col-sm-10">
@@ -109,7 +111,7 @@
                       </div>
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">저장</button>
+                          <input type="submit" class="btn btn-danger" onclick="fn_updateMember()" value="저장">
                         </div>
                       </div>
                     </form>
@@ -176,6 +178,13 @@
 				//새창으로 패스워드 수정페이지 연결
 				open("updatePassword.jsp",
 						"_blank","width=400,height=210");
+				
+			}
+			
+			const fn_updateMember=()=>{
+				$("#updateMemberFrm").attr("action",
+						"<%=request.getContextPath()%>/mypage/about.do");
+				$("#updateMemberFrm").submit();
 				
 			}
 		</script>
