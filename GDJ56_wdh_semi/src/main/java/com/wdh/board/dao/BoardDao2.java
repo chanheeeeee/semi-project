@@ -9,12 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.BoardComment;
+import com.wdh.board.vo.ReviewBoard;
 
 public class BoardDao2 {
 	
@@ -104,6 +104,26 @@ public class BoardDao2 {
 		return list;
 	}
 	
+	public List<ReviewBoard> selectReviewBoard(Connection conn, int boardNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ReviewBoard> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectReviewBoard"));
+			pstmt.setInt(1, boardNo);
+			pstmt.setInt(2, 1);
+			pstmt.setInt(3, 5);
+			rs = pstmt.executeQuery();
+			while(rs.next()) list.add(getReviewBoard(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 	
 	//공통으로 사용 
 	public static Board getBoard(ResultSet rs) throws SQLException{
@@ -131,6 +151,18 @@ public class BoardDao2 {
 				.memberNo(rs.getInt("MEMBER_NO"))
 				.wdCommentRef(rs.getInt("WD_COMMENT_REF"))
 				.wdCommentLev(rs.getInt("WD_COMMENT_LEV"))
+				.build();
+	}
+	
+	public static ReviewBoard getReviewBoard(ResultSet rs) throws SQLException{
+		return ReviewBoard.builder()
+				.reviewSeq(rs.getInt("REVIEW_SEQ"))
+				.memberNo(rs.getInt("MEMBER_NO"))
+				.reviewTitle(rs.getString("REVIEW_TITLE"))
+				.reviewContent(rs.getString("REVIEW_CONTENT"))
+				.reviewDate(rs.getDate("REVIEW_DATE"))
+				.wdNo(rs.getInt("WD_NO"))
+				.reviewScore(rs.getDouble("REVIEW_SCORE"))
 				.build();
 	}
 
