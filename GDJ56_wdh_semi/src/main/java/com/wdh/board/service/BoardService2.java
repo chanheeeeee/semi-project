@@ -26,5 +26,12 @@ private BoardDao2 dao = new BoardDao2();
 		close(conn);
 		return result;
 	}
+	
+	public Board selectBoard(int boardNo) {
+		Connection conn = getConnection();
+		Board result = dao.selectBoard(conn, boardNo);
+		close(conn);
+		return result;
+	}
 
 }
