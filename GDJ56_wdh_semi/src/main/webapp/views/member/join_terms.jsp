@@ -27,8 +27,8 @@
   .footBtwrap{margin-top: 15px;}
   .footBtwrap>li{float: left;width: 50%;height: 60px;}
   .footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center; margin-left:-15px;}
-  .fpmgBt1{background-color: #fff;color:#888}
-  .fpmgBt2{background-color: lightsalmon;color: #fff}
+  .fpmgBt1{background-color: #fff;color:#fff}
+  .fpmgBt2{background-color: rgb(80, 80, 243);color: #fff}
    </style>
 
 
@@ -91,7 +91,7 @@
                </li>
            </ul>
            <ul class="footBtwrap clearfix">
-               <li><button type="button" onclick="location.href='<%=request.getContextPath()%>/main.do';" class="fpmgBt1">비동의</button></li>
+               <li><button type="button" onclick="location.href='<%=request.getContextPath()%>/main.do';" class="btn fpmgBt1" style="background-color:lightblue;">비동의</button></li>
                <li><button type="button" onclick="location.href='<%=request.getContextPath()%>/member/join.do';" class="btn fpmgBt2" id = "modal">동의</button></li>
            </ul>
          </div>

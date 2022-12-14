@@ -207,7 +207,7 @@ table#tbl-board th, table#tbl-board td {border:1px solid; padding: 5px 0; }
 /*글쓰기버튼*/
 input#btn-add{float:right; margin: 0 0 15px;}
 /*페이지바*/
-div#pageBar{margin-top:10px; text-align:center; background-color:#f71515;}
+div#pageBar{margin-top:10px; text-align:center; background-color:white;}
 div#pageBar span.cPage{color: #0066ff;}
 
 input#subBtn{

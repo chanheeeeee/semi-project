@@ -45,7 +45,6 @@
             <th colspan="4">
                 <div class="wrap" style="margin: 5%;">
                 	<button class="button" onclick="location.replace('<%=request.getContextPath()%>/board/grade.do');">이전</button>&nbsp;&nbsp;&nbsp;
-                    <%-- <button class="button" onclick="location.replace('<%=request.getContextPath()%>/board/reviewboardend.do');">등록</button> --%>
                     <input type="submit" class="button" value="등록">
                     <input type="hidden" name="score" value="<%=request.getParameter("grade")%>">
                 </div>

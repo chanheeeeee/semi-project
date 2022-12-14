@@ -10,10 +10,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 중복확인하기</title>
+<title>닉네임 중복확인하기</title>
 
 <style>
-	div#checkId-container{
+	div#checknick-container{
 		text-align : center;
 		padding-top : 50px;
 	}
@@ -25,7 +25,7 @@
 
 </head>
 <body>
-	<div id="checkId-container">
+	<div id="checknick-container">
 		<%if(m==null){ %>
 			[<span><%=request.getParameter("member_id") %></span>]는 사용가능합니다.	
 			<br><br>
