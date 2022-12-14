@@ -76,13 +76,7 @@
       </div>
 </footer>
   
-    <!-- Start Script -->
-    <script src="<%=request.getContextPath() %>/assets/js/jquery-1.11.0.min.js"></script>
-    <script src="<%=request.getContextPath() %>/assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="<%=request.getContextPath() %>/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath() %>/assets/js/templatemo.js"></script>
-    <script src="<%=request.getContextPath() %>/assets/js/custom.js"></script>
-    <!-- End Script -->
+
 </body>
 
 </html>

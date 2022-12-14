@@ -93,7 +93,6 @@
 
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
-                                <div class="row">
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
                                             <li class="list-inline-item text-right">
@@ -104,7 +103,6 @@
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">참가하기</span></li>
                                         </ul>
                                     </div>
-                                </div>
                             </form>
 
                         </div>

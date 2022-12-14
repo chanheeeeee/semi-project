@@ -26,9 +26,29 @@
         <td >아이디 </td>
             <td>
               <input type="text" id="id" placeholder="영문,숫자 5~11자"  style="font-variant-caps:unicase ;" size="25">
-              <input type="button" value="중복확인" style="font-family:Jua;" >
+              <input type="button" value="중복확인" style="font-family:Jua;" onclick="fn_idduplicate();" >
             </td>
           </tr>
+          <script>
+          	const fn_idduplicate=()=>{
+          		const memberId = $("#id").val();
+          		if(memberId.trim().length<5){
+          			alert('아이디는 영문,숫자 포함 5~11자 입니다.');
+          			$("#id").val('');
+          			$("#id").focus();
+          			
+          		} else{
+          			//팝업 생성 방법
+          			$("#member_id").val(memberId);		//ID값을 넣음
+          			const title = "idDuplicateFrm";
+          			open("","idDuplicateFrm","width=300,height=300");
+          			duplicateIdFrm.method="post";
+          			duplicateIdFrm.action="<%=request.getContextPath()%>/member/idduplicate.do";
+          			duplicateIdFrm.target=title;
+          			duplicateIdFrm.submit();
+          		}
+          	}
+          </script>
         <tr>
         <td >닉네임 </td>
             <td>
@@ -70,12 +90,11 @@
             <td> 이메일 </td>
             <td>
               <input type="text" id="email"> @ <input type="text" id="email2"/> &nbsp;&nbsp; 
-              <select>
-                <option> 직접입력 </option> 
-                <option> naver.com </option>
-                <option> daum.net </option>
-                <option> nate.com </option>
-                <option> gmail.com </option>
+              <select id="mailSelect">
+                <option value=""> 직접입력 </option> 
+                <option value="naver.com"> naver.com </option>
+                <option value="nate.com"> nate.com </option>
+                <option value="gmail.com"> gmail.com </option>
               </select>
               <input type="button" value="인증코드발송" style="font-family:Jua;">
             </td>
@@ -103,6 +122,9 @@
   
       <input type="button" value="가입하기" style="font-family:Jua;" id="modal">
       <input type="reset" value="취소하기" style="font-family:Jua;">
+      <form name="duplicateIdFrm">
+      	<input type = "hidden" name="member_id" id="member_id">
+      </form>
     </center>
   </div>
     <br><br>
@@ -131,9 +153,8 @@
 				dataType:"json",
 				success:data=>{
 					console.log(data);
-					let result = data.result;
 					
-					if(result > 0) {
+					if(data > 0) {
 						$("#exampleModal").modal("show");
 					} else {
 						$("#exampleModal2").modal("show");
@@ -149,8 +170,21 @@
 	    	});
     	});
     	
+    	//취소하기 클릭 이벤트
     	$("#closeJoin").on("click", function() {
     		location.href="<%=request.getContextPath()%>/main.do";
+    	});
+    	
+    	//이메일 내 SelectBox 변경이벤트
+    	$("#mailSelect").on("change", function() {
+    		let mainSelect = $("#mailSelect").val();
+    		$("#email2").val(mainSelect);
+    		
+    		if(mainSelect == "") {
+    			$("#email2").attr("readonly", null);
+    		} else {
+    			$("#email2").attr("readonly", "readonly");
+    		}
     	});
     })
     
@@ -201,6 +235,7 @@
             }
         }).open();
     }
+  
     </script>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

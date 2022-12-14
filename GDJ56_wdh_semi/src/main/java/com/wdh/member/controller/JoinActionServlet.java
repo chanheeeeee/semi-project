@@ -73,13 +73,10 @@ public class JoinActionServlet extends HttpServlet {
 				.build();
 		
 		int result = new MemberService().insertMember(m);
-		
-		JSONObject jobj = new JSONObject();
-		
-		jobj.put("result", result);
+
 		
 		Gson js = new Gson();
-		js.toJson(jobj, response.getWriter());
+		js.toJson(result, response.getWriter());
 		
 		
 		

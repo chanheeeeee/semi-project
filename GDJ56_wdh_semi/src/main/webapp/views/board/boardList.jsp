@@ -55,22 +55,15 @@
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <h1></h1>
-
-                    <button type="button" class="btn btn-success btn-lg px-3" id="slideToggleMap">지역
-                        선택</button>
-                    <button type="button" class="btn btn-success btn-lg px-3" id="slideToggleAdd">검색 조건
-                        추가하기</button>
-
-                    <%-- <img src="<%=request.getContextPath()%>/images/about-hero.svg"
-                        alt="About Hero"> --%>
+                    <button type="button" class="btn btn-success btn-lg px-3" id="slideToggleAdd">검색 조건 추가하기</button>
+                    <button	type="button" class="btn btn-success btn-lg px-3" 
+                    	onclick="location.assign('<%=request.getContextPath()%>/board/writeboard.do');">글쓰기</button>
                 </div>
-                <div id="containerMap">
-                    <div>슬라이드 메뉴 지도
+
+                <div id="container">
+                	<div>슬라이드 메뉴 지도
                         <%@ include file="/views/board/map3.jsp" %>
                     </div>
-                </div>
-                <div id="container">
                     <div>슬라이드 메뉴
                         <form action="" method="get">
                             <div>
@@ -109,10 +102,6 @@
     </section>
     <!-- 검색 -->
     <style>
-        div#containerMap>div {
-            display: none;
-        }
-
         div#container>div {
             display: none;
         }
