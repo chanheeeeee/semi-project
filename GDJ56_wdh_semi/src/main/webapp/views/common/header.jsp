@@ -70,9 +70,9 @@ https://templatemo.com/tm-559-zay-shop
 					<div class="flex-fill">
 						<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
 							<li class="nav-item"><a class="nav-link fs-2"
-								href="index.html">홈</a></li>
+								href="index.jsp">홈</a></li>
 							<li class="nav-item"><a class="nav-link fs-2"
-								href="about.html">공지사항</a></li>
+								href="notice.jsp">공지사항</a></li>
 							<li class="nav-item"><a class="nav-link fs-2"
 								href="contact.html">동행</a></li>
 							<li class="nav-item"><a class="nav-link fs-2"
