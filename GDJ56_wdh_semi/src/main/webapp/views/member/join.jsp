@@ -63,7 +63,10 @@
   
           <tr>
             <td> 비밀번호 확인 </td>
-            <td> <input type="password" placeholder="비밀번호 재입력" style="font-variant-caps:unicase ;" size="25">   *비밀번호를 다시입력하여주세요. </td>
+            <td> 
+            	<input type="password" placeholder="비밀번호 재입력" style="font-variant-caps:unicase ;" size="25" id=password_2> <br>
+            	<span id="pwresult"></span>
+            </td>
           </tr>
   
           <tr>
@@ -131,6 +134,17 @@
     
     <script>
     $(function(){
+    	 //유효성검사
+        //1.비밀번호 일치여부 확인
+        $("#password_2").blur(e=>{
+        	const pw = $("#password").val();
+        	const pwck = $(e.target).val();
+        	if(pw==pwck){
+        		$("#pwresult").css("color","green").text("비밀번호가 일치합니다.");
+        	} else{
+        		$("#pwresult").css("color","red").text("비밀번호가 일치하지 않습니다");
+        	}
+        });
     	$("#modal").on("click",function(){
     		
     		let d = {
@@ -186,7 +200,7 @@
     			$("#email2").attr("readonly", "readonly");
     		}
     	});
-    })
+    });
     
     function execDaumPostcode() {
         new daum.Postcode({
@@ -235,7 +249,10 @@
             }
         }).open();
     }
-  
+  	
+   
+   
+    
     </script>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
