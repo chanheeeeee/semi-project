@@ -1,6 +1,7 @@
 package com.wdh.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,7 @@ import com.wdh.member.vo.Member;
 /**
  * Servlet implementation class NicknameDuplicate
  */
-@WebServlet("/member/nickDuplicate.do")
+@WebServlet("/member/nicknameDuplicate.do")
 public class NicknameDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,15 +31,22 @@ public class NicknameDuplicateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nickname = request.getParameter("member_id");
+		String nickname = request.getParameter("nickname");
+		//jsp에서 닉네임 가져옴
 		
-		System.out.println(nickname);
+		PrintWriter out = response.getWriter();
 		
 		Member m = new MemberService().NickNameDuplicate(nickname);
 		
-		request.setAttribute("member", m);
+		//성공여부확인
+		if(m!=null) {
+			System.out.println("이미 존재하는 닉네임 입니다.");
+		}else {
+			System.out.println("사용 가능한 닉네임 입니다.");
+		}
 		
-		request.getRequestDispatcher("/views/member/nickNameDuplicate.jsp" ).forward(request, response);
+		out.write(m + "");
+		
 	}
 
 	/**

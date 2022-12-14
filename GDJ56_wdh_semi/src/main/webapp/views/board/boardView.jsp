@@ -102,14 +102,14 @@
                                         </ul>
                                     </div>
                             </form>
-
-                        </div>
-                    </div>
+                        </div>                    
+                    </div>           
                 </div>
 			         <div style="text-align:center;">
 			            <input type="button" id="button1" name="update" value="수정">
 			            <input type="button" id="button1" name="delete" value="삭제" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
 			         </div>  
+
             </div>
         </div>
     </section>
