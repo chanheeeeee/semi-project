@@ -25,7 +25,7 @@
         </tr>
     </table> -->
     <br><br><br>
-	<form action="<%=request.getContextPath() %>/board/reviewboardend.do" method="post">
+	<form action="<%=request.getContextPath() %>/board/reviewboardend.do?memberNo=<%=loginMember.getMember_no() %>" method="post">
     <table id="writeTable2">
         <tr>
             <th colspan="4" style="text-align: center;">

@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.wdh.board.vo.Board;
+import com.wdh.board.vo.CopyFile;
 import com.wdh.board.vo.ReviewBoard;
 
 public class BoardDao {
@@ -63,6 +64,43 @@ public class BoardDao {
 		}finally {
 			close(pstmt);
 		}return result;
+	}
+	
+	public int insertFile(Connection conn, CopyFile f) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertFile"));
+			pstmt.setInt(1, f.getReviewSeq());
+			pstmt.setString(2, f.getFileOrg());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	public int deleteBoard(Connection conn, int wdNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("boardDelete"));
+			pstmt.setInt(1, wdNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	public int updateBoard(Connection conn, Board b) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("boardUpdate"));
+		}
 	}
 
 }

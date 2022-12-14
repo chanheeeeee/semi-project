@@ -65,7 +65,7 @@
                       <td>1.</td>
                       <td>즐거운 축구 모임</td>
                       <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lblue min-42">작성</button></td>
+                      <td><button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">작성</button></td>
                     
                     </tr>
                     <tr>
