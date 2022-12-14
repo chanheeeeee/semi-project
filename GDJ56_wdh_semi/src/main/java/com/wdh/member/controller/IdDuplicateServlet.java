@@ -33,7 +33,7 @@ public class IdDuplicateServlet extends HttpServlet {
 		String member_id = request.getParameter("member_id");
 		
 		//서비스 요청
-		Member m = new MemberService().Idduplicate(member_id);
+		Member m = new MemberService().memberView(member_id);
 		
 		request.setAttribute("member", m);
 		
