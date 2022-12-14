@@ -110,14 +110,15 @@ public class MemberDao {
 		return m;
 	}
 	
-	//아이디 중복
-	public Member Idduplicate(Connection conn, String member_id) {
+	//멤버 정보 - 아이디 중복, 뷰
+	public Member memberView(Connection conn, String member_id) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Member m = null;
 		
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("idDuplicate"));
+			pstmt=conn.prepareStatement(sql.getProperty("memberView"));
 			pstmt.setString(1, member_id);
 			
 			rs = pstmt.executeQuery();
@@ -133,8 +134,78 @@ public class MemberDao {
 		}
 		return m;
 	}
+	
+	public String memberGrade(Connection conn, String member_id) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String grade = null;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("memberGrade"));
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				grade = rs.getString("GRADE_NAME");
+				
+			}
+			
+		}  catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return grade;
+		
+	}
+
+
+	
+	//닉네임 중복
+	public Member NicknameDuplicate(Connection conn, String nickname) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("nickDuplicate"));
+			pstmt.setString(1, nickname);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				m = getMember(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+		
 
 	public static Member getMember(ResultSet rs) throws SQLException {
+
 		Member m = new Member();
 		
 		m.setMember_no(rs.getInt("MEMBER_NO"));
@@ -150,6 +221,8 @@ public class MemberDao {
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
 	}
+
+
 
 
 

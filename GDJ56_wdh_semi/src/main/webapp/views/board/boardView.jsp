@@ -65,7 +65,7 @@
                                     <h6>지역:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>**><%=b.getWdLocation() %></strong></p>
+                                    <p class="text-muted"><strong><%=b.getWdLocation() %></strong></p>
                                 </li>
                             </ul>
                             <ul class="list-inline">
@@ -134,13 +134,13 @@
 
             <!--Start comment_댓글-->
             <div id="carousel-related-product">
-            	<%-- <%if(comments.isEmpty()){ %>
+            	<%if(comments.isEmpty()){ %>
             		<h6>아직 작성된 댓글이 없습니다</h6>
             	
             	<%} else {
             	
 		   				for(BoardComment bc : comments){
-		   					if(bc.getBoardCommentLevel()==1){%>
+		   					if(bc.getWdCommentLev()==1){%>
 				                <div class="p-2 pb-3">
 				                    <div class="product-wap card rounded-0">
 				                        <div class="rounded-0">
@@ -153,10 +153,10 @@
 				                            </div>
 				                        </div>
 				                        <div class="card-body">
-				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getBoardCommentWriter() %>작성자</a>
+				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getMemberNo() %>작성자</a>
 				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-				                                <li><%=bc.getBoardCommentContent() %>댓글내용</li>
-				                            <p class="text-center mb-0"><%=bc.getBoardCommentDate() %>게시시간</p>
+				                                <li><%=bc.getWcContent() %>댓글내용</li>
+				                            <p class="text-center mb-0"><%=bc.getWcDate() %>게시시간</p>
 				                            </ul>
 				                        </div>
 				                    </div>
@@ -177,17 +177,17 @@
 				                            </div>
 				                        </div>
 				                        <div class="card-body">
-				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getBoardCommentWriter() %>작성자</a>
+				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getMemberNo() %>작성자</a>
 				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-				                                <li><%=bc.getBoardCommentContent() %>댓글내용</li>
-				                            <p class="text-center mb-0"><%=bc.getBoardCommentDate() %>게시시간</p>
+				                                <li><%=bc.getWcContent() %>댓글내용</li>
+				                            <p class="text-center mb-0"><%=bc.getWcDate() %>게시시간</p>
 				                            </ul>
 				                        </div>
 				                    </div>
 				                </div>
 				             <% }//for안 if
 		   				}//for
-		   			}//for밖 if%> --%>
+		   			}//for밖 if%>
                 
 
 			</div>
