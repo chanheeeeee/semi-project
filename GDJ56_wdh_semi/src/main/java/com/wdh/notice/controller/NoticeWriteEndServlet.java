@@ -1,4 +1,4 @@
-package com.wdh.notice.cotroller;
+package com.wdh.notice.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

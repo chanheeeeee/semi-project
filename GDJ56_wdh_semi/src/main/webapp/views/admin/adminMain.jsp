@@ -3,6 +3,10 @@
 
 <%@ include file="/views/common/adminHeader.jsp" %>
 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tiny.cloud/1/039h7ffovh5quv8pr4xa44xed4hu46wb9xqv3njmag70dndy/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 <!-- 관리자로 로그인해야 가능합니다 -->
 <%
 		/* if(loginMember == null || loginMember.getMemberLevel() < 1) {
@@ -23,7 +27,7 @@
 					<div class="container-fluid pt-4 px-4">
 		    			<div class="bg-light text-center rounded p-4">
 		        			<div class="d-flex align-items-center justify-content-between mb-4">
-		            			<h6 class="mb-0">공지 목록 </h6>
+		            			<h6 class="mb-0">공지 </h6>
 		            			<a href="<%=request.getContextPath()%>/views/admin/adminNotice.jsp">Show All</a>
 							</div>
 		
@@ -32,8 +36,8 @@
 		        					<thead>
 							            <tr class="text-dark">
 							                <th Style="text-align:center;" scope="col">번호</th>
+									        <th Style="text-align:center;" scope="col">제목</th>
 									        <th Style="text-align:center;" scope="col">내용</th>
-									        <th Style="text-align:center;" scope="col">작성자</th>
 									        <th Style="text-align:center;" scope="col">작성일</th>
 							    		</tr>
 									</thead>
@@ -63,7 +67,7 @@
 					<div class="container-fluid pt-4 px-4">
 						<div class="bg-light text-center rounded p-4">
 							<div class="d-flex align-items-center justify-content-between mb-4">
-					      		<h6 class="mb-0">회원 목록 [최근 가입순]</h6>
+					      		<h6 class="mb-0">회원 [최근 가입순]</h6>
 					        	<a href="<%=request.getContextPath()%>/views/admin/adminMemberList.jsp">Show All</a>
 							</div>
 		                    
@@ -74,19 +78,19 @@
 			                                <th Style="text-align:center;" scope="col">번호</th>
 			                                <th Style="text-align:center;" scope="col">아이디</th>
 			                                <th Style="text-align:center;" scope="col">이름</th>
-			                                <th Style="text-align:center;" scope="col">닉네임</th>		          
+			                                <th Style="text-align:center;" scope="col">이메일</th>		          
 			                            </tr>
 		                   			</thead>
 		                           
 		                           	<tbody>
-				                       <%--  <%
+				                      <%--  <%
 											for(Member m : memberList) {
 										%>
 											<tr>
 												<td><%=m.getMemberNo() %></td>
 												<td><%=m.getMemberId() %></td>
-												<td><%=m.getMemberName()() %></td>
-												<td><%=m.getMember() %></td>
+												<td><%=m.getMemberName() %></td>
+												<td><%=m.getMemberEmail() %></td>
 											</tr>
 										<%
 											}
@@ -103,7 +107,7 @@
 					<div class="container-fluid pt-4 px-4">
 						<div class="bg-light text-center rounded p-4">
 							<div class="d-flex align-items-center justify-content-between mb-4">
-					      		<h6 class="mb-0">문의목록</h6>
+					      		<h6 class="mb-0">문의</h6>
 					        	<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp">Show All</a>
 							</div>
 		                    
@@ -124,10 +128,10 @@
 				                        for(HashMap<String, Object> m : list){
 										%>
 											<tr>
-												<td><%=m.get("helpNo")%></td>
-												<td><%=m.get("helpM")%></td>
-												<td><%=m.get("memberId")%></td>
-												<td><%=m.get("helpCreatedate")%></td>
+												<td><%=m.get("")%></td>
+												<td><%=m.get("")%></td>
+												<td><%=m.get("")%></td>
+												<td><%=m.get("")%></td>
 												<%
 												if(m.get("") != null) {
 												%>
@@ -153,7 +157,7 @@
 					<div class="container-fluid pt-4 px-4">
 						<div class="bg-light text-center rounded p-4">
 							<div class="d-flex align-items-center justify-content-between mb-4">
-					      		<h6 class="mb-0">신고목록</h6>
+					      		<h6 class="mb-0">신고</h6>
 					        	<a href="<%=request.getContextPath()%>/admin/helpListAll.jsp">Show All</a>
 							</div>
 		                    

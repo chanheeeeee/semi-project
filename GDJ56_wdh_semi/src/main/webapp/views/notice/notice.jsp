@@ -17,7 +17,6 @@
                     <th>제목</th>
                     <th>작성자</th>
                     <th>작성일</th>
-                    <th>첨부파일</th>
                 </tr>
                 <%if(notice.isEmpty()){ %>
                 <tr>
@@ -29,15 +28,15 @@
                 <tr>
                 	<td><%=n.getNoticeNo() %></td>
                 	<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
+	                <td><%=n.getNoticeWriter() %></td>
+	                <td><%=n.getNoticeEnroll() %></td>
                 </tr>
-                <td><%=n.getNoticeWriter() %></td>
-                <td><%=n.getNoticeEnroll() %></td>
                 </table>
                 <%if(loginMember!=null&&
-                		loginMember.getUser_id().equals("admin")) {%>
-                	<button onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">글쓰기</button>
-                <%} 
-                }%>
+                      loginMember.getMember_id().equals("admin")) {%>
+                   <button onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">글쓰기</button>
+               		 	<%} 
+               	 	}%>
                 <%} %>
                 <br>
                 <%-- 페이징 처리 --%>

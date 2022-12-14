@@ -1,28 +1,29 @@
-package com.wdh.notice.cotroller;
+package com.wdh.admin.controller;
 
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.notice.model.service.NoticeService;
-import com.wdh.notice.model.vo.Notice;
+import com.wdh.admin.model.service.AdminService;
+import com.wdh.member.model.vo.Member;
 
 /**
- * Servlet implementation class NoticeListServlet
+ * Servlet implementation class SearchMemberListServlet
  */
-@WebServlet("/notice/noticeList.do")
-public class NoticeListServlet extends HttpServlet {
+@WebServlet("/admin/searchMember")
+public class SearchMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListServlet() {
+    public SearchMemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,56 +32,64 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//notice테이블에 있는 전체데이터를 가져와
-		//화면에 전달하는기능
+		// TODO Auto-generated method stub
+		String type=request.getParameter("searchType");
+		String keyword=request.getParameter("searchKeyword");
+		
 		int cPage;
-		int numPerpage;
+		int numPerpage=5;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
 		}catch(NumberFormatException e) {
 			cPage=1;
 		}
-		numPerpage=5;		
+				
 		
-		List<Notice> list=new NoticeService().selectNoticeList(cPage, numPerpage);
+		/*
+		 * List<Member> list= new AdminService().searchMemberList(type,
+		 * keyword,cPage,numPerpage);
+		 */
+		/* request.setAttribute("members", list); */
 		
 		String pageBar="";
-		int totalData=new NoticeService().selectNoticeCount();
+		
+		//전체 데이터 가져오기
+		//조건이 적용된 전체데이터가져오기!
+		int totalData=new AdminService().selectMemberCount(type,keyword);
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-		
 		int pageBarSize=5;
-		
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
-		
 		
 		if(pageNo==1) {
 			pageBar+="<span>[이전]</span>";
 		}else {
-			pageBar+="<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"'>[이전]</a>";
+			pageBar+="<a href='"+request.getRequestURI()
+			+"?searchType="+type+"&searchKeyword="+keyword+"&cPage="+(pageNo-1)+"'>[이전]</a>";
 		}
+		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
-				pageBar+="<a href='"+request.getRequestURL()+"?cPage="+(pageNo)+"'>"+pageNo+"</a>";
+				pageBar+="<a href='"+request.getRequestURI()
+				+"?searchType="+type+"&searchKeyword="+keyword+"&cPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
+		
 		if(pageNo>totalPage) {
 			pageBar+="<span>[다음]</span>";
 		}else {
-			pageBar+="<a href='"+request.getRequestURL()+"?cPage="+(pageNo)+"'>[다음]</a>";
+			pageBar+="<a href='"+request.getRequestURI()
+			+"?searchType="+type+"&searchKeyword="+keyword+"&cPage="+pageNo+"'>[다음]</a>";
 		}
 		
-		
-		request.setAttribute("notices", list);
-		request.setAttribute("pageBar", pageBar);
-		request.getRequestDispatcher("/views/admin/adminNotice.jsp")
-		.forward(request, response);
+		request.setAttribute("pageBar",pageBar);
 		
 		
-
+		RequestDispatcher rd=request.getRequestDispatcher("/views/member/memberList.jsp");
+		rd.forward(request, response);
 	
 	
 	

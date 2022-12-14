@@ -6,8 +6,6 @@ import java.util.List;
 import com.wdh.notice.model.dao.NoticeDao;
 import com.wdh.notice.model.vo.Notice;
 import static com.wdh.common.JDBCTemplate.*;
-import static com.wdh.common.JDBCTemplate.close;
-import static com.wdh.common.JDBCTemplate.getConnection;
 
 public class NoticeService {
 	private NoticeDao dao=new NoticeDao();
@@ -38,5 +36,30 @@ public class NoticeService {
 		close(conn);
 		return result;
 
+	}
+	
+	public int updateNotice(Notice n) {
+		Connection conn = getConnection();
+		int result = dao.updateNotice(conn, n);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}	
+	
+	
+	public int deleteNotice(int noticeNo) {
+		Connection conn = getConnection();
+		int result = dao.deleteNotice(conn, noticeNo);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
 	}
 }	

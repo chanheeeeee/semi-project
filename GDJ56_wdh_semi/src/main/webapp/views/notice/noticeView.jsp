@@ -6,41 +6,46 @@
 %>
 
 <%@ include file="/views/common/header.jsp" %>
+<style>
+   section#notice-container{width:600px; margin:0 auto; text-align:center;}
+   section#notice-container h2{margin:10px 0;}
+   table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
+   table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
+   table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
+</style>
+
   <div id="notice-container">
     <h2><strong>공지사항 상세페이지</strong></h2>
     <table id="tbl-notice">
-    	<tr>
-    		<td>제 목</td>
-    		<td><%=n.getNoticeTitle() %></td>
-    	</tr>
-    	<tr>
-    		<td>작 성 자</td>
-    		<td><%=n.getNoticeWriter() %></td>
-    	</tr>
-    	<tr>
-    		<td>내 용</td>
-    		<td><%=n.getNoticeContent() %></td>
-    	</tr>
-    	<tr>
-    		</td>
-    	</tr>
+        <tr>
+            <th>제 목</th>
+            <td><%=n.getNoticeTitle() %></td>
+        </tr>
+        <tr>
+            <th>작성자</th>
+            <td><%=n.getNoticeWriter() %></td>
+        </tr>
+        <tr>
+            <th>내 용</th>
+            <td><%=n.getNoticeContent() %></td>
+        </tr>
     	
-    <%if(loginMember!=null&&loginMember.getUser_id().equals("admin")) {%>
+    <%if(loginMember!=null&&loginMember.getMember_id().equals("admin")) {%>
     	<tr>
     		<th colspan="2">
-<%--     			<input type="button" value="수정하기" onclick="fn_updateNotice(<%=n.getNoticeNo() %>)" > --%>
+     			<input type="button" value="수정하기" onclick="fn_updateNotice(<%=n.getNoticeNo() %>)" >
     			<input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=n.getNoticeNo() %>);">
     		</th>
     	</tr>
-    		<%} %>
+    		 <%} %>
     </table>
   </div>
     
     <script>
-    	const fn_fileDown=(fileName)=>{
+    <%-- const fn_fileDown=(fileName)=>{
     		//다운로드 스크립트
     		location.assign("<%=request.getContextPath()%>/notice/fileDown.do?filename="+fileName);
-    	}
+    	} --%>
     	
     	const fn_deleteNotice=(noticeNo,fileName)=>{
     		//삭제 스크립트

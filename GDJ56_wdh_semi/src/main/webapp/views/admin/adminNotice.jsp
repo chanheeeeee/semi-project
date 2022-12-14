@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import="java.util.List,com.wdh.notice.model.vo.Notice" %>
+<%
+	List<Notice> notice=(List<Notice>)request.getAttribute("notice");
+%>
+   
+ 
  <%@ include file="/views/common/adminHeader.jsp" %> 
  
+<%
+	Notice n=(Notice)request.getAttribute("notice");
+%>
  
   <style>
         #test_btn1{
@@ -20,7 +28,7 @@
             color:white;
             background-color: cornflowerblue;
         }
-    </style>  
+    </style>  		 
     
 			<div id="layoutSidenav_content">
                 <main>
@@ -30,77 +38,23 @@
                             <li class="breadcrumb-item active">공지사항을 관리합니다.</li>
                         </ol>
                         <div id="btn_group">
-                        <p>선택된 항목을 <button id="test_btn1">삭제</button> <button id="test_btn1">수정</button> 합니다. 
-                        <button id="test_btn1" onclick="location.assign('<%=request.getContextPath()%>/notice/write.do');">공지 작성</button> 합니다.</p>
+                        <hr class="one">
+                        <p>선택된 항목을 <button id="test_btn1" onclick="location.assign('<%=request.getContextPath()%>/notice/write.do');">삭제</button> 
+                        <button id="test_btn1" onclick="location.assign('<%=request.getContextPath()%>/notice/write.do');">수정</button>
                         </div>
                         <hr class="one">
+                        
+                        <div style="text-align:center" id="tbl-board">
+       
+       		
+       		
+       		
+       		
+       		
+                        
 
-                        <div class="row">
-                            
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                        	<!-- 여기 체크박스는 전체선택이 되어야 한다  -->
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>작성자</th>
-                                            <th>작성일</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                            
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </main>
-                
-                
-                        </div>
-                    </div>
-                </footer>
+                       
             </div>
         </div>
+        
+       
