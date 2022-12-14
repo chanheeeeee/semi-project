@@ -3,7 +3,7 @@
 <%@ include file="/views/common/header.jsp" %>
 
 <div id="write-container">
-    <form action="<%=request.getContextPath() %>/board/writeboardend.do" method="post">
+    <form action="<%=request.getContextPath() %>/board/writeboardend.do?memberNo=<%=loginMember.getMember_no() %>" method="post">
 		<div class="wrap" style="margin-top: 3%;">
 			<select name="type" id="button1" onchange="selectValue()">
 				<option value="종목선택" style="text-align: center;">종목선택</option>

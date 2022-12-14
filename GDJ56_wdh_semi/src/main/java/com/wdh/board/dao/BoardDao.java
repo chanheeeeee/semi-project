@@ -1,5 +1,7 @@
 package com.wdh.board.dao;
 
+import static com.wdh.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,7 +10,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.wdh.board.vo.Board;
-import static com.wdh.common.JDBCTemplate.close;
 
 public class BoardDao {
 	
@@ -33,7 +34,7 @@ public class BoardDao {
 			pstmt.setString(3, b.getWdCategory());
 			pstmt.setString(4, String.valueOf(b.getWdGender()));
 			pstmt.setString(5, b.getWdContent());
-			pstmt.setDate(6, b.getWdDate());
+			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getDate()));
 			pstmt.setInt(7, b.getWdCount());
 			pstmt.setInt(8, b.getMemberNo());
 			pstmt.setString(9, b.getWdPurpose());

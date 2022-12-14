@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page %>
-<!DOCTYPE html>
+
+<%@ page import="com.wdh.del.model.vo.Declaration" %>
+<%
+	Declaration dcl=(Declaration)request.getAttribute("dcl");
+%>
+<%@ page import="com.wdh.member.vo.Member" %>
+<%
+	Member loginMember=(Member)session.getAttribute("loginMember");
+%>
+<!DOCTYhPE tml>
+<html>
 <head>
-    <title>고객센터 - 1대1 문의</title>
+    <title>고객센터 - 신고하기</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,6 +26,7 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/fontawesome.min.css">
+    
     <!-- Load fonts style after rendering the layout styles -->
 
 	<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
@@ -55,29 +65,59 @@
         </div>
     </nav>
     <!-- Close Header -->
-    <br>
-    <div style="text-align:center" id="tbl-board" style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
-        <h2><strong>1 대 1 문의 게시판</strong></h2>
-        <section id="board-container">
-            <table id="tbl-board">
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>첨부파일</th>
-                </tr>
-                <tr>
-                    <td colspan="5">조회된 게시판이 없습니다.</td>
-                    </tr>
-                </table>
-                <button onclick="location.href='<%=request.getContextPath()%>/views/cs/subQs.jsp'">글쓰기</button>
-                <br>
-                페이징처리
-            </section>
-            <br>
-        </div>
-
+    
+<div font-family:Jua;>
+    <div id="dcl-container">
+    	<h2><strong>신고하기 상세페이지</strong></h2>
+    		<table id="tbl-dcl">
+    			<tr>
+    				<th>제 목</th>
+    				<td><%=dcl.getDclTitle() %></td>
+    			</tr>
+    			<tr>
+    				<th>작 성 자</th>
+    				<!-- 작성자 번호 말고 아이디로 받아와야함 -->
+    				<td><%=dcl.getMemberNo() %></td>
+    			</tr>
+    			<tr>
+    				<th>첨부 파일</th>
+    				<td><%if(dcl.getFilePath()!=null){ %>
+    					<img src="<%=request.getContextPath() %>/images/file.png" width="20" onclick="fn_fileDown('<%=dcl.getFilePath() %>');">
+    					<%=dcl.getFilePath() %>
+    					<%}else{ %>
+    						첨부파일없음
+    					<%
+    					}%>
+    					</td>
+    			</tr>
+    			<tr>
+    				<th>내 용</th>
+    				<td><%=dcl.getDclContent() %></td>
+    			</tr>
+    			<!-- 관리자만 삭제할 수 있고 답변 할 수 있게 분기처리 -->
+    			<%if(loginMember!=null&&loginMember.getMember_id().equals("admin")){ %>
+    			<tr>
+    				<th colspan="2">
+    					<input type="button" value="답변" onclick="">
+    					<input type="button" value="삭제" onclick="fn_deleteDcl(<%=dcl.getDclNo() %>,'<%=dcl.getFilePath() %>');"> 
+    				</th>
+    			</tr>
+    			<%} %>
+    		</table>
+    <script>
+    	const fn_fileDown=(fileName)=>{
+    		//다운로드 스크립트
+    		location.assign("<%=request.getContextPath()%>/cs/fileDown.do?filename="+fileName);
+    	}
+    	const fn_deleteDcl=(dclNo,fileName)=>{
+    		//삭제하기 스크립트
+    		location.replace("<%=request.getContextPath()%>/cs/deleteDcl.do?no="+dclNo+"&fileName="+fileName);
+    	}
+    </script>
+    
+    
+    </div>
+</div>
 
 
 
