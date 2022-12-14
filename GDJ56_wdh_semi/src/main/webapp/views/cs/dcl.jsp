@@ -103,6 +103,7 @@
                 <%} 
                 }%>
            </table>
+           <br>
       <button onclick="location.href='<%=request.getContextPath()%>/views/cs/subDcl.jsp'">글쓰기</button>
       <br>
         <div id="pageBar">
