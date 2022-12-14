@@ -41,18 +41,36 @@ public class MemberService {
 	
 	//아이디 찾기
 	public Member searchMemberId(String name, String email){
+		
 		Connection conn = getConnection();
+		
 		Member m = dao.searchMemberId(conn, name, email);
+		
 		close(conn);
 		return m;
 	}
 	
-	//아이디 중복
-	public Member Idduplicate(String member_id) {
+	//멤버 정보 - 아이디 중복, 뷰
+	public Member memberView(String member_id) {
+		
 		Connection conn = getConnection();
-		Member m = dao.Idduplicate(conn,member_id);
+		
+		Member m = dao.memberView(conn,member_id);
+		
 		close(conn);
 		return m;
+		
+	}
+	
+	public String memberGrade(String member_id) {
+		
+		Connection conn = getConnection();
+		
+		String grade = dao.memberGrade(conn, member_id);
+		
+		close(conn);
+		
+		return grade;
 		
 	}
 	
