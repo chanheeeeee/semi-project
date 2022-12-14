@@ -10,7 +10,7 @@
 		<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" id="profile" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..."
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..."
                 							style="width: 200px; height: 200px;" /></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -33,7 +33,7 @@
                    <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px">
                     <form class="form-horizontal">
                       <div class="form-group row">
-                      	<span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
+                      	<span class="d-none d-lg-block"><img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
                       							src="<%=request.getContextPath() %>/assets/img/pocha.jpg" onclick="fn_upfile();" />
                       							<input type="file" name="upFile" style="display:none"></span>
                       </div>
@@ -49,14 +49,8 @@
 								console.dir(e.target);
 								const reader=new FileReader();
 								reader.onload=e=>{
-									
-									const img=$("#profile").attr({
-										src:e.target.result,
-										width:"200px",
-										height:"200px"
-									});
 				
-									$("img").attr("src",e.target.result);
+									$(".profile").attr("src",e.target.result);
 									
 								}
 								
