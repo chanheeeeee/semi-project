@@ -109,8 +109,8 @@
             <tr>
                 <th colspan="2">
                     <div class="wrap" style="margin: 5%;">
-                    	<button class="button" onclick="location.href='<%=request.getContextPath()%>/views/board/afterboardck.jsp';">이전</button>
-                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/board/afterwriteboard.do';">다음</button>
+                    	<button class="button" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">이전</button>
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/board/reviewboard.do?grade='+indexOn;">다음</button>
                     </div>
                 </th>
             </tr>
@@ -119,9 +119,11 @@
 
 
         <script>
+        	let indexOn=18;
             $( ".star_rating a" ).click(function() {
                 $(this).parent().children("a").removeClass("on");
                 $(this).addClass("on").prevAll("a").addClass("on");
+                indexOn=document.getElementsByClassName("on").length;
                 return false;
             });
         </script>

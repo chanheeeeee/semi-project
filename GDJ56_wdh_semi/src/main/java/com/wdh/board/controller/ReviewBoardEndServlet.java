@@ -2,27 +2,25 @@ package com.wdh.board.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService2;
-import com.wdh.board.vo.Board;
+import com.wdh.board.vo.ReviewBoard;
 
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class AfterWriteBoardEndServlet
  */
-@WebServlet("/board/boardView.do")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/board/reviewboardend.do")
+public class ReviewBoardEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardViewServlet() {
+    public ReviewBoardEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +29,17 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		String reviewTitle=request.getParameter("review_title");
+		String reviewContent=request.getParameter("review_content");
+		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
+		int score=(Integer.parseInt(request.getParameter("score")))/6;
+		System.out.println(reviewTitle+reviewContent+score);
+		ReviewBoard rb=ReviewBoard.builder()
+				.memberNo(memberNo).reviewTitle(reviewTitle).reviewContent(reviewContent)
+				.wdNo(22).reviewScore(score).build();
+		System.out.println(rb);
 		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		Board b = new BoardService2().selectBoard(boardNo);
-		
-		request.setAttribute("board", b);
-		
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
 	}
 
 	/**

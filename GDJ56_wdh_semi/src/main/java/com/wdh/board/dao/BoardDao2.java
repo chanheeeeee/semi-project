@@ -5,7 +5,6 @@ import static com.wdh.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,6 +64,24 @@ public class BoardDao2 {
 			close(rs);
 			close(pstmt);
 		}return result;
+	}
+	
+	public Board selectBoard(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Board b = null;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoard"));
+			pstmt.setInt(1, boardNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) b=getBoard(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return b;
 	}
 	
 	

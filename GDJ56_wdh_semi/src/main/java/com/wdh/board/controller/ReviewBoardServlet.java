@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class PostScriptServlet
  */
-@WebServlet("/board/afterwriteboard.do")
-public class AfterWriteBoardServlet extends HttpServlet {
+@WebServlet("/board/reviewboard.do")
+public class ReviewBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AfterWriteBoardServlet() {
+    public ReviewBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class AfterWriteBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/baord/afterboard.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/reviewboard.jsp").forward(request, response);
 	}
 
 	/**

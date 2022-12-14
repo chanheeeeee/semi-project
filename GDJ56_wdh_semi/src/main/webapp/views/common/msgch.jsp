@@ -13,9 +13,9 @@
 </head>
 <body>
 	<script>
-<%-- 		if(<%=msg%>!=null){
+ 		if(<%=msg%>!=null){
 			alert('<%=msg%>');
-		} --%>
+		} 
 <%-- 		alert('<%=msg%>'); --%>
 		location.replace("<%=request.getContextPath()%><%=loc%>");
 <%-- 		<%=script!=null?script:""%>
