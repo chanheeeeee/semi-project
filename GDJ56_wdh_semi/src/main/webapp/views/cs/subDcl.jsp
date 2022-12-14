@@ -56,11 +56,11 @@
         </div>
     </nav>
     <!-- Close Header -->
-
+<!-- 신고 글 작성하고 넘어 갈 서블릿에서 => msg.jsp로 넘어가기 -->
     <div style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
         <section id="notice-container">
                 <h2><strong>신고하기 글 작성</strong></h2>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="<%=request.getContextPath() %>/cs/writeEnd.do" method="post" enctype="multipart/form-data">
                 <table id="tbl-board" border="1">
                 <tr>
                     <th>신 고 제 목</th>

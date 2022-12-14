@@ -42,7 +42,7 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/advertisement.jsp">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/del.jsp">신고하기</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/qs.jsp">1대1 문의</a>

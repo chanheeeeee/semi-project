@@ -15,9 +15,12 @@ public class Declaration {
 	private int dclNo;
 	private String dclTitle;
 	private String dclContent;
-	private Date dclDatel;
+	private Date dclDate;
 	private String dclHeadTitle;
 	private char dclResult;
 	private int memberNo;
+	private String filePath;
+//	private String dclOriginalFileName;
+//	private String dclRenameFileName;
 	
 }

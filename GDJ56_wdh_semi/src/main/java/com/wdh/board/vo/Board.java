@@ -1,6 +1,6 @@
 package com.wdh.board.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.Builder;
 import lombok.Data;

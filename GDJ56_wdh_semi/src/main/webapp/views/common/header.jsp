@@ -112,7 +112,7 @@
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/board/boardList.do">동행</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a></li>
-							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/cs/advertisement.jsp">고객센터</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/cs/spon.do">고객센터</a></li>
 						</ul>
 					</div>
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
