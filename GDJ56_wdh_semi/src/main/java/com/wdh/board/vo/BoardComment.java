@@ -1,6 +1,7 @@
 package com.wdh.board.vo;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,12 +9,11 @@ import lombok.Data;
 @Data
 @Builder
 public class BoardComment {
-	private int boardCommentNo;
-	private int boardCommentLevel;
-	private String boardCommentWriter;
-	private String boardCommentContent;
-	private int boardRef;
-	private int boardCommentRef;
-	private Date boardCommentDate;
-	
+	private int commentNo;
+	private String wcContent;
+	private Date wcDate;
+	private int wcNo;
+	private int memberNo;
+	private int wdCommentRef;
+	private int wdCommentLev;
 }
