@@ -12,16 +12,16 @@ import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class IdDuplicateServlet
+ * Servlet implementation class NicknameDuplicate
  */
-@WebServlet("/member/idduplicate.do")
-public class IdDuplicateServlet extends HttpServlet {
+@WebServlet("/member/nickDuplicate.do")
+public class NicknameDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IdDuplicateServlet() {
+    public NicknameDuplicateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,16 +30,15 @@ public class IdDuplicateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String member_id = request.getParameter("member_id");
+		String nickname = request.getParameter("member_id");
 		
-		System.out.println(member_id );
+		System.out.println(nickname);
 		
-		//서비스 요청
-		Member m = new MemberService().Idduplicate(member_id);
+		Member m = new MemberService().NickNameDuplicate(nickname);
 		
 		request.setAttribute("member", m);
 		
-		request.getRequestDispatcher("/views/member/idDuplicate.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/nickNameDuplicate.jsp" ).forward(request, response);
 	}
 
 	/**

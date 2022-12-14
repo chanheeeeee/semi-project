@@ -55,6 +55,14 @@ public class MemberService {
 		return m;
 		
 	}
+
+	//닉네임 중복
+	public Member NickNameDuplicate(String nickname) {
+		Connection conn = getConnection();
+		Member m = dao.NicknameDuplicate(conn, nickname);
+		close(conn);
+		return m;
+	}
 	
 	
 	

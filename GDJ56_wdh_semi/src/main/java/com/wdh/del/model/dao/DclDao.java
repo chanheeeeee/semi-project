@@ -23,6 +23,8 @@ public class DclDao {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	public List<Declaration> searchDcl(Connection conn, int cPage, int numPerpage){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -42,6 +44,7 @@ public class DclDao {
 			close(pstmt);
 		}return result;
 	}
+	
 	public int selectDclCount(Connection conn) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -59,6 +62,8 @@ public class DclDao {
 			close(pstmt);
 		}return count;
 	}
+	
+	
 	public int insertDcl(Connection conn, Declaration dcl) {
 		PreparedStatement pstmt=null;
 		int result=0;
@@ -76,6 +81,8 @@ public class DclDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	
 	public Declaration selectDcl(Connection conn, int no) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
