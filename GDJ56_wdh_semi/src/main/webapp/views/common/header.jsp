@@ -145,10 +145,7 @@
 			
 		});
 		 
-		 <%-- $("#mypage").on("click", function(){
-			$("#frm").attr("action", "<%=request.getContextPath()%>/mypage/about.do");
-			$("#frm").submit();
-		 }); --%>
+		
 	 
 	</script>
     <!-- Close Header -->
