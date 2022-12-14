@@ -6,6 +6,9 @@ public class SHA256 {
 
 	
 	public static String getSHA256(String input) {
+		//  위 소스코드를 보시면 솔트(Salt) 부분이 들어가있는 것을 알 수 있습니다. 
+		//해시 데이터를 생성할 때 악의적인 목적을 가진 공격자가 원래의 데이터를 
+		//파악하기 더욱 어렵게 만들어 줄 수 있다.
 		StringBuffer result = new StringBuffer();
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -20,7 +23,8 @@ public class SHA256 {
 			}
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
+		return result.toString();
 	}
 }
