@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AfterBoard {
+public class ReviewBoard {
 
 	private int reviewSeq;
 	private int memberNo;
