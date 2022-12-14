@@ -52,18 +52,42 @@
         <tr>
         <td >닉네임 </td>
             <td>
-              <input type="text" id="nickname" placeholder="영문,숫자 5~11자"  style="font-variant-caps:unicase ;" size="25">
-              <input type="button" value="중복확인" style="font-family:Jua;" >
+              <input type="text" id="nickname"  placeholder="한글,숫자 2~7자"  style="font-variant-caps:unicase ;" size="25">
+              <input type="button" value="중복확인" style="font-family:Jua;" onclick="fn_idduplicate2();" >
             </td>
           </tr>
           <tr>
+          
+          <script>
+          	const fn_idduplicate2=()=>{
+          		const nickname = $("#nickname").val();
+          		if(nickname.trim().length<2){
+          			alert('닉네임은 한글,숫자 포함 2~7자 입니다.');
+          			$("#nickname").val('');
+          			$("#nickname").focus();
+          			
+          		} else{
+          			//팝업 생성 방법
+          			$("#member_id").val(nickname);		//닉네임값을 넣음
+          			const title = "nickDuplicateFrm";
+          			open("","nickDuplicateFrm","width=300,height=300");
+          			duplicateIdFrm.method="post";
+          			duplicateIdFrm.action="<%=request.getContextPath()%>/member/nickDuplicate.do";
+          			duplicateIdFrm.target=title;
+          			duplicateIdFrm.submit();
+          		}
+          	}
+          </script>
             <td> 비밀번호 </td>
             <td> <input type="password" id="password" placeholder="숫자,영문,특수문자 조합 최소 8자"  style="font-variant-caps:unicase ;" size="25"> </td>
           </tr>
   
           <tr>
             <td> 비밀번호 확인 </td>
-            <td> <input type="password" placeholder="비밀번호 재입력" style="font-variant-caps:unicase ;" size="25">   *비밀번호를 다시입력하여주세요. </td>
+            <td> 
+            	<input type="password" placeholder="비밀번호 재입력" style="font-variant-caps:unicase ;" size="25" id=password_2> <br>
+            	<span id="pwresult"></span>
+            </td>
           </tr>
   
           <tr>
@@ -131,6 +155,19 @@
     
     <script>
     $(function(){
+    	 //유효성검사
+        //1.비밀번호 일치여부 확인
+        $("#password_2").keyup(e=>{
+        	const pw = $("#password").val();
+        	const pwck = $(e.target).val();
+        	if(pw==pwck){
+        		$("#pwresult").css("color","green").text("비밀번호가 일치합니다.");
+        	}else{
+        		$("#pwresult").css("color","red").text("비밀번호가 일치하지 않습니다");
+        	}
+        });
+    	 
+    	 
     	$("#modal").on("click",function(){
     		
     		let d = {
@@ -159,8 +196,6 @@
 					} else {
 						$("#exampleModal2").modal("show");
 					}
-					
-					
 				},error:function(e,r,m){
 					console.log(e);
 					console.log(r);
@@ -186,7 +221,7 @@
     			$("#email2").attr("readonly", "readonly");
     		}
     	});
-    })
+    });
     
     function execDaumPostcode() {
         new daum.Postcode({
@@ -235,7 +270,10 @@
             }
         }).open();
     }
-  
+  	
+   
+   
+    
     </script>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
