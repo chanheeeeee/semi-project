@@ -1,6 +1,6 @@
 package com.wdh.member.dao;
 
-import static com.wdh.common.JDBCTemplate.*;
+import static com.wdh.common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+
+import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
 import com.wdh.member.vo.Member;
 
@@ -81,14 +84,64 @@ public class MemberDao {
 		return result;
 	}
 
+	public Member searchMemberId(Connection conn, String name, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchId"));
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				m = new Member();
+				m.setMember_id(rs.getString("MEMBER_ID"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
+	
+	//아이디 중복
+	public Member Idduplicate(Connection conn, String member_id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("idDuplicate"));
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				m = getMember(rs);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
+
 	private Member getMember(ResultSet rs) throws SQLException {
 		Member m = new Member();
 		
 		m.setMember_no(rs.getInt("MEMBER_NO"));
 		m.setMember_id(rs.getString("MEMBER_ID"));
 		m.setMember_nickname(rs.getString("MEMBER_NICKNAME"));
-		m.setName(rs.getString("NAME"));
-		m.setPassword(rs.getString("PASSWORD"));
+		m.setName(rs.getString("MEMBER_NAME"));
+		m.setPassword(rs.getString("MEMBER_PASSWORD"));
 		m.setGender(rs.getString("GENDER").charAt(0));
 		m.setBirth(rs.getDate("BIRTH"));
 		m.setEmail(rs.getString("EMAIL"));
@@ -97,6 +150,12 @@ public class MemberDao {
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
 	}
+
+
+
+
+
+
 
 
 

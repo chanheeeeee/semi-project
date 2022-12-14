@@ -11,12 +11,37 @@
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
         </ol>
-        <div class="carousel-inner">
+        
+		<div class="carousel-inner">
+            <div class="carousel-item active">
+            	<div class="container">
+	            	<div class="row p-5">
+	                	<img class="img-fluid" src="<%=request.getContextPath()%>/images/ad2.png" alt="" width="100%">
+	                </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+            	<div class="container">
+	            	<div class="row p-5">
+						<img class="img-fluid" src="<%=request.getContextPath()%>/images/ad1.png" alt="" width="100%">
+					</div>
+				</div>
+            </div>
+            <div class="carousel-item">
+            	<div class="container">
+	            	<div class="row p-5">
+						<img class="img-fluid" src="<%=request.getContextPath()%>/images/ad3.png" alt="" width="100%">
+					</div>
+				</div>
+            </div>
+        </div>
+        
+        <%-- <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="container">
                     <div class="row p-5">
                         <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="<%=request.getContextPath() %>/images/ad2.png" alt="" width="100%">
+                            <img class="img-fluid" src="<%=request.getContextPath()%>/images/ad2.png" alt="" width="100%">
                         </div>
                     </div>
                 </div>
@@ -39,7 +64,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --%>
         <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
             <i class="fas fa-chevron-left"></i>
         </a>

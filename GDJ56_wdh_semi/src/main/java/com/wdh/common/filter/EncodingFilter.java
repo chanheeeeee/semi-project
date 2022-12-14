@@ -1,7 +1,6 @@
 package com.wdh.common.filter;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -11,10 +10,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 
+/**
+ * Servlet Filter implementation class EncodingFilter
+ */
 @WebFilter("/*")
 public class EncodingFilter extends HttpFilter implements Filter {
-	
-	public EncodingFilter() {
+       
+    /**
+     * @see HttpFilter#HttpFilter()
+     */
+    public EncodingFilter() {
         super();
         // TODO Auto-generated constructor stub
     }
