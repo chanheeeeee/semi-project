@@ -172,6 +172,12 @@
                 <%} 
             	} %>
         </div>
+        <style>
+        a {
+  			text-decoration: none;
+		}
+        </style>
+        
 
         <!-- 페이징처리 -->
         <div id="pageBar">

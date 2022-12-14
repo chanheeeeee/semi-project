@@ -51,7 +51,7 @@
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark"><%=b.getMemberNo() %> | <%=b.getWdTime() %></span>
+                                <span class="list-inline-item text-dark"><%=b.getMemberNo()%> | <%=b.getWdTime() %></span>
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
