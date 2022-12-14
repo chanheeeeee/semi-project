@@ -1,12 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ page import="java.util.List,com.wdh.board.model.vo.*" %>
+<%@ page import="java.util.List,com.wdh.board.vo.*" %>
 <%
-	Board b=(Board)request.getAttribute("board");
+	Board b = (Board)request.getAttribute("board");
 	List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
-%> --%>
+%>
 
 <%@ include file="/views/common/innerheader.jsp" %>
+<!-- innerheader에 없어서 스타일 일단 여기에 줌 -->
+<!-- Load fonts style after rendering the layout styles -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/fontawesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">
 
 <!-- Modal -->
     <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -35,22 +42,22 @@
                 <div class="col-lg-7 mt-5 container py-5">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2"><%-- <%=b.getBoardTitle() %> --%>제목</h1>
-                            <p class="h3 py-2">종목</p>
+                            <h1 class="h2"><%=b.getWdTitle() %></h1>
+                            <p class="h3 py-2"><%=b.getWdCategory() %></p>
                             <p class="py-2">
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark">작성자 | 게시시간</span>
+                                <span class="list-inline-item text-dark"><%=b.getMemberNo() %> | <%=b.getWdTime() %></span>
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <h6>목적:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>친목/취미 등등..의 목적</strong></p>
+                                    <p class="text-muted"><strong><%=b.getWdPurpose() %></strong></p>
                                 </li>
                             </ul>
                             <ul class="list-inline">
@@ -58,7 +65,7 @@
                                     <h6>지역:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>**> **구</strong></p>
+                                    <p class="text-muted"><strong>**><%=b.getWdLocation() %></strong></p>
                                 </li>
                             </ul>
                             <ul class="list-inline">
@@ -66,7 +73,7 @@
                                     <h6>성별:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>여/남/무관</strong></p>
+                                    <p class="text-muted"><strong><%=b.getWdGender() %></strong></p>
                                 </li>
                             </ul>
                             <ul class="list-inline">
@@ -74,22 +81,12 @@
                                     <h6>모임날짜:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>**년**월**일</strong></p>
+                                    <p class="text-muted"><strong><%=b.getWdDate() %></strong></p>
                                 </li>
                             </ul>
 
                             <h6>글내용</h6>
-                            <p>초보환영</p>
-                            <h6>Specification:</h6>
-                            <ul class="list-unstyled pb-3">
-                                <li>Lorem ipsum dolor sit</li>
-                                <li>Amet, consectetur</li>
-                                <li>Adipiscing elit,set</li>
-                                <li>Duis aute irure</li>
-                                <li>Ut enim ad minim</li>
-                                <li>Dolore magna aliqua</li>
-                                <li>Excepteur sint</li>
-                            </ul>
+                            <p><%=b.getWdContent() %></p>
 
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">

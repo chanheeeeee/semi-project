@@ -1,15 +1,16 @@
 package com.wdh.board.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
 
 /**
  * Servlet implementation class BoardViewServlet
@@ -31,8 +32,13 @@ public class BoardViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/views/board/boardView.jsp");
-		rd.forward(request, response);
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		Board b = new BoardService2().selectBoard(boardNo);
+		
+		request.setAttribute("board", b);
+		
+		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
 	}
 
 	/**
