@@ -13,10 +13,10 @@
 </head>
 <body>
 	<script>
- 		if(<%=msg%>!=null){
+ 		if(<%=!msg.equals("")%>){
 			alert('<%=msg%>');
-		} 
-<%-- 		alert('<%=msg%>'); --%>
+		}
+
 		location.replace("<%=request.getContextPath()%><%=loc%>");
 <%-- 		<%=script!=null?script:""%>
 		opener.location.replace("/logout");close(); --%>

@@ -70,6 +70,7 @@ public class MemberService {
 		return m;
 	}
 	
+	//멤버 등급
 	public String memberGrade(String member_id) {
 		
 		Connection conn = getConnection();

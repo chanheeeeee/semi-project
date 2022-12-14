@@ -1,30 +1,23 @@
-package com.wdh.board.controller;
+package com.wdh.mypage.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService2;
-import com.wdh.board.vo.Board;
-import com.wdh.board.vo.BoardComment;
-import com.wdh.board.vo.ReviewBoard;
-
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class UpdateMemberEndServlet
  */
-@WebServlet("/board/boardView.do")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/mypage/updateMemberEnd.do")
+public class UpdateMemberEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardViewServlet() {
+    public UpdateMemberEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +26,8 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		Board b = new BoardService2().selectBoard(boardNo);
-		List<BoardComment> bcList = new BoardService2().selectBoardComment(boardNo);
-		List<ReviewBoard> rbList = new BoardService2().selectReviewBoard(boardNo);
-		
-		request.setAttribute("board", b);
-		request.setAttribute("comments", bcList);
-		request.setAttribute("reviews", rbList);
-		
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
