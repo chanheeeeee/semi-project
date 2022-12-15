@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.wdh.board.vo.*" %>
+<% Board b = (Board)request.getAttribute("board"); %>
 <%@ include file="/views/common/header.jsp" %>
 
     <div class="container">
@@ -15,15 +17,15 @@
 <table id="info">
 	<tr>
 		<th>참여동행</th>
-		<td>정보가져오기~~</td>
+		<td><%=b.getWdTitle() %></td>
 		<th>동행자 닉네임</th>
-		<td>정보가져오기~~</td>
+		<td><%=b.getMemberNo() %></td>
 	</tr>
 	<tr>
 		<th>참여날짜</th>
-		<td>정보가져오기~~</td>
+		<td><%=b.getWdDate() %></td>
 		<th>운동종목</th>
-		<td>정보가져오기~~</td>
+		<td><%=b.getWdCategory() %></td>
 	</tr>
 </table>
     
@@ -77,10 +79,10 @@
 	  content: none;
 	}
 	.progressbar li.active {
-	  color: green;
+	  color: blue;
 	}
 	.progressbar li.active:before {
-	  border-color: green;
+	  border-color: blue;
 	} 
 /* 	.progressbar li.active + li:after {
 	  background-color: green;

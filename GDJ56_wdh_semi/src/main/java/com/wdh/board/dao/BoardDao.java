@@ -36,7 +36,7 @@ public class BoardDao {
 			pstmt.setString(3, b.getWdCategory());
 			pstmt.setString(4, String.valueOf(b.getWdGender()));
 			pstmt.setString(5, b.getWdContent());
-			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getDate()));
+			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getTime()));
 			pstmt.setInt(7, b.getWdCount());
 			pstmt.setInt(8, b.getMemberNo());
 			pstmt.setString(9, b.getWdPurpose());

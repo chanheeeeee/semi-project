@@ -104,10 +104,22 @@
                         </div>                    
                     </div>           
                 </div>
+                <%if(loginMember.getMember_no()==b.getMemberNo()) {%>
 			         <div style="text-align:center;">
 			            <input type="button" id="button1" name="update" value="수정" onclick="location.href='<%=request.getContextPath()%>/board/boardupdate.do?boardNo=<%=b.getWdNo()%>';">
-			            <input type="button" id="button1" name="delete" value="삭제" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
+			            <input type="button" id="button1" name="delete" value="삭제" onclick="delete1()">
+						<input type="hidden" name="delete" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
 			         </div>  
+			    <%} %>
+			    
+			    <script>
+			    	const delete1=()=> {
+			    		if(confirm("삭제하시겠습니까?")==true){
+			    			//확인버튼 누르면 hidden된 주소 이동시켜주는 input 실행시켜주기 (다른방법?)
+			    			document.getElementsByName("delete")[1].click();
+			    		}
+			    	}
+			    </script>
 				</form>
             </div>
         </div>

@@ -80,7 +80,7 @@
                       <td><%= b.getWdTitle() %></td>
                       <td><%= b.getWdTime() %></td>
                       <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">작성</button>
+                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/board/reviewcheckboard.do?boardNo=<%=b.getWdNo()%>';">작성</button>
                       </td>
                     </tr>
                    <% 	}
