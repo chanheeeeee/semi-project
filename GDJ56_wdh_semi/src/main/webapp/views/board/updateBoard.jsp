@@ -45,8 +45,8 @@
 			<tr>
 				<th style="font-size: 13px;">성별</th>
 				<td>
-					&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="여" <%=b.getWdGender().equals("F")?"checked":"" %>>  여
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="M" <%=b.getWdGender().equals("남")?"checked":"" %>>  남
+					&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="여" <%=b.getWdGender().equals("여")?"checked":"" %>>  여
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="남" <%=b.getWdGender().equals("남")?"checked":"" %>>  남
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="무관" <%=b.getWdGender().equals("무관")?"checked":"" %>>  무관
 				</td>
 				<th>목적</th>

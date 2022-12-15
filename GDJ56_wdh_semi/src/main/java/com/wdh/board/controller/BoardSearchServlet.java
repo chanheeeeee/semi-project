@@ -13,16 +13,16 @@ import com.wdh.board.service.BoardService2;
 import com.wdh.board.vo.Board;
 
 /**
- * Servlet implementation class BoardListSevlet
+ * Servlet implementation class SearchBoard
  */
-@WebServlet("/board/boardList.do")
-public class BoardListServlet extends HttpServlet {
+@WebServlet("/board/boardSearch.do")
+public class BoardSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListServlet() {
+    public BoardSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,6 +31,10 @@ public class BoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String searchKeyword = request.getParameter("searchKeyword");
+		String gender = request.getParameter("gender");
+		String goal = request.getParameter("goal");
+		String event = request.getParameter("event");
 		
 		int cPage;
 		try {
@@ -43,15 +47,42 @@ public class BoardListServlet extends HttpServlet {
 		try {
 			numPerpage=Integer.parseInt(request.getParameter("numPerpage"));
 		}catch(NumberFormatException e) {
-			numPerpage=12; //페이지당 출력될 데이터 개수
+			numPerpage=12;
 		}
 		
-		List<Board> list = new BoardService2().selectBoardList(cPage, numPerpage);
+		String sql = "";
+		String where = " 1=1 $COL"; //where 1=1 $COL
+		
+		if(searchKeyword!=null) {
+			sql += "and WD_CONTENT LIKE '%"+searchKeyword+"%'";
+		}
+		if(gender!=null) {
+			sql += "and WD_GENDER LIKE '%"+gender+"%'";
+		}
+		if(goal!=null) {
+			sql += "and WD_PURPOSE LIKE '%"+goal+"%'";
+		}
+		
+		if(event!=null) { 
+			sql += "and WD_CATEGORY LIKE '%"+event+"%'";
+		}
+		 
+		where = where.replace("$COL", sql);
+		System.out.println(where);
+		
+		
+		
+		
+		
+		
+		
+		List<Board> list = new BoardService2().selectBoardList(where, searchKeyword, cPage, numPerpage);
+		//지도, 날짜도
 		
 		int totalData = new BoardService2().selectBoardCount();
 		
 		int pageBarSize = 5;
-		String pageBar = ""; //밑에서생성할것
+		String pageBar = "";
 		
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 				

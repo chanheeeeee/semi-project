@@ -68,6 +68,50 @@ public class BoardDao2 {
 		}return result;
 	}
 	
+	/*public List<Board> selectBoardList(Connection conn, String searchKeyword, int cPage, int numPerpage){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Board> list = new ArrayList();
+		String query=sql.getProperty("selectBoardListKeyword");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%"+searchKeyword+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getBoard(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}*/
+	public List<Board> selectBoardList(Connection conn, String where, String searchKeyword, int cPage, int numPerpage){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Board> list = new ArrayList();
+		String query=sql.getProperty("selectBoardListCol");
+		query=query.replace("$COL", where);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getBoard(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	
 	public Board selectBoard(Connection conn, int boardNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

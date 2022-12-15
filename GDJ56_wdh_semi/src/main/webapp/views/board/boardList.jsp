@@ -5,7 +5,7 @@
 %>
 
 
-<%@ include file="/views/common/innerheader.jsp" %>
+<%@ include file="/views/common/header.jsp" %>
     <script	src="<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
 <!-- innerheader에 없어서 스타일 일단 여기에 줌 -->
 <!-- Load fonts style after rendering the layout styles -->
@@ -25,25 +25,6 @@
             color: #0066ff;
         }
     </style>
-    <!-- Modal -->
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="w-100 pt-1 mb-5 text-right">
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <form action="" method="get" class="modal-content modal-body border-0 p-0">
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="inputModalSearch" name="q"
-                        placeholder="Search ...">
-                    <button type="submit" class="input-group-text bg-success text-light">
-                        <i class="fa fa-fw fa-search text-white"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 
 
     <section class="bg-success py-5">
@@ -53,9 +34,10 @@
                 <div class="col-md-8 text-white">
                     <p>
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control" id="inputModalSearch" name="q"
+                        <input type="text" class="form-control" id="inputKeywordSearch"
                             placeholder="Search ...">
-                        <button type="submit" class="input-group-text bg-success text-light">
+                        <button class="input-group-text bg-success text-light" 
+                        onclick="fn_searchSubmit();"> <!-- 검색할 함수 -->
                             <i class="fa fa-fw fa-search text-white"></i>
                         </button>
                     </div>
@@ -72,20 +54,21 @@
                         <%@ include file="/views/board/map3.jsp" %>
                     </div>
                     <div>슬라이드 메뉴
-                        <form action="" method="get">
-                            <div>
+                        <form name="searchFrm" action="<%=request.getContextPath()%>/board/boardSearch.do" method="post">
+                        <!-- 폼에 이름주고 폼 안에 있는 태그(이름으로)접근해서 값을 가져올 수 있다 -->
+                            <div id="gender"><!-- WD_GENDER -->
                                 성별
-                                <label><input type="radio" name="gender" value="여">여</label>
-                                <label><input type="radio" name="gender" value="남">남</label>
+                                <label><input type="radio" name="gender" value="F">여</label>
+                                <label><input type="radio" name="gender" value="M">남</label>
                                 <label><input type="radio" name="gender" value="무관">무관</label>
                             </div>
-                            <div>
+                            <div id="goal"><!-- WD_PURPOSE -->
                                 목적
                                 <label><input type="radio" name="goal" value="취미">취미</label>
                                 <label><input type="radio" name="goal" value="친목">친목</label>
                                 <label><input type="radio" name="goal" value="다이어트">다이어트</label>
                             </div>
-                            <div>
+                            <div id="event"><!-- WD_CATEGORY -->
                                 종목
                                 <!-- <label><input type="checkbox" name="event" value="구기" checked> 구기</label> -->
                                 <label><input type="checkbox" name="event" value="구기"> 구기</label>
@@ -99,8 +82,11 @@
                                 <input type="date" name="date" max="2022-12-31" min="2022-01-01">-
                                 <input type="date" name="date" max="2022-12-31" min="2022-01-01">
                             </div>
-
-                            <input type="submit" value="전송">
+							<input type="hidden" name="searchKeyword">
+							<input type="hidden" name="gender" id="gender">
+							<input type="hidden" name="goal">
+							<input type="hidden" name="event">
+							<input type="hidden" name="address">
                         </form>
                     </div>
                 </div>
@@ -120,6 +106,12 @@
         $("#slideToggleAdd").click(e => {
             $("#container>div").slideToggle(2000);
         })
+        const fn_searchSubmit = ()=>{
+        	searchFrm.searchKeyword.value = $("#inputKeywordSearch").val(); /* 인풋에 입력한 값을 히든searchKeyword에 넣어주고 서브밋해주는 함수 */
+        	searchFrm.address.value = address;
+        	/* 나머지는 이미 value에 들어가 있음 */
+        	searchFrm.submit();
+        }
     </script>
 
     <!-- Start Section -->
@@ -138,6 +130,7 @@
 수상 : https://images.unsplash.com/photo-1560089000-7433a4ebbd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHNwb3J0fGVufDB8MXwwfHw%3D&auto=format&fit=crop&w=500&q=60
 등산 : https://images.unsplash.com/photo-1627551885247-f9301e1d6101?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGhpa2luZ3xlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60
 기타 : https://images.unsplash.com/photo-1610768764270-790fbec18178?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODJ8fHNwb3J0fGVufDB8MXwwfHw%3D&auto=format&fit=crop&w=500&q=60
+구기, 유산소, 수상, 기타
 
 -->
 		
@@ -149,10 +142,10 @@
 	                String categoryImg = null;
 	                switch(b.getWdCategory()){
 	                case "구기" : categoryImg = "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8c29jY2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60";break;
-	                case "육상" : categoryImg = "https://images.unsplash.com/photo-1500468756762-a401b6f17b46?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bWFyYXRob258ZW58MHwxfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60";break;
+	                case "유산소" : categoryImg = "https://images.unsplash.com/photo-1643039686503-d3d6adb4e18a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80";break;
 	                case "수상" : categoryImg = "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fHNwb3J0fGVufDB8MXwwfHw%3D&auto=format&fit=crop&w=500&q=60";break;
-	                case "등산" : categoryImg = "https://images.unsplash.com/photo-1627551885247-f9301e1d6101?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzl8fGhpa2luZ3xlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60";break;
 	                case "기타" : categoryImg = "https://images.unsplash.com/photo-1597769555495-c54a15cd8c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80";break;
+	                default : categoryImg = "https://images.unsplash.com/photo-1597769555495-c54a15cd8c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80";break;
                 	}%>
 	                <div class="col-md-6 col-lg-3 pb-5">
 	                    <div class="h-100 py-5 services-icon-wap shadow">
