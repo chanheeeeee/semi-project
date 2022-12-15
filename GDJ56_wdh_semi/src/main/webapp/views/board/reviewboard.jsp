@@ -25,7 +25,7 @@
         </tr>
     </table> -->
     <br><br><br>
-	<form action="<%=request.getContextPath() %>/board/reviewboardend.do" method="post">
+	<form action="<%=request.getContextPath() %>/board/reviewboardend.do?memberNo=<%=loginMember.getMember_no() %>" method="post">
     <table id="writeTable2">
         <tr>
             <th colspan="4" style="text-align: center;">
@@ -45,7 +45,6 @@
             <th colspan="4">
                 <div class="wrap" style="margin: 5%;">
                 	<button class="button" onclick="location.replace('<%=request.getContextPath()%>/board/grade.do');">이전</button>&nbsp;&nbsp;&nbsp;
-                    <%-- <button class="button" onclick="location.replace('<%=request.getContextPath()%>/board/reviewboardend.do');">등록</button> --%>
                     <input type="submit" class="button" value="등록">
                     <input type="hidden" name="score" value="<%=request.getParameter("grade")%>">
                 </div>

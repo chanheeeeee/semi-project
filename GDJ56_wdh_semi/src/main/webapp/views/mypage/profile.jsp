@@ -5,7 +5,8 @@
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..." /></span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" id="profile" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..."
+                							style="width: 200px; height: 200px;" /></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -25,7 +26,9 @@
             <!-- 정보수정 -->
             <section class="resume-section" id="update">
                     <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px">
-                    <form class="form-horizontal">
+  
+  			<!-- 폼 시작 -->
+                    <form class="form-horizontal" id="updateMemberFrm">
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">아이디</label>
                         <div class="col-sm-10">
@@ -108,7 +111,7 @@
                       </div>
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">저장</button>
+                          <input type="submit" class="btn btn-danger" onclick="fn_updateMember()" value="저장">
                         </div>
                       </div>
                     </form>
@@ -175,6 +178,13 @@
 				//새창으로 패스워드 수정페이지 연결
 				open("updatePassword.jsp",
 						"_blank","width=400,height=210");
+				
+			}
+			
+			const fn_updateMember=()=>{
+				$("#updateMemberFrm").attr("action",
+						"<%=request.getContextPath()%>/mypage/about.do");
+				$("#updateMemberFrm").submit();
 				
 			}
 		</script>

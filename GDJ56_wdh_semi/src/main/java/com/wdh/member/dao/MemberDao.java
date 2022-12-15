@@ -110,6 +110,7 @@ public class MemberDao {
 		return m;
 	}
 	
+
 	//멤버 정보 - 아이디 중복, 뷰
 	public Member memberView(Connection conn, String member_id) {
 		
@@ -221,6 +222,8 @@ public class MemberDao {
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
 	}
+
+
 
 
 

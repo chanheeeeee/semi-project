@@ -1,30 +1,28 @@
 package com.wdh.board.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService2;
-import com.wdh.board.vo.Board;
-import com.wdh.board.vo.BoardComment;
-import com.wdh.board.vo.ReviewBoard;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class ReviewFileServlet
  */
-@WebServlet("/board/boardView.do")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/reviewfile.do")
+public class ReviewFileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardViewServlet() {
+    public ReviewFileServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +31,18 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		Board b = new BoardService2().selectBoard(boardNo);
-		List<BoardComment> bcList = new BoardService2().selectBoardComment(boardNo);
-		List<ReviewBoard> rbList = new BoardService2().selectReviewBoard(boardNo);
-		
-		request.setAttribute("board", b);
-		request.setAttribute("comments", bcList);
-		request.setAttribute("reviews", rbList);
-		
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
+		if(!ServletFileUpload.isMultipartContent(request)) {
+			response.sendRedirect(request.getContextPath());
+		}else {
+			String path=request.getServletContext().getRealPath("/images/review");
+			int maxSize=1024*1024*10;
+			String encoding="UTF-8";
+			DefaultFileRenamePolicy dfr=new DefaultFileRenamePolicy();
+			MultipartRequest mr=new MultipartRequest(request,path,maxSize,encoding,dfr);
+			String fileOrg=mr.getParameter("fileOrg");
+			
+			
+		}
 	}
 
 	/**
