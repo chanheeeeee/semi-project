@@ -1,34 +1,232 @@
-/*
 
-TemplateMo 559 Zay Shop
-
-https://templatemo.com/tm-559-zay-shop
-
----------------------------------------------
-Table of contents
-------------------------------------------------
-1. Typography
-2. General
-3. Nav
-4. Hero Carousel
-5. Accordion
-6. Shop
-7. Product
-8. Carousel Hero
-9. Carousel Brand
-10. Services
-11. Contact map
-12. Footer
-13. Small devices (landscape phones, 576px and up)
-14. Medium devices (tablets, 768px and up)
-15. Large devices (desktops, 992px and up)
-16. Extra large devices (large desktops, 1200px and up)
---------------------------------------------- */
+section#dcl-container{width:600px; margin:0 auto; text-align:center;}
+section#dcl-container h2{margin:10px 0;}
+table#tbl-dcl{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
+table#tbl-dcl th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
+table#tbl-dcl td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
+h2{text-align:center;}
 
 
 
+#adcontainer1{
+  background-color:black;
+  color:white;
+  border-radius: 20px;
+  width: 690px;
+  height:140px;
+  margin:auto;
+  margin-top: 10px;	
+}
+
+#adcontainer{
+  background-color:black;
+  color:white;
+  border-radius: 20px;
+  width: 690px;
+  height:100px;
+  margin:auto;
+  margin-top: 10px;
+}
+
+button#delbtn{
+	float:right;
+}
+
+button#qsbtn{
+	float:right;
+}
+
+#challcontainer7{
+  background-color:black;
+  color:white;
+  text-align:center;
+  border-radius: 10px;
+  width: 890px;
+  height:200px;
+  margin:auto;
+  margin-top: 10px;
+}
+
+#chcall{
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  height:800px;
+}
+#chimg{
+  border-radius: 40px;
+}
+nav#challnav{
+  display: flex;
+}
+button#checkbtn{
+  position: relative;
+  border:none;
+  border-radius: 50%;
+  background-color: white;
+  top:660px;
+  left: 460px;
+}
+#chall8{
+  list-style: none;
+  color:white;
+}
+ul#chall8>li{
+	float:left!important;
+}
+#chall7{
+  list-style: none;
+  color:white;
+}
+ul#chall7>li{
+  float: left!important;
+
+}
+#chall6{
+  margin-top: 14px;
+}
+div#challcontainer6{
+  margin-left:400px;
+  
+/*   position: absolute; */
+  width:100%;
+  height:810px;
+}
+
+#challh5{
+  text-align: center;
+  margin-top: 14px ;
+}
+#challcontainer5{
+  background-color:black;
+  color:white;
+  text-align:center;
+  border-radius: 10px;
+  width: 890px;
+  height:140px;
+  margin:auto;
+  margin-top: 10px;
+
+}
+
+#challcontainer4{
+  border-radius: 10px;
+  background-color: antiquewhite;
+  text-align: center;
+  /* margin-top: 10px;
+  margin-left: 100px; */
+  margin: auto;
+  width:40%;
+  height: 110px;
+}
+
+#challcontainer3{
+  background-color: coral;
+  text-align:center;
+  border-radius: 10px;
+  width: 600px;
+  height:30px;
+  margin:auto;
+  margin-top: 14px;
+}
+
+#challcontainer1{
+  text-align: center;
+  background-color: coral;
+  border-radius: 10px;
+  width:600px;
+  height:30px;
+  margin: auto;
+}
+#challcontainer2{
+  text-align: center;
+  
+  border-radius:30px;
+  width:53%;
+  height:650px;
+  margin-left:350px;
+}
+#challimg{
+  border-radius: 30px;
+  width:60%; 
+  height:600px;
+  text-align: center;
+}
+
+div#tbl-board {
+  border-collapse: collapse;
+  border-top: 3px solid #168;
+  font-family:Jua;
+  text-align:center;
+}  
+#tbl-board th {
+  color: #168;
+  background: #f0f6f9;
+  text-align: center;
+}
+#tbl-board th, .table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+#tbl-board th:first-child, .table td:first-child {
+  border-left: 0;
+}
+#tbl-board th:last-child, .table td:last-child {
+  border-right: 0;
+}
+#tbl-board tr td:first-child{
+  /* text-align: center; */
+}
+#tbl-board caption{caption-side: bottom; display: none;}
+
+
+
+
+.tox .tox-notification--warn, .tox .tox-notification--warning {
+  display: none !important;
+}
+
+
+section#notice-container{width:600px; margin:0 auto; }
+section#notice-container h2{margin:10px 0; text-align:center;}
+table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
+table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; } 
+table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
+
+/* 신고하기 글작성 css */
+section#notice-container{width:80%; margin: auto;}
+section#notice-container h2{margin:10px 0;}
+table#tbl-notice{width:100%; margin:0 auto; border:1px solid black; border-collapse:collapse;}
+table#tbl-notice th, table#tbl-notice td {border:1px solid; padding: 5px 0;} 
 
 /* Typography */
+section#board-container{width:600px; margin:0 auto; }
+section#board-container h2{margin:10px 0;}
+table#tbl-board{width:100%; margin:0 auto; border:1px solid black; border-collapse:collapse;  clear:both; }
+table#tbl-board th, table#tbl-board td {border:1px solid; padding: 5px 0; } 
+/*글쓰기버튼*/
+input#btn-add{float:right; margin: 0 0 15px;}
+/*페이지바*/
+div#pageBar{margin-top:10px; text-align:center; background-color:white;}
+div#pageBar span.cPage{color: #0066ff;}
+
+input#subBtn{
+  text-align: center; 
+}
+
+section#board-container2{width:600px; margin:0 auto; text-align:center;}
+section#board-container2 h2{margin:10px 0;}
+table#tbl-board2{width:100%; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
+table#tbl-board2 th, table#tbl-board td {border:1px solid; padding: 5px 0; } 
+
+
+
+
+
+
+
+/* 주니가 추가 한 css */
+/*/* /* /*  */ */ */  */
 body, ul, li, p, a, label, input, div {
   font-family: 'Roboto', sans-serif;
   font-size: 18px !important;
@@ -57,7 +255,7 @@ body, ul, li, p, a, label, input, div {
 .bg-dark { background-color: #212934 !important;}
 .bg-light { background-color: #e9eef5 !important;}
 .bg-black { background-color: #1d242d !important;}
-.bg-success { background-color: cornflowerblue !important;}
+.bg-success { background-color: #124197 !important;}
 .btn-success {
   background-color: #59ab6e !important;
   border-color: #56ae6c !important;
@@ -84,7 +282,7 @@ header {
 #templatemo_nav_top * { font-size: 100px;} */
 
 #templatemo_main_nav a { color: #212934;}
-#templatemo_main_nav a:hover { color: #cornflowerblue;}
+#templatemo_main_nav a:hover { color: cornflowerblue;}
 #templatemo_main_nav .navbar .nav-icon { margin-right: 20px;}
 #templatemo_main_nav{top:7%; left: 10px;}
 /* #templatemo_main_nav{position:fixed; align:center; top:7%; left: 16px; background-color: white;} */
@@ -166,7 +364,7 @@ header {
 /* Services */
 .services-icon-wap {transition: .3s;}
 .services-icon-wap:hover, .services-icon-wap:hover i {color: #fff;}
-.services-icon-wap:hover {background: #69bb7e;}
+.services-icon-wap:hover {background: #124197;}
 /* Contact map */
 .leaflet-control a, .leaflet-control { font-size: 10px !important;}
 .form-control { border: 1px solid #e8e8e8;}

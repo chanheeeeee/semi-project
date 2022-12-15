@@ -114,29 +114,69 @@
                   <h2>LOG-IN</h2>
                     
                     <div class="login_id">
-                        <input type="id" name="" id="" placeholder="ID">
+                        <input type="text" name="" id="userId" placeholder="ID">
                     </div>
 
                     <div class="login_pw">
-                        <input type="password" name="" id="" placeholder="Password">
+                        <input type="password" name="" id="password" placeholder="Password">
                     </div>
 
+					<div id="login_result" style="color: red;"></div>
+
                     <div class="submit">
-                        <input type="submit" value="확인">
+                        <input type="button" value="확인" id="btnLogin">
                     </div>
                     
                     <br>
 
                     <div class="forgot" >
-                    <button onclick="" style="font-family: Jua;border: outset;">비밀번호 찾기</button>
-                    <button onclick="" style="font-family:'Jua';border: outset;">아이디 찾기</button> 
-                    <button onclick="" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
+                    <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="font-family: Jua;border: outset;">비밀번호 찾기</button>
+                    <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="font-family:'Jua';border: outset;">아이디 찾기</button> 
+                    <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
                     </div>
                 </div>
             </div>
         </center>
 
+	<script>
+		$(function(){
+			$("#btnLogin").on("click", function(){
+				//아이디와 비밀번호 가져오기
+				let id = $("#userId").val();
+				let pwd = $("#password").val();
+				
+				console.log("id : "+id);
+				console.log("pwd : "+pwd);
+				
+				//이걸 하는 이유는 로그인 시도시 결과창을 초기화하기 위함
+				$("#login_result").html("");
+				
+				//ajax 통신
+				$.ajax({
+					url : "<%=request.getContextPath()%>/loginAction.do",
+					data : {"loginId":id,"password":pwd},
+					type : "POST",
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
 
+						let loginYn = data.loginYn;
+						if(loginYn == "N") {
+							$("#login_result").html("<span>로그인에 실패하였습니다 다시 시도해주세요.</span>");
+						}else{
+							//페이지 이동
+							location.href="<%=request.getContextPath()%>/main.do";
+						}
+					},
+					error : function(e, r, m){
+						console.log(e);
+						console.log(r);
+						console.log(m);
+					}
+				});
+			});
+		});
+	</script>
 
 
 <%@include file="/views/common/footer.jsp"%>

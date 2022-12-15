@@ -1,10 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.wdh.member.vo.Member" %>
+<%
+	Member loginMember=(Member)session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
 <title>:::운동행:::</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,11 +24,12 @@
 	href="<%=request.getContextPath() %>/css/templatemo.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/css/custom.css">
+	
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/assets/fullcalendar/main.css">
 
 <!-- Start Script -->
 <script src="<%=request.getContextPath() %>/js/jquery-1.11.0.min.js"></script>
-<script
-	src="<%=request.getContextPath() %>/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/jquery-migrate-1.2.1.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/bootstrap.bundle.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/templatemo.js"></script>
 <script src="<%=request.getContextPath() %>/js/custom.js"></script>
@@ -35,14 +40,47 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/fontawesome.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-<!--
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">
+<!-- 달력 -->
+<meta charset="utf-8" />
+<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+<script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+<!-- 웹에디터 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdn.tiny.cloud/1/각자 발급받은 api key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/fontawesome.min.css">
     
-TemplateMo 559 Zay Shop
-https://templatemo.com/tm-559-zay-shop
-수정한 부분
-    1. 49, 52, 55, 58 a 태그에 fs-3 class 추가 (BootStrap 폰트 사이즈 변경하는 클래스)
-    2. 307 Line custom.js 안에 header.fixedhead 태그에 스크롤이 최상단이 아닐 경우 fixed-top 클래스 추가 / 최상단이라면 fixed-top 클래스 제거 하는 scroll 이벤트 추가
--->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="https://cdn.tiny.cloud/1/각자 발급받은 api key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- 마이페이지 -->
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="<%=request.getContextPath() %>/assets/css/mypagestyle.css" rel="stylesheet" />
+
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/all.min.css">
+        <!-- fullCalendar -->
+        <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/fullcalendar/main.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/adminlte.min.css">
+        
+        
 </head>
 
 <style>
@@ -56,7 +94,7 @@ https://templatemo.com/tm-559-zay-shop
 		<nav class="navbar navbar-expand-lg navbar-light shadow" style="background-color: rgba(255, 255, 255, 0.7);">
 			<div class="container d-flex justify-content-between align-items-center">
 				<!-- <div class="img-logo"> -->
-				<a href="/">
+				<a href="<%=request.getContextPath() %>/main.do">
 				<img src="<%=request.getContextPath() %>/images/logo.png" style="width: 200px;">
 				</a>
 				<!-- </div> -->
@@ -69,23 +107,25 @@ https://templatemo.com/tm-559-zay-shop
 				<div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
 					<div class="flex-fill">
 						<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="index.jsp">홈</a></li>
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="notice.jsp">공지사항</a></li>
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="contact.html">동행</a></li>
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="shop.html">챌린지</a></li>
-							<li class="nav-item"><a class="nav-link fs-2"
-								href="contact.html">고객센터</a></li>
+
+
+							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/board/boardList.do">동행</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/cs/spon.do">고객센터</a></li>
+
 						</ul>
 					</div>
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
 						<div class="flex-fill">
 							<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+							<% if(loginMember == null) { %>
 								<li class="nav-item" id="login" ><a class="nav-link fs-3">로그인</a></li>
 								<li class="nav-item" id="join"><a class="nav-link fs-3" >회원가입</a></li>
+							<% } else { %>
+								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>마이페이지</a></li>
+							<% } %>
 							</ul>
 						</div>
 					</div>
@@ -95,20 +135,21 @@ https://templatemo.com/tm-559-zay-shop
 		<form id="frm"></form>
 	</header>
 	
-	
 	<script>
-	$("#login").on("click",function(){
-		$("#frm").attr("action","<%=request.getContextPath()%>/member/loginMember.do");
-		$("#frm").submit();
-	});
-	
-	
-	 $("#join").on("click",function(){
-		$("#frm").attr("action","<%=request.getContextPath()%>/member/joinMember.do");
-		$("#frm").submit();
+		$("#login").on("click",function(){
+			$("#frm").attr("action","<%=request.getContextPath()%>/member/loginMember.do");
+			$("#frm").submit();
+		});
 		
-	});
-	
+		
+		 $("#join").on("click",function(){
+			$("#frm").attr("action","<%=request.getContextPath()%>/member/joinTerms.do");
+			$("#frm").submit();
+			
+		});
+		 
+		
+	 
 	</script>
+    <!-- Close Header -->
 
-	
