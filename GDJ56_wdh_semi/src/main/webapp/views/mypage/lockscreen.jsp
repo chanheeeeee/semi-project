@@ -2,10 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 
+<% 
+	Member m = (Member)request.getAttribute("member");
+%>
+
 		<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..." /></span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..." /></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -19,48 +23,53 @@
             </div>
         </nav>
         
-        <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
   <div class="lockscreen-logo">
     <a>비밀번호 확인</a>
   </div>
-  <!-- User name -->
 
-
-  <!-- START LOCK SCREEN ITEM -->
   <div class="lockscreen-item">
-    <!-- lockscreen image -->
+    <!-- 프로필사진 -->
     <div class="lockscreen-image">
-      <img src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="User Image">
+      <img src="<%=request.getContextPath() %>/assets/img/pocha.jpg" class="profile" alt="User Image">
     </div>
-    <!-- /.lockscreen-image -->
 
-    <!-- lockscreen credentials (contains the form) -->
-    <form class="lockscreen-credentials">
+    <!-- 비밀번호 체크 폼 -->
+    <form class="lockscreen-credentials" id="updateFrm" action="<%= request.getContextPath() %>/mypage/updateMember.do"
+    			method="post">
+    			
       <div class="input-group">
-        <input type="password" class="form-control" placeholder="password">
+      
+        <input type="password" class="form-control" placeholder="password" name="pass">
 
         <div class="input-group-append">
-          <a href="<%= request.getContextPath() %>/mypage/updateMember.do"><button type="button" class="btn">
-            <i class="fas fa-arrow-right"></i>
+       
+        	<!-- <button type="button" class="btn" onclick="fn_update()"> -->
+        	<button type="submit" class="btn">
+            	<i class="fas fa-arrow-right"></i>
             </button>
-           </a>
+
         </div>
       </div>
     </form>
-    <!-- /.lockscreen credentials -->
-
   </div>
-  <!-- /.lockscreen-item -->
+
   <div class="help-block text-center">
-    Enter your password to retrieve your session
+    정보를 변경하려면 비밀번호를 입력하세요.
   </div>
   <div class="text-center">
-    <a href="login.html">Or sign in as a different user</a>
+    <a href="location.href='<%=request.getContextPath() %>/member/findPw.do';">비밀번호가 기억나지 않으신가요?</a>
   </div>
 </div>
-<!-- /.center -->
 
+<!-- 스크립트 -->
+<script>
+	<%-- const fn_update=()=>{
+		$("#updateFrm").attr("action",
+			"<%=request.getContextPath()%>/mypage/updateMember.do");
+		$("#updateFrm").submit();
+	} --%>
+</script>
 
 <!-- jQuery -->
 <script src="<%=request.getContextPath() %>/assets/js/jquery-1.11.0.min.js"></script>

@@ -110,6 +110,7 @@ public class MemberDao {
 		return m;
 	}
 	
+
 	//멤버 정보 - 아이디 중복, 뷰
 	public Member memberView(Connection conn, String member_id) {
 		
@@ -133,40 +134,6 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return m;
-	}
-	
-	public String memberGrade(Connection conn, String member_id) {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String grade = null;
-		
-		try {
-			
-			pstmt = conn.prepareStatement(sql.getProperty("memberGrade"));
-			pstmt.setString(1, member_id);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				
-				grade = rs.getString("GRADE_NAME");
-				
-			}
-			
-		}  catch (SQLException e) {
-			
-			e.printStackTrace();
-			
-		} finally {
-			
-			close(rs);
-			close(pstmt);
-			
-		}
-		
-		return grade;
-		
 	}
 
 
@@ -221,6 +188,8 @@ public class MemberDao {
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
 	}
+
+
 
 
 

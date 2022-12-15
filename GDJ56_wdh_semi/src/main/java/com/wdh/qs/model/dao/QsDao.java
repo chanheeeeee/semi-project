@@ -89,7 +89,10 @@ public class QsDao {
 			pstmt=conn.prepareStatement(sql.getProperty("selectQs"));
 			pstmt.setInt(1, no);
 			rs=pstmt.executeQuery();
-			if(rs.next()) qs=getQs(rs);
+			if(rs.next()) {
+				qs=getQs(rs);
+				qs.setMember(MemberDao.getMember(rs));
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
