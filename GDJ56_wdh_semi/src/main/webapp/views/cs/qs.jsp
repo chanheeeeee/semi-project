@@ -5,10 +5,6 @@
 <%
 	List<Question> qs=(List<Question>)request.getAttribute("qs");
 %>
-<%@ page import="com.wdh.member.model.vo.Member" %>
-<%
-	Member loginMember=(Member)session.getAttribute("loginMember");
-%>
 <!DOCTYPE html>
 <head>
     <title>고객센터 - 1대1 문의</title>
@@ -72,13 +68,14 @@
                 <tr>
                     <th>번호</th>
                     <th>제목</th>
+                    <th>분류</th>
                     <th>작성자</th>
                     <th>작성일</th>
                     
                 </tr>
                 <%if(qs.isEmpty()){ %>
                 <tr>
-                    <td colspan="4">조회된 게시판이 없습니다.</td>
+                    <td colspan="5">조회된 게시판이 없습니다.</td>
                 </tr>
                 <%}else{
                 	for(Question q : qs){
@@ -86,6 +83,7 @@
                 <tr>
                 	<td><%=q.getQsNo() %></td>
                 	<td><a href="<%=request.getContextPath()%>/cs/qsView.do?qsNo=<%=q.getQsNo()%>"><%=q.getQsTitle() %></a></td>
+                	<td><%=q.getQsHeadTitle() %></td>
                 	<td><%=q.getMember().getMember_id() %></td>
                 	<td><%=q.getQsDate() %></td>
                 </tr>

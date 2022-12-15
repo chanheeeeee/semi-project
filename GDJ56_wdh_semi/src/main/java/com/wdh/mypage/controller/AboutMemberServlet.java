@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
+import com.wdh.mypage.service.MypageService;
 
 /**
  * Servlet implementation class AboutMember
@@ -34,7 +34,7 @@ public class AboutMemberServlet extends HttpServlet {
 		
 //		Member m = new MemberService().memberView(id);
 		
-		String grade = new MemberService().memberGrade(id);
+		String grade = new MypageService().memberGrade(id);
 		
 //		try {
 //			

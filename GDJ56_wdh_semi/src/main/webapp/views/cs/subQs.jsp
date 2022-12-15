@@ -69,7 +69,7 @@
                 <table id="tbl-board" border="1">
                 <tr>
                     <th>제 목</th>
-                    <td><input type="text"></td>
+                    <td>&nbsp;&nbsp;<input type="text"></td>
                 </tr>
                 <tr>
                     <th>분 류</th>

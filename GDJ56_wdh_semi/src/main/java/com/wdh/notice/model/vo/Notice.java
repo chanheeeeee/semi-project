@@ -1,10 +1,13 @@
 package com.wdh.notice.model.vo;
 
-import java.util.Date;
 
-import lombok.AllArgsConstructor;
+import java.sql.Date;
+
 import lombok.Builder;
 import lombok.Data;
+
+
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -18,7 +21,6 @@ public class Notice {
 	private String noticeWriter;
 	private String noticeContent;
 	private Date noticeEnroll;
-	private String filePath;
-	//private char status;
 	
 }
+
