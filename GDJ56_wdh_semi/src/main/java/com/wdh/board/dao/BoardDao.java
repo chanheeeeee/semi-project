@@ -100,7 +100,22 @@ public class BoardDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("boardUpdate"));
-		}
+			pstmt.setString(1, b.getWdTitle());
+			pstmt.setString(2, b.getWdLocation());
+			pstmt.setString(3, b.getWdCategory());
+			pstmt.setString(4, b.getWdGender());
+			pstmt.setString(5, b.getWdContent());
+			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getTime()));
+			pstmt.setInt(7, b.getWdCount());
+			pstmt.setString(8, b.getWdPurpose());
+			pstmt.setInt(9, b.getWdNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+		
 	}
 
 }

@@ -68,7 +68,7 @@
     <div font-family:jua;>
     	<div id="tbl-board">
 			<h2><strong>1대1문의 상세페이지</strong></h2>    	
-    			<table id="tbl-qs">
+    			<table id="tbl-dcl">
 					<tr>
 						<th>제 목</th>
 						<td><%=qs.getQsTitle() %></td>

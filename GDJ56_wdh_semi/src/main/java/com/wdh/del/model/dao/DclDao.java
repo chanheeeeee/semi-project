@@ -1,5 +1,7 @@
 package com.wdh.del.model.dao;
 
+import static com.wdh.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,9 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import static com.wdh.common.JDBCTemplate.*;
+
 import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.dao.MemberDao;
+import com.wdh.member.vo.Member;
 
 public class DclDao {
 	private Properties sql=new Properties();
@@ -24,8 +27,6 @@ public class DclDao {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	public List<Declaration> searchDcl(Connection conn, int cPage, int numPerpage){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -67,7 +68,7 @@ public class DclDao {
 	}
 	
 	
-	public int insertDcl(Connection conn, Declaration dcl) {
+	public int insertDcl(Connection conn, Declaration dcl, Member m) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
@@ -75,8 +76,8 @@ public class DclDao {
 			pstmt.setString(1, dcl.getDclTitle());
 			pstmt.setString(2, dcl.getDclContent());
 			pstmt.setString(3, dcl.getDclHeadTitle());
-			pstmt.setInt(4, dcl.getMemberNo());
-			pstmt.setString(5, dcl.getFilePath());
+			pstmt.setInt(4, m.getMember_no());
+//			pstmt.setString(5, dcl.getFilePath());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -112,7 +113,7 @@ public class DclDao {
 	public static Declaration getDcl(ResultSet rs) throws SQLException{
 		return Declaration.builder()
 				.dclNo(rs.getInt("dcl_no"))
-				.dclTitle(rs.getString("dcl_content"))
+				.dclTitle(rs.getString("dcl_title"))
 				.dclContent(rs.getString("dcl_content"))
 				.dclDate(rs.getDate("dcl_date"))
 				.dclHeadTitle(rs.getString("dcl_headtitle"))

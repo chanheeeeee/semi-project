@@ -88,10 +88,10 @@
     				<td><%if(dcl.getFilePath()!=null){ %>
     					<img src="<%=request.getContextPath() %>/images/file.png" width="20" onclick="fn_fileDown('<%=dcl.getFilePath() %>');">
     					<%=dcl.getFilePath() %>
-    					<%}else{ %>
+    				<%}else{ %>
     						첨부파일없음
-    					<%
-    					}%>
+    				<%
+    				}%>
     					</td>
     			</tr>
     			<tr>
@@ -109,7 +109,7 @@
     			<%} %>
     		</table>
     		<br>
-    		</div>
+    	</div>
     </div>
     <script>
     	const fn_fileDown=(fileName)=>{

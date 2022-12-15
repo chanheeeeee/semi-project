@@ -109,7 +109,11 @@
 						<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
 							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a></li>
+							<%if(loginMember!=null){ %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/board/boardList.do">동행</a></li>
+							<%}else{ %>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/member/loginMember.do">동행</a></li>
+							<%} %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/cs/spon.do">고객센터</a></li>
 						</ul>
@@ -121,7 +125,13 @@
 								<li class="nav-item" id="login" ><a class="nav-link fs-3">로그인</a></li>
 								<li class="nav-item" id="join"><a class="nav-link fs-3" >회원가입</a></li>
 							<% } else { %>
-								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>마이페이지</a></li>
+								<li class="nav-item" id="mypage" >
+									<a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>
+									<img class="profile img-fluid img-profile rounded-circle" style="width: 70px; height: 70px; margin-left: 30%;"
+                      							src="<%=request.getContextPath() %>/assets/img/pocha.jpg" />
+									</a>
+								</li>
+								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/logout.do'>로그아웃</a></li>
 							<% } %>
 							</ul>
 						</div>

@@ -36,6 +36,8 @@ public class UpdateMemberServlet extends HttpServlet {
 		
 		if(pass.equals(m.getPassword())) {
 			
+//			msg = "성공";
+//			loc = "/views/mypage/profile.jsp";
 			request.getRequestDispatcher("/views/mypage/profile.jsp")
 					.forward(request, response);
 			
@@ -43,15 +45,18 @@ public class UpdateMemberServlet extends HttpServlet {
 			
 			msg = "비밀번호가 맞지 않습니다. 다시 입력해 주세요.";
 			loc = "/mypage/lockscreen.do";
-		
-		}
-		
-		
-		request.setAttribute("msg", msg);
+			
+			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
+			
 			
 			request.getRequestDispatcher("/views/common/msgm.jsp")
 			.forward(request, response);
+			
+		}
+		
+		
+		
 		
 		
 	}

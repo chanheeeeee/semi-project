@@ -71,25 +71,26 @@
                 <h2><strong>신고하기 글 작성</strong></h2>
             <form action="<%=request.getContextPath() %>/cs/writeEnd.do" method="post" enctype="multipart/form-data">
                 <table id="tbl-board" border="1">
-                <tr>
+                <tr>	
                     <th>제 목</th>
-                    <td><input type="text"></td>
+                    <td>&nbsp;&nbsp;<input type="text" name="dcl_title" placeholder="신고제목입력"></td>
                 </tr>
                 <tr>
                 	<th>분 류</th>
                  	<td>
-                        &nbsp;&nbsp;<select name="" id="">
+                        &nbsp;&nbsp;<select name="dcl_headtitle" >
                             <option value="불법광고">불법광고</option>
                             <option value="욕설 및 비하">욕설 및 비하</option>
                             <option value="비매너">비매너</option>
                             <option value="기타신고">기타신고</option>
+                            
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th>작 성 자</th>
                     <td>
-                        &nbsp;&nbsp;<input type="text" name="notice_writer" readonly value="<%=loginMember.getMember_id()%>" >
+                        &nbsp;&nbsp;<input type="text" name="" readonly value="<%=loginMember.getMember_id()%>" >
                     </td>
                 </tr>
                 <tr>
@@ -101,17 +102,20 @@
                 <tr>
                     <th>내 용</th>
                     <td>
-                    <form method="post">
-                        <textarea id="editor"></textarea>
-                    </form>
+                    <!-- <form method="post" name=""> -->
+                        <textarea id="editor" name="dcl_content"></textarea>
+                    <!-- </form> -->
                 </td>
                 </tr>
-                <!-- <tr>
+                <%if(loginMember!=null&&
+                	loginMember.getMember_id().equals("admin")) {%>
+                <tr>
                     <th colspan="2">
                         <input type="button" value="수정하기" onclick="">
                         <input type="button" value="삭제하기" onclick="">
                     </th> 
-                </tr> -->
+                </tr>
+                <%} %>
             </table>
                      <button onclick="location.replace='<%=request.getContextPath()%>/views/cs/del.jsp'" id="delbtn">등록</button>
                      <br>
