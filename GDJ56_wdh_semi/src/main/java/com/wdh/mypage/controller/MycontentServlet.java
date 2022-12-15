@@ -41,7 +41,7 @@ public class MycontentServlet extends HttpServlet {
 		Member m = new MemberService().memberView(id);
 		
 		int cPage;
-		int numPerpage=6;
+		int numPerpage=8;
 		
 		try {
 			
