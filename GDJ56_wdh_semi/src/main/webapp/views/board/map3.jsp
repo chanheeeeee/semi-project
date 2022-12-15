@@ -295,6 +295,8 @@ var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입
 // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
 searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
+var address = "";
+
 // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
@@ -307,6 +309,9 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		            console.log(result[0].address.region_1depth_name);
 		            console.log(result[0].address.region_2depth_name);
 		            console.log(result[0].address.region_3depth_name);
+		            
+		            var address = result[0].address.region_3depth_name;
+
 		            
 		            var content = '<div class="bAddr">' +
 		                            '<span class="title">법정동 주소정보</span>' + 
@@ -323,6 +328,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 		        }   
 		    });
 		});
+		
 
 // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'idle', function() {
