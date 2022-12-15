@@ -43,7 +43,7 @@
                        <div id="btn_group">
                        <p>
                        선택된 게시글을 
-                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">삭제</button>
+                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>')">삭제</button>
                        합니다.</p>
                        </div> 
                        <hr class="one">
@@ -74,7 +74,7 @@
 							 	<th><input type="checkbox" name="checkall" id="checkall"></th>
                 				<td><%=d.getDclNo() %></td>
                 				<td><%=d.getDclHeadTitle() %></td>
-	                			<td><a href="<%=request.getContextPath()%>/cs/DclView.do?DclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
+	                			<td><a href="<%=request.getContextPath()%>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
 		                		<td><%=d.getMemberNo() %></td>
 		                		<td><%=d.getDclDate() %></td>
 		                		<td><%=d.getDclResult() %></td>

@@ -102,7 +102,7 @@
           <tr>
             <td> 주소 <br> 상세주소 </td>
             <td>
-              <input type="text" id="postcode" style="width:130px;" placeholder="우편번호"> <input type="button" value="주소찾기" style="font-family:Jua;" onclick="execDaumPostcode()"><br>
+              <input type="text" id="postcode" style="width:130px;" placeholder="우편번호"> <input type="button" value="주소찾기" style="font-family:Jua;" onclick="sample6_execDaumPostcode();"><br>
               <input type="text" id="address"><br>
               <input type="text" id="address2">
             </td>
@@ -265,7 +265,7 @@
 		   	return result;		//정규식 결과 리턴
 		}
 
-	    $("#nickname").focusout(function(){
+	    $("#nickname").focusout(function(){	
 	    	let nickname = $("#nickname").val();
 	    	if(!nickvalid()){
 	    		$("#checknick").html('닉네임은 한글,숫자 포함 2~7자입니다.');
@@ -297,10 +297,11 @@
 		    	});
 	    	}
 	    	
-	    })
+	    	});
+    	});//onload
 	    //구문은 처음부터 차례차례 진행되기때문에 어떻게 진행될지 순서를 파악하자!->주석주석!
 	  
-	    function execDaumPostcode() {
+	    function sample6_execDaumPostcode() {
 	        new daum.Postcode({
 	            oncomplete: function(data) {
 	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -348,7 +349,7 @@
 	        }).open();
 	    }
     
-    });
+
     
     </script>
 

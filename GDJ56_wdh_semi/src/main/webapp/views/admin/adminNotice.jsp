@@ -59,7 +59,8 @@
                        <p>
                        <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">공지 작성</button>
                        선택된 게시글을 <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/UpdateNotice.jsp')">수정</button> 
-                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">삭제</button>
+                       <button id="test_btn1" value="삭제하기";"></button>
+                       <%-- <button id="test_btn1" value="삭제하기" onclick="(<%=n.getNoticeNo()%>);"></button> --%>
                        합니다.</p>
                        </div> 
                        <hr class="one">

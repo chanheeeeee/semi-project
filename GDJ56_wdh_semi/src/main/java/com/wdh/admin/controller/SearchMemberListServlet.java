@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.admin.model.service.AdminService;
-import com.wdh.member.model.vo.Member;
+import com.wdh.member.vo.Member;
 
 /**
  * Servlet implementation class SearchMemberListServlet
