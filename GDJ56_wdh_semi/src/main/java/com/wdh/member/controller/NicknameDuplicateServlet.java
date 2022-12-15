@@ -34,18 +34,18 @@ public class NicknameDuplicateServlet extends HttpServlet {
 		String nickname = request.getParameter("nickname");
 		//jsp에서 닉네임 가져옴
 		
-		PrintWriter out = response.getWriter();
 		
 		Member m = new MemberService().NickNameDuplicate(nickname);
 		
 		//성공여부확인
-		if(m!=null) {
-			System.out.println("이미 존재하는 닉네임 입니다.");
-		}else {
-			System.out.println("사용 가능한 닉네임 입니다.");
-		}
+//		if(m!=null) {
+//			System.out.println("이미 존재하는 닉네임 입니다.");
+//		}else {
+//			System.out.println("사용 가능한 닉네임 입니다.");
+//		}
 		
-		out.write(m + "");
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().append(m==null?"가능":"불가능");
 		
 	}
 

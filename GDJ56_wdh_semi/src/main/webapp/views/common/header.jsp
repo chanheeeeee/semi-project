@@ -124,7 +124,13 @@
 								<li class="nav-item" id="login" ><a class="nav-link fs-3">로그인</a></li>
 								<li class="nav-item" id="join"><a class="nav-link fs-3" >회원가입</a></li>
 							<% } else { %>
-								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>마이페이지</a></li>
+								<li class="nav-item" id="mypage" >
+									<a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>
+									<img class="profile img-fluid img-profile rounded-circle" style="width: 70px; height: 70px; margin-left: 30%;"
+                      							src="<%=request.getContextPath() %>/assets/img/pocha.jpg" />
+									</a>
+								</li>
+								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/logout.do'>로그아웃</a></li>
 							<% } %>
 							</ul>
 						</div>
