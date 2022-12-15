@@ -39,7 +39,6 @@
     <section class="bg-light">
         <div class="container pb-5">
             <div class="row">
-                
                 <div class="col-lg-7 mt-5 container py-5">
                     <div class="card">
                         <div class="card-body">
@@ -101,15 +100,15 @@
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">참가하기</span></li>
                                         </ul>
                                     </div>
-                            </form>
+
                         </div>                    
                     </div>           
                 </div>
 			         <div style="text-align:center;">
-			            <input type="button" id="button1" name="update" value="수정">
+			            <input type="button" id="button1" name="update" value="수정" onclick="location.href='<%=request.getContextPath()%>/board/boardupdate.do?boardNo=<%=b.getWdNo()%>';">
 			            <input type="button" id="button1" name="delete" value="삭제" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
 			         </div>  
-
+				</form>
             </div>
         </div>
     </section>
