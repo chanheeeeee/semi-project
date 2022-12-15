@@ -4,10 +4,10 @@
 <%
 	List<Declaration> dcl=(List<Declaration>)request.getAttribute("dcl");
 %>
-<%@ page import="com.wdh.member.model.vo.Member" %>
+<%-- <%@ page import="com.wdh.member.model.vo.Member" %>
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember");
-%>
+%> --%>
 <!DOCTYhPE tml>
 <html>
 <head>

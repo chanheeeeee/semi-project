@@ -1,4 +1,4 @@
-package com.wdh.notice.controller;
+package com.wdh.board.controller;
 
 import java.io.IOException;
 
@@ -8,22 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.notice.model.service.NoticeService;
-import com.wdh.notice.model.vo.Notice;
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
 
 /**
- * Servlet implementation class NoticeViewServlet
+ * Servlet implementation class BoardUpdateServlet
  */
-@WebServlet("/notice/noticeView.do")
-public class NoticeViewServlet extends HttpServlet {
+@WebServlet("/board/boardupdate.do")
+public class BoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	//공지사항에서 공지사항 게시글을 클릭시 1개의 공지사항 상세 페이지를 연결할 서블릿입니다.
-	
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeViewServlet() {
+    public BoardUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +30,10 @@ public class NoticeViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int noticeNo=Integer.parseInt(request.getParameter("noticeNo"));
-		Notice n=new NoticeService().selectNotice(noticeNo);
-		
-		request.setAttribute("notice", n);
-		request.getRequestDispatcher("/views/notice/noticeView.jsp").forward(request, response);
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		int boardNo=Integer.parseInt(request.getParameter("boardNo"));
+		Board b=new BoardService2().selectBoard(boardNo);
+		request.setAttribute("board", b);
+		request.getRequestDispatcher("/views/board/updateBoard.jsp").forward(request, response);
 	}
 
 	/**
@@ -57,4 +45,3 @@ public class NoticeViewServlet extends HttpServlet {
 	}
 
 }
-

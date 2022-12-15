@@ -10,22 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.notice.model.service.NoticeService;
+import com.wdh.notice.model.vo.Notice;
 import com.wdh.admin.model.service.AdminService;
-import com.wdh.member.vo.Member;
-
-
 
 /**
- * Servlet implementation class MemberListServlet
+ * Servlet implementation class AdminNoticeServlet
  */
-@WebServlet("/views/admin/adminMemberList.do")
-public class MemberListServlet extends HttpServlet {
+@WebServlet("/views/admin/adminNotice.do")
+public class AdminNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListServlet() {
+    public AdminNoticeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,9 +33,7 @@ public class MemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//DB에서 member테이블에 있는 전체 데이터를 가져와서 화면의 전송
-		
-		//페이징처리하기
+		//DB notice 테이블에 있는 전체 디이터를 가져와 화면에 전송
 		
 		int cPage;
 		int numPerpage=10;
@@ -46,55 +43,43 @@ public class MemberListServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			cPage=1;
 		}
+		List<Notice> notices=new NoticeService().selectNoticeList(cPage,numPerpage);
 		
-		List<Member> list=new AdminService().searchMemberList(cPage,numPerpage);
-		
-		
-		int totalData=new AdminService().selectMemberCount();
+		int totalData=new NoticeService().selectNoticeCount();
 		
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 		
 		String pageBar="";
 		int pageBarSize=5;
-		
-		//출력할 번호
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 		int pageEnd=pageNo+pageBarSize-1;
 		
 		if(pageNo==1) {
 			pageBar+="<span>[이전]</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()
-				+"/admin/adminMemberList.do?cPage="+(pageNo-1)+"'>[이전]</a>";
+			pageBar+="<a href='"+request.getRequestURL()
+			+"?cPage="+(pageNo-1)+"'>[이전]</a>";
 		}
-		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
-				pageBar+="<a href='"+request.getContextPath()
-				+"/admin/adminMemberList.do?cPage="+pageNo+"'>"+pageNo+"</a>";
+				pageBar+="<a href='"+request.getRequestURL()
+				+"?cPage="+pageNo+"'>"+pageNo+"</a>";
 			}
-			
 			pageNo++;
 		}
-		
 		if(pageNo>totalPage) {
 			pageBar+="<span>[다음]</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()
-				+"/admin/memberList.do?cPage="+pageNo+"'>[다음]</a>";
+			pageBar+="<a href='"+request.getRequestURL()
+			+"?cPage="+pageNo+"'>[다음]</a>";
 		}
-		
 		request.setAttribute("pageBar", pageBar);
-		request.setAttribute("members", list);
-		
-		RequestDispatcher rd=request.getRequestDispatcher("/views/admin/adminMemberList.jsp");
-		rd.forward(request,response);
-				
-		
-		
-	
+		request.setAttribute("notice", notices);
+		RequestDispatcher rd=request.getRequestDispatcher("/views/admin/adminNotice.jsp");
+		rd.forward(request, response);
+			
 	
 	}
 

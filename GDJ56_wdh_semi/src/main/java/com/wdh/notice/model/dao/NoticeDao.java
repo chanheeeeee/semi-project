@@ -17,7 +17,7 @@ public class NoticeDao {
 	private Properties sql=new Properties();
 	
 	public NoticeDao() {
-		String path=NoticeDao.class.getResource("/sql/notice/noticesql.properties").getPath();
+		String path=NoticeDao.class.getResource("/sql/notice/notice_sql.properties").getPath();
 		try {
 			sql.load(new FileReader(path));
 		}catch(IOException e) {
@@ -29,7 +29,7 @@ public class NoticeDao {
 		ResultSet rs=null;
 		List<Notice> result=new ArrayList();
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("searchNoticeList"));
+			pstmt=conn.prepareStatement(sql.getProperty("selectNoticeList"));
 			pstmt.setInt(1, (cPage-1)*numPerpage+1);
 			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
@@ -52,7 +52,7 @@ public class NoticeDao {
 			pstmt.setString(1, n.getNoticeTitle());
 			pstmt.setString(2, n.getNoticeWriter());
 			pstmt.setString(3, n.getNoticeContent());
-			pstmt.setString(4, n.getFilePath());
+			//pstmt.setString(4, n.getFilePath());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -96,19 +96,49 @@ public class NoticeDao {
 		}return n;
 	}
 	
+	public int updateNotice(Connection conn, Notice n) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("updateNotice"));
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeWriter());
+			pstmt.setString(3, n.getNoticeContent());
+			pstmt.setInt(4, n.getNoticeNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 	
-	
-	
+	public int deleteNotice(Connection conn, int noticeNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteNotice"));
+			pstmt.setInt(1, noticeNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 	
 	
 	public static Notice getNotice(ResultSet rs) throws SQLException{
 		return Notice.builder()
-				.noticeNo(rs.getInt(""))
-				.noticeTitle(rs.getString(""))
-				.noticeWriter(rs.getString(""))
-				.noticeContent(rs.getString(""))
-				.noticeEnroll(rs.getDate(""))
-				.filePath(rs.getString("filePath"))
+				.noticeNo(rs.getInt("notice_no"))
+				.noticeTitle(rs.getString("notice_title"))
+				.noticeWriter(rs.getString("member_no"))
+				.noticeContent(rs.getString("notice_content"))
+				.noticeEnroll(rs.getDate("notice_dated"))
 				.build();
 	}
 }

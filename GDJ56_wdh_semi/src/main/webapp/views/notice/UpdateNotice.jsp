@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "com.wdh.notice.model.vo.Notice" %>
+<%
+	Notice n = (Notice)request.getAttribute("notice");
+%>
+
 
 <%@ include file="/views/common/adminHeader.jsp" %> 
 
@@ -8,13 +13,14 @@
         
         
         <section id="notice-container">
-                <h2><strong>공지사항 글 작성</strong></h2>
+                <h2><strong>글 수정하기</strong></h2>
             <form action="" method="post" enctype="multipart/form-data">
                 <table id="tbl-board" border="1">
                 <tr>
                     <th>제 목</th>
                     <td>
-                        &nbsp;&nbsp;<input type="text" placeholder="제목입력" name="notice-title">
+                        &nbsp;&nbsp;<input type="text" placeholder="제목입력" value="<%=n.getNoticeTitle() %>">
+                        
                     </td>
                 </tr>
                 <tr>
@@ -29,17 +35,39 @@
                     <th>내 용</th>
                     <td colspan="3" style="text-aligin: ceter;">
                     <form method="post">
-                        <textarea name="board_content" id="editor"></textarea>
+                    	<textarea name="board_content" id="editor"><%=n.getNoticeContent()%></textarea>
+                        <!-- <textarea name="board_content" id="editor"></textarea> -->
                     </form>
                 </td>
                 </tr>
             </table>
-            <button onclick="location.replace='<%=request.getContextPath() %>/views/notice/adminNotice.jsp'">등록</button>
+            <tr>
+	            <th colspan="2">
+	                <input type="submit" value="수정하기" onclick="">
+	            </th>
+        	</tr>
+            <div>
+    		<input type="hidden" name="noticeNo" value ="<%=n.getNoticeNo()%>">
+    		</div>
             </form>
             
         </section>
         <br>
         </div>
+        
+        <script>
+		const noticeCheck = () => {
+		if($("[name=noticeTitle]").val() == ""){
+			alert("제목을 입력해 주세요!!");
+			return false;
+		}
+		
+		else if($("[name=noticeContent]").val() == ""){
+			alert("내용 입력해 주세요!!");
+			return false;
+		}
+	}
+	</script>
 		
 		<!-- 웹에디터  -->
 		<script>
@@ -107,4 +135,3 @@
 		            
 		        });
 		</script>
-

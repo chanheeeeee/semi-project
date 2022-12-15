@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.wdh.del.model.dao.DclDao;
 import com.wdh.del.model.vo.Declaration;
+import com.wdh.member.vo.Member;
 
 public class DclService {
 	
@@ -32,9 +33,9 @@ public class DclService {
 		close(conn);
 		return dcl;
 	}
-	public int insertDcl(Declaration dcl) {
+	public int insertDcl(Declaration dcl, Member m) {
 		Connection conn=getConnection();
-		int result=dao.insertDcl(conn, dcl);
+		int result=dao.insertDcl(conn, dcl, m);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);

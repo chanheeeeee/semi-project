@@ -1,7 +1,6 @@
 package com.wdh.notice.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,18 +11,16 @@ import com.wdh.notice.model.service.NoticeService;
 import com.wdh.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeViewServlet
+ * Servlet implementation class NoticeWriteEndServlet
  */
-@WebServlet("/notice/noticeView.do")
-public class NoticeViewServlet extends HttpServlet {
+@WebServlet("/notice/writeEnd.do")
+public class NoticeWriteEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	//공지사항에서 공지사항 게시글을 클릭시 1개의 공지사항 상세 페이지를 연결할 서블릿입니다.
-	
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeViewServlet() {
+    public NoticeWriteEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +29,28 @@ public class NoticeViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int noticeNo=Integer.parseInt(request.getParameter("noticeNo"));
-		Notice n=new NoticeService().selectNotice(noticeNo);
+		String title=request.getParameter("notice_title");
+		String writer=request.getParameter("notice_writer");
+		String content=request.getParameter("notice_content");
 		
-		request.setAttribute("notice", n);
-		request.getRequestDispatcher("/views/notice/noticeView.jsp").forward(request, response);
-	
-	
-	
-	
+		Notice n=Notice.builder()
+				.noticeTitle(title)
+				.noticeWriter(writer)
+				.noticeContent(content)
+				.build();
+		
+		int result=new NoticeService().insertNotice(n);
+		String msg="",loc="";
+		if(result>0) {
+			msg="공지사항 작성 성공 했어요";
+			loc="/notice/notice.do";
+		}else {
+			msg="공지사항 작성 실패 했어요";
+			loc="/notice/write.do.do";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	
 	
 	
@@ -57,4 +67,3 @@ public class NoticeViewServlet extends HttpServlet {
 	}
 
 }
-
