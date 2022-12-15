@@ -139,7 +139,6 @@ public class NoticeDao {
 				.noticeWriter(rs.getString("member_no"))
 				.noticeContent(rs.getString("notice_content"))
 				.noticeEnroll(rs.getDate("notice_dated"))
-				//.filePath(rs.getString("filePath"))
 				.build();
 	}
 }

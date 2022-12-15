@@ -15,7 +15,7 @@
 </style>
 
   <div id="notice-container">
-    <h2><strong>공지사항 상세페이지</strong></h2>
+   <!--  <h2><strong>공지사항 상세페이지</strong></h2> -->
     <table id="tbl-notice">
         <tr>
             <th>제 목</th>
@@ -24,6 +24,10 @@
         <tr>
             <th>작성자</th>
             <td><%=n.getNoticeWriter() %></td>
+        </tr>
+        <tr>
+            <th>작성시간</th>
+            <td><%=n.getNoticeEnroll() %></td>
         </tr>
         <tr>
             <th>내 용</th>
@@ -42,10 +46,6 @@
   </div>
     
     <script>
-    <%-- const fn_fileDown=(fileName)=>{
-    		//다운로드 스크립트
-    		location.assign("<%=request.getContextPath()%>/notice/fileDown.do?filename="+fileName);
-    	} --%>
     	
     	const fn_deleteNotice=(noticeNo,fileName)=>{
     		//삭제 스크립트

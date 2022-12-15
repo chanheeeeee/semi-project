@@ -4,13 +4,9 @@
 <%
 	List<Notice> notice=(List<Notice>)request.getAttribute("notice");
 %>
-   
+    
  
  <%@ include file="/views/common/adminHeader.jsp" %> 
- 
-<%
-	Notice n=(Notice)request.getAttribute("notice");
-%>
  
   <style>
         #test_btn1{
@@ -37,24 +33,47 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">공지사항을 관리합니다.</li>
                         </ol>
-                        <div id="btn_group">
-                        <hr class="one">
-                        <p>선택된 항목을 <button id="test_btn1" onclick="location.assign('<%=request.getContextPath()%>/notice/write.do');">삭제</button> 
-                        <button id="test_btn1" onclick="location.assign('<%=request.getContextPath()%>/notice/write.do');">수정</button>
-                        </div>
-                        <hr class="one">
-                        
-                        <div style="text-align:center" id="tbl-board">
-       
-       		
-       		
-       		
-       		
-       		
-                        
-
                        
-            </div>
-        </div>
-        
-       
+                       <%-- <hr class="one">
+                        <div id="btn_group">
+                        <button onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">글쓰기</button>
+                        </div>
+                        <hr class="one"> --%>
+                        
+                       <section id="board-container">
+			            <table id="datatablesSimple">
+			            <thead>
+			                <tr>
+			                	<th><input type="checkbox" name="checkall" id="checkall"></th>
+			                    <th>번호</th>
+			                    <th>제목</th>
+			                    <th>작성자</th>
+			                    <th>작성일</th>
+			                </tr>
+			                </thead>
+							<% if(notice.isEmpty()){ %>
+							<tr>
+								<td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
+							</tr>	
+							<%}else{ 
+								for(Notice n : notice){
+							%>
+							 <tr>
+							 	<th><input type="checkbox" name="checkall" id="checkall"></th>
+                				<td><%=n.getNoticeNo() %></td>
+	                			<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
+		                		<td><%=n.getNoticeWriter() %></td>
+		                		<td><%=n.getNoticeEnroll() %></td>
+		                		<%} 
+               	 			}%>
+                			</tr>
+                			</table>
+                			<br>
+			                 <%-- 페이징 처리 --%>
+			                <%--<div id="pageBar">
+			                	<%=request.getAttribute("pageBar") %>
+			                </div> --%>
+			            </section>
+			            <br>
+			        </div> 
+                  

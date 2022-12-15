@@ -1,13 +1,9 @@
 package com.wdh.admin.model.service;
 
-import static com.wdh.common.JDBCTemplate.close;
-import static com.wdh.common.JDBCTemplate.getConnection;
-import static com.wdh.common.JDBCTemplate.close;
-import static com.wdh.common.JDBCTemplate.getConnection;
-
 import java.sql.Connection;
 import java.util.List;
 
+import static com.wdh.common.JDBCTemplate.*;
 import com.wdh.admin.model.dao.AdminDao;
 import com.wdh.member.vo.Member;
 
