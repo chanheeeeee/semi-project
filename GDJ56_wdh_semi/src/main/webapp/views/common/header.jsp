@@ -79,7 +79,6 @@
         <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/fullcalendar/main.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/adminlte.min.css">
-       
         
         
 </head>
@@ -118,8 +117,12 @@
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
 						<div class="flex-fill">
 							<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+							<% if(loginMember == null) { %>
 								<li class="nav-item" id="login" ><a class="nav-link fs-3">로그인</a></li>
 								<li class="nav-item" id="join"><a class="nav-link fs-3" >회원가입</a></li>
+							<% } else { %>
+								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>마이페이지</a></li>
+							<% } %>
 							</ul>
 						</div>
 					</div>
@@ -130,17 +133,20 @@
 	</header>
 	
 	<script>
-	$("#login").on("click",function(){
-		$("#frm").attr("action","<%=request.getContextPath()%>/member/loginMember.do");
-		$("#frm").submit();
-	});
-	
-	
-	 $("#join").on("click",function(){
-		$("#frm").attr("action","<%=request.getContextPath()%>/member/joinTerms.do");
-		$("#frm").submit();
+		$("#login").on("click",function(){
+			$("#frm").attr("action","<%=request.getContextPath()%>/member/loginMember.do");
+			$("#frm").submit();
+		});
 		
-	});
+		
+		 $("#join").on("click",function(){
+			$("#frm").attr("action","<%=request.getContextPath()%>/member/joinTerms.do");
+			$("#frm").submit();
+			
+		});
+		 
+		
+	 
 	</script>
     <!-- Close Header -->
 

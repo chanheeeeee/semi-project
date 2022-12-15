@@ -27,16 +27,14 @@
   .footBtwrap{margin-top: 15px;}
   .footBtwrap>li{float: left;width: 50%;height: 60px;}
   .footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center; margin-left:-15px;}
-  .fpmgBt1{background-color: #fff;color:#888}
-  .fpmgBt2{background-color: lightsalmon;color: #fff}
+  .fpmgBt1{background-color: #fff;color:#fff}
+  .fpmgBt2{background-color: rgb(80, 80, 243);color: #fff}
    </style>
 
 
 
 	<center>
 	<section>
-
-   
 
      <div id="joinForm">
        <ul class="join_box">
@@ -54,7 +52,7 @@
                    <ul class="clearfix">
                        <li>이용약관 동의(필수)</li>
                        <li class="checkBtn">
-                           <input type="checkbox" name="chk" class="chk"> 
+                           <input type="checkbox" name="chk" class="chk important"> 
                        </li>
                    </ul>
                    <textarea name="" id=""> 운동행 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 운동행 서비스의 이용과 관련하여 운동행 서비스를 제공하는 운동행주식회사(이하 ‘운동행’)와 이를 이용하는 운동행 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 운동행 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
@@ -64,7 +62,7 @@
                    <ul class="clearfix">
                        <li>개인정보 수집 및 이용에 대한 안내(필수)</li>
                        <li class="checkBtn">
-                           <input type="checkbox" name="chk" class="chk">
+                           <input type="checkbox" name="chk" class="chk important">
                        </li>
                    </ul>
                    <textarea name="" id="">운동행 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 운동행 서비스의 이용과 관련하여 운동행 서비스를 제공하는 운동행 주식회사(이하 ‘운동행’)와 이를 이용하는 운동행 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 운동행 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
@@ -91,12 +89,10 @@
                </li>
            </ul>
            <ul class="footBtwrap clearfix">
-               <li><button type="button" onclick="location.href='<%=request.getContextPath()%>/main.do';" class="fpmgBt1">비동의</button></li>
-               <li><button type="button" onclick="location.href='<%=request.getContextPath()%>/member/join.do';" class="btn fpmgBt2" id = "modal">동의</button></li>
+               <li><input type="button" onclick="location.href='<%=request.getContextPath()%>/main.do';" class="btn fpmgBt1" style="background-color:lightblue;" value="비동의"></li>
+               <li><input type="button"  class="btn fpmgBt2" id = "modal" value="동의"></li>
            </ul>
          </div>
-
-
       
 </section>
 </center>
@@ -129,7 +125,25 @@ window.onload = function () {
           $("#chkAll").attr("checked", true);
         }
     });
+    
+    $("#modal").on("click",function(){
+    	let count=0;//갯수 확인을 위하여 변수 선언
+    	//필수란을 가져와 포문을 돌린후 체크박스 갯수 확인한다
+    	$(".important").each(function(){
+    		if($(this).attr("checked") == "checked"){//만약 선택자 자신(this)가 checked 속성이 check가 되면
+    			count++//값이 증가된다
+    		}
+    	});
+    	
+    	//필수 id값이 2개미만으로 체크되어있으면
+    	if(count<2){
+    		alert("필수는 모두 체크하셔야 합니다.");
+    	}else{
+    		location.href="<%=request.getContextPath()%>/member/join.do";
+    	}
+    });
 
+    
   }
 
 </script>

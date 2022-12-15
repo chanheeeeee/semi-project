@@ -1,6 +1,10 @@
+<%@page import="com.wdh.qs.model.vo.Question"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page %>
+<%@ page import="java.util.List,com.wdh.del.model.vo.Declaration" %>
+<%
+	List<Question> qs=(List<Question>)request.getAttribute("qs");
+%>
 <!DOCTYPE html>
 <head>
     <title>고객센터 - 1대1 문의</title>
@@ -45,7 +49,7 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/qs.jsp">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -56,29 +60,45 @@
     </nav>
     <!-- Close Header -->
     <br>
-    <div style="text-align:center" id="tbl-board" style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
+<div font-family:jua;>
+    <div style="text-align:center" id="tbl-board">
         <h2><strong>1 대 1 문의 게시판</strong></h2>
         <section id="board-container">
             <table id="tbl-board">
                 <tr>
                     <th>번호</th>
                     <th>제목</th>
+                    <th>분류</th>
                     <th>작성자</th>
                     <th>작성일</th>
-                    <th>첨부파일</th>
+                    
                 </tr>
+                <%if(qs.isEmpty()){ %>
                 <tr>
                     <td colspan="5">조회된 게시판이 없습니다.</td>
-                    </tr>
+                </tr>
+                <%}else{
+                	for(Question q : qs){
+                	%>
+                <tr>
+                	<td><%=q.getQsNo() %></td>
+                	<td><a href="<%=request.getContextPath()%>/cs/qsView.do?qsNo=<%=q.getQsNo()%>"><%=q.getQsTitle() %></a></td>
+                	<td><%=q.getQsHeadTitle() %></td>
+                	<td><%=q.getMember().getMember_id() %></td>
+                	<td><%=q.getQsDate() %></td>
+                </tr>
+                <%}
+               	}%>
                 </table>
-                <button onclick="location.href='<%=request.getContextPath()%>/views/cs/subQs.jsp'">글쓰기</button>
                 <br>
-                페이징처리
+                	<button onclick="location.href='<%=request.getContextPath()%>/views/cs/subQs.jsp'">글쓰기</button>
+                <br>
+                <div id="pageBar">
+        			<%=request.getAttribute("pageBar") %>
+        		</div>
             </section>
             <br>
         </div>
-
-
-
+</div>
 
 <%@ include file="/views/common/footer.jsp" %>

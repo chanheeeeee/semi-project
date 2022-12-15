@@ -61,7 +61,7 @@ public class DclViewServlet extends HttpServlet {
 			pageBar+="<span>[이전]</span>";
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-				+"/board/memberBoard.do?cPage="+pageNo+"'>"+pageNo+"</a>";
+				+"/cs/dcl.do?cPage="+pageNo+"'>"+pageNo+"</a>";
 		}
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
@@ -69,7 +69,7 @@ public class DclViewServlet extends HttpServlet {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getContextPath()
-					+"/board/memberBoard.do?cPage="+pageNo+"'>"+pageNo+"</a>";
+					+"/cs/dcl.do?cPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
@@ -77,7 +77,7 @@ public class DclViewServlet extends HttpServlet {
 			pageBar+="<span>[다음]</span>";
 		}else {
 			pageBar+="<a href='"+request.getContextPath()
-				+"/board/memberBoard.do?cPage="+pageNo+"'>[다음]</a>";
+				+"/cs/dcl.do?cPage="+pageNo+"'>[다음]</a>";
 		}
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("dcl", dcl);

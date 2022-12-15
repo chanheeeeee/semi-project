@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.member.model.vo.Member;
-import com.wdh.member.service.MemberService;
+import com.wdh.member.vo.Member;
+import com.wdh.mypage.service.MypageService;
 
 /**
  * Servlet implementation class AboutMember
@@ -30,13 +30,23 @@ public class AboutMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String id=request.getParameter("id");
-//		Member m=new MemberService().searchMemberId(id);
+		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
+		
+//		Member m = new MemberService().memberView(id);
+		
+		String grade = new MypageService().memberGrade(id);
+		
 //		try {
+//			
 //			m.setEmail(AESEncrypt.decryptData(m.getEmail()));
-//		}catch(Exception e) {
+//			
+//		} catch(Exception e) {
+//			
 //			e.printStackTrace();
+//			
 //		}
+		
+		request.setAttribute("grade", grade);
 //		request.setAttribute("member", m);
 		request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);
 		

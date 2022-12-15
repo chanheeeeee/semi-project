@@ -32,7 +32,7 @@
 		<%} else{%>
 			[<span id="duplicated"><%=request.getParameter("member_id") %></span>]는 사용중입니다.
 			<br><br>
-			<!-- 아이디 재입력창 구성 -->
+			
 		<%} %>
 		<button type="button">닫기</button>
 	</div>

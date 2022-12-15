@@ -77,7 +77,6 @@
             		<th colspan="4">
                 		<div class="wrap" style="margin: 5%;">
                     	<input type="submit" class="button" value="등록">
-                    	<%-- <button class="button" onclick="location.href=('<%=request.getContextPath()%>/views/board/finish.jsp');">등록</button> --%>
                 		</div>
             		</th>
         		</tr>

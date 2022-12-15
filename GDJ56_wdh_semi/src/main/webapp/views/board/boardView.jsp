@@ -4,6 +4,7 @@
 <%
 	Board b = (Board)request.getAttribute("board");
 	List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
+	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
 %>
 
 <%@ include file="/views/common/innerheader.jsp" %>
@@ -38,7 +39,6 @@
     <section class="bg-light">
         <div class="container pb-5">
             <div class="row">
-                
                 <div class="col-lg-7 mt-5 container py-5">
                     <div class="card">
                         <div class="card-body">
@@ -50,7 +50,7 @@
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark"><%=b.getMemberNo() %> | <%=b.getWdTime() %></span>
+                                <span class="list-inline-item text-dark"><%=b.getMemberNo()%> | <%=b.getWdTime() %></span>
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
@@ -65,7 +65,7 @@
                                     <h6>지역:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>**><%=b.getWdLocation() %></strong></p>
+                                    <p class="text-muted"><strong><%=b.getWdLocation() %></strong></p>
                                 </li>
                             </ul>
                             <ul class="list-inline">
@@ -100,11 +100,15 @@
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">참가하기</span></li>
                                         </ul>
                                     </div>
-                            </form>
 
-                        </div>
-                    </div>
+                        </div>                    
+                    </div>           
                 </div>
+			         <div style="text-align:center;">
+			            <input type="button" id="button1" name="update" value="수정" onclick="location.href='<%=request.getContextPath()%>/board/boardupdate.do?boardNo=<%=b.getWdNo()%>';">
+			            <input type="button" id="button1" name="delete" value="삭제" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
+			         </div>  
+				</form>
             </div>
         </div>
     </section>
@@ -134,13 +138,13 @@
 
             <!--Start comment_댓글-->
             <div id="carousel-related-product">
-            	<%-- <%if(comments.isEmpty()){ %>
+            	<%if(comments.isEmpty()){ %>
             		<h6>아직 작성된 댓글이 없습니다</h6>
             	
             	<%} else {
             	
 		   				for(BoardComment bc : comments){
-		   					if(bc.getBoardCommentLevel()==1){%>
+		   					if(bc.getWdCommentLev()==1){%>
 				                <div class="p-2 pb-3">
 				                    <div class="product-wap card rounded-0">
 				                        <div class="rounded-0">
@@ -153,10 +157,10 @@
 				                            </div>
 				                        </div>
 				                        <div class="card-body">
-				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getBoardCommentWriter() %>작성자</a>
+				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getMemberNo() %>작성자</a>
 				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-				                                <li><%=bc.getBoardCommentContent() %>댓글내용</li>
-				                            <p class="text-center mb-0"><%=bc.getBoardCommentDate() %>게시시간</p>
+				                                <li><%=bc.getWcContent() %>댓글내용</li>
+				                            <p class="text-center mb-0"><%=bc.getWcDate() %>게시시간</p>
 				                            </ul>
 				                        </div>
 				                    </div>
@@ -177,39 +181,39 @@
 				                            </div>
 				                        </div>
 				                        <div class="card-body">
-				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getBoardCommentWriter() %>작성자</a>
+				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getMemberNo() %>작성자</a>
 				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-				                                <li><%=bc.getBoardCommentContent() %>댓글내용</li>
-				                            <p class="text-center mb-0"><%=bc.getBoardCommentDate() %>게시시간</p>
+				                                <li><%=bc.getWcContent() %>댓글내용</li>
+				                            <p class="text-center mb-0"><%=bc.getWcDate() %>게시시간</p>
 				                            </ul>
 				                        </div>
 				                    </div>
 				                </div>
 				             <% }//for안 if
 		   				}//for
-		   			}//for밖 if%> --%>
+		   			}//for밖 if%>
                 
 
 			</div>
         </div>
     </section>
     <!-- End 댓글&작성자후기 중 댓글 -->
-	<!-- 댓글&작성자후기 중 작성자후기 -->                        
+	<!-- 댓글&작성자후기 중 작성자후기 -->                 
     <section class="py-5">
         <div class="container">
             <div class="row text-left p-2 pb-3">
-                <h4 id="boardView_c1">작성자후기</h4>
+                <h4 id="boardView_c2">작성자후기</h4>
             </div>
 
             <!--Start comment_작성자후기-->
             <div id="carousel-related-product">
-            	<%-- <%if(comments.isEmpty()){ %>
+            	<%if(reviews.isEmpty()){ %>
             		<h6>아직 작성된 작성자 후기가 없습니다</h6>
             	
             	<%} else {
             	
-		   				for(BoardComment bc : comments){
-		   					if(bc.getBoardCommentLevel()==1){%>
+		   				for(ReviewBoard rb : reviews){%>
+		   					
 				                <div class="p-2 pb-3">
 				                    <div class="product-wap card rounded-0">
 				                        <div class="rounded-0">
@@ -222,41 +226,19 @@
 				                            </div>
 				                        </div>
 				                        <div class="card-body">
-				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getBoardCommentWriter() %>작성자</a>
+				                            <a href="shop-single.html" class="h3 text-decoration-none">익명</a>
 				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-				                                <li><%=bc.getBoardCommentContent() %>댓글내용</li>
-				                            <p class="text-center mb-0"><%=bc.getBoardCommentDate() %>게시시간</p>
+				                                <li><%=rb.getReviewTitle() %>작성자후기제목</li>
+				                                <li><%=rb.getReviewContent()%>작성자후기내용</li>
+				                            	<p class="text-center mb-0"><%=rb.getReviewDate()%>게시시간</p>
 				                            </ul>
 				                        </div>
 				                    </div>
 				                </div>
 				                
-				             <%} else{%>
-				                
-								 <div class="p-2 pb-3">
-				                    <div class="product-wap card rounded-0">
-				                    ㄴ답글
-				                        <div class="rounded-0">
-				                            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-				                                <!-- <ul class="list-unstyled">
-				                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-				                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-				                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-				                                </ul> -->
-				                            </div>
-				                        </div>
-				                        <div class="card-body">
-				                            <a href="shop-single.html" class="h3 text-decoration-none"><%=bc.getBoardCommentWriter() %>작성자</a>
-				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-				                                <li><%=bc.getBoardCommentContent() %>댓글내용</li>
-				                            <p class="text-center mb-0"><%=bc.getBoardCommentDate() %>게시시간</p>
-				                            </ul>
-				                        </div>
-				                    </div>
-				                </div>
-				             <% }//for안 if
-		   				}//for
-		   			}//for밖 if%> --%>
+
+		   				<%}//for
+		   			}//for밖 if%>
                 
 
 

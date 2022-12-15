@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ page import="com.wdh.member.vo.Member" %>
+<%
+	Member loginMember=(Member)session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +28,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/각자 발급받은 api key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
@@ -40,13 +48,13 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">메인</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/advertisement.jsp">광고문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/del.jsp">신고하기</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/qs.jsp">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -57,26 +65,32 @@
     </nav>
     <!-- Close Header -->
 <!-- 신고 글 작성하고 넘어 갈 서블릿에서 => msg.jsp로 넘어가기 -->
+<div font-family:jua;>
     <div style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
         <section id="notice-container">
                 <h2><strong>신고하기 글 작성</strong></h2>
             <form action="<%=request.getContextPath() %>/cs/writeEnd.do" method="post" enctype="multipart/form-data">
                 <table id="tbl-board" border="1">
+                <tr>	
+                    <th>제 목</th>
+                    <td>&nbsp;&nbsp;<input type="text" name="dcl_title" placeholder="신고제목입력"></td>
+                </tr>
                 <tr>
-                    <th>신 고 제 목</th>
-                    <td>
-                        &nbsp;&nbsp;<select name="" id="">
+                	<th>분 류</th>
+                 	<td>
+                        &nbsp;&nbsp;<select name="dcl_headtitle" >
                             <option value="불법광고">불법광고</option>
                             <option value="욕설 및 비하">욕설 및 비하</option>
                             <option value="비매너">비매너</option>
                             <option value="기타신고">기타신고</option>
+                            
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <th>작 성 자</th>
                     <td>
-                        &nbsp;&nbsp;<input type="text" name="notice_writer" placeholder="작성자입력" >
+                        &nbsp;&nbsp;<input type="text" name="" readonly value="<%=loginMember.getMember_id()%>" >
                     </td>
                 </tr>
                 <tr>
@@ -88,17 +102,20 @@
                 <tr>
                     <th>내 용</th>
                     <td>
-                    <form method="post">
-                        <textarea id="editor"></textarea>
-                    </form>
+                    <!-- <form method="post" name=""> -->
+                        <textarea id="editor" name="dcl_content"></textarea>
+                    <!-- </form> -->
                 </td>
                 </tr>
-                <!-- <tr>
+                <%if(loginMember!=null&&
+                	loginMember.getMember_id().equals("admin")) {%>
+                <tr>
                     <th colspan="2">
                         <input type="button" value="수정하기" onclick="">
                         <input type="button" value="삭제하기" onclick="">
                     </th> 
-                </tr> -->
+                </tr>
+                <%} %>
             </table>
                      <button onclick="location.replace='<%=request.getContextPath()%>/views/cs/del.jsp'" id="delbtn">등록</button>
                      <br>
@@ -107,7 +124,7 @@
         </section>
         <br>
         </div>
-
+</div>
 
 <script>
         $(function(){

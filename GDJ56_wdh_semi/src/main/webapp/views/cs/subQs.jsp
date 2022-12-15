@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.wdh.member.vo.Member" %>
+<%
+	Member loginMember=(Member)session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,13 +45,13 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">메인</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/advertisement.jsp">광고문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/del.jsp">신고하기</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/views/cs/qs.jsp">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -57,14 +61,18 @@
         </div>
     </nav>
     <!-- Close Header -->
-    
+<div font-family:jua;>
     <div style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
         <section id="notice-container">
                 <h2><strong>1 대 1 문의 글 작성</strong></h2>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="<%=request.getContextPath() %>/cs/writeQs.do" method="post" enctype="multipart/form-data">
                 <table id="tbl-board" border="1">
                 <tr>
                     <th>제 목</th>
+                    <td>&nbsp;&nbsp;<input type="text"></td>
+                </tr>
+                <tr>
+                    <th>분 류</th>
                     <td>
                         &nbsp;&nbsp;<select name="" id="">
                             <option value="챌린지문의">챌린지문의</option>
@@ -77,13 +85,7 @@
                 <tr>
                     <th>작 성 자</th>
                     <td>
-                        &nbsp;&nbsp;<input type="text" name="notice_writer" placeholder="작성자입력" >
-                    </td>
-                </tr>
-                <tr>
-                    <th>첨 부 파 일</th>
-                    <td>
-                        &nbsp;&nbsp;<input type="file" name="upfile">
+                        &nbsp;&nbsp;<input type="text" name="notice_writer" readonly value="<%=loginMember.getMember_id()%>">
                     </td>
                 </tr>
                 <tr>
@@ -106,6 +108,7 @@
         </form>
     </section>
         <br>
+        </div>
         </div>
 <script>
         $(function(){

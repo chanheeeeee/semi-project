@@ -1,5 +1,7 @@
 package com.wdh.del.model.dao;
 
+import static com.wdh.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,8 +11,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import static com.wdh.common.JDBCTemplate.*;
+
 import com.wdh.del.model.vo.Declaration;
+import com.wdh.member.dao.MemberDao;
+import com.wdh.member.vo.Member;
 
 public class DclDao {
 	private Properties sql=new Properties();
@@ -23,6 +27,8 @@ public class DclDao {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	public List<Declaration> searchDcl(Connection conn, int cPage, int numPerpage){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -33,7 +39,9 @@ public class DclDao {
 			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				result.add(getDcl(rs));
+				Declaration dcl=getDcl(rs);
+				dcl.setMember(MemberDao.getMember(rs));
+				result.add(dcl);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -42,6 +50,7 @@ public class DclDao {
 			close(pstmt);
 		}return result;
 	}
+	
 	public int selectDclCount(Connection conn) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -59,7 +68,9 @@ public class DclDao {
 			close(pstmt);
 		}return count;
 	}
-	public int insertDcl(Connection conn, Declaration dcl) {
+	
+	
+	public int insertDcl(Connection conn, Declaration dcl, Member m) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
@@ -67,8 +78,8 @@ public class DclDao {
 			pstmt.setString(1, dcl.getDclTitle());
 			pstmt.setString(2, dcl.getDclContent());
 			pstmt.setString(3, dcl.getDclHeadTitle());
-			pstmt.setInt(4, dcl.getMemberNo());
-			pstmt.setString(5, dcl.getFilePath());
+			pstmt.setInt(4, m.getMember_no());
+//			pstmt.setString(5, dcl.getFilePath());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -76,6 +87,8 @@ public class DclDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	
 	public Declaration selectDcl(Connection conn, int no) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -84,7 +97,11 @@ public class DclDao {
 			pstmt=conn.prepareStatement(sql.getProperty("selectDcl"));
 			pstmt.setInt(1, no);
 			rs=pstmt.executeQuery();
-			if(rs.next()) dcl=getDcl(rs);
+			if(rs.next()) {
+				dcl=getDcl(rs);
+				dcl.setMember(MemberDao.getMember(rs));
+				
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
