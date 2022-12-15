@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.vo.Board;
+import com.wdh.board.vo.ReviewBoard;
 import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.service.MypageService;
@@ -40,7 +41,7 @@ public class MycontentServlet extends HttpServlet {
 		Member m = new MemberService().memberView(id);
 		
 		int cPage;
-		int numPerpage=10;
+		int numPerpage=8;
 		
 		try {
 			
@@ -54,6 +55,8 @@ public class MycontentServlet extends HttpServlet {
 		
 		
 		List<Board> boards = new MypageService().selectBoardList(cPage, numPerpage, m);
+		
+		List<ReviewBoard> reviews = new MypageService().selectBoardListR(cPage, numPerpage, m);
 		
 
 		int totalData=new MypageService().selectBoardCount(m);
@@ -88,6 +91,8 @@ public class MycontentServlet extends HttpServlet {
 		
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("boards", boards);
+		
+		request.setAttribute("reviews", reviews);
 		
 		RequestDispatcher rd=request.getRequestDispatcher("/views/mypage/mycontent.jsp");
 		rd.forward(request, response);
