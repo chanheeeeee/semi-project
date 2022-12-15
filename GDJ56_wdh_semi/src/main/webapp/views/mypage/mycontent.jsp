@@ -1,6 +1,11 @@
+<%@page import="com.wdh.board.vo.Board"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<%
+	List<Board> boards = (List<Board>)request.getAttribute("boards");
+%>
 
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
@@ -61,31 +66,19 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <% if(boards.isEmpty()) { %>
+                  <% } else {
+                	  	for(Board b : boards) { %>
                     <tr>
-                      <td>1.</td>
-                      <td>즐거운 축구 모임</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">작성</button></td>
-                    
+                      <td><%= b.getWdNo() %></td>
+                      <td><%= b.getWdTitle() %></td>
+                      <td><%= b.getWdTime() %></td>
+                      <td>
+                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">작성</button>
+                      </td>
                     </tr>
-                    <tr>
-                      <td>2.</td>
-                      <td>여의도 한강 달리기 하실래요?</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lblue min-42">작성</button></td>
-                    </tr>
-                    <tr>
-                      <td>3.</td>
-                      <td>스쿼트 챌린지 같이 깨실 분</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lgray min-42">완료</button></td>
-                    </tr>
-                    <tr>
-                      <td>4.</td>
-                      <td>등산팟</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lblue min-42">작성</button></td>
-                    </tr>
+                   <% 	}
+                	 } %>
                   </tbody>
                 </table>
               </div>
@@ -100,6 +93,7 @@
                 </ul>
               </div>
             </div>
+           </div>
             <!-- /.card -->
 
             <!-- 신고/문의 -->
@@ -331,6 +325,7 @@
         </div>
         <!-- /.row -->
        <!-- ./챌린지 -->
+       </section>
      
 
 

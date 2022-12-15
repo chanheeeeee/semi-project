@@ -2,10 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 
+<%
+
+%>
+
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" id="profile" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..."
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..."
                 							style="width: 200px; height: 200px;" /></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -32,7 +36,7 @@
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">아이디</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Id" readonly>
+                          <input type="email" class="form-control" id="inputName" value="<%= loginMember.getMember_id() %>" readonly>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -76,7 +80,7 @@
                         <label for="inputExperience" class="col-sm-2 col-form-label">주소</label>
                         <div class="col-sm-10">
                           	<div style="float:left;"><input type="text" class="form-control" id="sample6_postcode" placeholder="우편번호"></div>
-							<input type="button" class="btn btn-xs btn-lblue2 min-42" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+							<input type="button" class="btn btn-xs btn-lblue3 min-42" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 							<input type="text" class="form-control" id="sample6_address" placeholder="주소">
 							<input type="text" class="form-control" id="sample6_detailAddress" placeholder="상세주소">
 							<input type="text" class="form-control" id="sample6_extraAddress" placeholder="참고항목">
@@ -176,7 +180,7 @@
 		<script>
 			const fn_updatePassword=()=>{
 				//새창으로 패스워드 수정페이지 연결
-				open("updatePassword.jsp",
+				open("<%= request.getContextPath() %>/mypage/updatePassword.do",
 						"_blank","width=400,height=210");
 				
 			}

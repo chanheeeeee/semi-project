@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.member.vo.Member;
-import com.wdh.mypage.service.MypageService;
-
 /**
- * Servlet implementation class AboutMember
+ * Servlet implementation class PassUpdateServlet
  */
-@WebServlet("/mypage/about.do")
-public class AboutMemberServlet extends HttpServlet {
+@WebServlet("/mypage/updatePassword.do")
+public class UpdatePasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AboutMemberServlet() {
+    public UpdatePasswordServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,27 +26,8 @@ public class AboutMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
-		
-//		Member m = new MemberService().memberView(id);
-		
-		String grade = new MypageService().memberGrade(id);
-		
-//		try {
-//			
-//			m.setEmail(AESEncrypt.decryptData(m.getEmail()));
-//			
-//		} catch(Exception e) {
-//			
-//			e.printStackTrace();
-//			
-//		}
-		
-		request.setAttribute("grade", grade);
-//		request.setAttribute("member", m);
-		request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/views/mypage/updatePassword.jsp")
+		.forward(request,response);
 	}
 
 	/**
