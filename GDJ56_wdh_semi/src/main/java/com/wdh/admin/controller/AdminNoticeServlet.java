@@ -33,7 +33,7 @@ public class AdminNoticeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//DB notice 테이블에 있는 전체디이터를 가져와 화면에 전송
+		//DB notice 테이블에 있는 전체 디이터를 가져와 화면에 전송
 		
 		int cPage;
 		int numPerpage=10;

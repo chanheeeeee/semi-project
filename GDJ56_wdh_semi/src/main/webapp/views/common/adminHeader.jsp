@@ -86,8 +86,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminService_Questions.jsp">1대1문의 관리</a>
-                                    <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminService_Dcl.jsp">신고 관리</a>
+                                    <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminQs.do">1대1문의 관리</a>
+                                    <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminDcl.do">신고 관리</a>
                                 </nav>
                             </div>
                             

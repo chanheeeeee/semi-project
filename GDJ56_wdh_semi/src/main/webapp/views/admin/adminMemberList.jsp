@@ -22,6 +22,26 @@ List<Member> members=(List<Member>)request.getAttribute("members");
             background-color: cornflowerblue;
         }
     </style>
+    
+    	<!-- //전체 선택 체크박스
+    		<script>
+		    $(document).ready(function(){
+		        //최상단 체크박스 클릭
+		        $("#checkall").click(function(){
+		            //클릭되었으면
+		            //console.log($("#checkall").prop("checked"));
+		            if($("#checkall").prop("checked")){
+		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+		                $("input[name=chk]").prop("checked",true);
+		                //클릭이 안되있으면
+		            }else{
+		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+		                $("input[name=chk]").prop("checked",false);
+		            }
+		        })
+		    })
+			</script> -->
+    
 
 		<div id="layoutSidenav_content">
 		                <main>
@@ -44,7 +64,6 @@ List<Member> members=(List<Member>)request.getAttribute("members");
 		                                <table id="datatablesSimple">
 							            <thead>
 							                <tr>
-							                	<th><input type="checkbox" name="checkall" id="checkall"></th>
 								                <th>회원번호</th>
 	                                            <th>아이디</th>
 	                                            <th>이름</th>

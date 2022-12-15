@@ -13,7 +13,7 @@
         
         
         <section id="notice-container">
-                <h2><strong>공지사항 글 작성</strong></h2>
+                <h2><strong>글 수정하기</strong></h2>
             <form action="" method="post" enctype="multipart/form-data">
                 <table id="tbl-board" border="1">
                 <tr>
@@ -61,10 +61,7 @@
 			alert("제목을 입력해 주세요!!");
 			return false;
 		}
-		/* else if($("[name=noticeWriter]").val() == ""){
-			alert("작성자를 입력해 주세요!!");
-			return false;
-		} */
+		
 		else if($("[name=noticeContent]").val() == ""){
 			alert("내용 입력해 주세요!!");
 			return false;

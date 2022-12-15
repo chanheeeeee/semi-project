@@ -28,10 +28,11 @@ public class AdminDao {
 		}
 	}
 	
-	public List<Member> searchMemberList(Connection conn, String type, String keyword, int cPage,int numPerpage){
+	public List<Member> searchMemberList(Connection conn, int cPage,int numPerpage){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<Member> result=new ArrayList();
+		System.out.println("테스트 : " + sql.getProperty("searchMemberList"));
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("searchMemberList"));
 			//시작값
@@ -94,8 +95,8 @@ public class AdminDao {
 		m.setMember_no(rs.getInt("MEMBER_NO"));
 		m.setMember_id(rs.getString("MEMBER_ID"));
 		m.setMember_nickname(rs.getString("MEMBER_NICKNAME"));
-		m.setName(rs.getString("NAME"));
-		m.setPassword(rs.getString("PASSWORD"));
+		m.setName(rs.getString("MEMBER_NAME"));
+		m.setPassword(rs.getString("MEMBER_PASSWORD"));
 		m.setGender(rs.getString("GENDER").charAt(0));
 		m.setBirth(rs.getDate("BIRTH"));
 		m.setEmail(rs.getString("EMAIL"));

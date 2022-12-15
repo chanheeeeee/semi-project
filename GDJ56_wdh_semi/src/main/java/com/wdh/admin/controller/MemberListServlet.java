@@ -87,7 +87,7 @@ public class MemberListServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("pageBar", pageBar);
-		request.setAttribute("member", members);
+		request.setAttribute("members", list);
 		
 		RequestDispatcher rd=request.getRequestDispatcher("/views/admin/adminMemberList.jsp");
 		rd.forward(request,response);

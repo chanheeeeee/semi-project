@@ -24,7 +24,27 @@
             color:white;
             background-color: cornflowerblue;
         }
-    </style>  		 
+    </style> 
+    
+		    <script>
+		    $(document).ready(function(){
+		        //최상단 체크박스 클릭
+		        $("#checkall").click(function(){
+		            //클릭되었으면
+		            //console.log($("#checkall").prop("checked"));
+		            if($("#checkall").prop("checked")){
+		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+		                $("input[name=chk]").prop("checked",true);
+		                //클릭이 안되있으면
+		            }else{
+		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+		                $("input[name=chk]").prop("checked",false);
+		            }
+		        })
+		    })
+			</script>
+    
+     		 
     
 			<div id="layoutSidenav_content">
                 <main>
@@ -34,17 +54,21 @@
                             <li class="breadcrumb-item active">공지사항을 관리합니다.</li>
                         </ol>
                        
-                       <%-- <hr class="one">
-                        <div id="btn_group">
-                        <button onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">글쓰기</button>
-                        </div>
-                        <hr class="one"> --%>
+                       <hr class="one">
+                       <div id="btn_group">
+                       <p>
+                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">공지 작성</button>
+                       선택된 게시글을 <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/UpdateNotice.jsp')">수정</button> 
+                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">삭제</button>
+                       합니다.</p>
+                       </div> 
+                       <hr class="one">
                         
                        <section id="board-container">
 			            <table id="datatablesSimple">
 			            <thead>
 			                <tr>
-			                	<th><input type="checkbox" name="checkall" id="checkall"></th>
+			                	<th><input type="checkbox" id="checkall"></th>
 			                    <th>번호</th>
 			                    <th>제목</th>
 			                    <th>작성자</th>
@@ -59,7 +83,7 @@
 								for(Notice n : notice){
 							%>
 							 <tr>
-							 	<th><input type="checkbox" name="checkall" id="checkall"></th>
+							 	<td><input type="checkbox" name="chk" /></td>
                 				<td><%=n.getNoticeNo() %></td>
 	                			<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
 		                		<td><%=n.getNoticeWriter() %></td>
@@ -68,11 +92,16 @@
                	 			}%>
                 			</tr>
                 			</table>
+               		 		
                 			<br>
 			                 <%-- 페이징 처리 --%>
 			                <%--<div id="pageBar">
 			                	<%=request.getAttribute("pageBar") %>
 			                </div> --%>
+			              	
+			              	
+			                
+			                
 			            </section>
 			            <br>
 			        </div> 

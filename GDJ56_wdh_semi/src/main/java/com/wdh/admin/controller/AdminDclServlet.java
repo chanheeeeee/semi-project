@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.qs.model.service.QsService;
-import com.wdh.qs.model.vo.Question;
+import com.wdh.del.model.service.DclService;
+import com.wdh.del.model.vo.Declaration;
 
 /**
  * Servlet implementation class AdminQsServlet
  */
-@WebServlet("/views/admin/adminQs.do")
-public class AdminQsServlet extends HttpServlet {
+@WebServlet("/views/admin/adminDcl.do")
+public class AdminDclServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminQsServlet() {
+    public AdminDclServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,7 @@ public class AdminQsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//DB SERVICE_question 테이블에 있는 전체 디이터를 가져와 화면에 전송
+		//DB SERVICE_DCL 테이블에 있는 전체 디이터를 가져와 화면에 전송
 		
 				int cPage;
 				int numPerpage=10;
@@ -42,9 +42,9 @@ public class AdminQsServlet extends HttpServlet {
 				}catch(NumberFormatException e) {
 					cPage=1;
 				}
-				List<Question> questions=new QsService().searchQs(cPage,numPerpage);
+				List<Declaration> declarations=new DclService().searchDcl(cPage,numPerpage);
 				
-				int totalData=new QsService().selectQsCount();
+				int totalData=new DclService().selectDclCount();
 				
 				int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 				
@@ -75,8 +75,8 @@ public class AdminQsServlet extends HttpServlet {
 					+"?cPage="+pageNo+"'>[다음]</a>";
 				}
 				request.setAttribute("pageBar", pageBar);
-				request.setAttribute("question", questions);
-				RequestDispatcher rd=request.getRequestDispatcher("/views/admin/adminQs.jsp");
+				request.setAttribute("declaration", declarations);
+				RequestDispatcher rd=request.getRequestDispatcher("/views/admin/adminDcl.jsp");
 				rd.forward(request, response);
 					
 			
