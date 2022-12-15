@@ -70,18 +70,6 @@ public class MemberService {
 		return m;
 	}
 	
-	//멤버 등급
-	public String memberGrade(String member_id) {
-		
-		Connection conn = getConnection();
-		
-		String grade = dao.memberGrade(conn, member_id);
-		
-		close(conn);
-		
-		return grade;
-		
-	}
 	
 	
 	
