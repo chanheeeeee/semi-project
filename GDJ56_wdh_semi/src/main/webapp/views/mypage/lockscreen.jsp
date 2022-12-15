@@ -34,17 +34,18 @@
       <img src="<%=request.getContextPath() %>/assets/img/pocha.jpg" class="profile" alt="User Image">
     </div>
 
-    <!-- 비밀번호 체크 -->
+    <!-- 비밀번호 체크 폼 -->
     <form class="lockscreen-credentials" id="updateFrm" action="<%= request.getContextPath() %>/mypage/updateMember.do"
     			method="post">
     			
       <div class="input-group">
       
-        <input type="password" class="form-control" placeholder="password" id="pass">
+        <input type="password" class="form-control" placeholder="password" name="pass">
 
         <div class="input-group-append">
        
-        	<button type="button" class="btn" onclick="location.href='<%=request.getContextPath()%>/mypage/updateMember.do'">
+        	<!-- <button type="button" class="btn" onclick="fn_update()"> -->
+        	<button type="submit" class="btn">
             	<i class="fas fa-arrow-right"></i>
             </button>
 
@@ -66,7 +67,7 @@
 	<%-- const fn_update=()=>{
 		$("#updateFrm").attr("action",
 			"<%=request.getContextPath()%>/mypage/updateMember.do");
-		$("#updateFrm).submit();
+		$("#updateFrm").submit();
 	} --%>
 </script>
 

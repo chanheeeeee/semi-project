@@ -46,7 +46,7 @@ public class NoticeListServlet extends HttpServlet {
 		//한 페이지에 출력될 notice 5개
 		int numPerpage=5;
 	
-		List<Notice> notice=new NoticeService().searchNotice(cPage,numPerpage);
+		List<Notice> notice=new NoticeService().selectNoticeList(cPage,numPerpage);
 		
 		int totalData=new NoticeService().selectNoticeCount();
 		

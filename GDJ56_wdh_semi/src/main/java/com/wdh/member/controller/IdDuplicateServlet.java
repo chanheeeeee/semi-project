@@ -36,24 +36,12 @@ public class IdDuplicateServlet extends HttpServlet {
 		//UTF-8로 처리 DAO를 통해 값이 중복하는지 확인한 후, 결과 값을 JSP로 보내줌
 			
 		String memberId = request.getParameter("memberId");
-		//join.jsp에서 받아온 키값 memberId이고
-		//value값은 유저가 실제로 적은 값, String memberId에는 value값이 들어간다
-		
-		
-		PrintWriter out = response.getWriter();//반환값을 출력하기 위한 구문
 		
 		Member m = new MemberService().memberView(memberId);
 		
 		
-		//성공여부 확인
-		if(m!=null) {
-			System.out.println("이미 존재하는 아이디입니다.");
-		}else {
-			System.out.println("사용 가능한 아이디입니다.");
-		}
-		out.write(m + "");//ajax결과값인 result가 됨!
-		//String 으로 값을 내보낼수 있도로 +""를 해주어야 한다!
-		
+		response.setContentType("text/csv;charset=utf-8");
+		response.getWriter().append(m==null?"가능":"불가능");
 		
 		
 	}

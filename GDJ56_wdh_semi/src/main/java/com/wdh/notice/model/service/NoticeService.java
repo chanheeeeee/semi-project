@@ -10,7 +10,7 @@ import static com.wdh.common.JDBCTemplate.*;
 public class NoticeService {
 	private NoticeDao dao=new NoticeDao();
 	
-	public List<Notice> searchNotice(int cPage, int numPerpage){
+	public List<Notice> selectNoticeList(int cPage, int numPerpage){
 		Connection conn=getConnection();
 		List<Notice> result=dao.searchNotice(conn,cPage,numPerpage);
 		close(conn);
@@ -35,5 +35,31 @@ public class NoticeService {
 		else rollback(conn);
 		close(conn);
 		return result;
+
 	}
-}
+	
+	public int updateNotice(Notice n) {
+		Connection conn = getConnection();
+		int result = dao.updateNotice(conn, n);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}	
+	
+	
+	public int deleteNotice(int noticeNo) {
+		Connection conn = getConnection();
+		int result = dao.deleteNotice(conn, noticeNo);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+}	

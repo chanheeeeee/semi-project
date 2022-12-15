@@ -136,6 +136,7 @@ public class MemberDao {
 		return m;
 	}
 	
+	
 	public String memberGrade(Connection conn, String member_id) {
 		
 		PreparedStatement pstmt = null;

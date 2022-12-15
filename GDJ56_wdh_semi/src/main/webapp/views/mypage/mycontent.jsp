@@ -1,6 +1,15 @@
+<%@page import="com.wdh.board.vo.ReviewBoard"%>
+<%@page import="com.wdh.board.vo.Board"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<%
+	List<Board> boards = (List<Board>)request.getAttribute("boards");
+
+	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
+
+%>
 
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
@@ -44,6 +53,8 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
+        
+        
           <div class="col-md-6">
             <div class="card">
               <div class="card-header">
@@ -61,31 +72,68 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <% if(boards.isEmpty()) { %>
+                  <% } else {
+                	  	for(Board b : boards) { %>
                     <tr>
-                      <td>1.</td>
-                      <td>즐거운 축구 모임</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">작성</button></td>
-                    
+                      <td><%= b.getWdNo() %></td>
+                      <td><%= b.getWdTitle() %></td>
+                      <td><%= b.getWdTime() %></td>
+                      <td>
+                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">작성</button>
+                      </td>
                     </tr>
+                   <% 	}
+                	 } %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+           </div>
+            <!-- /.card -->
+            
+            <!-- 후기 -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">후기</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
                     <tr>
-                      <td>2.</td>
-                      <td>여의도 한강 달리기 하실래요?</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lblue min-42">작성</button></td>
+                      <th style="width: 10px">#</th>
+                      <th>제목</th>
+                      <th>게시날짜</th>
+                      <th style="width: 40px"></th>
                     </tr>
+                  </thead>
+                  <tbody>
+                    <% if(reviews.isEmpty()) { %>
+                  <% } else {
+                	  	for(ReviewBoard r : reviews) { %>
                     <tr>
-                      <td>3.</td>
-                      <td>스쿼트 챌린지 같이 깨실 분</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lgray min-42">완료</button></td>
+                      <td><%= r.getReviewSeq() %></td>
+                      <td><%= r.getReviewTitle() %></td>
+                      <td><%= r.getReviewDate() %></td>
+                      <td>
+                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?ReviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
+                      </td>
                     </tr>
-                    <tr>
-                      <td>4.</td>
-                      <td>등산팟</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lblue min-42">작성</button></td>
-                    </tr>
+                   <% 	}
+                	 } %>
                   </tbody>
                 </table>
               </div>
@@ -101,11 +149,15 @@
               </div>
             </div>
             <!-- /.card -->
-
-            <!-- 신고/문의 -->
+            </div>
+            <!-- ./후기 -->
+            
+			
+            <!-- 문의 -->
+            <div class="col-md-6">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">신고/문의</h3>
+                <h3 class="card-title">문의</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
@@ -122,6 +174,68 @@
                     <tr>
                       <td>1.</td>
                       <td>비밀번호를 못 찾겠어요</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>문의</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>챌린지 당첨자 언제 나오나요?</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
+                    <tr>
+                      <td>4.</td>
+                      <td>일정 등록이 안 돼요</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.card -->
+          <!-- /.col -->
+          </div>
+          <!-- 문의 -->
+
+          
+ 		<!-- 신고 -->
+            <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">신고</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>제목</th>
+                      <th></th>
+                      <th style="width: 40px"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>신고</td>
                       <td></td>
                       <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
                     </tr>
@@ -158,79 +272,9 @@
               </div>
             </div>
             <!-- /.card -->
-          </div>
           <!-- /.col -->
-          <!-- 신고/문의 -->
-
-          <!-- 후기 -->
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">후기</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body p-0">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>제목</th>
-                      <th>게시날짜</th>
-                      <th style="width: 40px"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1.</td>
-                      <td>친절하세요</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
-                    </tr>
-                    <tr>
-                      <td>2.</td>
-                      <td>축구 모임 주최자 후기</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
-                    </tr>
-                    <tr>
-                      <td>3.</td>
-                      <td>첫 후기</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
-                    </tr>
-                    <tr>
-                      <td>4.</td>
-                      <td>운동 모임</td>
-                      <td>2022-12-11</td>
-                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div>
-            </div>
-            <!-- /.card -->
-            <!-- ./후기 -->
-
-            <!-- 공간 -->
-            <div class="card">
-              
-            </div>
-            <!-- /.공간 -->
-
           </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
+          <!-- 신고 -->
 
 
         <!-- 챌린지 -->
@@ -327,10 +371,14 @@
               <!-- /.card-body -->
             </div>
             <!-- /.card -->
+            <!-- /.챌린지 -->
+            
+            
           </div>
         </div>
         <!-- /.row -->
        <!-- ./챌린지 -->
+       </section>
      
 
 

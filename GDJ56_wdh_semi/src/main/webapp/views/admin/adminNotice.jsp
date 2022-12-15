@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.wdh.notice.model.vo.Notice" %>
+<%
+	List<Notice> notice=(List<Notice>)request.getAttribute("notice");
+%>
     
+ 
  <%@ include file="/views/common/adminHeader.jsp" %> 
  
   <style>
@@ -19,7 +24,27 @@
             color:white;
             background-color: cornflowerblue;
         }
-    </style>  
+    </style> 
+    
+		    <script>
+		    $(document).ready(function(){
+		        //최상단 체크박스 클릭
+		        $("#checkall").click(function(){
+		            //클릭되었으면
+		            //console.log($("#checkall").prop("checked"));
+		            if($("#checkall").prop("checked")){
+		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+		                $("input[name=chk]").prop("checked",true);
+		                //클릭이 안되있으면
+		            }else{
+		                //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+		                $("input[name=chk]").prop("checked",false);
+		            }
+		        })
+		    })
+			</script>
+    
+     		 
     
 			<div id="layoutSidenav_content">
                 <main>
@@ -28,77 +53,56 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">공지사항을 관리합니다.</li>
                         </ol>
-                        <div id="btn_group">
-                        <p>선택된 항목을 <button id="test_btn1">삭제</button> <button id="test_btn1">수정</button> 합니다. <button id="test_btn1">공지 작성</button> 합니다.</p>
-                        </div>
-                        <hr class="one">
-
-                        <div class="row">
-                            
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                        	<!-- 여기 체크박스는 전체선택이 되어야 한다  -->
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <th>번호</th>
-                                            <th>제목</th>
-                                            <th>작성자</th>
-                                            <th>작성일</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        
-                                    </tfoot>
-                                    <tbody>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                            
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </main>
-                
-                
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
+                       
+                       <hr class="one">
+                       <div id="btn_group">
+                       <p>
+                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">공지 작성</button>
+                       선택된 게시글을 <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/UpdateNotice.jsp')">수정</button> 
+                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">삭제</button>
+                       합니다.</p>
+                       </div> 
+                       <hr class="one">
+                        
+                       <section id="board-container">
+			            <table id="datatablesSimple">
+			            <thead>
+			                <tr>
+			                	<th><input type="checkbox" id="checkall"></th>
+			                    <th>번호</th>
+			                    <th>제목</th>
+			                    <th>작성자</th>
+			                    <th>작성일</th>
+			                </tr>
+			                </thead>
+							<% if(notice.isEmpty()){ %>
+							<tr>
+								<td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
+							</tr>	
+							<%}else{ 
+								for(Notice n : notice){
+							%>
+							 <tr>
+							 	<td><input type="checkbox" name="chk" /></td>
+                				<td><%=n.getNoticeNo() %></td>
+	                			<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
+		                		<td><%=n.getNoticeWriter() %></td>
+		                		<td><%=n.getNoticeEnroll() %></td>
+		                		<%} 
+               	 			}%>
+                			</tr>
+                			</table>
+               		 		
+                			<br>
+			                 <%-- 페이징 처리 --%>
+			                <%--<div id="pageBar">
+			                	<%=request.getAttribute("pageBar") %>
+			                </div> --%>
+			              	
+			              	
+			                
+			                
+			            </section>
+			            <br>
+			        </div> 
+                  
