@@ -27,8 +27,6 @@ public class DclDao {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	public List<Declaration> searchDcl(Connection conn, int cPage, int numPerpage){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -115,7 +113,7 @@ public class DclDao {
 	public static Declaration getDcl(ResultSet rs) throws SQLException{
 		return Declaration.builder()
 				.dclNo(rs.getInt("dcl_no"))
-				.dclTitle(rs.getString("dcl_content"))
+				.dclTitle(rs.getString("dcl_title"))
 				.dclContent(rs.getString("dcl_content"))
 				.dclDate(rs.getDate("dcl_date"))
 				.dclHeadTitle(rs.getString("dcl_headtitle"))
