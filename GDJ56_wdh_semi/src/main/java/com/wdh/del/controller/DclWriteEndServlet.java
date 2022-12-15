@@ -63,9 +63,7 @@ public class DclWriteEndServlet extends HttpServlet {
 			
 			Declaration dcl=Declaration.builder()
 					.dclTitle(title)
-					
 					.dclContent(content)
-					
 					.dclHeadTitle(headTitle)
 					.filePath(fileName)
 					.build();

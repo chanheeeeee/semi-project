@@ -13,15 +13,13 @@
 				<option value="기타"> 기타</option>
 			</select>  
 			
-			<!-- <form name="form" id="form" method="post"> -->`
-				<input type="button" onClick="goPopup();" class="button1" value="지역선택">
+				<input type="button" onClick="goPopup();" id="roadFullButton" class="button1" value="지역선택">
 				<div id="list"></div>
 				<div id="callBackDiv">
 					<table>
-						<tr><td></td><td><input type="hidden"  style="width:500px;" id="roadFullAddr"  name="roadFullAddr" /></td></tr>
+						<tr><td></td><td><input type="hidden"  style="width:500px;" id="roadFullAddr"  name="roadFullAddr"/></td></tr>
 					</table>
 				</div>
-			<!-- </form> -->
 
 			<script>
 				const goPopup=()=>{
@@ -29,6 +27,7 @@
 				}
 				function jusoCallBack(roadFullAddr){
 					/* document.form.roadFullAddr.value = roadFullAddr; */
+					document.getElementById("roadFullButton").value=roadFullAddr
 					document.getElementById("roadFullAddr").value=roadFullAddr
 				}
 			</script>                    

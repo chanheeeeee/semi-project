@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.member.service.MemberService;
+import com.wdh.member.vo.Member;
 import com.wdh.qs.model.service.QsService;
 import com.wdh.qs.model.vo.Question;
 
@@ -41,7 +43,11 @@ public class QsWriteEndServlet extends HttpServlet {
 				.qsHeadTitle(headTitle)
 				.build();
 		
-		int result=new QsService().insertQs(qs);
+		//세션을 가져옴
+		String id=((Member)request.getSession().getAttribute("loginMember")).getMember_id();
+		Member m=new MemberService().memberView(id);
+		
+		int result=new QsService().insertQs(qs, m);
 		String msg="",loc="";
 		if(result>0) {
 			msg="1대1문의글 작성 성공";

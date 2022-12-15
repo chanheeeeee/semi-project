@@ -34,7 +34,7 @@ public class BoardUpdateEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String wdDate=request.getParameter("date");
-		SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 		Date wdDate1 = null;
 		try {
 			wdDate1 = sdf.parse(wdDate);
@@ -42,14 +42,11 @@ public class BoardUpdateEndServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		
-		
 		String wdTitle=request.getParameter("board_title");
 		String wdLocation=request.getParameter("roadFullAddr");
 		String wdCategory=request.getParameter("type");
 		String wdGender=request.getParameter("gender");
 		String wdContent=request.getParameter("board_content");
-		
 		int wdCount=Integer.parseInt(request.getParameter("count"));
 		String wdPurpose=request.getParameter("purpose");
 		int wdNo=Integer.parseInt(request.getParameter("wd_no"));
@@ -62,7 +59,7 @@ public class BoardUpdateEndServlet extends HttpServlet {
 		int result=new BoardService1().updateBoard(b);
 		String msg="", loc="";
 		if(result>0) {
-			loc="/views/barod/finish.jsp";
+			loc="/views/board/finish.jsp";
 		}else {
 			msg="수정 실패!";
 			loc="/board/boardView.do";

@@ -94,7 +94,11 @@ List<Member> members=(List<Member>)request.getAttribute("members");
 													<td><%=members.get(i).getEmail() %></td>
 													<td><%=members.get(i).getPhone() %></td>
 													<td><%=members.get(i).getAddress()%></td>
-													<td><%=members.get(i).getGrade() %></td>	  				
+													<td>
+													<div id="btn_group">
+													<button id="test_btn1" onclick="updateRole()<%=members.get(i).getGrade()%>;">변경</button>
+													</div>
+													</td>	  				
 						       	  			</tr>
 						       	  		<%} 
 						       	  		}%>
