@@ -5,18 +5,18 @@
 <%@ include file="/views/common/header.jsp" %>
 
 <div id="write-container">
-    <form action="<%=request.getContextPath() %>/board/updateboardend.do" method="post">
+    <form action="<%=request.getContextPath() %>/board/boardupdateend.do?wd_no=<%=b.getWdNo() %>" method="post">
 		<div class="wrap" style="margin-top: 3%;">
 			<select name="type" id="button1" onchange="selectValue()">
-				<option value="종목선택" style="text-align: center;" >종목선택</option>
-				<option value="구기"> 구기 (축구, 야구 테니스 등)</option>
-				<option value="유산소"> 유산소 (등산, 자전거, 걷기 등)</option>
-				<option value="수상"> 수상 (수영, 서핑 등)</option>
-				<option value="기타"> 기타</option>
+				<option value="종목선택" style="text-align: center;">종목선택</option>
+				<option value="구기" selected="<%=b.getWdPurpose().equals("구기")?"selected":""%>"> 구기 (축구, 야구 테니스 등)</option>
+				<option value="유산소" selected="<%=b.getWdPurpose().equals("유산소")?"selected":""%>"> 유산소 (등산, 자전거, 걷기 등)</option>
+				<option value="수상" selected="<%=b.getWdPurpose().equals("수상")?"selected":""%>"> 수상 (수영, 서핑 등)</option>
+				<option value="기타" selected="<%=b.getWdPurpose().equals("구기")?"selected":""%>"> 기타</option>
 			</select>  
 			
-			<!-- <form name="form" id="form" method="post"> -->`
-				<input type="button" onClick="goPopup();" class="button1" value="지역선택">
+			<!-- <form name="form" id="form" method="post"> -->
+				<input type="button" onClick="goPopup();" class="button1" value="<%=b.getWdLocation() %>">
 				<div id="list"></div>
 				<div id="callBackDiv">
 					<table>
@@ -70,7 +70,7 @@
             		<td colspan="3" style="text-align: center;">
                 		<div id="summernote"></div>
                 			<form method="post">
-                    			<textarea name="board_content" id="editor" value="<%=b.getWdContent()%>"></textarea>
+                    			<textarea name="board_content" id="editor"><%=b.getWdContent()%></textarea>
                 			</form>
             		</td>
 				</tr>
@@ -78,7 +78,7 @@
             		<th></th>
             		<th colspan="4">
                 		<div class="wrap" style="margin: 5%;">
-                    	<input type="submit" class="button" value="등록">
+                    	<input type="submit" class="button" value="수정">
                 		</div>
             		</th>
         		</tr>
