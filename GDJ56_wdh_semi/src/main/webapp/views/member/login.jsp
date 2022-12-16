@@ -114,11 +114,11 @@
                   <h2>LOG-IN</h2>
                     
                     <div class="login_id">
-                        <input type="text" name="" id="userId" placeholder="ID">
+                        <input type="text" name="" id="userId" placeholder="ID" autofocus required>
                     </div>
 
                     <div class="login_pw">
-                        <input type="password" name="" id="password" placeholder="Password">
+                        <input type="password" name="" id="password" placeholder="Password" required>
                     </div>
 
 					<div id="login_result" style="color: red;"></div>
