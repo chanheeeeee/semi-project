@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.del.model.service.DclService;
+import com.wdh.del.model.vo.Declaration;
+
 /**
  * Servlet implementation class DeleteDclServlet
  */
@@ -31,23 +34,31 @@ public class DeleteDclServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fileName=request.getParameter("fileName");
+		//parameter는 jsp에서 넘어온 값을 적는다...
+		
 		int no=Integer.parseInt(request.getParameter("no"));
-		int result=1;
+		System.out.println(no);
+		
+		
+//		Declaration dcl=Declaration.builder().dclNo(Integer.parseInt(request.getParameter("dcl_no"))).build();
+//		System.out.println(dcl);
+		int result=new DclService().deleteDcl(no);
+		
+		
 		String msg="",loc="";
 		if(result>0) {
 			msg="신고 글 삭제";
 			loc="/cs/dcl.do";
-			String path=getServletContext().getRealPath("upload/cs/");
+			String path=getServletContext().getRealPath("/upload/cs/");
 			File delFile=new File(path+fileName);
 			if(delFile.exists()) delFile.delete();
 		}else {
 			msg="글 삭제 실패";
 			loc="/cs/dcl.do?dclNo="+no;
 		}
-	
-	
-	
-	
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
 	
 	}
 

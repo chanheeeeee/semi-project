@@ -9,7 +9,9 @@
 
 	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
 	
-	int result = (int)request.getAttribute("result");
+	/* int result = (int)request.getAttribute("result"); */
+	int result = 0;
+	out.print(result);
 
 %>
 
@@ -75,22 +77,43 @@
                   </thead>
                   <tbody>
                   <% if(boards.isEmpty()) { %>
+                  	<tr><td>작성된 글이 없습니다.</td></tr>
                   <% } else {
-                	  	for(Board b : boards) { %>
+                	  	for(Board b : boards) { 
+                	  		
+                	  		for(ReviewBoard r : reviews) {
+                	  			
+                	  			if(r.getWdNo()==b.getWdNo()) {
+                					result = 1;
+                				} 
+                	  		}
+                	  		%>
                     <tr>
                       <td><%= b.getWdNo() %></td>
                       <td><%= b.getWdTitle() %></td>
                       <td><%= b.getWdTime() %></td>
                       <td>
-                      <% if(result==0) { %>
-                      	<button type="button" class="btn btn-xs btn-lgray min-42">완료</button>
-                      <% } else { %>
+                      <% if(result == 1) { %>
+                      
+                      	<button type="button" class="btn btn-xs btn-lgray min-42" disabled='disabled'>완료</button>
+                      	
+                      <% 
+                      	
+                      
+                      } else { %>
+                      
                       	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/board/reviewcheckboard.do?boardNo=<%=b.getWdNo()%>';">작성</button>
-                      <% } %>
+                      	
+                      <%
+                      			
+                      	} %>
                       </td>
                     </tr>
-                   <% 	}
-                	 } %>
+                   <% 	out.print(result);
+                  		result = 0;
+                  		
+                	  	}
+                  } %>
                   </tbody>
                 </table>
               </div>

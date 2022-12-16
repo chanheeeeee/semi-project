@@ -92,24 +92,23 @@ public class MycontentServlet extends HttpServlet {
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("boards", boards);
 		
-		int result = 0; 
-		
-		for(ReviewBoard r : reviews) {
-			for(Board b : boards) {
-			
-				if(r.getWdNo()==b.getWdNo()) {
-					result = 0;
-				} else {
-					result = 1;
-				}
-			}
-			
-			
-		}
+//		int result = 0; 
+//		
+//		for(Board b : boards) {
+//			for(ReviewBoard r : reviews) {
+//			
+//			
+//				if(r.getWdNo()==b.getWdNo()) {
+//					result = 1;
+//				} 
+//			}
+//			
+//			
+//		}
 		
 		request.setAttribute("reviews", reviews);
 		
-		request.setAttribute("result", result);
+//		request.setAttribute("result", result);
 		
 		RequestDispatcher rd=request.getRequestDispatcher("/views/mypage/mycontent.jsp");
 		rd.forward(request, response);

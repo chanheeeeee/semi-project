@@ -41,4 +41,12 @@ public class QsService {
 		close(conn);
 		return result;
 		}
+	public int deleteQs(int no) {
+		Connection conn=getConnection();
+		int result=dao.deleteQs(conn,no);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }
