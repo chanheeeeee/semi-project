@@ -225,6 +225,26 @@ public class MemberDao {
 	}
 
 
+	public Member searchMember(Connection conn, int memberNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchMember"));
+			pstmt.setInt(1, memberNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=getMember(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
+	}
+
+
 
 
 
