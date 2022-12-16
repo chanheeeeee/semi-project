@@ -118,7 +118,10 @@
 							<%} %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/cs/spon.do">고객센터</a></li>
-
+							<%if(loginMember!=null
+							&&loginMember.getMember_id().equals("admin")){ %>
+							<li class="nav-item" id="adminMain"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/admin/adminMain.do">관리자</a></li>
+							<%} %>
 						</ul>
 					</div>
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">

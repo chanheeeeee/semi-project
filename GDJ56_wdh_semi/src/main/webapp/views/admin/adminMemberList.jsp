@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import= "java.util.List, com.wdh.member.vo.Member"%>    
 <%
-List<Member> members=(List<Member>)request.getAttribute("members");
+List<Member> members=(List<Member>)request.getAttribute("member");
 %>
 
 <%@ include file="/views/common/adminHeader.jsp" %>
@@ -47,13 +47,10 @@ List<Member> members=(List<Member>)request.getAttribute("members");
 		                <main>
 		                    <div class="container-fluid px-4">
 		                        <h1 class="mt-4">회원 관리</h1>
-		                        <ol class="breadcrumb mb-4">
+		                        <ol class="breadcrumb mb-4">	               
 		                            <li class="breadcrumb-item active">전체 회원을 관리합니다.</li>
 		                        </ol>
 		                        <hr class="one">
-                        		<div id="btn_group">
-                       	 		<p>선택된 회원을 <button id="test_btn1">탈퇴</button> 처리 합니다. </p>
-                        		</div>
                         		<hr class="one">
 		
 		
@@ -74,6 +71,7 @@ List<Member> members=(List<Member>)request.getAttribute("members");
 	                                            <th>전화번호</th>
 	                                            <th>주소</th>
 	                                            <th>등급</th>
+	                                            <th></th>
 							                </tr>
 							            </thead>
 							            <tbody>
@@ -94,11 +92,8 @@ List<Member> members=(List<Member>)request.getAttribute("members");
 													<td><%=members.get(i).getEmail() %></td>
 													<td><%=members.get(i).getPhone() %></td>
 													<td><%=members.get(i).getAddress()%></td>
-													<td>
-													<div id="btn_group">
-													<button id="test_btn1" onclick="updateRole()<%=members.get(i).getGrade()%>;">변경</button>
-													</div>
-													</td>	  				
+													<td><%=members.get(i).getGrade() %></td>
+													<td><input type="button" value="탈퇴하기" onclick=""></td>	  				
 						       	  			</tr>
 						       	  		<%} 
 						       	  		}%>

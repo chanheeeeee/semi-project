@@ -20,7 +20,7 @@ import com.wdh.member.vo.Member;
 /**
  * Servlet implementation class JoinActionServlet
  */
-@WebServlet("/member/joinAction.do")
+@WebServlet( name="joinAction", urlPatterns = "/member/joinAction.do")
 public class JoinActionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

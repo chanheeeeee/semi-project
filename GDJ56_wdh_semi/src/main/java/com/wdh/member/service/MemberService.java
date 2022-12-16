@@ -69,6 +69,14 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+
+	//비밀번호 찾기-인증번호 구현(DB값 확인)
+	public String authSendPw(String member_id, String name, String email) {
+		Connection conn = getConnection();
+		String password = dao.authSendPw(conn,member_id,name,email);
+		close(conn);
+		return password;
+	}
 	
 	//멤버번호로 멤버찾기
 	public Member searchMember(int memberNo) {

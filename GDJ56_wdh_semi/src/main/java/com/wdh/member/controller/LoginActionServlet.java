@@ -17,7 +17,7 @@ import com.wdh.member.vo.Member;
 /**
  * Servlet implementation class LoginActionServlet
  */
-@WebServlet("/loginAction.do")
+@WebServlet(name = "login", urlPatterns = "/loginAction.do")
 public class LoginActionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
