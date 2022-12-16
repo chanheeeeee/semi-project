@@ -1,6 +1,6 @@
 package com.wdh.board.service;
 
-import static com.wdh.common.JDBCTemplate.close;
+import static com.wdh.common.JDBCTemplate.*;
 import static com.wdh.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -59,6 +59,23 @@ private BoardDao2 dao = new BoardDao2();
 	public List<ReviewBoard> selectReviewBoard(int boardNo) {
 		Connection conn = getConnection();
 		List<ReviewBoard> result = dao.selectReviewBoard(conn, boardNo);
+		close(conn);
+		return result;
+	}
+	
+	public int insertBoardComment(BoardComment bc) {
+		Connection conn=getConnection();
+		int result=dao.insertBoardComment(conn,bc);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int deleteBoardComment(BoardComment bc) {
+		Connection conn = getConnection();
+		int result = dao.deleteBoardComment(conn, bc);
+		if(result>0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		return result;
 	}
