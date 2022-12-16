@@ -1,7 +1,6 @@
 package com.wdh.del.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.del.model.service.DclService;
 import com.wdh.del.model.vo.DclComment;
-import com.wdh.del.model.vo.Declaration;
 
 /**
- * Servlet implementation class DclViewEndServlet
+ * Servlet implementation class DclCommentWriteServlet
  */
-@WebServlet("/dcl/dclView.do")
-public class DclViewEndServlet extends HttpServlet {
+@WebServlet("/cs/commentWrite.do")
+public class DclCommentWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    //신고하기 상세페이지 연결할 서블릿입니다
+    //신고하기 답변 서블릿입니다.
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DclViewEndServlet() {
+    public DclCommentWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +30,27 @@ public class DclViewEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int dclNo=Integer.parseInt(request.getParameter("dclNo"));
-		Declaration dcl=new DclService().selectDcl(dclNo);
-		List<DclComment> list=new DclService().selectDclComment(dclNo);
-		
-		request.setAttribute("comment", list);
-		request.setAttribute("dcl",dcl);
-		request.getRequestDispatcher("/views/cs/dclView.jsp").forward(request, response);
+		//댓글에 입력한 데이터 가져오기
+		DclComment dcm=DclComment.builder()
+				.dclRef(Integer.parseInt(request.getParameter("dclref")))
+				.dclCommentContent(request.getParameter("content"))
+				.dclCommentLevel(Integer.parseInt(request.getParameter("level")))
+				.dclCommentWriter(request.getParameter("commentWriter"))
+				.dclCommentRef(Integer.parseInt(request.getParameter("commentref")))
+				.build();
+	
+		int result=new DclService().insertDclComment(dcm);
+		String msg="",loc="";
+		if(result>0) {
+			msg="답변 등록 성공";
+		}else {
+			msg="답변 등록 실패";
+		}
+		loc="/dcl/dclView.do?dclNo="+dcm.getDclRef();
+		request.setAttribute(msg, msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
+	
 	
 	}
 

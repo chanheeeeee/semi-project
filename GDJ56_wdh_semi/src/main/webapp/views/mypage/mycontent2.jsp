@@ -1,5 +1,3 @@
-<%@page import="com.wdh.del.model.vo.Declaration"%>
-<%@page import="com.wdh.qs.model.vo.Question"%>
 <%@page import="com.wdh.board.vo.ReviewBoard"%>
 <%@page import="com.wdh.board.vo.Board"%>
 <%@page import="java.util.List"%>
@@ -11,15 +9,12 @@
 
 	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
 	
-	List<Question> qs = (List<Question>)request.getAttribute("qs");
-	
-	List<Declaration> dcl = (List<Declaration>)request.getAttribute("dcl");
-	
 	/* int result = (int)request.getAttribute("result"); */
 	int result = 0;
 
 
 %>
+
 
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
@@ -85,18 +80,14 @@
                   <% if(boards.isEmpty()) { %>
                   	<tr><td>작성된 글이 없습니다.</td></tr>
                   <% } else {
-                	  
-                	  int i = 0;
-
-                	  	for(Board b : boards) {
-                	  		if(i<5) {
+                	  	for(Board b : boards) { 
                 	  		
-	                	  		for(ReviewBoard r : reviews) {
-	                	  			
-	                	  			if(r.getWdNo()==b.getWdNo()) {
-	                					result = 1;
-	                				} 
-	                	  		}
+                	  		for(ReviewBoard r : reviews) {
+                	  			
+                	  			if(r.getWdNo()==b.getWdNo()) {
+                					result = 1;
+                				} 
+                	  		}
                 	  		%>
                     <tr>
                       <td><%= b.getWdNo() %></td>
@@ -120,12 +111,9 @@
                       </td>
                     </tr>
                    <% 	
-                   		
-                  			result = 0;
+                  		result = 0;
+                  		
                 	  	}
-                	  		
-                	  	i++;
-                	  }
                   } %>
                   </tbody>
                 </table>
@@ -133,8 +121,28 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                 	<%-- <li><a href="<%=request.getContextPath()%>/mypage/paging.do?type=togather" class="more" style="color: #9b9b9b;">더보기 >></a></li> --%>
-                 	<li><a href="<%=request.getContextPath()%>/mypage/mycontent3.do" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+				<!-- 2. 이전버튼 활성화 여부 -->
+	            <c:if test="${page.prev}">
+                      <li><a href="list.board?pageNum=${page.startPage - 1 }&numPerpage=${page.numPerpage}">이전</a></li>
+				</c:if>
+								                        		
+                <!-- 1. 페이지번호 처리 -->
+                <c:forEach var="num" begin="${pageVO.startPage }" end="${page.endPage }">
+	            	<li  class="${page.pageNum eq num ? 'active' : '' }">
+	                 	<a href="list.board?pageNum=${num }&numPerpage=${page.numPerpage}">${num }</a></li>
+                 </c:forEach>
+                        		
+				<!-- 3. 다음버튼 활성화 여부 -->
+				<c:if test="${page.next }">
+					<li><a href="list.board?pageNum=${page.endPage + 1 }&numPerpage=${page.numPerpage}">다음</a></li>
+                </c:if>
+                	
+                
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                 </ul>
               </div>
             </div>
@@ -161,12 +169,7 @@
                   <tbody>
                     <% if(reviews.isEmpty()) { %>
                   <% } else {
-                	  
-                	  	int i = 0;
-                	  	
-                	  	for(ReviewBoard r : reviews) {
-							if(i < 5) {
-						%>
+                	  	for(ReviewBoard r : reviews) { %>
                     <tr>
                       <td><%= r.getReviewSeq() %></td>
                       <td><%= r.getReviewTitle() %></td>
@@ -176,10 +179,7 @@
                       		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?reviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
                       </td>
                     </tr>
-                   <%		}
-                   		}
-                	  	
-                	  	i++;
+                   <% 	}
                 	 } %>
                   </tbody>
                 </table>
@@ -187,7 +187,11 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                 </ul>
               </div>
             </div>
@@ -214,35 +218,41 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% if(qs.isEmpty()) { %>
-                  <% } else {
-                	  
-                	  	int i = 0;
-                	  	
-                	  	for(Question q : qs) {
-							if(i < 5) {
-						%>
                     <tr>
-                      <td><%= q.getQsNo() %></td>
-                      <td><%= q.getQsTitle() %></td>
-                      <td><%= q.getQsDate() %></td>
-                      <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
-                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteQs.do?qsNo=<%= q.getQsNo() %>';">삭제</button>
-                      </td>
+                      <td>1.</td>
+                      <td>비밀번호를 못 찾겠어요</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
                     </tr>
-                   <%		}
-                   		}
-                	  	
-                	  	i++;
-                	 } %>
+                    <tr>
+                      <td>2.</td>
+                      <td>문의</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>챌린지 당첨자 언제 나오나요?</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
+                    <tr>
+                      <td>4.</td>
+                      <td>일정 등록이 안 돼요</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                 </ul>
               </div>
             </div>
@@ -270,35 +280,41 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% if(dcl.isEmpty()) { %>
-                  <% } else {
-                	  
-                	  	int i = 0;
-                	  	
-                	  	for(Declaration d : dcl) {
-							if(i < 5) {
-						%>
                     <tr>
-                      <td><%= d.getDclNo() %></td>
-                      <td><%= d.getDclTitle() %></td>
-                      <td><%= d.getDclDate() %></td>
-                      <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
-                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteDcl.do?dclNo=<%= d.getDclNo() %>';">삭제</button>
-                      </td>
+                      <td>1.</td>
+                      <td>신고</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
                     </tr>
-                   <%		}
-                   		}
-                	  	
-                	  	i++;
-                	 } %>
+                    <tr>
+                      <td>2.</td>
+                      <td>신고합니다</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>챌린지 당첨자 언제 나오나요?</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
+                    <tr>
+                      <td>4.</td>
+                      <td>일정 등록이 안 돼요</td>
+                      <td></td>
+                      <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                 </ul>
               </div>
             </div>
@@ -413,6 +429,13 @@
        </div>
        </section>
      
+     <script>
+		function change(a){
+			//console.log(a);
+			//console.log(a.value);
+			location.href="list.board?pageNum=1&numPerpage=" + a.value;
+		}
+	</script>
 
 
   <!-- Control Sidebar -->
