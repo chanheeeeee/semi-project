@@ -196,6 +196,32 @@ public class MemberDao {
 	}
 
 	
+	//비밀번호 찾기-db값 일치 확인
+	public String authSendPw(Connection conn, String member_id, String name, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String password = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("authSendPW"));
+			pstmt.setString(1, member_id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, email);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				password = rs.getString("MEMBER_PASSWORD");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return password;
+		
+	}
 	
 	
 	
@@ -241,6 +267,7 @@ public class MemberDao {
 			close(pstmt);
 		}return m;
 	}
+
 
 
 
