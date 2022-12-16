@@ -50,7 +50,7 @@
 			            <thead>
 			                <tr>
 			                    <th>번호</th>
-			                    <th>카테고리</th>
+			                    <th>말머리</th>
 			                    <th>제목</th>
 			                    <th>작성자</th>
 			                    <th>작성일</th>
@@ -70,7 +70,6 @@
                 				<td><%=d.getDclHeadTitle() %></td>
 	                			<td><a href="<%=request.getContextPath()%>/cs/DclView.do?DclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
 		                		<td><%=d.getMember().getMember_id() %></td>
-	                			<td><a href="<%=request.getContextPath()%>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
 		                		<td><%=d.getMemberNo() %></td>
 		                		<td><%=d.getDclDate() %></td>
 		                		<td><%=d.getDclResult() %></td>

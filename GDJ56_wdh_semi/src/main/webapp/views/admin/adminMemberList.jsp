@@ -93,7 +93,7 @@ List<Member> members=(List<Member>)request.getAttribute("member");
 													<td><%=members.get(i).getPhone() %></td>
 													<td><%=members.get(i).getAddress()%></td>
 													<td><%=members.get(i).getGrade() %></td>
-													<td><input type="button" value="탈퇴하기" onclick="(<%=%>);"></td>	  				
+													<td><input type="button" value="탈퇴하기" onclick=""></td>	  				
 						       	  			</tr>
 						       	  		<%} 
 						       	  		}%>
