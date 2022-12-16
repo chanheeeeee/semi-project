@@ -6,6 +6,7 @@ import static com.wdh.common.JDBCTemplate.getConnection;
 import static com.wdh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.wdh.board.dao.BoardDao;
 import com.wdh.board.vo.Board;
@@ -79,4 +80,19 @@ public class BoardService1 {
 		close(conn);
 		return result;
 	}
+	
+	public List<WdJoin> selectWdJoinM(int memberNo){
+		Connection conn=getConnection();
+		List<WdJoin> result=dao.selectWdJoinM(conn, memberNo);
+		close(conn);
+		return result;
+	}
+	
+	public List<WdJoin> selectWdJoinW(int wdNo){
+		Connection conn=getConnection();
+		List<WdJoin> result=dao.selectWdJoinW(conn, wdNo);
+		close(conn);
+		return result;
+	}
+
 }

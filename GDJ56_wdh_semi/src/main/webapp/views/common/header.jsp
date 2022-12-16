@@ -109,7 +109,7 @@
 						<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
 
 
-							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li>
+<%-- 							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li> --%>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a></li>
 							<%if(loginMember!=null){ %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/board/boardList.do">동행</a></li>

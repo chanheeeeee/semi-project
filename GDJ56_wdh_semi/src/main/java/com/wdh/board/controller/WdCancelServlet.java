@@ -14,14 +14,14 @@ import com.wdh.board.vo.WdJoin;
 /**
  * Servlet implementation class WdCancleServlet
  */
-@WebServlet("/board/wdcancle.do")
-public class WdCancleServlet extends HttpServlet {
+@WebServlet("/board/wdcancel.do")
+public class WdCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdCancleServlet() {
+    public WdCancelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

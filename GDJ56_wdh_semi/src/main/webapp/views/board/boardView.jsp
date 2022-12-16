@@ -5,6 +5,8 @@
 	Board b = (Board)request.getAttribute("board");
 	List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
 	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
+	List<WdJoin> wdJoins=(List<WdJoin>)request.getAttribute("wdJoins");
+	int result=0;
 %>
 
 <%@ include file="/views/common/header.jsp" %>
@@ -95,11 +97,23 @@
                                             <li class="list-inline-item text-right">
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                             </li>
+                                            <%for(WdJoin wj : wdJoins) {
+                                            	if(wj.getWdNo()==b.getWdNo()) {
+                                            		result=1;
+                                            	}
+                                            }%>
+                                            		
+                                            	
+                                            	
+                                          	<%if(result==1) {%>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
-                                            onclick="location.href='<%=request.getContextPath()%>/board/wdcancle.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+                                            onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
+                                            <%}else { %>
                                             <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
                                             onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
+											<%} %>
                                         </ul>
                                     </div>
 

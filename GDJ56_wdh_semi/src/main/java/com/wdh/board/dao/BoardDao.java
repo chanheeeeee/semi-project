@@ -6,7 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.wdh.board.vo.Board;
@@ -147,6 +150,48 @@ public class BoardDao {
 		}finally {
 			close(pstmt);
 		}return result;
+	}
+	
+	public List<WdJoin> selectWdJoinM(Connection conn, int memberNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<WdJoin> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectWdJoinM"));
+			pstmt.setInt(1, memberNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getWdJoin(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	public List<WdJoin> selectWdJoinW(Connection conn, int wdNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<WdJoin> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectWdJoinW"));
+			pstmt.setInt(1, wdNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getWdJoin(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	public static WdJoin getWdJoin(ResultSet rs) throws SQLException {
+		return WdJoin.builder().memberNo(rs.getInt("MEMBER_NO")).wdNo(rs.getInt("WD_NO")).build();
 	}
 
 }
