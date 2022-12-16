@@ -30,9 +30,9 @@ public class DeleteReviewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		int reviewboardNo = Integer.parseInt(request.getParameter("reviewboardNo"));
 		
-		int result = new MypageService().deleteReview(boardNo);
+		int result = new MypageService().deleteReview(reviewboardNo);
 		
 		String msg="", loc="";
 		

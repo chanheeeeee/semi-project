@@ -21,7 +21,7 @@ public class BoardDao2 {
 	private Properties sql = new Properties();
 
 	public BoardDao2() {
-		String path = BoardDao2.class.getResource("/sql/board/board_sql.properties2").getPath();
+		String path = BoardDao2.class.getResource("/sql/board/board_sql2.properties").getPath();
 		try {
 			sql.load(new FileReader(path));
 		} catch (IOException e) {
