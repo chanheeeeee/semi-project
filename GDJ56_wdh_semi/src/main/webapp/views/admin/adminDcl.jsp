@@ -80,7 +80,7 @@
 		                		<td><%=d.getDclResult() %></td>
 		                		<%} 
                	 			}%>
-                			</tr>
+                			</tr>	
                 			</table>
                 			<br>
 			                 <%-- 페이징 처리 --%>
