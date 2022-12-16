@@ -22,9 +22,7 @@ public class MemberDao {
 	
 	public MemberDao() {
 		try {
-			String path=MemberDao.class
-					.getResource("/sql/member/member_sql.properties")
-					.getPath();
+			String path=MemberDao.class.getResource("/sql/member/member_sql.properties").getPath();
 			sql.load(new FileReader(path));
 		}catch(IOException e) {
 			e.printStackTrace();
