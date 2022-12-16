@@ -42,10 +42,7 @@
                         </ol>
                          <hr class="one">
                        <div id="btn_group">
-                       <p>
-                       선택된 게시글을 
-                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">삭제</button>
-                       합니다.</p>
+                       
                        
                        </div> 
                        <hr class="one">
@@ -54,14 +51,14 @@
                             <section id="board-container">
 			            <table id="datatablesSimple">
 			            <thead>
-			                <tr>
-			                	<th><input type="checkbox" name="checkall" id="checkall"></th>
+			                <tr>			  
 			                    <th>번호</th>
 			                    <th>카테고리</th>
 			                    <th>제목</th>
 			                    <th>작성자</th>
 			                    <th>작성일</th>
 			                    <th>답변</th>
+			                    <th>삭제</th>
 			                </tr>
 			                </thead>
 							<% if(question.isEmpty()){ %>
@@ -72,13 +69,13 @@
 								for(Question qs : question){
 							%>
 							 <tr>
-							 	<th><input type="checkbox" name="checkall" id="checkall"></th>
                 				<td><%=qs.getQsNo() %></td>
                 				<td><%=qs.getQsHeadTitle() %></td>
 	                			<td><a href="<%=request.getContextPath()%>/cs/QSView.do?DclNo=<%=qs.getQsNo()%>"><%=qs.getQsTitle()%></a></td>
-		                		<td><%=qs.getMemberNo() %></td>
+		                		<td><%=qs.getMember().getMember_id() %></td>
 		                		<td><%=qs.getQsDate() %></td>
 		                		<td><%=qs.getQsResult() %></td>
+		                		<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=qs.getQsNo()%>);"></td>
 		                		<%} 
                	 			}%>
                 			</tr>

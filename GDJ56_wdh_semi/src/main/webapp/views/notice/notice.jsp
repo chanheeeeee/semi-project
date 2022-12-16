@@ -20,7 +20,7 @@
                 </tr>
                 <%if(notice.isEmpty()){ %>
                 <tr>
-                    <td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
+                    <td colspan="4"><h3>조회된 게시판이 없습니다.</h3></td>
                 </tr>
                 <%}else{
                 	for(Notice n : notice){ 
@@ -28,16 +28,16 @@
                 <tr>
                 	<td><%=n.getNoticeNo() %></td>
                 	<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
-	                <td><%=n.getNoticeWriter() %></td>
+	                <td><%=n.getMember().getMember_id() %></td>
 	                <td><%=n.getNoticeEnroll() %></td>
                 </tr>
-                </table>
                 <%if(loginMember!=null&&
                       loginMember.getMember_id().equals("admin")) {%>
                    <button onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">글쓰기</button>
                		 	<%} 
                	 	}%>
                 <%} %>
+                </table>
                 <br>
                 <%-- 페이징 처리 --%>
                 <div id="pageBar">

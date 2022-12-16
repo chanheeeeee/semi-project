@@ -58,9 +58,6 @@
                        <div id="btn_group">
                        <p>
                        <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">공지 작성</button>
-                       선택된 게시글을 <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/UpdateNotice.jsp')">수정</button> 
-                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">삭제</button>
-                       합니다.</p>
                        </div> 
                        <hr class="one">
                         
@@ -68,26 +65,28 @@
 			            <table id="datatablesSimple">
 			            <thead>
 			                <tr>
-			                	<th><input type="checkbox" id="checkall"></th>
+			                	
 			                    <th>번호</th>
 			                    <th>제목</th>
 			                    <th>작성자</th>
 			                    <th>작성일</th>
+			                    <th>기능</th>
 			                </tr>
 			                </thead>
 							<% if(notice.isEmpty()){ %>
 							<tr>
-								<td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
+								<td colspan="4"><h3>조회된 게시판이 없습니다.</h3></td>
 							</tr>	
 							<%}else{ 
 								for(Notice n : notice){
 							%>
 							 <tr>
-							 	<td><input type="checkbox" name="chk" /></td>
+							 	<!-- <td><input type="checkbox" name="chk" /></td> -->
                 				<td><%=n.getNoticeNo() %></td>
 	                			<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
-		                		<td><%=n.getNoticeWriter() %></td>
+		                		<td><%=n.getMember().getMember_id() %></td>
 		                		<td><%=n.getNoticeEnroll() %></td>
+		                		<td><input type="button" value="삭제하기" onclick=<%=n.getNoticeNo()%>);></td>
 		                		<%} 
                	 			}%>
                 			</tr>

@@ -28,17 +28,13 @@ public class AdminDao {
 		}
 	}
 	
-	public List<Member> searchMemberList(Connection conn, int cPage,int numPerpage){
+	public List<Member> searchMemberList(Connection conn){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<Member> result=new ArrayList();
-		System.out.println("테스트 : " + sql.getProperty("searchMemberList"));
+		
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("searchMemberList"));
-			//시작값
-			pstmt.setInt(1, (cPage-1)*numPerpage+1);
-			//끝값
-			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				result.add(AdminDao.getMember(rs));
@@ -50,6 +46,30 @@ public class AdminDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	public List<Member> adminMemberList(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Member> result=new ArrayList();
+		//System.out.println("테스트 : " + sql.getProperty("searchMemberList"));
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("adminMemberList"));
+			
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				result.add(AdminDao.getMember(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	
+	
 	
 	public int selectMemberCount(Connection conn) {
 		PreparedStatement pstmt=null;
