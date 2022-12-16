@@ -76,11 +76,11 @@ public class MypageService {
 	}
 	
 //	후기 글 삭제
-	public int deleteReview(int boardNo) {
+	public int deleteReview(int reviewboardNo) {
 		
 		Connection conn = getConnection();
 		
-		int result = dao.deleteReview(conn, boardNo);
+		int result = dao.deleteReview(conn, reviewboardNo);
 		
 		close(conn);
 		

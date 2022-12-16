@@ -135,7 +135,7 @@
                       <td><%= r.getReviewDate() %></td>
                       <td>
                       	<button type="button" class="btn btn-xs btn-lblue min-42" 
-                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?ReviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
+                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?reviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
                       </td>
                     </tr>
                    <% 	}
