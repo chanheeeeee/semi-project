@@ -12,23 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.ReviewBoard;
-import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.service.MypageService;
-import com.wdh.qs.model.vo.Question;
 
 /**
- * Servlet implementation class MycontentServlet
+ * Servlet implementation class PagingServlet
  */
-@WebServlet("/mypage/mycontent.do")
-public class MycontentServlet extends HttpServlet {
+@WebServlet("/mypage/paging.do")
+public class PagingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MycontentServlet() {
+    public PagingServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,13 +35,15 @@ public class MycontentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
 		
 		Member m = new MemberService().memberView(id);
 		
 		int cPage;
-		int numPerpage=8;
+		int numPerpage=10;
+		
+		
 		
 		try {
 			
@@ -60,14 +60,9 @@ public class MycontentServlet extends HttpServlet {
 		
 		List<ReviewBoard> reviews = new MypageService().selectBoardListR(cPage, numPerpage, m);
 		
-		List<Question> qs = new MypageService().selectQsList(cPage, numPerpage, m);
-		
-		List<Declaration> dcl = new MypageService().selectDclList(cPage, numPerpage, m);
-		
 
 		int totalData=new MypageService().selectBoardCount(m);
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-		
 		
 		String pageBar="";
 		int pageBarSize=5;
@@ -102,15 +97,9 @@ public class MycontentServlet extends HttpServlet {
 
 		request.setAttribute("reviews", reviews);
 		
-		request.setAttribute("qs", qs);
-		
-		request.setAttribute("dcl", dcl);
-		
 		
 		RequestDispatcher rd=request.getRequestDispatcher("/views/mypage/mycontent.jsp");
 		rd.forward(request, response);
-			
-
 	}
 
 	/**

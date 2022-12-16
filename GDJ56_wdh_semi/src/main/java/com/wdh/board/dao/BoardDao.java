@@ -12,6 +12,7 @@ import java.util.Properties;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.CopyFile;
 import com.wdh.board.vo.ReviewBoard;
+import com.wdh.board.vo.WdJoin;
 
 public class BoardDao {
 	
@@ -116,6 +117,36 @@ public class BoardDao {
 			close(pstmt);
 		}return result;
 		
+	}
+
+	public int wdJoin(Connection conn, WdJoin wj) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertJoin"));
+			pstmt.setInt(1, wj.getMemberNo());
+			pstmt.setInt(2, wj.getWdNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+
+	public int wdCancle(Connection conn, WdJoin wj) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("cancleJoin"));
+			pstmt.setInt(1, wj.getMemberNo());
+			pstmt.setInt(2, wj.getWdNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
 	}
 
 }
