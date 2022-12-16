@@ -188,7 +188,7 @@ public class MypageDao {
 	}
 	
 //	후기 글 삭제
-	public int deleteReview(Connection conn, int boardNo) {
+	public int deleteReview(Connection conn, int reviewboardNo) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -196,7 +196,7 @@ public class MypageDao {
 		try {
 			
 			pstmt = conn.prepareStatement(sql.getProperty("deleteReview"));
-			pstmt.setInt(1, boardNo);
+			pstmt.setInt(1, reviewboardNo);
 			
 			result = pstmt.executeUpdate();
 			

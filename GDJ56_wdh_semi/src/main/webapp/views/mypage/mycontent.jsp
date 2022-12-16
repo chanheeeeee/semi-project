@@ -8,6 +8,8 @@
 	List<Board> boards = (List<Board>)request.getAttribute("boards");
 
 	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
+	
+	int result = (int)request.getAttribute("result");
 
 %>
 
@@ -80,7 +82,11 @@
                       <td><%= b.getWdTitle() %></td>
                       <td><%= b.getWdTime() %></td>
                       <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">작성</button>
+                      <% if(result==0) { %>
+                      	<button type="button" class="btn btn-xs btn-lgray min-42">완료</button>
+                      <% } else { %>
+                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/board/reviewcheckboard.do?boardNo=<%=b.getWdNo()%>';">작성</button>
+                      <% } %>
                       </td>
                     </tr>
                    <% 	}
@@ -129,7 +135,7 @@
                       <td><%= r.getReviewDate() %></td>
                       <td>
                       	<button type="button" class="btn btn-xs btn-lblue min-42" 
-                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?ReviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
+                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?reviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
                       </td>
                     </tr>
                    <% 	}
@@ -166,7 +172,7 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>제목</th>
-                      <th></th>
+                      <th>등록 날짜</th>
                       <th style="width: 40px"></th>
                     </tr>
                   </thead>
@@ -174,7 +180,7 @@
                     <tr>
                       <td>1.</td>
                       <td>비밀번호를 못 찾겠어요</td>
-                      <td></td>
+                      <td>등록 날짜</td>
                       <td><button type="button" class="btn btn-xs btn-lred min-42">삭제</button></td>
                     </tr>
                     <tr>
@@ -228,7 +234,7 @@
                     <tr>
                       <th style="width: 10px">#</th>
                       <th>제목</th>
-                      <th></th>
+                      <th>등록날짜</th>
                       <th style="width: 40px"></th>
                     </tr>
                   </thead>
@@ -378,6 +384,8 @@
         </div>
         <!-- /.row -->
        <!-- ./챌린지 -->
+       </div>
+       </div>
        </section>
      
 

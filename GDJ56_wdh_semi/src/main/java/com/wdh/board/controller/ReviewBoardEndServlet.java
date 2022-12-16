@@ -37,12 +37,12 @@ public class ReviewBoardEndServlet extends HttpServlet {
 		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
 		String reviewTitle=request.getParameter("review_title");
 		String reviewContent=request.getParameter("review_content");
-		//int wdNo=Integer.parseInt(request.getParameter("wdNo"));
+		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
 		double score=(Integer.parseInt(request.getParameter("score")))/6.0;
 		System.out.println(reviewTitle+reviewContent+score);
 		ReviewBoard rb=ReviewBoard.builder()
 				.memberNo(memberNo).reviewTitle(reviewTitle).reviewContent(reviewContent)
-				.wdNo(22).reviewScore(score).build();
+				.wdNo(wdNo).reviewScore(score).build();
 		System.out.println(rb);
 		int result=new BoardService1().insertAfterBoard(rb);
 		String msg="", loc="";

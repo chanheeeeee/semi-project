@@ -1,27 +1,26 @@
-package com.wdh.board.controller;
+package com.wdh.admin.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService2;
-import com.wdh.board.vo.Board;
+import com.wdh.member.vo.Member;
+import com.wdh.mypage.service.MypageService;
 
 /**
- * Servlet implementation class PostScriptServlet
+ * Servlet implementation class AboutMember
  */
-@WebServlet("/board/reviewboard.do")
-public class ReviewBoardServlet extends HttpServlet {
+@WebServlet("/views/admin/adminMain.do")
+public class AdminMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewBoardServlet() {
+    public AdminMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +29,16 @@ public class ReviewBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		Board b=new BoardService2().selectBoard(wdNo);
-		request.setAttribute("board", b);
-		request.getRequestDispatcher("/views/board/reviewboard.jsp").forward(request, response);
+		
+		
+		
+		
+		/*
+		 * request.setAttribute("grade", grade); 
+		 * request.setAttribute("member", m);
+		 */
+		request.getRequestDispatcher("/views/admin/adminMain.jsp").forward(request, response);
+		
 	}
 
 	/**

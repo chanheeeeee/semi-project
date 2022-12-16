@@ -75,7 +75,7 @@
 							 	<th><input type="checkbox" name="checkall" id="checkall"></th>
                 				<td><%=qs.getQsNo() %></td>
                 				<td><%=qs.getQsHeadTitle() %></td>
-	                			<td><a href="<%=request.getContextPath()%>/cs/QSView.do?DclNo=<%=qs.getQsNo()%>"><%=qs.getQsTitle()%></a></td>
+	                			<td><a href="<%=request.getContextPath()%>/cs/qsView.do?qsNo=<%=qs.getQsNo()%>"><%=qs.getQsTitle()%></a></td>
 		                		<td><%=qs.getMemberNo() %></td>
 		                		<td><%=qs.getQsDate() %></td>
 		                		<td><%=qs.getQsResult() %></td>

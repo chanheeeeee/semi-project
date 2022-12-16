@@ -12,16 +12,16 @@ import com.wdh.board.service.BoardService2;
 import com.wdh.board.vo.Board;
 
 /**
- * Servlet implementation class PostScriptServlet
+ * Servlet implementation class ReviewCheckBoardServlet
  */
-@WebServlet("/board/reviewboard.do")
-public class ReviewBoardServlet extends HttpServlet {
+@WebServlet("/board/reviewcheckboard.do")
+public class ReviewCheckBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewBoardServlet() {
+    public ReviewCheckBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +30,11 @@ public class ReviewBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
+		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
 		Board b=new BoardService2().selectBoard(wdNo);
 		request.setAttribute("board", b);
-		request.getRequestDispatcher("/views/board/reviewboard.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/reviewboardck.jsp").forward(request, response);
+		
 	}
 
 	/**
