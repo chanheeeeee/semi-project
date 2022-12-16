@@ -11,6 +11,7 @@ import com.wdh.board.dao.BoardDao;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.CopyFile;
 import com.wdh.board.vo.ReviewBoard;
+import com.wdh.board.vo.WdJoin;
 
 public class BoardService1 {
 	
@@ -55,6 +56,24 @@ public class BoardService1 {
 	public int updateBoard(Board b) {
 		Connection conn=getConnection();
 		int result=dao.updateBoard(conn, b);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int wdJoin(WdJoin wj) {
+		Connection conn=getConnection();
+		int result=dao.wdJoin(conn, wj);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int wdCancle(WdJoin wj) {
+		Connection conn=getConnection();
+		int result=dao.wdCancle(conn, wj);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);

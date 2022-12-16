@@ -1,11 +1,14 @@
 package com.wdh.qs.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.wdh.qs.model.service.QsService;
 
 /**
  * Servlet implementation class DeleteQsServlet
@@ -26,8 +29,8 @@ public class DeleteQsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no=Integer.parseInt(request.getParameter("no"));
-		int result=1;
+		int no=Integer.parseInt(request.getParameter("qs_no"));
+		int result=new QsService().deleteQs(no);
 		String msg="",loc="";
 		if(result>0) {
 			msg="1대1문의 글 삭제";
@@ -36,8 +39,10 @@ public class DeleteQsServlet extends HttpServlet {
 			msg="글 삭제 실패";
 			loc="/cs/qs.do?qsNo="+no;
 		}
-	
-	
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
+		
 	
 	
 	}

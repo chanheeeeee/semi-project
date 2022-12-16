@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.wdh.del.model.vo.DclComment;
 import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.dao.MemberDao;
 import com.wdh.member.vo.Member;
@@ -77,7 +78,7 @@ public class DclDao {
 			pstmt.setString(2, dcl.getDclContent());
 			pstmt.setString(3, dcl.getDclHeadTitle());
 			pstmt.setInt(4, m.getMember_no());
-//			pstmt.setString(5, dcl.getFilePath());
+			pstmt.setString(5, dcl.getFilePath());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -109,6 +110,71 @@ public class DclDao {
 	}
 	
 	
+	public int deleteDcl(Connection conn, int no) {
+		PreparedStatement pstmt=null;
+//		Declaration dcl=new Declaration();
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteDcl"));
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	public List<DclComment> selectDclComment(Connection conn, int no){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<DclComment> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("seletDclComment"));
+			pstmt.setInt(1, no);
+			rs=pstmt.executeQuery();
+			while(rs.next()) list.add(getDclComment(rs));
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	public int insertDclComment(Connection conn, DclComment dc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertDclComment"));
+			pstmt.setInt(1, dc.getDclCommentLevel());
+			pstmt.setString(2, dc.getDclCommentWriter());
+			pstmt.setString(3, dc.getDclCommentContent());
+			pstmt.setInt(4, dc.getDclRef());
+			pstmt.setString(5, dc.getDclCommentRef()==0? null:String.valueOf(dc.getDclCommentRef()));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	
+	
+	
+	
+	private DclComment getDclComment(ResultSet rs) throws SQLException{
+		return DclComment.builder()
+				.dclCommentNo(rs.getInt("dcl_comment_no"))
+				.dclCommentLevel(rs.getInt("dcl_comment_level"))
+				.dclCommentWriter(rs.getString("dcl_comment_writer"))
+				.dclCommentContent(rs.getString("dcl_comment_content"))
+				.dclRef(rs.getInt("dcl_ref"))
+				.dclCommentRef(rs.getInt("dcl_comment_ref"))
+				.DclCommentDate(rs.getDate("dcl_comment_date"))
+				.build();
+	}
 	
 	public static Declaration getDcl(ResultSet rs) throws SQLException{
 		return Declaration.builder()

@@ -1,27 +1,25 @@
-package com.wdh.board.controller;
+package com.wdh.mypage.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService2;
-import com.wdh.board.vo.Board;
+import com.wdh.mypage.service.MypageService;
 
 /**
- * Servlet implementation class PostScriptServlet
+ * Servlet implementation class DeleteMyDclServlet
  */
-@WebServlet("/board/reviewboard.do")
-public class ReviewBoardServlet extends HttpServlet {
+@WebServlet("/mypage/deleteDcl.do")
+public class DeleteMyDclServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewBoardServlet() {
+    public DeleteMyDclServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +28,28 @@ public class ReviewBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		Board b=new BoardService2().selectBoard(wdNo);
-		request.setAttribute("board", b);
-		request.getRequestDispatcher("/views/board/reviewboard.jsp").forward(request, response);
+
+		int dclNo = Integer.parseInt(request.getParameter("dclNo"));
+				
+		int result = new MypageService().deleteDcl(dclNo);
+		
+		String msg="", loc="";
+		
+		if(result>0) {
+			
+			msg="삭제 성공!";
+			loc="/mypage/mycontent.do";
+			
+		}else {
+			
+			msg="삭제 실패!";
+			loc="/mypage/mycontent.do";
+			
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
 	}
 
 	/**

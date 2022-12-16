@@ -51,9 +51,6 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
                         </li>
                     </ul>
@@ -67,7 +64,8 @@
     <br>
     <div font-family:jua;>
     	<div id="tbl-board">
-			<h2><strong>1대1문의 상세페이지</strong></h2>    	
+			<h2><strong>1대1문의 상세페이지</strong></h2>    
+<!-- 				<form id="qsFrm" method="post">	 -->
     			<table id="tbl-dcl">
 					<tr>
 						<th>제 목</th>
@@ -90,18 +88,14 @@
     				<tr>
     					<th colspan="2">
     						<input type="button" value="답변" onclick="">
-    						<input type="button" value="삭제" onclick="fn_deleteQs(<%=qs.getQsNo() %>);">
+    						<input type="button" value="삭제" onclick="location.href='<%=request.getContextPath()%>/cs/deleteQs.do?qs_no=<%=qs.getQsNo()%>';">
     					</th>
     				</tr>
     				<%} %>
     			</table>
+<!--     			</form> -->
     			<br>
     	</div>
     </div>
-    <script>
-    	const fn_deleteQs=(qsNo)=>{
-    		//삭제하기 스크립트
-    		location.replace("<%=request.getContextPath()%>/cs/deleteQs.do?no="qsNo");
-    	}
-    </script>
+
 <%@ include file="/views/common/footer.jsp" %>

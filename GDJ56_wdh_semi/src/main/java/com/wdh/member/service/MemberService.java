@@ -78,6 +78,14 @@ public class MemberService {
 		return password;
 	}
 	
+	//멤버번호로 멤버찾기
+	public Member searchMember(int memberNo) {
+		Connection conn=getConnection();
+		Member result=dao.searchMember(conn, memberNo);
+		close(conn);
+		return result;
+	}
+	
 	
 	
 	

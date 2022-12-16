@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.wdh.del.model.dao.DclDao;
+import com.wdh.del.model.vo.DclComment;
 import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.vo.Member;
 
@@ -41,4 +42,27 @@ public class DclService {
 		close(conn);
 		return result;
 		}
+	public int deleteDcl(int no) {
+		Connection conn=getConnection();
+		int result=dao.deleteDcl(conn,no);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int insertDclComment(DclComment dc) {
+		Connection conn=getConnection();
+		int result=dao.insertDclComment(conn,dc);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public List<DclComment> selectDclComment(int dclNo){
+		Connection conn=getConnection();
+		List<DclComment> list=dao.selectDclComment(conn,dclNo);
+		close(conn);
+		return list;
+	}
+	
 	}

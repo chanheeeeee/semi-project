@@ -21,7 +21,7 @@ public class BoardDao2 {
 	private Properties sql = new Properties();
 
 	public BoardDao2() {
-		String path = BoardDao2.class.getResource("/sql/board/board_sql.properties2").getPath();
+		String path = BoardDao2.class.getResource("/sql/board/board_sql2.properties").getPath();
 		try {
 			sql.load(new FileReader(path));
 		} catch (IOException e) {
@@ -167,6 +167,41 @@ public class BoardDao2 {
 		}
 		return list;
 	}
+	
+	public int insertBoardComment(Connection conn, BoardComment bc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertComment"));
+			
+			pstmt.setString(1, bc.getWcContent());
+			pstmt.setInt(2, bc.getWcNo());
+			pstmt.setInt(3, bc.getMemberNo());
+			pstmt.setString(4, bc.getWdCommentRef()==0?null:String.valueOf(bc.getWdCommentRef())); //댓글참조번호
+			pstmt.setInt(5, bc.getWdCommentLev());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int deleteBoardComment(Connection conn, BoardComment bc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteBoardComment"));
+			pstmt.setInt(1, bc.getCommentNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	
 	
 	
 	//공통으로 사용 

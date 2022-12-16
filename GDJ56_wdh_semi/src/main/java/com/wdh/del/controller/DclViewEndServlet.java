@@ -1,6 +1,7 @@
 package com.wdh.del.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.del.model.service.DclService;
+import com.wdh.del.model.vo.DclComment;
 import com.wdh.del.model.vo.Declaration;
 
 /**
@@ -32,7 +34,9 @@ public class DclViewEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int dclNo=Integer.parseInt(request.getParameter("dclNo"));
 		Declaration dcl=new DclService().selectDcl(dclNo);
+		List<DclComment> list=new DclService().selectDclComment(dclNo);
 		
+		request.setAttribute("comment", list);
 		request.setAttribute("dcl",dcl);
 		request.getRequestDispatcher("/views/cs/dclView.jsp").forward(request, response);
 	

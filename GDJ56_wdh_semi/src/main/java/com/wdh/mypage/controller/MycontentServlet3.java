@@ -21,14 +21,14 @@ import com.wdh.qs.model.vo.Question;
 /**
  * Servlet implementation class MycontentServlet
  */
-@WebServlet("/mypage/mycontent.do")
-public class MycontentServlet extends HttpServlet {
+@WebServlet("/mypage/mycontent3.do")
+public class MycontentServlet3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MycontentServlet() {
+    public MycontentServlet3() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -107,7 +107,7 @@ public class MycontentServlet extends HttpServlet {
 		request.setAttribute("dcl", dcl);
 		
 		
-		RequestDispatcher rd=request.getRequestDispatcher("/views/mypage/mycontent.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/views/mypage/mycontent3.jsp");
 		rd.forward(request, response);
 			
 
