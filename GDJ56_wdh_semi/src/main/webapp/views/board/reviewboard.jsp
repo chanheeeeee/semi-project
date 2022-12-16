@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.wdh.board.vo.*" %>
+<% Board b = (Board)request.getAttribute("board"); %>
 <%@ include file="/views/common/header.jsp" %>
     <div class="container">
       <ul class="progressbar">
@@ -25,7 +27,7 @@
         </tr>
     </table> -->
     <br><br><br>
-	<form action="<%=request.getContextPath() %>/board/reviewboardend.do?memberNo=<%=loginMember.getMember_no() %>" method="post">
+	<form action="<%=request.getContextPath() %>/board/reviewboardend.do?memberNo=<%=loginMember.getMember_no() %>&wdNo=<%=b.getWdNo() %>" method="post">
     <table id="writeTable2">
         <tr>
             <th colspan="4" style="text-align: center;">

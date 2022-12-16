@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.wdh.board.vo.*" %>
+<% Board b = (Board)request.getAttribute("board"); %>
 <%@ include file="/views/common/header.jsp" %>
 
     <div class="container">
@@ -110,7 +112,7 @@
                 <th colspan="2">
                     <div class="wrap" style="margin: 5%;">
                     	<button class="button" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">이전</button>
-                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/board/reviewboard.do?grade='+indexOn;">다음</button>
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/board/reviewboard.do?wdNo=<%=b.getWdNo()%>&grade='+indexOn;">다음</button>
                     </div>
                 </th>
             </tr>
