@@ -98,7 +98,7 @@
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">참가취소</span></li>
                                             <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
-                                            onclick="<%request.getContextPath()%>/">참가하기</span></li>
+                                            onclick="">참가하기</span></li>
                                         </ul>
                                     </div>
 
