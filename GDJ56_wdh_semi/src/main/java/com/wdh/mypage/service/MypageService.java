@@ -10,8 +10,10 @@ import java.util.List;
 
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.ReviewBoard;
+import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.dao.MypageDao;
+import com.wdh.qs.model.vo.Question;
 
 public class MypageService {
 	
@@ -76,11 +78,86 @@ public class MypageService {
 	}
 	
 //	후기 글 삭제
-	public int deleteReview(int boardNo) {
+	public int deleteReview(int reviewboardNo) {
 		
 		Connection conn = getConnection();
 		
-		int result = dao.deleteReview(conn, boardNo);
+		int result = dao.deleteReview(conn, reviewboardNo);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
+//	문의 목록 불러오기
+
+	public List<Question> selectQsList(int cPage, int numPerpage, Member m){
+		
+		Connection conn = getConnection();
+		
+		List<Question> result = dao.selectQsList(conn, cPage, numPerpage, m);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+
+	public int slectQsCount(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.selectQsCount(conn, m);
+		
+		close(conn);
+		return result;
+	}
+	
+//	문의 삭제
+	public int deleteQs(int qsNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.deleteQs(conn, qsNo);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	
+//	신고 목록 불러오기
+
+	public List<Declaration> selectDclList(int cPage, int numPerpage, Member m){
+		
+		Connection conn = getConnection();
+		
+		List<Declaration> result = dao.selectDclList(conn, cPage, numPerpage, m);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+
+	public int slectDclCount(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.selectDclCount(conn, m);
+		
+		close(conn);
+		return result;
+	}
+	
+//	신고 삭제
+	public int deleteDcl(int dclNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.deleteDcl(conn, dclNo);
 		
 		close(conn);
 		

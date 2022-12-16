@@ -90,12 +90,27 @@
 
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
+<<<<<<< HEAD
                                     <ul class="list-inline pb-3">
                                     	<li class="list-inline-item"><span class="btn btn-success" id="btn-minus">참가취소</span></li>
                                         <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
                                         <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">참가하기</span></li>
                                     </ul>
                             </form>
+=======
+                                    <div class="col-auto">
+                                        <ul class="list-inline pb-3">
+                                            <li class="list-inline-item text-right">
+                                                <input type="hidden" name="product-quanity" id="product-quanity" value="1">
+                                            </li>
+                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
+                                            onclick="location.href='<%=request.getContextPath()%>/board/wdcancle.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
+                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
+
+                                        </ul>
+                                    </div>
+>>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
 
                         </div>                    
                     </div>           

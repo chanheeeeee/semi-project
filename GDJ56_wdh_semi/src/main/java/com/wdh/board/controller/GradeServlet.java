@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
+
 /**
  * Servlet implementation class GradeServlet
  */
@@ -26,6 +29,9 @@ public class GradeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
+		Board b=new BoardService2().selectBoard(wdNo);
+		request.setAttribute("board", b);
 		request.getRequestDispatcher("/views/board/grade.jsp").forward(request, response);
 		
 	}
