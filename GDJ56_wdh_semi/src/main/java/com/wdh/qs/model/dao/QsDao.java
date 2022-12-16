@@ -101,6 +101,20 @@ public class QsDao {
 			close(pstmt);
 		}return qs;
 	}
+	public int deleteQs(Connection conn, int no) {
+		PreparedStatement pstmt =null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteQs"));
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 	
 	
 	public static Question getQs(ResultSet rs) throws SQLException{
