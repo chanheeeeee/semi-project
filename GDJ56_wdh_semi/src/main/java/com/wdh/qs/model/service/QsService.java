@@ -8,7 +8,7 @@ import static com.wdh.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
-
+import com.wdh.member.vo.Member;
 import com.wdh.qs.model.dao.QsDao;
 import com.wdh.qs.model.vo.Question;
 
@@ -33,12 +33,20 @@ public class QsService {
 		close(conn);
 		return qs;
 	}
-	public int insertQs(Question qs) {
+	public int insertQs(Question qs, Member m) {
 		Connection conn=getConnection();
-		int result=dao.insertQs(conn, qs);
+		int result=dao.insertQs(conn, qs, m);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
 		return result;
 		}
+	public int deleteQs(int no) {
+		Connection conn=getConnection();
+		int result=dao.deleteQs(conn,no);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.wdh.member.dao.MemberDao;
+import com.wdh.member.vo.Member;
 import com.wdh.qs.model.vo.Question;
 
 public class QsDao {
@@ -36,7 +37,7 @@ public class QsDao {
 			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				Question q=getQs(rs);
+					Question q=getQs(rs);
 				q.setMember(MemberDao.getMember(rs));
 				result.add(q);
 			}
@@ -65,7 +66,7 @@ public class QsDao {
 		}return count;
 	}
 	
-	public int insertQs(Connection conn, Question qs) {
+	public int insertQs(Connection conn, Question qs, Member m) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
@@ -73,7 +74,7 @@ public class QsDao {
 			pstmt.setString(1, qs.getQsTitle());
 			pstmt.setString(2, qs.getQsContent());
 			pstmt.setString(3, qs.getQsHeadTitle());
-			pstmt.setInt(4, qs.getMemberNo());
+			pstmt.setInt(4, m.getMember_no());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -99,6 +100,20 @@ public class QsDao {
 			close(rs);
 			close(pstmt);
 		}return qs;
+	}
+	public int deleteQs(Connection conn, int no) {
+		PreparedStatement pstmt =null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteQs"));
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
 	}
 	
 	

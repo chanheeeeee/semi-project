@@ -29,6 +29,19 @@ private BoardDao2 dao = new BoardDao2();
 		return result;
 	}
 	
+	/*public List<Board> selectBoardList(String searchKeyword,int cPage, int numPerpage){
+		Connection conn=getConnection();
+		List<Board> result=dao.selectBoardList(conn, searchKeyword, cPage, numPerpage);
+		close(conn);
+		return result;
+	}*/
+	public List<Board> selectBoardList(String where, String searchKeyword,int cPage, int numPerpage){
+		Connection conn=getConnection();
+		List<Board> result=dao.selectBoardList(conn, where, searchKeyword, cPage, numPerpage);
+		close(conn);
+		return result;
+	}
+	
 	public Board selectBoard(int boardNo) {
 		Connection conn = getConnection();
 		Board result = dao.selectBoard(conn, boardNo);

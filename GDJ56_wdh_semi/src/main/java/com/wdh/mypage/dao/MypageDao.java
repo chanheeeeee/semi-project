@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.wdh.board.dao.BoardDao2;
 import com.wdh.board.vo.Board;
+import com.wdh.board.vo.ReviewBoard;
 import com.wdh.member.dao.MemberDao;
 import com.wdh.member.vo.Member;
 
@@ -127,6 +128,94 @@ public class MypageDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	
+//	후기 목록 불러오기
+	public List<ReviewBoard> selectBoardListR(Connection conn, int cPage, int numPerpage, Member m){
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ReviewBoard> list = new ArrayList();
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardListR"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			pstmt.setInt(3, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				list.add(BoardDao2.getReviewBoard(rs));
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return list;
+		
+	}
+	
+	public int selectBoardCountR(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardCountR"));
+			
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+//	후기 글 삭제
+	public int deleteReview(Connection conn, int reviewboardNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("deleteReview"));
+			pstmt.setInt(1, reviewboardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}finally {
+			
+			close(pstmt);
+			
+		}
+	
+		return result;
+		
+	}
+	
+	//페이징 처리 dao
+	
 	
 	
 

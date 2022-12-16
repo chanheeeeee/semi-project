@@ -1,7 +1,6 @@
-<%@page import="com.wdh.qs.model.vo.Question"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.wdh.del.model.vo.Declaration" %>
+<%@page import="java.util.List,com.wdh.qs.model.vo.Question"%>
 <%
 	List<Question> qs=(List<Question>)request.getAttribute("qs");
 %>
@@ -53,6 +52,7 @@
                         </li>
                     </ul>
                 </div>
+                
                
             </div>
 

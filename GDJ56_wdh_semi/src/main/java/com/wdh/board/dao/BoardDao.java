@@ -12,6 +12,7 @@ import java.util.Properties;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.CopyFile;
 import com.wdh.board.vo.ReviewBoard;
+import com.wdh.board.vo.WdJoin;
 
 public class BoardDao {
 	
@@ -36,7 +37,7 @@ public class BoardDao {
 			pstmt.setString(3, b.getWdCategory());
 			pstmt.setString(4, String.valueOf(b.getWdGender()));
 			pstmt.setString(5, b.getWdContent());
-			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getDate()));
+			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getTime()));
 			pstmt.setInt(7, b.getWdCount());
 			pstmt.setInt(8, b.getMemberNo());
 			pstmt.setString(9, b.getWdPurpose());
@@ -105,7 +106,7 @@ public class BoardDao {
 			pstmt.setString(3, b.getWdCategory());
 			pstmt.setString(4, b.getWdGender());
 			pstmt.setString(5, b.getWdContent());
-			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getDate()));
+			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getTime()));
 			pstmt.setInt(7, b.getWdCount());
 			pstmt.setString(8, b.getWdPurpose());
 			pstmt.setInt(9, b.getWdNo());
@@ -116,6 +117,36 @@ public class BoardDao {
 			close(pstmt);
 		}return result;
 		
+	}
+
+	public int wdJoin(Connection conn, WdJoin wj) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertJoin"));
+			pstmt.setInt(1, wj.getMemberNo());
+			pstmt.setInt(2, wj.getWdNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+
+	public int wdCancle(Connection conn, WdJoin wj) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("cancleJoin"));
+			pstmt.setInt(1, wj.getMemberNo());
+			pstmt.setInt(2, wj.getWdNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
 	}
 
 }

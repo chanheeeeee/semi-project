@@ -135,6 +135,41 @@ public class MemberDao {
 		}
 		return m;
 	}
+	
+	
+	public String memberGrade(Connection conn, String member_id) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String grade = null;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("memberGrade"));
+			pstmt.setString(1, member_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				grade = rs.getString("GRADE_NAME");
+				
+			}
+			
+		}  catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return grade;
+		
+	}
 
 
 	
@@ -187,6 +222,26 @@ public class MemberDao {
 		m.setAddress(rs.getString("ADDRESS"));
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
+	}
+
+
+	public Member searchMember(Connection conn, int memberNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchMember"));
+			pstmt.setInt(1, memberNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=getMember(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
 	}
 
 

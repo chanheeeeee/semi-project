@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.wdh.board.vo.Board;
+import com.wdh.board.vo.ReviewBoard;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.dao.MypageDao;
 
@@ -29,7 +30,7 @@ public class MypageService {
 		
 	}
 	
-
+//동행 글 목록 불러오기
 	public List<Board> selectBoardList(int cPage, int numPerpage, Member m){
 		
 		Connection conn = getConnection();
@@ -49,6 +50,42 @@ public class MypageService {
 		
 		close(conn);
 		return result;
+	}
+	
+//	후기 목록 불러오기
+
+	public List<ReviewBoard> selectBoardListR(int cPage, int numPerpage, Member m){
+		
+		Connection conn = getConnection();
+		
+		List<ReviewBoard> result = dao.selectBoardListR(conn, cPage, numPerpage, m);
+		
+		close(conn);
+		return result;
+	}
+	
+
+	public int selectBoardCountR(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.selectBoardCountR(conn, m);
+		
+		close(conn);
+		return result;
+	}
+	
+//	후기 글 삭제
+	public int deleteReview(int reviewboardNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.deleteReview(conn, reviewboardNo);
+		
+		close(conn);
+		
+		return result;
+		
 	}
 	
 	

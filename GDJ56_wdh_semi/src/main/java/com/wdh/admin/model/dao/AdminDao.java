@@ -51,7 +51,7 @@ public class AdminDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<Member> result=new ArrayList();
-		//System.out.println("테스트 : " + sql.getProperty("searchMemberList"));
+		//System.out.println("테스트 : " + sql.getProperty("adminMemberList"));
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("adminMemberList"));
 			

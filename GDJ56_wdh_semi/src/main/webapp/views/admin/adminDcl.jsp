@@ -39,6 +39,7 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">신고가 접수된 글을 관리 합니다.</li>
                         </ol>
+
                        <hr class="one"> 
                        <hr class="one">
 
@@ -69,6 +70,8 @@
                 				<td><%=d.getDclHeadTitle() %></td>
 	                			<td><a href="<%=request.getContextPath()%>/cs/DclView.do?DclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
 		                		<td><%=d.getMember().getMember_id() %></td>
+	                			<td><a href="<%=request.getContextPath()%>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
+		                		<td><%=d.getMemberNo() %></td>
 		                		<td><%=d.getDclDate() %></td>
 		                		<td><%=d.getDclResult() %></td>
 		                		<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>

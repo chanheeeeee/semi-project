@@ -44,16 +44,16 @@ public class AdminMainServlet extends HttpServlet {
 //		List<Member> members=new AdminService().searchMemberList();
 		
 		// 저는 이걸 왜 하루종일 하고 있는지 모르겠습니다...
-		List<Member> member=new AdminService().adminMemberList();
+		List<Member> members=new AdminService().adminMemberList();
 		
 		List<Question> questions=new QsService().searchQs(1, 5);
 		
-		List<Declaration> declarations=new DclService().searchDcl(1,5);
+		List<Declaration> declarations=new DclService().searchDcl(1, 5);
 		
 		request.setAttribute("notice", notices);
 //		request.setAttribute("members", members);
 		
-		request.setAttribute("member", member);
+		request.setAttribute("member", members);
 		
 		request.setAttribute("question", questions);
 		request.setAttribute("declaration", declarations);

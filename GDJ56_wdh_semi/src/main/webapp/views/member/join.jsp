@@ -40,7 +40,7 @@
           <tr>
           			
             <td> 비밀번호 </td>
-            <td> <input type="password" id="password" placeholder="숫자,영문,특수문자 조합 최소 8자"  style="font-variant-caps:unicase ;" size="25"> 
+            <td> <input type="password" id="password" placeholder="숫자,영문 조합 최소 8자이상"  style="font-variant-caps:unicase ;" size="25"> 
             	<font id="pw" size="2"></font>
             </td>
           </tr>
@@ -102,7 +102,7 @@
           <tr>
             <td> 주소 <br> 상세주소 </td>
             <td>
-              <input type="text" id="postcode" style="width:130px;" placeholder="우편번호"> <input type="button" value="주소찾기" style="font-family:Jua;" onclick="execDaumPostcode()"><br>
+              <input type="text" id="postcode" style="width:130px;" placeholder="우편번호"> <input type="button" value="주소찾기" style="font-family:Jua;" onclick="sample6_execDaumPostcode();"><br>
               <input type="text" id="address"><br>
               <input type="text" id="address2">
             </td>
@@ -127,8 +127,8 @@
     	 
     	 //비밀번호 정규식
 	    function pwvalid(){
-		   	const password = $("#pw").val();		//비밀번호값 가져오기
-		   	let pwRule = /^(?=.*[a-z|A-Z])(?=.*\d)(?=.*[$@$!%*?&amp;])[A-Za-z\d$@$!%*?&amp;]{8,}/;	//비밀번호 검사 정규식	
+		   	const password = $("#password").val();		//비밀번호값 가져오기
+		   	let pwRule = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,20}$/;	//비밀번호 검사 정규식	
 		   	let result = pwRule.test(password.trim());		//정규식 결과
 		   	console.log(result);
 		   	return result;		//정규식 결과 리턴
@@ -136,7 +136,7 @@
 
 	    //비밀번호 유효성
 	    $("#password").keyup(function(){
-	    	if(pwvalid() == false){//test의 결과는 true or false로 나온다!`
+	    	if(!pwvalid()){//test의 결과는 true or false로 나온다!`
 	    		$("#pw").html('영문, 숫자, 특수기호 조합으로 8-20자리 이상 입력해주세요.');
 				$("#pw").attr('color','red');
 	    	}else{
@@ -149,14 +149,14 @@
         	
         	const pw = $("#password").val();
         	const pwck = $(e.target).val();
-        	if(pwvalid()==true && pw==pwck){
+        	if(pwvalid()== true && pw==pwck){
         		$("#pwresult").css("color","green").text("비밀번호가 일치합니다.");
         	}else{
         		$("#pwresult").css("color","red").text("비밀번호가 일치하지 않습니다");
         	}
         });
     	 
-    	 
+    	 //회원가입
     	$("#modal").on("click",function(){
     		
     		let d = {
@@ -180,7 +180,7 @@
 				success:data=>{
 					console.log(data);
 					
-					if(data > 0) {
+					if(data > 0) {//회원가입 성공시
 						$("#exampleModal").modal("show");
 					} else {
 						$("#exampleModal2").modal("show");
@@ -210,7 +210,8 @@
     			$("#email2").attr("readonly", "readonly");
     		}
     	});
-    
+    	
+    	
 	    //아이디 유효성
 	    function idvalid(){
 		   	const memberId = $("#id").val();		//아이디값 가져오기
@@ -220,32 +221,27 @@
 		   	return result;		//정규식 결과 리턴
 		}
 
-	    //아이디 유효성
-	    $("#id").keyup(function(){
-	    	if(idvalid() == false){//test의 결과는 true or false로 나온다!`
+
+	    //아이디  중복확인 및 유효성
+	    $("#id").focusout(function(){//포커스아웃으로 이벤트 설정
+	    	let memberId = $("#id").val();//input_id에 입력되는 값
+	    	if(!idvalid()) {
 	    		$("#checkId").html('아이디는 영문,숫자 포함 5~11자입니다.');
 				$("#checkId").attr('color','red');
+				if($("#id").val().trim()==""){
+		    		$("#checkId").html('');
+				}
 	    	}else{
-	    		$("#checkId").html('');
-				$("#checkId").attr('color','green');
-	    	}
-	   	});
-
-	    //아이디 중복확인 ajax 구문
-	    $("#id").focusout(function(){//포커스아웃으로 이벤트 설정
-	    	if(idvalid() == true) {
-	    		let memberId = $("#id").val();//input_id에 입력되는 값
-	        	
 	        	$.ajax({
 	        		url:"<%=request.getContextPath()%>/member/idduplicate.do",//비동식통신도 통신이므로 서블릿 필수!
 	        		data:{memberId:memberId},
 	        		type:"POST",//걍외워
-	        		dataType:"json",//제이슨 타입
+	        		//dataType:"json",//제이슨 타입
 	        		success : result=>{
-	        			if(result > 0){
-	        				$("#checkId").html('사용할 수 없는 아이디입니다.');
+	        			console.log(result);
+	        			if(result=="불가능"){
+	        				$("#checkId").html('이미 사용중인 아이디입니다.');
 	        				$("#checkId").attr('color','red')
-	        				
 	        			}else{
 	        				$("#checkId").html('사용할 수 있는 아이디입니다.');
 	        				$("#checkId").attr('color','green');
@@ -255,62 +251,57 @@
 	    				console.log(e);
 	    				console.log(r);
 	    				console.log(m);
-	        			
 	        		}
 	        	});
 	    	}
 	    });
 	    
-	  //닉네임 유효성
+	  //닉네임 유효성 및 중복확인
 	    function nickvalid(){
 		   	const nickname = $("#nickname").val();		//닉네임값 가져오기
-		   	let nickRule = /^([ㄱ-ㅎ|가-힣|0-9|]){2,7}$/;	//아이디 검사 정규식	
+		   	let nickRule = /^([ㄱ-ㅎ|가-힣|0-9|]){2,7}$/;	//닉네임 검사 정규식	
 		   	let result = nickRule.test(nickname.trim());		//정규식 결과
-		   	console.log(result);
+		   	console.log(result);//정규식 잘들어가는지 확인 
 		   	return result;		//정규식 결과 리턴
 		}
 
-	    //닉네임 유효성
-	    $("#nickname").keyup(function(){
-	    	if(nickvalid() == false){//test의 결과는 true or false로 나온다!`
+	    $("#nickname").focusout(function(){	
+	    	let nickname = $("#nickname").val();
+	    	if(!nickvalid()){
 	    		$("#checknick").html('닉네임은 한글,숫자 포함 2~7자입니다.');
 				$("#checknick").attr('color','red');
-	    	}else{
-	    		$("#checknick").html('');
-				$("#checknick").attr('color','green');
+				if($("#nickname").val().trim()==""){
+					$("#checknick").html('');
+				}
+	    	}else{//만약 nickvalid가 false이면 위에 구문이 실행될것이며
+	    		$.ajax({//아닐시 ajax구문을 실행되는데
+		    		url:"<%=request.getContextPath()%>/member/nicknameDuplicate.do",
+		    		data:{nickname:nickname},
+		    		type:'POST',
+		    		success:result=>{
+		    			if(result=="불가능"){//결과값이 0보다 작으면(실패) 
+		    				$("#checknick").html('이미 사용중인 닉네임입니다.');
+		    				$("#checknick").attr('color','red')
+		    				
+		    			}else{//결과값이 0보다 크면(성공)
+		    				$("#checknick").html('사용할 수 있는 닉네임입니다.');
+		    				$("#checknick").attr('color','green');
+		    			}
+		    		},
+		    		error:function(e,r,m){
+						console.log(e);
+						console.log(r);
+						console.log(m);
+		    			
+		    		}
+		    	});
 	    	}
-	   	});
-
-	    //닉네임 중복
-	    $("#nickname").focusout(function(){
-	    	let nickname = $("#nickname").val();
 	    	
-	    	$.ajax({
-	    		url:"<%=request.getContextPath()%>/member/nicknameDuplicate.do",
-	    		data:{nickname:nickname},
-	    		dataType:"json",
-	    		type:'POST',
-	    		success:result=>{
-	    			if(result>0){
-	    				$("#checknick").html('사용할 수 없는 닉네임입니다.');
-	    				$("#checknick").attr('color','red')
-	    				
-	    			}else{
-	    				$("#checknick").html('사용할 수 있는 닉네임입니다.');
-	    				$("#checknick").attr('color','green');
-	    			}
-	    		},
-	    		error:function(e,r,m){
-					console.log(e);
-					console.log(r);
-					console.log(m);
-	    			
-	    		}
 	    	});
-	    });
-	    
+    	});//onload
+	    //구문은 처음부터 차례차례 진행되기때문에 어떻게 진행될지 순서를 파악하자!->주석주석!
 	  
-	    function execDaumPostcode() {
+	    function sample6_execDaumPostcode() {
 	        new daum.Postcode({
 	            oncomplete: function(data) {
 	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -358,7 +349,8 @@
 	        }).open();
 	    }
     
-    });
+
+    
     </script>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

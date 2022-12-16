@@ -94,11 +94,11 @@
                 	<td>
                 		<%if(d.getFilePath()!=null){ %>
                 			<img src="<%=request.getContextPath() %>/images/file.png" width="20" height="20">
-                			<%}else{ %>
-                			첨부파일 없음
-                			<%} %>
+                		<%}else{ %>
+                				첨부파일 없음
+                		<%} %>
                 	</td>
-                	<td><%=d.getDclDate() %>
+                	<td><%=d.getDclDate() %></td>
                 </tr>
                 <%} 
                 }%>

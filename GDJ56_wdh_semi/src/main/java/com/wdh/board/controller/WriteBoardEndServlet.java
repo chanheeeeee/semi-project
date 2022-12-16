@@ -37,6 +37,7 @@ public class WriteBoardEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//String 날짜 형식을 Date로 변환
 		String wdDate=request.getParameter("date");
+		System.out.println(wdDate);
 		SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
 		Date wdDate1 = null;
 		try {
@@ -44,11 +45,6 @@ public class WriteBoardEndServlet extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-//		String wdDate=request.getParameter("date");
-//		SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
-//		java.sql.Date wdDate1=java.sql.Date.valueOf(wdDate);
-		
 		
 		String type=request.getParameter("type");
 		String address=request.getParameter("roadFullAddr");

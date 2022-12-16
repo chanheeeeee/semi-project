@@ -7,7 +7,7 @@
 	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
 %>
 
-<%@ include file="/views/common/innerheader.jsp" %>
+<%@ include file="/views/common/header.jsp" %>
 <!-- innerheader에 없어서 스타일 일단 여기에 줌 -->
 <!-- Load fonts style after rendering the layout styles -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
@@ -95,19 +95,33 @@
                                             <li class="list-inline-item text-right">
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                             </li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">참가취소</span></li>
+                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
+                                            onclick="location.href='<%=request.getContextPath()%>/board/wdcancle.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
                                             <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">참가하기</span></li>
+                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
+                                            onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
                                         </ul>
                                     </div>
 
                         </div>                    
                     </div>           
                 </div>
+                <%if(loginMember.getMember_no()==b.getMemberNo()) {%>
 			         <div style="text-align:center;">
 			            <input type="button" id="button1" name="update" value="수정" onclick="location.href='<%=request.getContextPath()%>/board/boardupdate.do?boardNo=<%=b.getWdNo()%>';">
-			            <input type="button" id="button1" name="delete" value="삭제" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
+			            <input type="button" id="button1" name="delete" value="삭제" onclick="delete1()">
+						<input type="hidden" name="delete" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
 			         </div>  
+			    <%} %>
+			    
+			    <script>
+			    	const delete1=()=> {
+			    		if(confirm("삭제하시겠습니까?")==true){
+			    			//확인버튼 누르면 hidden된 주소 이동시켜주는 input 실행시켜주기 (다른방법?)
+			    			document.getElementsByName("delete")[1].click();
+			    		}
+			    	}
+			    </script>
 				</form>
             </div>
         </div>
