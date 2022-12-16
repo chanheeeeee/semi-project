@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <th>작성자</th>
-            <td><%=n.getNoticeWriter() %></td>
+            <td><%=n.getMember().getMember_id()  %></td>
         </tr>
         <tr>
             <th>작성시간</th>
@@ -38,7 +38,7 @@
     	<tr>
     		<th colspan="2">
      			<input type="button" value="수정하기" onclick="fn_updateNotice(<%=n.getNoticeNo() %>)" >
-    			<input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=n.getNoticeNo() %>);">
+    			<input type="button" value="삭제하기" "location.href='<%=request.getContextPath()%>/notice/noticeDelete.do?n_no=<%=n.getNoticeNo()%>';">
     		</th>
     	</tr>
     		 <%} %>

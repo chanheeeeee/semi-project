@@ -34,7 +34,7 @@
                 </td>
                 </tr>
             </table>
-            <button onclick="location.replace='<%=request.getContextPath() %>/views/notice/adminNotice.jsp'">등록</button>
+             <input type="submit" value="등록하기" onclick="">
             </form>
             
         </section>

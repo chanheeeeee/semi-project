@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class adminChallengeServelt
  */
-@WebServlet("/views/admin/adminChallenge.do")
-public class adminChallengeServelt extends HttpServlet {
+@WebServlet("/admin/adminChallenge.do")
+public class AdminChallengeServelt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminChallengeServelt() {
+    public AdminChallengeServelt() {
         super();
         // TODO Auto-generated constructor stub
     }
