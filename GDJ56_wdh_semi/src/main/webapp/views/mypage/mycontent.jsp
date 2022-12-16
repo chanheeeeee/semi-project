@@ -95,7 +95,7 @@
                       <td>
                       <% if(result == 1) { %>
                       
-                      	<button type="button" class="btn btn-xs btn-lgray min-42">완료</button>
+                      	<button type="button" class="btn btn-xs btn-lgray min-42" disabled='disabled'>완료</button>
                       	
                       <% 
                       	
