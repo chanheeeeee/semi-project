@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.wdh.board.vo.*,com.wdh.member.vo.Member" %>
 <%
-	Board b = (Board)request.getAttribute("board");
-	List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
-	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
-	List<WdJoin> wdJoins=(List<WdJoin>)request.getAttribute("wdJoins");
-	List<WdJoin> wdJoinsW=(List<WdJoin>)request.getAttribute("boardsW");
-	int result=0;
+   Board b = (Board)request.getAttribute("board");
+   List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
+   List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
+   List<WdJoin> wdJoins=(List<WdJoin>)request.getAttribute("wdJoins");
+   List<WdJoin> wdJoinsW=(List<WdJoin>)request.getAttribute("boardsW");
+   int result=0;
 %>
 
 <%@ include file="/views/common/header.jsp" %>
@@ -82,24 +82,24 @@
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                             </li>
                                             <%for(WdJoin wj : wdJoins) {
-                                            	if(wj.getWdNo()==b.getWdNo()) {
-                                            		result=1;
-                                            	}
-                                            }%>	
-                                          	<%if(result==1) {%>
-                                          		<!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
-                                          		<li class="list-inline-item"><span class="btn btn-success"
-                                          		onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500 scrollbars=yes');">참가리스트</span></li>
-                                            	<li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
-                                            	onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+                                               if(wj.getWdNo()==b.getWdNo()) {
+                                                  result=1;
+                                               }
+                                            }%>   
+                                             <%if(result==1) {%>
+                                                <!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
+                                                <li class="list-inline-item"><span class="btn btn-success"
+                                                onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500 scrollbars=yes');">참가리스트</span></li>
+                                               <li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
+                                               onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
                                             <%}else { %>
-                                            	<li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
-                                            	<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
-                                            	onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
-											<%} %>
+                                               <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
+                                               <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
+                                               onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
+                                 <%} %>
                                         </ul>
                                     </div>
-                           	</form>
+                              </form>
 
                         </div>                    
                     </div>           
@@ -155,7 +155,7 @@
             <div id="comment-container">
             
 		   		<div class="comment-editor" id="comment-editor">
-		   			<form action="<%=request.getContextPath() %>/board/commentWrite.do" method="post">
+		   			<form action="<%=request.getContextPath() %>/board/commentWrite.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post">
 		   				<div class="input-group mb-2">
 	                    	<textarea class="form-control" name="content" placeholder="Message" rows="2" style="margin-left: 50px"></textarea>
 	                    
