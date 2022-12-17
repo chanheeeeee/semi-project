@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.wdh.board.vo.*" %>
+<%@ page import="java.util.List,com.wdh.board.vo.*,com.wdh.member.vo.Member" %>
 <%
 	Board b = (Board)request.getAttribute("board");
 	List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
@@ -31,7 +31,7 @@
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark"><%=b.getMemberNo()%> | <%=b.getWdTime() %></span>
+                                <span class="list-inline-item text-dark"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>) | <%=b.getWdTime() %></span>
                                 
                                 <!--<a href="shop-single.html" class="h3 text-decoration-none">익명</a>  -->
                             </p>
@@ -172,7 +172,7 @@
 					   				if(bc.getWdCommentLev()==1){%>
 					   				<tr class="level1">
 					   					<td>
-					   						<sub class="comment-writer"><%=bc.getMemberNo() %>작성자</sub>
+					   						<sub class="comment-writer"><%=bc.getMember().getMember_nickname()%>(<%=bc.getMember().getMember_id() %>)</sub>
 					   						<sub class="comment-date"><%=bc.getWcDate() %>게시시간</sub>
 					   						<br>
 					   						<%=bc.getWcContent() %>댓글내용
@@ -180,7 +180,7 @@
 					   					<td>
 					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do" method="post">
 						   						<%if(loginMember!=null&&
-										   							(loginMember.getMember_no()==2||
+										   							(loginMember.getMember_id()=="admin"||
 										   							loginMember.getMember_no()==bc.getMemberNo())) {%>
 										   				<input type="hidden" name="boardcomment" value="<%=bc.getCommentNo()%>">
 										   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
@@ -217,28 +217,7 @@
 		   	</div>
         </div>
     </section>
-    <style>
-     /*댓글테이블*/
-    div>div#comment-editor{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
-    table#tbl-comment{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
-    table#tbl-comment tr td{/* border-bottom:1px solid;  border-top:1px solid; */padding:5px; text-align:left; line-height:150%;}
-    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
-    table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
-/*     table#tbl-comment button.btn-reply{display:none;}
-    table#tbl-comment button.btn-delete{display:none;}
-    table#tbl-comment tr:hover {background:lightgray;}
-    table#tbl-comment tr:hover button.btn-reply{display:inline;} */
-/*     table#tbl-comment tr:hover button.btn-delete{display:inline;}
-    table#tbl-comment tr.level2 {color:gray; font-size: 14px;} */
-    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
-    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
-    table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
-    table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
-    table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
-    /*답글관련*/
-    table#tbl-comment textarea{margin: 4px 0 0 0;}
-    table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; background:#3300ff; position:relative; top:-5px; left:10px;}
-</style>
+
     <script>
     	/* 댓글 등록 못하게 */
     	$(() =>{
@@ -254,7 +233,7 @@
     			tr.append(td); //TD를  TR에 넣음
     			
     			tr.find("td").css("display","none"); //안보이게 하고
-    			tr.insertAfter($(e.target).parents("tr")).children("td").slideDown(800);//$(e.target).parents("tr"):버튼의 부모들중에 TR 뒤에INSERTAFTER
+    			tr.insertAfter($(e.target).parents("tr")).children("td").slideDown(100);//$(e.target).parents("tr"):버튼의 부모들중에 TR 뒤에INSERTAFTER
     			$(e.target).off("click");
     		});
 <%--      		$(".btn-delete").click(e=>{
@@ -284,9 +263,8 @@
     		} --%>
     	})
     </script>
-    
-    
     <!-- End 댓글&작성자후기 중 댓글 -->
+    
 	<!-- 댓글&작성자후기 중 작성자후기 -->                 
     <section class="py-5">
         <div class="container">
@@ -328,12 +306,31 @@
         </div>
     </section>
     <!-- End 댓글&작성자후기 중 작성자후기 -->
+   </div>
+   
+   
     <style>
-    	h6{
-    		
-    	}
-    </style>
-    </div>
+	     /*댓글테이블*/
+	    div>div#comment-editor{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
+	    table#tbl-comment{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
+	    table#tbl-comment tr td{/* border-bottom:1px solid;  border-top:1px solid; */padding:5px; text-align:left; line-height:150%;}
+	    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
+	    table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
+	/*     table#tbl-comment button.btn-reply{display:none;}
+	    table#tbl-comment button.btn-delete{display:none;}
+	/*   table#tbl-comment tr:hover {background:lightgray;}*/
+	/*    table#tbl-comment tr:hover button.btn-reply{display:inline;}
+	/*     table#tbl-comment tr:hover button.btn-delete{display:inline;}
+	    table#tbl-comment tr.level2 {color:gray; font-size: 14px;} */
+	    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
+	    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
+	    table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
+	    table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
+	    table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
+	    /*답글관련*/
+	    table#tbl-comment textarea{margin: 4px 0 0 0;}
+	   /*  table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; background:#3300ff; position:relative; top:-5px; left:10px;} */
+	</style>
     
     
 <%@ include file="/views/common/footer.jsp" %>

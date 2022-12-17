@@ -7,18 +7,6 @@
 
 <%@ include file="/views/common/header.jsp" %>
     <script	src="<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
-<style>
-    /*페이지바*/
-    div#pageBar {
-        margin-top: 10px;
-        text-align: center;
-    }
-
-    div#pageBar span.cPage {
-        color: #0066ff;
-    }
-</style>
-
 
     <!-- Start Content -->
     <div class="container py-5">
@@ -123,18 +111,14 @@
                 </div> --%>
             </div>
             <!-- 검색 -->
-            <style>
-                div#container>div {
-                    display: none;
-                }
-            </style>
+
             <script>
-                $("#slideToggleMap").click(e => {
+                /* $("#slideToggleMap").click(e => { 초반 검색 항목 추가 디자인에 사용함
                     $("#containerMap>div").slideToggle(2000);
                 })
                 $("#slideToggleAdd").click(e => {
                     $("#container>div").slideToggle(2000);
-                })
+                }) */
                 const fn_searchSubmit = ()=>{
                     searchFrm.searchKeyword.value = $("#inputKeywordSearch").val(); /* 인풋에 입력한 값을 히든searchKeyword에 넣어주고 서브밋해주는 함수 */
                     //searchFrm.address.value = address;
@@ -211,18 +195,11 @@
                         <%} 
                         } %>
                 </div>
-                <style>
-                    a {
-                          text-decoration: none;
-                    }
-                    </style>
-                    
-            
+
                     <!-- 페이징처리 -->
                     <div id="pageBar">
                         <%=request.getAttribute("pageBar") %>
                     </div>
-                </section>
                 <!-- End Section -->
 
 
@@ -239,5 +216,16 @@
         </div>
     </div>
     <!-- End Content -->
+    
+    <style>
+    /*페이지바*/
+    div#pageBar {
+        margin-top: 10px;
+        text-align: center;
+    }
+    div#pageBar span.cPage {color: #0066ff; }
+    div#container>div {display: none;}
+	a {text-decoration: none;}
+</style>
 
 <%@ include file="/views/common/footer.jsp" %>

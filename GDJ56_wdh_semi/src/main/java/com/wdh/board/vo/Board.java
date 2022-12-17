@@ -2,6 +2,8 @@ package com.wdh.board.vo;
 
 import java.util.Date;
 
+import com.wdh.member.vo.Member;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,4 +23,5 @@ public class Board {
 	private Date wdTime;
 	private int memberNo;
 	private String wdPurpose;
+	private Member member;
 }

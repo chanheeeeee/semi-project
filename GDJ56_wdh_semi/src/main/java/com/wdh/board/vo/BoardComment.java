@@ -3,6 +3,8 @@ package com.wdh.board.vo;
 
 import java.util.Date;
 
+import com.wdh.member.vo.Member;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,4 +18,5 @@ public class BoardComment {
 	private int memberNo;
 	private int wdCommentRef;
 	private int wdCommentLev;
+	private Member member;
 }
