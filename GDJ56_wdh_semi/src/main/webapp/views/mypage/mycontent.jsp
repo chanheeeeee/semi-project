@@ -140,7 +140,7 @@
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
               
-                 	<li><a href="<%=request.getContextPath()%>/mypage/mycontent2.do?type=1" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                 	<li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=1" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -200,7 +200,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="<%=request.getContextPath()%>/mypage/mycontent2.do?type=2" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=2" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -262,7 +262,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="<%=request.getContextPath()%>/mypage/mycontent2.do?type=3" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=3" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -325,7 +325,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="<%=request.getContextPath()%>/mypage/mycontent2.do?type=4" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=4" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>

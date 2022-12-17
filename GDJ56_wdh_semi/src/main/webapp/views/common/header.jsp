@@ -109,13 +109,13 @@
 						<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
 
 
-<%-- 							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li> --%>
+							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a></li>
-							<%-- <%if(loginMember!=null){ %> --%>
+							<%if(loginMember!=null){ %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/board/boardList.do">동행</a></li>
-							<%-- <%}else{ %>
+							<%}else{ %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/member/loginMember.do">동행</a></li>
-							<%} %> --%>
+							<%} %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/cs/spon.do">고객센터</a></li>
 							<%if(loginMember!=null
@@ -126,19 +126,21 @@
 					</div>
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
 						<div class="flex-fill">
-							<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+							<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto" style="font-size: 20px;" >
 							<% if(loginMember == null) { %>
 								<li class="nav-item" id="login" ><a class="nav-link fs-3">로그인</a></li>
 								<li class="nav-item" id="join"><a class="nav-link fs-3" >회원가입</a></li>
 							<% } else { %>
 								<li class="nav-item" id="mypage" >
 									<a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>
-									<img class="profile img-fluid img-profile rounded-circle" style="width: 50px; height: 50px; margin-left: 30%;"
+									<img class="profile img-fluid img-profile rounded-circle" style="width: 70px; height: 70px; margin-left: 30%;"
                       							src="<%=request.getContextPath() %>/assets/img/pocha.jpg" />
 									</a>
 								</li>
-								<li class="nav-item" id="mypage"><a><%= loginMember.getMember_nickname() %></a></li>
-								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/logout.do'>로그아웃</a></li>
+								<li class="nav-item" id="mypage" ><a class="nav-link fs-3-2" style="margin-top: 2%;"><%= loginMember.getMember_nickname() %> 회원님</a>
+									<a class="nav-link fs-3-2" href='<%=request.getContextPath()%>/mypage/logout.do' style="margin-top: -9%;">로그아웃</a>
+								</li>
+								<%-- <li class="nav-item" id="mypage" ><a class="nav-link fs-3-2" href='<%=request.getContextPath()%>/mypage/logout.do'>로그아웃</a></li> --%>
 							<% } %>
 							</ul>
 						</div>
