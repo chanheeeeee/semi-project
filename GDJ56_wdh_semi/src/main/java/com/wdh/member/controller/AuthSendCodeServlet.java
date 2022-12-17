@@ -60,9 +60,7 @@ public class AuthSendCodeServlet extends HttpServlet {
 		response.getWriter().print(o);
 		
 		
-		Gson g = new Gson();
 		
-		g.toJson(null);
 		
 		
 	

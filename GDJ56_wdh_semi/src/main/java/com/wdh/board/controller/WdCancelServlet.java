@@ -10,20 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.service.BoardService1;
 import com.wdh.board.vo.WdJoin;
-import com.wdh.member.service.MemberService;
-import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class WdJoinServlet
+ * Servlet implementation class WdCancleServlet
  */
-@WebServlet("/board/wdjoin.do")
-public class WdJoinServlet extends HttpServlet {
+@WebServlet("/board/wdcancel.do")
+public class WdCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdJoinServlet() {
+    public WdCancelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +32,22 @@ public class WdJoinServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
 		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		System.out.println(memberNo+wdNo);
 		WdJoin wj=WdJoin.builder().memberNo(memberNo).wdNo(wdNo).build();
-		System.out.println(wj);
-		int result=new BoardService1().wdJoin(wj);
+		int result=new BoardService1().wdCancle(wj);
 		String msg="", loc="";
 		if(result>0) {
-			msg="참가신청 완료!";
+			msg="참가취소 완료! 다음에 다시 동행해주세요!";
+			//loc="/board/boardView.do?boardNo=" + wdNo;
 			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		}else {
-			msg="참가신청 실패!";
+			msg="참가취소 실패! 다시 시도해주세요!";
+			//loc="/board/boardView.do?boardNo=" + wdNo;
 			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
+		
 	}
 
 	/**
