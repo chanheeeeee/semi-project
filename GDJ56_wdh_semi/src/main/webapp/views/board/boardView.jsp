@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.wdh.board.vo.*,com.wdh.member.vo.Member" %>
 <%
-	Board b = (Board)request.getAttribute("board");
-	List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
-	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
-	List<WdJoin> wdJoins=(List<WdJoin>)request.getAttribute("wdJoins");
-	List<WdJoin> wdJoinsW=(List<WdJoin>)request.getAttribute("boardsW");
-	int result=0;
+   Board b = (Board)request.getAttribute("board");
+   List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
+   List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
+   List<WdJoin> wdJoins=(List<WdJoin>)request.getAttribute("wdJoins");
+   List<WdJoin> wdJoinsW=(List<WdJoin>)request.getAttribute("boardsW");
+   int result=0;
 %>
 
 <%@ include file="/views/common/header.jsp" %>
@@ -34,10 +34,9 @@
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
-                                <%-- <span class="list-inline-item text-dark"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>) | <%=b.getWdTime() %></span> --%>
-
+                                <span class="list-inline-item text-dark"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>) | <%=b.getWdTime() %></span>
                                 
-                                <a href="shop-single.html" class="h3 text-decoration-none">익명</a>
+                                <!--<a href="shop-single.html" class="h3 text-decoration-none">익명</a>  -->
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
@@ -75,7 +74,7 @@
                             <h6>글내용</h6>
                             <p><%=b.getWdContent() %></p>
 
-                            <form action="" method="GET">
+                            <form action="" method="GET" id="">
                                 <input type="hidden" name="product-title" value="Activewear">
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
@@ -83,32 +82,35 @@
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                             </li>
                                             <%for(WdJoin wj : wdJoins) {
-                                            	if(wj.getWdNo()==b.getWdNo()) {
-                                            		result=1;
-                                            	}
-                                            }%>	
-                                          	<%if(result==1) {%>
-                                          		<!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
-                                          		<li class="list-inline-item"><span class="btn btn-success"
-                                          		onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500 scrollbars=yes');">참가리스트</span></li>
-                                            	<li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
-                                            	onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+                                               if(wj.getWdNo()==b.getWdNo()) {
+                                                  result=1;
+                                               }
+                                            }%>   
+                                             <%if(result==1) {%>
+                                                <!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
+                                                <li class="list-inline-item"><span class="btn btn-success"
+                                                onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500 scrollbars=yes');">참가리스트</span></li>
+                                               <li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
+                                               onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
                                             <%}else { %>
-                                            	<li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
-                                            	<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
-                                            	onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
-											<%} %>
+                                               <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
+                                               <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
+                                               onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
+                                 <%} %>
                                         </ul>
+                                    </div>
+                              </form>
+
                         </div>                    
                     </div>           
                 </div>
                 <%if(loginMember.getMember_no()==b.getMemberNo()) {%>
-			         <div style="text-align:center;">
-			            <input type="button" id="button1" name="update" value="수정" onclick="location.href='<%=request.getContextPath()%>/board/boardupdate.do?boardNo=<%=b.getWdNo()%>';">
-			            <input type="button" id="button1" name="delete" value="삭제" onclick="delete1()">
-						<input type="hidden" name="delete" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
-			         </div>  
-			    <%} %>
+                  <div style="text-align:center;">
+                     <input type="button" id="button1" name="update" value="수정" onclick="location.href='<%=request.getContextPath()%>/board/boardupdate.do?boardNo=<%=b.getWdNo()%>';">
+                     <input type="button" id="button1" name="delete" value="삭제" onclick="delete1()">
+                  <input type="hidden" name="delete" onclick="location.href='<%=request.getContextPath()%>/board/boarddelete.do?wd_no=<%=b.getWdNo()%>';">
+                  </div>  
+             <%} %>
              
              <script>
                 const delete1=()=> {
@@ -153,7 +155,7 @@
             <div id="comment-container">
             
                <div class="comment-editor" id="comment-editor">
-                  <form action="<%=request.getContextPath() %>/board/commentWrite.do" method="post">
+                  <form action="<%=request.getContextPath() %>/board/commentWrite.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post">
                      <div class="input-group mb-2">
                           <textarea class="form-control" name="content" placeholder="Message" rows="2" style="margin-left: 50px"></textarea>
                        
@@ -182,7 +184,7 @@
                                     <%=bc.getWcContent() %>댓글내용
                                  </td>
                                  <td>
-                                    <form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do" method="post">
+                                    <form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post" method="post">
                                        <%if(loginMember!=null&&
                                                       (loginMember.getMember_id()=="admin"||
                                                       loginMember.getMember_no()==bc.getMemberNo())) {%>
