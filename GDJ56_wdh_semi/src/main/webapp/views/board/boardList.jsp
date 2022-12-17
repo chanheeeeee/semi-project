@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List,com.wdh.board.vo.*" %>
 <% 
-   List<Board>   boards = (List<Board>)request.getAttribute("boards");
+   List<Board> boards = (List<Board>)request.getAttribute("boards");
 %>
 
 
