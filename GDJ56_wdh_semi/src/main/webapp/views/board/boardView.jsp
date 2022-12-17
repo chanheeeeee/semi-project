@@ -126,19 +126,11 @@
 
     <!-- 댓글&작성자후기 중 택1 -->     
     <div class="card-body">
-<<<<<<< HEAD
        <div class="col-lg-7 mt-5 container py-1">
           <div class="row pb-3">
           <div class="col d-grid">
              <a class="btn btn-success btn-lg" href="#boardView_c1" id="boardView_c1">댓글보기</a>
              <!-- <button type="submit" class="btn btn-success btn-lg" name="submit" value="boardView_c1" onclick="change();">댓글보기</button> -->
-=======
-    	<div class="col-lg-7 mt-5 container py-1">
-    		<div class="row pb-3">
-    		<div class="col d-grid">
-    			<a class="btn btn-success btn-lg" href="#boardView_c1" id="boardView_c1">댓글보기</a>
-    			<!-- <button type="submit" class="btn btn-success btn-lg" name="submit" value="boardView_c1" onclick="change();">댓글보기</button> -->
->>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
             </div>
            <div class="col d-grid">
               <a class="btn btn-success btn-lg" href="#boardView_c2">작성자후기보기</a>
@@ -160,7 +152,6 @@
          <!--Start comment_댓글작성-->
             <div id="comment-container">
             
-<<<<<<< HEAD
                <div class="comment-editor" id="comment-editor">
                   <form action="<%=request.getContextPath() %>/board/commentWrite.do" method="post">
                      <div class="input-group mb-2">
@@ -228,105 +219,10 @@
                   
                
             </div>
-=======
-		   		<div class="comment-editor" id="comment-editor">
-		   			<form action="<%=request.getContextPath() %>/board/commentWrite.do" method="post">
-		   				<div class="input-group mb-2">
-	                    	<textarea class="form-control" name="content" placeholder="Message" rows="2" style="margin-left: 50px"></textarea>
-	                    
-			   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
-			   				<input type="hidden" name="level" value="1"/>
-			   				<input type="hidden" name="commentref" value="0"/>
-			   				<input type="hidden" name="commentWriter" value="<%=loginMember!=null?loginMember.getMember_no():""%>"> <!-- getMember_id->getMember_no로변경 -->
-			   				<button	type="submit" id="btn-insert" class="input-group-text">댓글달기</button>
-			   			</div>
-		   			</form>
-		   		</div>
-		   		
-			   	
-			   		<table id="tbl-comment">
-				   			<%if(comments.isEmpty()){ %>
-				   				<h6 style="margin-left:500px;">아직 작성된 댓글이 없습니다</h6>
-				   				
-					   		<%} else {
-					   			for(BoardComment bc : comments){
-					   				if(bc.getWdCommentLev()==1){%>
-					   				<tr class="level1">
-					   					<td>
-					   						<sub class="comment-writer"><%=bc.getMemberNo() %>작성자</sub>
-					   						<sub class="comment-date"><%=bc.getWcDate() %>게시시간</sub>
-					   						<br>
-					   						<%=bc.getWcContent() %>댓글내용
-					   					</td>
-					   					<td>
-					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do" method="post">
-						   						<%if(loginMember!=null&&
-										   							(loginMember.getMember_no()==2||
-										   							loginMember.getMember_no()==bc.getMemberNo())) {%>
-										   				<input type="hidden" name="boardcomment" value="<%=bc.getCommentNo()%>">
-										   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
-<!-- 여기	 -->				   							<button	type="submit" class="btn-delete" value="<%=bc.getCommentNo()%>">삭제</button> <!-- 댓글의 PK를 넘겨줘야함 -->
-						   							<!-- <input type="button" value="삭제" onclick="fn_deleteMember();"/> -->
-						   						<%} %>
-					   						</form>
-					   						<%if(loginMember!=null){ %>
-					   							<button class="btn-reply" value="<%=bc.getCommentNo() %>">답글</button> <!-- 댓글의 PK를 넘겨줘야함 -->
-					   						<%} %>
-					   					</td>
-					   				</tr>
-					   			<%} else{%>
-					   				<tr class="level2">
-					   					<td>
-					   						<sub><%=bc.getMemberNo() %>작성자</sub>
-					   						<sub><%=bc.getWcDate() %>게시시간</sub>
-					   						<br>
-					   						<%=bc.getWcContent() %>댓글내용
-					   					</td>
-					   					<td>
-					   					</td>
-					   				</tr>
-					   			<% }
-					   			}//for
-				   		}//if%>
-			   		</table>
-<%-- 		   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
-		   				<input type="hidden" name="level" value="1"/>
-		   				<input type="hidden" name="commentref" value="0"/>
-		   				<input type="hidden" name="commentWriter" value="<%=loginMember!=null?loginMember.getMember_no():""%>"> <!-- getMember_id->getMember_no로변경 --> --%>
-			   		
-			   	
-		   	</div>
->>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
         </div>
     </section>
-<<<<<<< HEAD
 
-=======
-    <style>
-     /*댓글테이블*/
-    div>div#comment-editor{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
-    table#tbl-comment{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
-    table#tbl-comment tr td{/* border-bottom:1px solid;  border-top:1px solid; */padding:5px; text-align:left; line-height:150%;}
-    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
-    table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
-/*     table#tbl-comment button.btn-reply{display:none;}
-    table#tbl-comment button.btn-delete{display:none;}
-    table#tbl-comment tr:hover {background:lightgray;}
-    table#tbl-comment tr:hover button.btn-reply{display:inline;} */
-/*     table#tbl-comment tr:hover button.btn-delete{display:inline;}
-    table#tbl-comment tr.level2 {color:gray; font-size: 14px;} */
-    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
-    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
-    table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
-    table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
-    table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
-    /*답글관련*/
-    table#tbl-comment textarea{margin: 4px 0 0 0;}
-    table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; background:#3300ff; position:relative; top:-5px; left:10px;}
-</style>
->>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
     <script>
-<<<<<<< HEAD
        /* 댓글 등록 못하게 */
        $(() =>{
           $(".btn-reply").click(e=>{
@@ -370,51 +266,6 @@
              $("#commentDmlFrm").submit();
           } --%>
        })
-=======
-    	/* 댓글 등록 못하게 */
-    	$(() =>{
-    		$(".btn-reply").click(e=>{
-    			const tr=$("<tr>");
-    			const form=$(".comment-editor>form").clone(); //만들어놓았던 FORM태그 생성해서 사용하기
-    			form.find("textarea").attr({"rows":"1"}); //ROWS만 1로 바꾸기 
-    			form.find("input[name=level]").val("2"); //VAL값을 2로 바꾸기
-    			form.find("input[name=commentref]").val($(e.target).val()); //클릭한 댓글의 PK값을 가져와서 값에 넣어줘야 한다
-    			form.find("button").removeAttr("id").addClass("btn-insert2");
-    			
-    			const td=$("<td>").attr("colspan","2").append(form); //만든 FORM 태그를 TD를 만들어 넣고 
-    			tr.append(td); //TD를  TR에 넣음
-    			
-    			tr.find("td").css("display","none"); //안보이게 하고
-    			tr.insertAfter($(e.target).parents("tr")).children("td").slideDown(800);//$(e.target).parents("tr"):버튼의 부모들중에 TR 뒤에INSERTAFTER
-    			$(e.target).off("click");
-    		});
-<%--      		$(".btn-delete").click(e=>{
-    			
-    			//삭제 
-    			form.find("input[name=commentref]").val($(e.target).val()); //클릭한 댓글의 PK값을 가져와서 값에 넣어줘야 한다
-    			//값넘겨주고 삭제하는 로직 만들기 
-    			
-/*     			const tr=$("<tr>");
-    			const form=$(".comment-editor>form").clone(); //만들어놓았던 FORM태그 생성해서 사용하기
-    			form.find("textarea").attr({"rows":"1"}); //ROWS만 1로 바꾸기 
-    			form.find("input[name=level]").val("2"); //VAL값을 2로 바꾸기
-    			form.find("input[name=commentref]").val($(e.target).val()); //클릭한 댓글의 PK값을 가져와서 값에 넣어줘야 한다
-    			form.find("button").removeAttr("id").addClass("btn-insert2");
-    			
-    			const td=$("<td>").attr("colspan","2").append(form); //만든 FORM 태그를 TD를 만들어 넣고 
-    			tr.append(td); //TD를  TR에 넣음
-    			
-    			tr.find("td").css("display","none"); //안보이게 하고
-    			tr.insertAfter($(e.target).parents("tr")).children("td").slideDown(800);//$(e.target).parents("tr"):버튼의 부모들중에 TR 뒤에INSERTAFTER
-    			$(e.target).off("click"); */
-    		});
-     		 		
-    		const fn_commentDelete = ()=>{
-    			$("#commentDmlFrm").attr("action","<%=request.getContextPath()%>/board/commentDelete.do");
-    			$("#commentDmlFrm").submit();
-    		} --%>
-    	})
->>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
     </script>
     <!-- End 댓글&작성자후기 중 댓글 -->
     
@@ -427,7 +278,6 @@
 
             <!--Start comment_작성자후기-->
             <div id="carousel-related-product">
-<<<<<<< HEAD
                <%if(reviews.isEmpty()){ %>
                   <h6 style="margin-left:50px;">아직 작성된 작성자 후기가 없습니다</h6>
                
@@ -449,29 +299,6 @@
                                 </div>
                             </div>
                             
-=======
-            	<%if(reviews.isEmpty()){ %>
-            		<h6 style="margin-left:50px;">아직 작성된 작성자 후기가 없습니다</h6>
-            	
-            	<%} else {
-            	
-		   				for(ReviewBoard rb : reviews){%>
-		   					
-				                <div class="p-2 pb-3">
-				                    <div class="product-wap card rounded-0">
-				                        <div class="card-body">
-											<h6 style="text-align: left;"><%=rb.getReviewTitle() %>작성자후기제목</h6>				                            
-				                                <p><%=rb.getReviewContent()%></p>
-				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-				                                <li></li>
-				                            	<li class="text-center mb-0 primary"><%=rb.getReviewDate()%>게시시간</li>
-				                            </ul>
-				                        </div>
-				                        
-				                    </div>
-				                </div>
-				                
->>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
 
                      <%}//for
                   }//for밖 if%>
@@ -483,7 +310,6 @@
         </div>
     </section>
     <!-- End 댓글&작성자후기 중 작성자후기 -->
-<<<<<<< HEAD
    </div>
    
    
@@ -509,14 +335,6 @@
        table#tbl-comment textarea{margin: 4px 0 0 0;}
       /*  table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; background:#3300ff; position:relative; top:-5px; left:10px;} */
    </style>
-=======
-    <style>
-    	h6{
-    		
-    	}
-    </style>
-    </div>
->>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
     
     
 <%@ include file="/views/common/footer.jsp" %>
