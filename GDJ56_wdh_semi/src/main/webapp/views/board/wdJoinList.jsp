@@ -22,7 +22,7 @@
 				<%=m.getMember_nickname() %>
 				<%int memberNo=m.getMember_no(); %>
 				<%if(loginMember==b.getMemberNo()) {%>
-					<button id="button1" style="height:25px !important; width:80px !important;" onclick="out()">동행거절</button>
+					<button id="button1" style="height:25px !important; width:80px !important;" onclick="out()">동행거절</button><br>
 					<input type="hidden" name="out" onclick="location.href='<%=request.getContextPath()%>/board/wdjoinout.do?memberNo=<%=memberNo%>&wdNo=<%=b.getWdNo()%>';">
 				<%} %>
 			<%}%>
