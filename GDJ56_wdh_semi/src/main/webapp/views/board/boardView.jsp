@@ -184,7 +184,7 @@
 					   						<%=bc.getWcContent() %>댓글내용
 					   					</td>
 					   					<td>
-					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do" method="post">
+					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post">
 						   						<%if(loginMember!=null&&
 										   							(loginMember.getMember_id()=="admin"||
 										   							loginMember.getMember_no()==bc.getMemberNo())) {%>
