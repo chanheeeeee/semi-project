@@ -45,15 +45,14 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="email" name="check" id="check" class="form-control" placeholder="인증번호" style="height: 55px; border-radius:20px; width:280px;margin-left: -1px;" required>
+				<input type="email" name="check" id="check" class="form-control" placeholder="인증번호" style="height: 55px; border-radius:20px; width:280px;margin-left: -1px;"  required>
+				<input type="hidden" id="find" value="">
 			</td>
 			<td>
-				<input type="button" value="확인" style="font-family:Jua; height:55px; margin-left:10px;">
+				<input type="button" value="인증확인" id="code_check" style="font-family:Jua; height:55px; margin-left:10px;">
 			</td>
 		</tr>
 	</table>
-	<p class="checks" id="checks">${findpw_checkf}</p><br/>
-	<input type="button" id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" style="font-family:'Jua';width: 200px;margin-bottom: 20px;margin-left: -40px;" value="비밀번호 찾기">
 
 
 
@@ -76,27 +75,29 @@
 				data:{"member_id":id, "name":name, "email":email},
 				dataType:'json',
 				type:'POST',
-				success : result=>{
+				success:function(result){
 					console.log(result);
-					
-					
-/* 					isSuccess 인증번호가 날라갔으면 y
-					authNum 인증번호
-					password  비밀번호*/
-
-					/*
-					내일 할일
-					인증번호 넣고 확인 버튼 클릭시 인증번호가 일치할 경우 비밀번호 출력 / 일치하지 않으면 인증번호 다시 입력 하라고 하거나, 중복확인 다시 하도록 함 
-					빈값있으면 alert 띄워주기
-					
-					*/
-					
-					
+					//메일로 보내진 인증번호를 가져와 인증번호 칸과 동일한지 확인해야한다
+					//보낸인증번호와 일치한지를 알아보려면 일단 인증번호의 값을 어딘가에(input hidden) 저장한다
+					$("#find").val(result.authNum);
+					alert("인증번호가 전송되었습니다.");
 				}
 			});
-			
+		}else{
+			alert("빈칸을 채워주세요");
 		}
-	})
+	});
+	 	//저장한 인증번호와 입력한 인증번호 일치여부 확인
+	 	$("#code_check").on("click",function(){
+	 		let code = $("#check").val();//입력한 인증번호 값 가져오기
+	 		let code_check = $("#find").val();//히든 입력한값 가져오기
+	 		
+	 		if(code!=code_check){
+	 			alert("인증번호가 일치하지 않습니다.");
+	 		}else{
+	 			location.href="<%=request.getContextPath()%>/member/repassword.do";
+	 		}
+	 	});
 	
 	
 	</script>
