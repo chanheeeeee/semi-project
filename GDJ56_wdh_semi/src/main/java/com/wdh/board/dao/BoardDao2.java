@@ -15,7 +15,6 @@ import java.util.Properties;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.BoardComment;
 import com.wdh.board.vo.ReviewBoard;
-import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.dao.MemberDao;
 import com.wdh.member.vo.Member;
 
