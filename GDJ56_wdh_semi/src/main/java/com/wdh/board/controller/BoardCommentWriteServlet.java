@@ -31,6 +31,8 @@ public class BoardCommentWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		int boardNo=Integer.parseInt(request.getParameter("boardNo"));
 		BoardComment bcm=BoardComment.builder()
 				.wcNo(Integer.parseInt(request.getParameter("boardref")))
 				.wcContent(request.getParameter("content"))
@@ -51,7 +53,7 @@ public class BoardCommentWriteServlet extends HttpServlet {
 		loc="/board/boardView.do?boardNo="+bcm.getWcNo(); //getBoardRef값이 곧 boardNo값 이니까
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		RequestDispatcher rd=request.getRequestDispatcher("/views/common/msg.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+boardNo);
 		rd.forward(request,response);
 	}
 
