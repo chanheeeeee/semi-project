@@ -83,7 +83,11 @@
                 <option value="nate.com"> nate.com </option>
                 <option value="gmail.com"> gmail.com </option>
               </select>
-              <input type="button" value="인증코드발송" style="font-family:Jua;">
+              <input type="button" value="인증코드발송" id="btn_join" style="font-family:Jua;">
+              <div id="check_code" style="display:none">
+              <input type="text" value="" id="join_code" placeholder="인증번호"><input type="button" value="확인" id="okay"> 
+              <input type="hidden" id="codeAuth" value="">
+            </div>
             </td>
           </tr>
   
@@ -123,6 +127,43 @@
     
     <script>
     $(function(){
+    	$("#btn_join").on("click",function(){//이메일 인증
+    		let email = $("#email").val();
+    		let email2 = $("#email2").val();
+    		let total = email + "@" + email2;
+    		
+    		if(email!="" && email2!=""){
+    			$.ajax({
+    				url:"<%=request.getContextPath()%>/member/joinEmailservlet.do",
+    				data:{"email":total},
+    				dataType:'json',
+    				type:'POST',
+    				success:function(result){
+    					console.log(result);
+    					//$("#codeAuth").val(result.data);
+    					$("#join_code").val();
+    					alert("인증번호가 전송되었습니다.");
+    					$("#check_code").show();
+    				}
+    			});
+    		}else{
+    			alert("인증번호 전송이 실패되었습니다.")
+    		}
+    	});
+    	
+    	//저장한 인증번호와 입력한 인증번호 일치여부 확인
+    	$("#okay").on("click",function(){
+    		let code = $("#join_code").val();
+    		let code_check=$("#codeAuth").val();
+    		console.log(code);
+    		console.log(code_check);
+    		if(code!=code_check){
+    			alert("인증번호를 확인해주세요");
+    		}else{
+    			alert("인증이 완료되었습니다.");
+    		}
+    	});
+    	
     	 //유효성검사
     	 
     	 //비밀번호 정규식

@@ -51,8 +51,9 @@
 		<input type="password" name="email" id="check_newpw" class="form_control" placeholder="새비밀번호 확인" required="" style="height: 55px; width:220px; margin-bottom: -20px; border-radius:20px;">
 		<font id="check_newpw_result" size="2"></font>
 			<p class="check" id="check">${check}</p><br>
-			<input type="button" id="btnFindId" class="button" style="height: 65px; width: 184px; border-radius:20px; margin-bottom:25px " value="저  장  하  기">
+			<input type="button" id="btnFindPw" class="button" style="height: 65px; width: 184px; border-radius:20px; margin-bottom:25px " value="저  장  하  기">
 			
+			<input type="hidden" id="saveId" value="<%=request.getParameter("member_id") %>">
 	</div>
 
 	</div>
@@ -63,7 +64,7 @@
 	
 
 	
-	<!-- 아이디 찾은 후 팝업 -->
+	<!-- 비밀번호 찾은 후 팝업 -->
 	 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -87,35 +88,42 @@
    
     
     <script>
-    $(function(){
-    	$("#btnFindId").on("click",function(){
-    		let d = {
-    			"name" : $("#name").val(),
-    			"email" : $("#email").val()
-    		};
-    		
-		    $.ajax({
-		    	url:"<%=request.getContextPath()%>/member/findIdActionServlet.do",
-		    	data:d,
-		    	type:"POST",
-		    	dataType:"json",
-		    	success:data=>{
-		    		console.log(data);
-		    		let memberId = data.memberId;
-		    		if(memberId != "") {
-		    			$("#idSearchResult").html("비밀번호 변경완료! 변경된 비밀번호로 로그인하세요.");
-		    		} 
-		    		$("#exampleModal").modal("show");
-		    		
-		    	},error:function(e,r,m){
-		    		console.log(e);
-					console.log(r);
-					console.log(m);
-		    	}
-		    });
+    $(function(){//저장하기 버튼을 눌렀을 경우의 새비밀번호와 새비밀번호가 서로 일치한지의 유효성 검사
+    	$("#btnFindPw").on("click",function(){//저장하기 버튼을 누르면 발생하는 이벤트 함수
+			const pw = $("#new_pw").val();//새로운비밀 가져와
+	   		const pwck = $("#check_newpw").val();//새로운비밀 확인 가져와
+	   		if(pw==pwck){//새로운비밀과 새로운비밀창이 서로 같으면
+	   			const saveId = $("#saveId").val();
+						
+			    $.ajax({//.ajax시작
+			    	url:"<%=request.getContextPath()%>/member/repasswordAction.do",
+			    	data:{"newPw":pw, "saveId":saveId},//새로운 비밀번호만 넘기면 된다!
+			    	type:"POST",
+			    	dataType:"json",
+			    	success:data=>{
+			    		console.log(data);
+			    		if(data.result>0){
+			    			$("#idSearchResult").html("비밀번호 변경완료! 변경된 비밀번호로 로그인하세요.");
+			    			$("#exampleModal").modal("show");
+			    			
+			    		}else{
+			    			alert("입력한 값이 서로 다릅니다.다시한번 확인 부탁드립니다.");
+			    		}
+			    		
+			    	},error:function(e,r,m){
+			    		console.log(e);
+						console.log(r);
+						console.log(m);
+			    	}
+			    });
+	   			
+	   		}
     	});
-    	
-    	$("#btnClose, #btnX").on("click", function(){
+    	$("#btnClose").on("click",function(){
+    		location.href="<%=request.getContextPath()%>/member/loginMember.do";
+    	})
+    
+    	$("#btnX").on("click", function(){
     		$("#exampleModal").modal("hide");
     	});
     });

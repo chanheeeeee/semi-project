@@ -223,11 +223,6 @@ public class MemberDao {
 		
 	}
 	
-	
-	
-	
-	
-	
 		
 
 	public static Member getMember(ResultSet rs) throws SQLException {
@@ -266,6 +261,25 @@ public class MemberDao {
 			close(rs);
 			close(pstmt);
 		}return m;
+	}
+
+	//비밀번호 재설정
+	public int rePassword(Connection conn, String member_id, String newpw) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("newPw"));
+			pstmt.setString(1, newpw);
+			pstmt.setString(2, member_id);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 
