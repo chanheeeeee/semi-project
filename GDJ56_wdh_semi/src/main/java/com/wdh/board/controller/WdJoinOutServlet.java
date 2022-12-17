@@ -9,21 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.service.BoardService1;
-import com.wdh.board.vo.WdJoin;
-import com.wdh.member.service.MemberService;
-import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class WdJoinServlet
+ * Servlet implementation class WdJoinOutServlet
  */
-@WebServlet("/board/wdjoin.do")
-public class WdJoinServlet extends HttpServlet {
+@WebServlet("/board/wdjoinout.do")
+public class WdJoinOutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdJoinServlet() {
+    public WdJoinOutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,17 +31,14 @@ public class WdJoinServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
 		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		System.out.println(memberNo+wdNo);
-		WdJoin wj=WdJoin.builder().memberNo(memberNo).wdNo(wdNo).build();
-		System.out.println(wj);
-		int result=new BoardService1().wdJoin(wj);
+		int result=new BoardService1().outMember(memberNo, wdNo);
 		String msg="", loc="";
 		if(result>0) {
-			msg="참가신청 완료! 동행해주셔서 감사합니다~!";
-			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
+			msg="거절완료";
+			loc="/board/wdjoinout.do?memberNo="+memberNo+"&wdNo="+wdNo;
 		}else {
-			msg="참가취소 실패! 다시 시도해주세요!";
-			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
+			msg="거절실패";
+			loc="/board/wdjoinout.do?memberNo="+memberNo+"&wdNo="+wdNo;
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

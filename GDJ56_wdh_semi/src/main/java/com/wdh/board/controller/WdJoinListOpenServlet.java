@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.service.BoardService1;
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
 import com.wdh.board.vo.WdJoin;
 import com.wdh.member.vo.Member;
 
@@ -36,6 +38,7 @@ public class WdJoinListOpenServlet extends HttpServlet {
 		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
 		List<Member> m=new BoardService1().JoinMember(wdNo);
 		List<WdJoin> wjW=new BoardService1().selectWdJoinW(wdNo);
+		Board b=new BoardService2().selectBoard(wdNo);
 		System.out.println(m);
 		String msg="", loc="";
 		if(m==null) {
@@ -44,7 +47,8 @@ public class WdJoinListOpenServlet extends HttpServlet {
 		}else {
 			request.setAttribute("joinMember", m);
 			request.setAttribute("WdJoin", wjW);
-			request.getRequestDispatcher("/views/board/wdJoinList.jsp").forward(request, response);		
+			request.setAttribute("board", b);
+			request.getRequestDispatcher("/views/board/wdJoinList.jsp?loginMember="+memberNo).forward(request, response);		
 		}
 
 	}
