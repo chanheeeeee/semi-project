@@ -165,6 +165,19 @@ public class MypageService {
 		
 	}
 	
+	//회원 탈퇴
+	public int deleteMember(int member_no) {
+
+		Connection conn = getConnection();
+		
+		int result = dao.deleteMember(conn, member_no);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
 	
 	
 	
