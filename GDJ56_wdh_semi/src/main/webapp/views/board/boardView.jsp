@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.wdh.board.vo.*" %>
+<%@ page import="java.util.List,com.wdh.board.vo.*,com.wdh.member.vo.Member" %>
 <%
-	Board b = (Board)request.getAttribute("board");
-	List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
-	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
+   Board b = (Board)request.getAttribute("board");
+   List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
+   List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
+   List<WdJoin> wdJoins=(List<WdJoin>)request.getAttribute("wdJoins");
+   List<WdJoin> wdJoinsW=(List<WdJoin>)request.getAttribute("boardsW");
+   int result=0;
 %>
 
 <%@ include file="/views/common/header.jsp" %>
@@ -31,7 +34,7 @@
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark"><%=b.getMemberNo()%> | <%=b.getWdTime() %></span>
+                                <span class="list-inline-item text-dark"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>) | <%=b.getWdTime() %></span>
                                 
                                 <!--<a href="shop-single.html" class="h3 text-decoration-none">익명</a>  -->
                             </p>
@@ -71,29 +74,35 @@
                             <h6>글내용</h6>
                             <p><%=b.getWdContent() %></p>
 
-                            <form action="" method="GET">
+                            <form action="" method="GET" id="">
                                 <input type="hidden" name="product-title" value="Activewear">
-<<<<<<< HEAD
-                                    <ul class="list-inline pb-3">
-                                    	<li class="list-inline-item"><span class="btn btn-success" id="btn-minus">참가취소</span></li>
-                                        <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                        <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">참가하기</span></li>
-                                    </ul>
-                            </form>
-=======
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
                                             <li class="list-inline-item text-right">
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                             </li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
-                                            onclick="location.href='<%=request.getContextPath()%>/board/wdcancle.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
-                                            <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
-
+                                            <%for(WdJoin wj : wdJoins) {
+                                               if(wj.getWdNo()==b.getWdNo()) {
+                                                  result=1;
+                                               }
+                                            }%>   
+                                            <%if(loginMember.getMember_no()==b.getMemberNo()){ %>
+												<li class="list-inline-item"><span class="btn btn-success"
+												onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
+                                            <%}else if(result==1) {%>
+												<!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
+												<li class="list-inline-item"><span class="btn btn-success"
+												onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
+												<li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
+												onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+                                            <%}else { %>
+												<li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
+												<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
+												onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
+                                 			<%} %>
                                         </ul>
                                     </div>
->>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
+                              </form>
 
                         </div>                    
                     </div>           
@@ -149,7 +158,7 @@
             <div id="comment-container">
             
 		   		<div class="comment-editor" id="comment-editor">
-		   			<form action="<%=request.getContextPath() %>/board/commentWrite.do" method="post">
+		   			<form action="<%=request.getContextPath() %>/board/commentWrite.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post">
 		   				<div class="input-group mb-2">
 	                    	<textarea class="form-control" name="content" placeholder="Message" rows="2" style="margin-left: 50px"></textarea>
 	                    
@@ -172,15 +181,15 @@
 					   				if(bc.getWdCommentLev()==1){%>
 					   				<tr class="level1">
 					   					<td>
-					   						<sub class="comment-writer"><%=bc.getMemberNo() %>작성자</sub>
+					   						<sub class="comment-writer"><%=bc.getMember().getMember_nickname()%>(<%=bc.getMember().getMember_id() %>)</sub>
 					   						<sub class="comment-date"><%=bc.getWcDate() %>게시시간</sub>
 					   						<br>
 					   						<%=bc.getWcContent() %>댓글내용
 					   					</td>
 					   					<td>
-					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do" method="post">
+					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post">
 						   						<%if(loginMember!=null&&
-										   							(loginMember.getMember_no()==2||
+										   							(loginMember.getMember_id()=="admin"||
 										   							loginMember.getMember_no()==bc.getMemberNo())) {%>
 										   				<input type="hidden" name="boardcomment" value="<%=bc.getCommentNo()%>">
 										   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
@@ -217,28 +226,7 @@
 		   	</div>
         </div>
     </section>
-    <style>
-     /*댓글테이블*/
-    div>div#comment-editor{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
-    table#tbl-comment{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
-    table#tbl-comment tr td{/* border-bottom:1px solid;  border-top:1px solid; */padding:5px; text-align:left; line-height:150%;}
-    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
-    table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
-/*     table#tbl-comment button.btn-reply{display:none;}
-    table#tbl-comment button.btn-delete{display:none;}
-    table#tbl-comment tr:hover {background:lightgray;}
-    table#tbl-comment tr:hover button.btn-reply{display:inline;} */
-/*     table#tbl-comment tr:hover button.btn-delete{display:inline;}
-    table#tbl-comment tr.level2 {color:gray; font-size: 14px;} */
-    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
-    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
-    table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
-    table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
-    table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
-    /*답글관련*/
-    table#tbl-comment textarea{margin: 4px 0 0 0;}
-    table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; background:#3300ff; position:relative; top:-5px; left:10px;}
-</style>
+
     <script>
     	/* 댓글 등록 못하게 */
     	$(() =>{
@@ -254,7 +242,7 @@
     			tr.append(td); //TD를  TR에 넣음
     			
     			tr.find("td").css("display","none"); //안보이게 하고
-    			tr.insertAfter($(e.target).parents("tr")).children("td").slideDown(800);//$(e.target).parents("tr"):버튼의 부모들중에 TR 뒤에INSERTAFTER
+    			tr.insertAfter($(e.target).parents("tr")).children("td").slideDown(100);//$(e.target).parents("tr"):버튼의 부모들중에 TR 뒤에INSERTAFTER
     			$(e.target).off("click");
     		});
 <%--      		$(".btn-delete").click(e=>{
@@ -284,9 +272,8 @@
     		} --%>
     	})
     </script>
-    
-    
     <!-- End 댓글&작성자후기 중 댓글 -->
+    
 	<!-- 댓글&작성자후기 중 작성자후기 -->                 
     <section class="py-5">
         <div class="container">
@@ -328,12 +315,31 @@
         </div>
     </section>
     <!-- End 댓글&작성자후기 중 작성자후기 -->
+   </div>
+   
+   
     <style>
-    	h6{
-    		
-    	}
-    </style>
-    </div>
+	     /*댓글테이블*/
+	    div>div#comment-editor{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
+	    table#tbl-comment{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
+	    table#tbl-comment tr td{/* border-bottom:1px solid;  border-top:1px solid; */padding:5px; text-align:left; line-height:150%;}
+	    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
+	    table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
+	/*     table#tbl-comment button.btn-reply{display:none;}
+	    table#tbl-comment button.btn-delete{display:none;}
+	/*   table#tbl-comment tr:hover {background:lightgray;}*/
+	/*    table#tbl-comment tr:hover button.btn-reply{display:inline;}
+	/*     table#tbl-comment tr:hover button.btn-delete{display:inline;}
+	    table#tbl-comment tr.level2 {color:gray; font-size: 14px;} */
+	    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
+	    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
+	    table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
+	    table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
+	    table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
+	    /*답글관련*/
+	    table#tbl-comment textarea{margin: 4px 0 0 0;}
+	   /*  table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; background:#3300ff; position:relative; top:-5px; left:10px;} */
+	</style>
     
     
 <%@ include file="/views/common/footer.jsp" %>
