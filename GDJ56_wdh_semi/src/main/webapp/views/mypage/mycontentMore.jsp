@@ -137,8 +137,9 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix" style="float: left;">
               
+              <!-- 페이징 처리 -->
+              <div class="card-footer clearfix" style="float: left;">
               	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
               	<li class="page-item" style="float: left;">
                  	<div id="pageBar">
@@ -147,6 +148,8 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
 				</li>
 				</ul>
               </div>
+              
+              
             </div>
            </div>
             <!-- /.card -->
@@ -198,11 +201,18 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
+              
+              <!-- 페이징 처리 -->
+              <div class="card-footer clearfix" style="float: left;">
+              	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
+              	<li class="page-item" style="float: left;">
                  	<div id="pageBar">
 						<%=request.getAttribute("pageBar") %>
 					</div>
+				</li>
+				</ul>
               </div>
+              
             </div>
             <!-- /.card -->
             </div>
@@ -254,11 +264,18 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
+              
+              <!-- 페이징 처리 -->
+              <div class="card-footer clearfix" style="float: left;">
+              	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
+              	<li class="page-item" style="float: left;">
                  	<div id="pageBar">
 						<%=request.getAttribute("pageBar") %>
 					</div>
+				</li>
+				</ul>
               </div>
+              
             </div>
             <!-- /.card -->
           <!-- /.col -->
@@ -312,12 +329,18 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
+              
+              <!-- 페이징 처리 -->
+              <div class="card-footer clearfix" style="float: left;">
+              	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
+              	<li class="page-item" style="float: left;">
                  	<div id="pageBar">
 						<%=request.getAttribute("pageBar") %>
 					</div>
+				</li>
+				</ul>
               </div>
-            </div>
+              
             <!-- /.card -->
           <!-- /.col -->
           </div>
