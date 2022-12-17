@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.service.BoardService1;
 import com.wdh.board.vo.WdJoin;
+import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class WdJoinMListServlet
+ * Servlet implementation class WdJoinListOpenServlet
  */
-@WebServlet("/board/wdjoinlist.do")
-public class WdJoinListServlet extends HttpServlet {
+@WebServlet("/board/wdjoinlistopen.do")
+public class WdJoinListOpenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdJoinListServlet() {
+    public WdJoinListOpenServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +33,20 @@ public class WdJoinListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
-		List<WdJoin> wj=new BoardService1().selectWdJoinM(memberNo);
+		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
+		List<Member> m=new BoardService1().JoinMember(wdNo);
 		List<WdJoin> wjW=new BoardService1().selectWdJoinW(wdNo);
-		request.setAttribute("wdJoins", wj);
-		request.setAttribute("boardsW", wjW);
-		request.getRequestDispatcher("/board/boardView.do?memberNo="+memberNo+"&boardNo="+wdNo).forward(request, response);
-		
+		System.out.println(m);
+		String msg="", loc="";
+		if(m==null) {
+			msg="참가인원이 없습니다";
+			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
+		}else {
+			request.setAttribute("joinMember", m);
+			request.setAttribute("WdJoin", wjW);
+			request.getRequestDispatcher("/views/board/wdJoinList.jsp").forward(request, response);		
+		}
+
 	}
 
 	/**

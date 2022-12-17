@@ -13,13 +13,14 @@ import com.wdh.board.service.BoardService2;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.BoardComment;
 import com.wdh.board.vo.ReviewBoard;
+import com.wdh.board.vo.WdJoin;
 
 /**
  * Servlet implementation class BoardViewServlet
  */
 @WebServlet("/board/boardView.do")
 public class BoardViewServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -29,30 +30,32 @@ public class BoardViewServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		Board b = new BoardService2().selectBoard(boardNo);
-		List<BoardComment> bcList = new BoardService2().selectBoardComment(boardNo);
-		List<ReviewBoard> rbList = new BoardService2().selectReviewBoard(boardNo);
-		
-		request.setAttribute("board", b);
-		request.setAttribute("comments", bcList);
-		request.setAttribute("reviews", rbList);
-		
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
-	}
+   /**
+    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      
+      int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+      
+      Board b = new BoardService2().selectBoard(boardNo);
+      List<BoardComment> bcList = new BoardService2().selectBoardComment(boardNo);
+      List<ReviewBoard> rbList = new BoardService2().selectReviewBoard(boardNo);
+      List<WdJoin> wj=(List<WdJoin>)request.getAttribute("wdJoins");
+      
+      request.setAttribute("board", b);
+      request.setAttribute("comments", bcList);
+      request.setAttribute("reviews", rbList);
+      request.setAttribute("wdJoins", wj);
+      
+      request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
+   }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+   /**
+    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+    */
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      // TODO Auto-generated method stub
+      doGet(request, response);
+   }
 
 }

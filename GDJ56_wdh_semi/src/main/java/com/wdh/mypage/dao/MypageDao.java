@@ -15,8 +15,12 @@ import java.util.Properties;
 import com.wdh.board.dao.BoardDao2;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.ReviewBoard;
+import com.wdh.del.model.dao.DclDao;
+import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.dao.MemberDao;
 import com.wdh.member.vo.Member;
+import com.wdh.qs.model.dao.QsDao;
+import com.wdh.qs.model.vo.Question;
 
 
 public class MypageDao {
@@ -214,7 +218,177 @@ public class MypageDao {
 		
 	}
 	
-	//페이징 처리 dao
+	
+//	문의 목록 불러오기
+	public List<Question> selectQsList(Connection conn, int cPage, int numPerpage, Member m){
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Question> list = new ArrayList();
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("selectQsList"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			pstmt.setInt(3, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				list.add(QsDao.getQs(rs));
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return list;
+		
+	}
+	
+	public int selectQsCount(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectQsCount"));
+			
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+//	문의 삭제
+	public int deleteQs(Connection conn, int qsNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("deleteQs"));
+			pstmt.setInt(1, qsNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}finally {
+			
+			close(pstmt);
+			
+		}
+	
+		return result;
+		
+	}
+	
+	
+//	신고 목록 불러오기
+	public List<Declaration> selectDclList(Connection conn, int cPage, int numPerpage, Member m){
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Declaration> list = new ArrayList();
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("selectDclList"));
+			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
+			pstmt.setInt(3, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				list.add(DclDao.getDcl(rs));
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return list;
+		
+	}
+	
+	public int selectDclCount(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectDclCount"));
+			
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+//	신고 삭제
+	public int deleteDcl(Connection conn, int qsNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("deleteDcl"));
+			pstmt.setInt(1, qsNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}finally {
+			
+			close(pstmt);
+			
+		}
+	
+		return result;
+		
+	}
+	
+	
 	
 	
 	

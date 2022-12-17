@@ -1,28 +1,27 @@
 package com.wdh.board.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService1;
-import com.wdh.board.vo.WdJoin;
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.BoardComment;
+
 
 /**
- * Servlet implementation class WdJoinMListServlet
+ * Servlet implementation class BoardCommentDeleteServlet
  */
-@WebServlet("/board/wdjoinlist.do")
-public class WdJoinListServlet extends HttpServlet {
+@WebServlet("/board/commentDelete.do")
+public class BoardCommentDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdJoinListServlet() {
+    public BoardCommentDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +30,26 @@ public class WdJoinListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
-		List<WdJoin> wj=new BoardService1().selectWdJoinM(memberNo);
-		List<WdJoin> wjW=new BoardService1().selectWdJoinW(wdNo);
-		request.setAttribute("wdJoins", wj);
-		request.setAttribute("boardsW", wjW);
-		request.getRequestDispatcher("/board/boardView.do?memberNo="+memberNo+"&boardNo="+wdNo).forward(request, response);
+		BoardComment bc = BoardComment.builder()
+				.commentNo(Integer.parseInt(request.getParameter("boardcomment")))
+				.build();
+		
+		String wdNo = request.getParameter("boardref");
+		
+		int result = new BoardService2().deleteBoardComment(bc);
+		
+		String msg="",loc="";
+		if(result>0) {
+			msg="삭제 완료";
+		}else {
+			msg="삭제 실패";
+		}
+		
+		loc="/board/boardView.do?boardNo="+wdNo; //보고 있는 게시글위치
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		
 	}
 

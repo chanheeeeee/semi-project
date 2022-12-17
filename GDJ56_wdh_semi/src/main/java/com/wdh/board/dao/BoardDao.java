@@ -16,6 +16,8 @@ import com.wdh.board.vo.Board;
 import com.wdh.board.vo.CopyFile;
 import com.wdh.board.vo.ReviewBoard;
 import com.wdh.board.vo.WdJoin;
+import com.wdh.member.dao.MemberDao;
+import com.wdh.member.vo.Member;
 
 public class BoardDao {
 	
@@ -181,6 +183,25 @@ public class BoardDao {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				list.add(getWdJoin(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	public List<Member> JoinMember(Connection conn, int wdNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Member> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("joinMemberName"));
+			pstmt.setInt(1, wdNo);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(MemberDao.getMember(rs));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();

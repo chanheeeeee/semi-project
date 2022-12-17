@@ -41,10 +41,10 @@ public class WdJoinServlet extends HttpServlet {
 		String msg="", loc="";
 		if(result>0) {
 			msg="참가신청 완료!";
-			loc="/board/boardView.do?boardNo=" + wdNo;
+			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		}else {
 			msg="참가신청 실패!";
-			loc="/board/boardView.do?boardNo=" + wdNo;
+			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

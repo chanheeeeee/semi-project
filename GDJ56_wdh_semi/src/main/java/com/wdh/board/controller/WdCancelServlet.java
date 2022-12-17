@@ -37,10 +37,12 @@ public class WdCancelServlet extends HttpServlet {
 		String msg="", loc="";
 		if(result>0) {
 			msg="참가취소 완료! 다음에 다시 동행해주세요!";
-			loc="/board/boardView.do?boardNo=" + wdNo;
+			//loc="/board/boardView.do?boardNo=" + wdNo;
+			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		}else {
 			msg="참가취소 실패! 다시 시도해주세요!";
-			loc="/board/boardView.do?boardNo=" + wdNo;
+			//loc="/board/boardView.do?boardNo=" + wdNo;
+			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

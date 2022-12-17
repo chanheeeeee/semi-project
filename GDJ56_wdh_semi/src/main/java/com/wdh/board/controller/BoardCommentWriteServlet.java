@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.BoardComment;
+
 /**
  * Servlet implementation class BoardCommentWriteServlet
  */
@@ -28,7 +31,26 @@ public class BoardCommentWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BoardComment bcm=BoardComment.builder()
+				.wcNo(Integer.parseInt(request.getParameter("boardref")))
+				.wcContent(request.getParameter("content"))
+				.wdCommentLev(Integer.parseInt(request.getParameter("level")))
+				.memberNo(Integer.parseInt(request.getParameter("commentWriter")))
+				.wdCommentRef(Integer.parseInt(request.getParameter("commentref")))
+				.build();
 		
+		int result=new BoardService2().insertBoardComment(bcm);
+		
+		String msg="",loc="";
+		if(result>0) {
+			msg="댓글등록 성공";
+		}else {
+			msg="댓글등록 실패";
+		}
+		
+		loc="/board/boardView.do?boardNo="+bcm.getWcNo(); //getBoardRef값이 곧 boardNo값 이니까
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
 		RequestDispatcher rd=request.getRequestDispatcher("/views/common/msg.jsp");
 		rd.forward(request,response);
 	}

@@ -42,9 +42,9 @@
 			<tr>
 				<th style="font-size: 13px;">성별</th>
 				<td>
-					&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="여">  여
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="남">  남
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="무관">  무관
+					&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="F">  여
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="M">  남
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="A">  무관
 				</td>
 				<th>목적</th>
 				<td>

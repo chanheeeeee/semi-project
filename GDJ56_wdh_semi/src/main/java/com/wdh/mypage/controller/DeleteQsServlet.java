@@ -1,28 +1,25 @@
-package com.wdh.board.controller;
+package com.wdh.mypage.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService1;
-import com.wdh.board.vo.WdJoin;
+import com.wdh.mypage.service.MypageService;
 
 /**
- * Servlet implementation class WdJoinMListServlet
+ * Servlet implementation class DeleteQsServlet
  */
-@WebServlet("/board/wdjoinlist.do")
-public class WdJoinListServlet extends HttpServlet {
+@WebServlet(name = "DeleteMyQsServlet", urlPatterns = { "/mypage/deleteQs.do" })
+public class DeleteQsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdJoinListServlet() {
+    public DeleteQsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +28,27 @@ public class WdJoinListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
-		List<WdJoin> wj=new BoardService1().selectWdJoinM(memberNo);
-		List<WdJoin> wjW=new BoardService1().selectWdJoinW(wdNo);
-		request.setAttribute("wdJoins", wj);
-		request.setAttribute("boardsW", wjW);
-		request.getRequestDispatcher("/board/boardView.do?memberNo="+memberNo+"&boardNo="+wdNo).forward(request, response);
+		int qsNo = Integer.parseInt(request.getParameter("qsNo"));
+				
+		int result = new MypageService().deleteQs(qsNo);
 		
+		String msg="", loc="";
+		
+		if(result>0) {
+			
+			msg="삭제 성공!";
+			loc="/mypage/mycontent.do";
+			
+		}else {
+			
+			msg="삭제 실패!";
+			loc="/mypage/mycontent.do";
+			
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
 	}
 
 	/**
