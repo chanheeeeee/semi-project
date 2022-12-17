@@ -9,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService2;
-import com.wdh.board.vo.Board;
-import com.wdh.board.vo.BoardComment;
-import com.wdh.board.vo.ReviewBoard;
+import com.wdh.board.service.BoardService1;
+import com.wdh.board.vo.WdJoin;
 
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class WdJoinMListServlet
  */
-@WebServlet("/board/boardView.do")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/board/wdjoinlist.do")
+public class WdJoinListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardViewServlet() {
+    public WdJoinListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +31,14 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
+		List<WdJoin> wj=new BoardService1().selectWdJoinM(memberNo);
+		List<WdJoin> wjW=new BoardService1().selectWdJoinW(wdNo);
+		request.setAttribute("wdJoins", wj);
+		request.setAttribute("boardsW", wjW);
+		request.getRequestDispatcher("/board/boardView.do?memberNo="+memberNo+"&boardNo="+wdNo).forward(request, response);
 		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		Board b = new BoardService2().selectBoard(boardNo);
-		List<BoardComment> bcList = new BoardService2().selectBoardComment(boardNo);
-		List<ReviewBoard> rbList = new BoardService2().selectReviewBoard(boardNo);
-		
-		request.setAttribute("board", b);
-		request.setAttribute("comments", bcList);
-		request.setAttribute("reviews", rbList);
-		
-		request.getRequestDispatcher("/views/board/boardView.jsp").forward(request, response);
 	}
 
 	/**

@@ -137,7 +137,7 @@
 	    //비밀번호 유효성
 	    $("#password").keyup(function(){
 	    	if(!pwvalid()){//test의 결과는 true or false로 나온다!`
-	    		$("#pw").html('영문, 숫자, 특수기호 조합으로 8-20자리 이상 입력해주세요.');
+	    		$("#pw").html('숫자,영문 조합 최소 8자이상.');
 				$("#pw").attr('color','red');
 	    	}else{
 	    		$("#pw").html('');
