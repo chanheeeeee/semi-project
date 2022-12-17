@@ -104,7 +104,7 @@ public class MypageService {
 	}
 	
 
-	public int slectQsCount(Member m) {
+	public int selectQsCount(Member m) {
 		
 		Connection conn = getConnection();
 		
@@ -142,7 +142,7 @@ public class MypageService {
 	}
 	
 
-	public int slectDclCount(Member m) {
+	public int selectDclCount(Member m) {
 		
 		Connection conn = getConnection();
 		

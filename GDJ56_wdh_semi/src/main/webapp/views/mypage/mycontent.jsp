@@ -83,13 +83,15 @@
                   </thead>
                   <tbody>
                   <% if(boards.isEmpty()) { %>
-                  	<tr><td>작성된 글이 없습니다.</td></tr>
+                  	<tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
                 	  
                 	  int i = 0;
 
+
                 	  	for(Board b : boards) {
-                	  		if(i<5) {
+                	  		
+							if(i<5) {
                 	  		
 	                	  		for(ReviewBoard r : reviews) {
 	                	  			
@@ -100,7 +102,11 @@
                 	  		%>
                     <tr>
                       <td><%= b.getWdNo() %></td>
-                      <td><%= b.getWdTitle() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>" style="text-decoration: none; color: black;">
+                      		<%= b.getWdTitle() %>
+                      	</a>
+                      </td>
                       <td><%= b.getWdTime() %></td>
                       <td>
                       <% if(result == 1) { %>
@@ -133,8 +139,8 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                 	<%-- <li><a href="<%=request.getContextPath()%>/mypage/paging.do?type=togather" class="more" style="color: #9b9b9b;">더보기 >></a></li> --%>
-                 	<li><a href="<%=request.getContextPath()%>/mypage/mycontent3.do" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+              
+                 	<li><a href="<%=request.getContextPath()%>/mypage/mycontent2.do?type=1" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -160,6 +166,7 @@
                   </thead>
                   <tbody>
                     <% if(reviews.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
                 	  
                 	  	int i = 0;
@@ -169,7 +176,11 @@
 						%>
                     <tr>
                       <td><%= r.getReviewSeq() %></td>
-                      <td><%= r.getReviewTitle() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%= r.getWdNo() %>" style="text-decoration: none; color: black;">
+                      		<%= r.getReviewTitle() %>
+                      	</a>
+                      </td>
                       <td><%= r.getReviewDate() %></td>
                       <td>
                       	<button type="button" class="btn btn-xs btn-lblue min-42" 
@@ -177,9 +188,11 @@
                       </td>
                     </tr>
                    <%		}
+							
+							i++;
                    		}
                 	  	
-                	  	i++;
+                	  	
                 	 } %>
                   </tbody>
                 </table>
@@ -187,7 +200,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontent2.do?type=2" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -215,6 +228,7 @@
                   </thead>
                   <tbody>
                     <% if(qs.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
                 	  
                 	  	int i = 0;
@@ -224,7 +238,11 @@
 						%>
                     <tr>
                       <td><%= q.getQsNo() %></td>
-                      <td><%= q.getQsTitle() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/cs/qs.do?qsNo=<%=q.getQsNo()%>" style="text-decoration: none; color: black;">
+                      		<%= q.getQsTitle() %>
+                      	</a>
+                      </td>
                       <td><%= q.getQsDate() %></td>
                       <td>
                       	<button type="button" class="btn btn-xs btn-lblue min-42" 
@@ -232,9 +250,11 @@
                       </td>
                     </tr>
                    <%		}
+							
+							i++;
                    		}
                 	  	
-                	  	i++;
+                	  	
                 	 } %>
                   </tbody>
                 </table>
@@ -242,7 +262,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontent2.do?type=3" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -271,6 +291,7 @@
                   </thead>
                   <tbody>
                     <% if(dcl.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
                 	  
                 	  	int i = 0;
@@ -280,7 +301,11 @@
 						%>
                     <tr>
                       <td><%= d.getDclNo() %></td>
-                      <td><%= d.getDclTitle() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>" style="text-decoration: none; color: black;">
+                      		<%= d.getDclTitle() %>
+                      	</a>
+					  </td>
                       <td><%= d.getDclDate() %></td>
                       <td>
                       	<button type="button" class="btn btn-xs btn-lblue min-42" 
@@ -288,9 +313,11 @@
                       </td>
                     </tr>
                    <%		}
+							
+							i++;
                    		}
                 	  	
-                	  	i++;
+                	  	
                 	 } %>
                   </tbody>
                 </table>
@@ -298,7 +325,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontent2.do?type=4" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>

@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.ReviewBoard;
+import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
-import com.wdh.mypage.dao.MypageDao;
 import com.wdh.mypage.service.MypageService;
-import com.wdh.mypage.vo.Page;
+import com.wdh.qs.model.vo.Question;
 
 /**
  * Servlet implementation class MycontentServlet
@@ -37,41 +37,99 @@ public class MycontentServlet2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
+		
+		int type = Integer.parseInt(request.getParameter("type"));
+		
+		System.out.println(type);
 		
 		Member m = new MemberService().memberView(id);
 		
-		// 1. 화면전환 시에 조회하는 페이지번호 and 화면에 그려질 데이터개수 2개를 전달받음
-				// 첫 페이지 경우
-				int pageNum = 1;
-				int numPerpage = 10;
-				
-				// 페이지번호를 클릭하는 경우
-				if(request.getParameter("pageNum") != null && request.getParameter("numPerpage") != null) {
-					pageNum = Integer.parseInt(request.getParameter("pageNum"));
-					numPerpage = Integer.parseInt(request.getParameter("numPerpage"));
-				}
-				
-				
-				// DAO생성
-//				MypageDao dao = MypageDao.getInstance();
-				
-				// 2. pageVO생성
-				List<Board> boards = new MypageService().selectBoardList(pageNum, numPerpage, m);
-				int total = new MypageService().selectBoardCount(m); // 전체게시글수
-				Page page = new Page(pageNum, numPerpage, total);
-				
-				// 3. 페이지네이션을 화면에 전달
-				request.setAttribute("page", page);
-				
-				// 화면에 가지고 나갈 list를 request에 저장 !!
-				request.setAttribute("boards", boards);
+		int cPage;
+		int numPerpage=10;
+		
+		int totalData=0;
+		
+		try {
+			
+			cPage=Integer.parseInt(request.getParameter("cPage"));
+		
+		} catch(NumberFormatException e) {
+		
+			cPage=1;
+		
+		}		
+		
+		List<Board> boards = new MypageService().selectBoardList(cPage, numPerpage, m);
+		
+		List<ReviewBoard> reviews = new MypageService().selectBoardListR(cPage, numPerpage, m);
+		
+		List<Question> qs = new MypageService().selectQsList(cPage, numPerpage, m);
+		
+		List<Declaration> dcl = new MypageService().selectDclList(cPage, numPerpage, m);
+		
+		if(type==1) {
+			
+			totalData=new MypageService().selectBoardCount(m);
+			
+		} else if (type==2) {
+			
+			totalData=new MypageService().selectBoardCountR(m);
+			
+		} else if (type==3) {
+			
+			totalData=new MypageService().selectQsCount(m);
+			
+		} else if (type==4) {
+			
+			totalData=new MypageService().selectDclCount(m);
+			
+		} 
+		
+		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+		
+		String pageBar="";
+		int pageBarSize=5;
+		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageNo+pageBarSize-1;
+		
+		if(pageNo==1) {
+			pageBar+="<span>[이전]</span>";
+		}else {
+			pageBar+="<a href='"+request.getRequestURL()
+			+ "?type=" + type + "&cPage=" +(pageNo-1)+"'>[이전]</a>";
+		}
+		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+			if(cPage==pageNo) {
+				pageBar+="<span>"+pageNo+"</span>";
+			}else {
+				pageBar+="<a href='"+request.getRequestURL()
+				+ "?type=" + type + "&cPage=" +pageNo+"'>"+pageNo+"</a>";
+			}
+			pageNo++;
+		}
+		if(pageNo>totalPage) {
+			pageBar+="<span>[다음]</span>";
+		}else {
+			pageBar+="<a href='"+request.getRequestURL()
+			+ "?type=" + type + "&cPage=" +pageNo+"'>[다음]</a>";
+		}
+		
+		request.setAttribute("pageBar", pageBar);
+		request.setAttribute("boards", boards);
+		
+
+		request.setAttribute("reviews", reviews);
+		
+		request.setAttribute("qs", qs);
+		
+		request.setAttribute("dcl", dcl);
+		
+		request.setAttribute("type", type);
 		
 		
-		
-		
-		RequestDispatcher rd=request.getRequestDispatcher("/views/mypage/mycontent.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/views/mypage/mycontent3.jsp");
 		rd.forward(request, response);
 			
 

@@ -43,7 +43,7 @@ public class MycontentServlet extends HttpServlet {
 		Member m = new MemberService().memberView(id);
 		
 		int cPage;
-		int numPerpage=8;
+		int numPerpage=10;
 		
 		try {
 			
@@ -78,14 +78,14 @@ public class MycontentServlet extends HttpServlet {
 			pageBar+="<span>[이전]</span>";
 		}else {
 			pageBar+="<a href='"+request.getRequestURL()
-			+"?cPage="+(pageNo-1)+"'>[이전]</a>";
+			+ "?cPage="+(pageNo-1)+"'>[이전]</a>";
 		}
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
 				pageBar+="<span>"+pageNo+"</span>";
 			}else {
 				pageBar+="<a href='"+request.getRequestURL()
-				+"?cPage="+pageNo+"'>"+pageNo+"</a>";
+				+ "?cPage="+pageNo+"'>"+pageNo+"</a>";
 			}
 			pageNo++;
 		}
