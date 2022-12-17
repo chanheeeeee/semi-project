@@ -17,7 +17,7 @@ import com.wdh.admin.model.service.AdminService;
 /**
  * Servlet implementation class AdminNoticeServlet
  */
-@WebServlet("/views/admin/adminNotice.do")
+@WebServlet("/admin/adminNotice.do")
 public class AdminNoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

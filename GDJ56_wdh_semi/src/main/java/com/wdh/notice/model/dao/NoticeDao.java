@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 import static com.wdh.common.JDBCTemplate.*;
 
+import com.wdh.member.dao.MemberDao;
 import com.wdh.notice.model.vo.Notice;
 
 public class NoticeDao {
@@ -34,7 +35,9 @@ public class NoticeDao {
 			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				result.add(getNotice(rs));
+				Notice n=getNotice(rs);
+				n.setMember(MemberDao.getMember(rs));
+				result.add(n);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -87,7 +90,10 @@ public class NoticeDao {
 			pstmt=conn.prepareStatement(sql.getProperty("selectNotice"));
 			pstmt.setInt(1,no);
 			rs=pstmt.executeQuery();
-			if(rs.next()) n=getNotice(rs);
+			if(rs.next())
+				n=getNotice(rs);
+			n.setMember(MemberDao.getMember(rs));
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {

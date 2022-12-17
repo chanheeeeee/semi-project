@@ -39,13 +39,8 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">신고가 접수된 글을 관리 합니다.</li>
                         </ol>
-                       <hr class="one">
-                       <div id="btn_group">
-                       <p>
-                       선택된 게시글을 
-                       <button id="test_btn1" onclick="location.replace('<%=request.getContextPath()%>')">삭제</button>
-                       합니다.</p>
-                       </div> 
+
+                       <hr class="one"> 
                        <hr class="one">
 
                         <div class="row">
@@ -54,13 +49,13 @@
 			            <table id="datatablesSimple">
 			            <thead>
 			                <tr>
-			                	<th><input type="checkbox" name="checkall" id="checkall"></th>
 			                    <th>번호</th>
-			                    <th>카테고리</th>
+			                    <th>말머리</th>
 			                    <th>제목</th>
 			                    <th>작성자</th>
 			                    <th>작성일</th>
 			                    <th>처리</th>
+			                    <th>삭제</th>
 			                </tr>
 			                </thead>
 							<% if(declaration.isEmpty()){ %>
@@ -71,16 +66,16 @@
 								for(Declaration d : declaration){
 							%>
 							 <tr>
-							 	<th><input type="checkbox" name="checkall" id="checkall"></th>
                 				<td><%=d.getDclNo() %></td>
                 				<td><%=d.getDclHeadTitle() %></td>
-	                			<td><a href="<%=request.getContextPath()%>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
-		                		<td><%=d.getMemberNo() %></td>
+	                			<td><a href="<%=request.getContextPath()%>/cs/DclView.do?DclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
+		                		<td><%=d.getMember().getMember_id() %></td>
 		                		<td><%=d.getDclDate() %></td>
 		                		<td><%=d.getDclResult() %></td>
+		                		<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>
 		                		<%} 
                	 			}%>
-                			</tr>
+                			</tr>	
                 			</table>
                 			<br>
 			                 <%-- 페이징 처리 --%>

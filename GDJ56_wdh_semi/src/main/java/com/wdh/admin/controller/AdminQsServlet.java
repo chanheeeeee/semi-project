@@ -16,7 +16,7 @@ import com.wdh.qs.model.vo.Question;
 /**
  * Servlet implementation class AdminQsServlet
  */
-@WebServlet("/views/admin/adminQs.do")
+@WebServlet("/admin/adminQs.do")
 public class AdminQsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

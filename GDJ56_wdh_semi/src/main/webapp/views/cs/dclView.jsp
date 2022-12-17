@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ page import="com.wdh.del.model.vo.Declaration" %>
+<%@ page import="java.util.List,com.wdh.del.model.vo.Declaration,com.wdh.del.model.vo.DclComment" %>
 <%
 	Declaration dcl=(Declaration)request.getAttribute("dcl");
+	List<DclComment> comments=(List<DclComment>)request.getAttribute("comment");
 %>
 <%@ page import="com.wdh.member.vo.Member" %>
 <%
@@ -52,10 +52,7 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dcl.do">신고하기</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/writeQs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -66,6 +63,7 @@
     </nav>
     <!-- Close Header -->
     <br>
+<section id="dcl-container">
 <div font-family:Jua;>
     <div id="tbl-board">
     	<h2><strong>신고하기 상세페이지</strong></h2>
@@ -101,16 +99,46 @@
     			<!-- 관리자만 삭제할 수 있고 답변 할 수 있게 분기처리 -->
     			<%if(loginMember!=null&&loginMember.getMember_id().equals("admin")){ %>
     			<tr>
-    				<th colspan="2">
-    					<input type="button" value="답변" onclick="">
+    				<th colspan="1">
+    					
     					<input type="button" value="삭제" onclick="fn_deleteDcl(<%=dcl.getDclNo() %>,'<%=dcl.getFilePath() %>');"> 
     				</th>
     			</tr>
     			<%} %>
     		</table>
+    		<div id="comment-container">
+    			<div class="comment-editor">
+    				<form action="<%=request.getContextPath()%>cs/commentWrite.do" method="post">
+    					<textarea name="content" rows="30" cols="100"></textarea>
+    					<input type="hidden" name="dclref" value="<%=dcl.getDclNo() %>">
+    					<input type="hidden" name="level" value="1"/>
+    					<input type="hidden" name="commentref" value="0"/>
+    					<input type="hidden" name="commentWriter" value="관리자"/>
+    					<button type="submit" id="btn-insert">등록</button>
+     				</form>
+    			</div>
+    		<table id="dcl-comment">
+    			<%if(!comments.isEmpty()) {
+    				for(DclComment dc : comments){
+    					if(dc.getDclCommentLevel()==1){%>
+    					<tr class="level1">
+    						<td class="comment-writer"><%=dc.getDclCommentWriter() %></td>
+    						<td><%=dc.getDclCommentContent() %></td>
+    						<td class="comment-date"><%=dc.getDclCommentDate() %></td>
+    					</tr>
+    					<tr>
+    						<td>
+    							<button class="btn-delete">삭제</button>
+    						</td>
+    					</tr>
+    				<%}//if
+    				}//for
+    			}//if%>
+    		</table>
     		<br>
     	</div>
     </div>
+    </section>
     <script>
     	const fn_fileDown=(fileName)=>{
     		//다운로드 스크립트

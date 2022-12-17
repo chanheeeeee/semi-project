@@ -3,11 +3,11 @@ package com.wdh.notice.model.vo;
 
 import java.sql.Date;
 
-import lombok.Builder;
-import lombok.Data;
-
+import com.wdh.member.vo.Member;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -21,6 +21,7 @@ public class Notice {
 	private String noticeWriter;
 	private String noticeContent;
 	private Date noticeEnroll;
+	private Member member;
 	
 }
 

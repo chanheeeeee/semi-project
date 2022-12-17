@@ -23,10 +23,17 @@ public class AdminService {
 		return result;
 	}
 	
-	
-	public List<Member> searchMemberList(int cPage, int numPerpage){
+	public List<Member> adminMemberList() {
 		Connection conn=getConnection();
-		List<Member> list=dao.searchMemberList(conn,cPage,numPerpage);
+		List<Member> list=dao.adminMemberList(conn);
+		close(conn);
+		return list;
+	}
+	
+	
+	public List<Member> searchMemberList(){
+		Connection conn=getConnection();
+		List<Member> list=dao.searchMemberList(conn);
 		close(conn);
 		return list;
 	}
@@ -37,4 +44,5 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+
 }

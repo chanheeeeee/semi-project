@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>    
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,7 +26,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-black">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="adminMain.jsp">#관리자페이지</a>
+            <a class="navbar-brand ps-3" href="<%=request.getContextPath() %>/admin/adminMain.do">#관리자페이지</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -53,7 +53,7 @@
                                 메인화면
                             </a>
                             <div class="sb-sidenav-menu-heading">MEMBER</div>
-                            <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminMemberList.do">
+                            <a class="nav-link" href="<%=request.getContextPath() %>/admin/adminMemberList.do">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-alt"></i></div>
                                 회원 관리
                             </a>
@@ -66,14 +66,14 @@
                             </a>
                             <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminChallenge.jsp">챌린지 등록</a>
-                                    <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminChallenge_Result.jsp">챌린지 결과</a>
+                                    <a class="nav-link" href="<%=request.getContextPath() %>/admin/adminChallenge.do">챌린지 등록</a>
+                                    <a class="nav-link" href="<%=request.getContextPath() %>/admin/adminChallengeResult.do">챌린지 결과</a>
                                 </nav>
                             </div>
 
                             <div class="sb-sidenav-menu-heading">Notice</div>
                             <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="" aria-expanded="false" aria-controls="collapseLayouts"> -->
-                                <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminNotice.do">
+                                <a class="nav-link" href="<%=request.getContextPath() %>/admin/adminNotice.do">
                                     <div class="sb-nav-link-icon"><i class=""></i></div>
                                 공지 관리  
                             </a>
@@ -86,8 +86,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminQs.do">1대1문의 관리</a>
-                                    <a class="nav-link" href="<%=request.getContextPath() %>/views/admin/adminDcl.do">신고 관리</a>
+                                    <a class="nav-link" href="<%=request.getContextPath() %>/admin/adminQs.do">1대1문의 관리</a>
+                                    <a class="nav-link" href="<%=request.getContextPath() %>/admin/adminDcl.do">신고 관리</a>
                                 </nav>
                             </div>
                             
