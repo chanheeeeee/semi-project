@@ -6,6 +6,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	List<Board> boards = (List<Board>)request.getAttribute("boards");
 
@@ -15,12 +18,17 @@
 	
 	List<Declaration> dcl = (List<Declaration>)request.getAttribute("dcl");
 	
-	/* int result = (int)request.getAttribute("result"); */
 	int result = 0;
+	
+	/* 페이징 처리 타입 */
+	int type = (int)request.getAttribute("type");
 
 
 %>
-
+<style>
+div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 212, 0.3);}
+	div#pageBar span.cPage{color: #0066ff;}
+</style>
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
@@ -64,8 +72,9 @@
       <div class="container-fluid">
         <div class="row">
         
-        
-          <div class="col-md-6">
+        <% if(type==1) { %>
+        	<!-- 동행 -->
+          <div class="col-md-6" style="flex: auto; max-width: 100%;">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">동행</h3>
@@ -84,9 +93,7 @@
                   <tbody>
                   <% if(boards.isEmpty()) { %>
                   	<tr><td>작성된 글이 없습니다.</td></tr>
-                  <% } else {
-                	  
-           
+                  <% } else {       
 
                 	  	for(Board b : boards) {
                 	
@@ -130,14 +137,192 @@
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                 	<li><a href="<%=request.getContextPath()%>/mypage/paging.do?type=togather" class="more" style="color: #9b9b9b;">더보기 >></a></li>
-                </ul>
+              <div class="card-footer clearfix" style="float: left;">
+              
+              	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
+              	<li class="page-item" style="float: left;">
+                 	<div id="pageBar">
+						<%=request.getAttribute("pageBar") %>
+					</div>
+				</li>
+				</ul>
               </div>
             </div>
            </div>
             <!-- /.card -->
+           <% } %>
+            
+                 
+         <% if(type==2) { %>
+            <!-- 후기 -->
+          <div class="col-md-6" style="flex: auto; max-width: 100%;">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">후기</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>제목</th>
+                      <th>게시날짜</th>
+                      <th style="width: 40px"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(reviews.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
+                  <% } else {
+                	  	
+                	  	for(ReviewBoard r : reviews) {
+						%>
+                    <tr>
+                      <td><%= r.getReviewSeq() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%= r.getWdNo() %>" style="text-decoration: none; color: black;">
+                      		<%= r.getReviewTitle() %>
+                      	</a>
+                      </td>
+                      <td><%= r.getReviewDate() %></td>
+                      <td>
+                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?reviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
+                      </td>
+                    </tr>
+                   <%		}
+							
+                	 } %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                 	<div id="pageBar">
+						<%=request.getAttribute("pageBar") %>
+					</div>
+              </div>
+            </div>
+            <!-- /.card -->
+            </div>
+            <!-- ./후기 -->
+          <% } %>
+            
+		  <% if(type==3) { %>
+            <!-- 문의 -->
+            <div class="col-md-6" style="flex: auto; max-width: 100%;">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">문의</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>제목</th>
+                      <th>등록날짜</th>
+                      <th style="width: 40px"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(qs.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
+                  <% } else {
+
+                	  	for(Question q : qs) {
+						%>
+                    <tr>
+                      <td><%= q.getQsNo() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/cs/qs.do?qsNo=<%=q.getQsNo()%>" style="text-decoration: none; color: black;">
+                      		<%= q.getQsTitle() %>
+                      	</a>
+                      </td>
+                      <td><%= q.getQsDate() %></td>
+                      <td>
+                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteQs.do?qsNo=<%= q.getQsNo() %>';">삭제</button>
+                      </td>
+                    </tr>
+                   <%		}
+
+                	 } %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                 	<div id="pageBar">
+						<%=request.getAttribute("pageBar") %>
+					</div>
+              </div>
+            </div>
+            <!-- /.card -->
+          <!-- /.col -->
+          </div>
+          <!-- 문의 -->
+         <% } %>
+
+         
+         <% if(type==4) { %>
+ 		<!-- 신고 -->
+            <div class="col-md-6" style="flex: auto; max-width: 100%;">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">신고</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>제목</th>
+                      <th>등록날짜</th>
+                      <th style="width: 40px"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if(dcl.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
+                  <% } else {
+	
+                	  	for(Declaration d : dcl) {
+						%>
+                    <tr>
+                      <td><%= d.getDclNo() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>" style="text-decoration: none; color: black;">
+                      		<%= d.getDclTitle() %>
+                      	</a>
+					  </td>
+                      <td><%= d.getDclDate() %></td>
+                      <td>
+                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteDcl.do?dclNo=<%= d.getDclNo() %>';">삭제</button>
+                      </td>
+                    </tr>
+                   <%		}
+  	
+                	 } %>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                 	<div id="pageBar">
+						<%=request.getAttribute("pageBar") %>
+					</div>
+              </div>
+            </div>
+            <!-- /.card -->
+          <!-- /.col -->
+          </div>
+          <!-- 신고 -->
+         <% } %>
             
             
        </div>

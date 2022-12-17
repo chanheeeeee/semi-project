@@ -133,10 +133,11 @@
 							<% } else { %>
 								<li class="nav-item" id="mypage" >
 									<a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>
-									<img class="profile img-fluid img-profile rounded-circle" style="width: 70px; height: 70px; margin-left: 30%;"
+									<img class="profile img-fluid img-profile rounded-circle" style="width: 50px; height: 50px; margin-left: 30%;"
                       							src="<%=request.getContextPath() %>/assets/img/pocha.jpg" />
 									</a>
 								</li>
+								<li class="nav-item" id="mypage"><a><%= loginMember.getMember_nickname() %></a></li>
 								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/logout.do'>로그아웃</a></li>
 							<% } %>
 							</ul>
