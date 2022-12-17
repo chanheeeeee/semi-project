@@ -22,13 +22,13 @@ import com.wdh.qs.model.vo.Question;
  * Servlet implementation class MycontentServlet
  */
 @WebServlet("/mypage/mycontentMore.do")
-public class MycontentServletMore extends HttpServlet {
+public class MycontentMoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MycontentServletMore() {
+    public MycontentMoreServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,8 +41,6 @@ public class MycontentServletMore extends HttpServlet {
 		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
 		
 		int type = Integer.parseInt(request.getParameter("type"));
-		
-		System.out.println(type);
 		
 		Member m = new MemberService().memberView(id);
 		
