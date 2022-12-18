@@ -86,17 +86,20 @@
                                                   result=1;
                                                }
                                             }%>   
-                                             <%if(result==1) {%>
-                                                <!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
-                                                <li class="list-inline-item"><span class="btn btn-success"
-                                                onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500 scrollbars=yes');">참가리스트</span></li>
-                                               <li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
-                                               onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+                                            <%if(loginMember.getMember_no()==b.getMemberNo()){ %>
+												<li class="list-inline-item"><span class="btn btn-success"
+												onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
+                                            <%}else if(result==1) {%>
+												<!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
+												<li class="list-inline-item"><span class="btn btn-success"
+												onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
+												<li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
+												onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
                                             <%}else { %>
-                                               <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
-                                               <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
-                                               onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
-                                 <%} %>
+												<li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
+												<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
+												onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
+                                 			<%} %>
                                         </ul>
                                     </div>
                               </form>

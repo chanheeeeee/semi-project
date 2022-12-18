@@ -104,7 +104,7 @@ public class MypageService {
 	}
 	
 
-	public int slectQsCount(Member m) {
+	public int selectQsCount(Member m) {
 		
 		Connection conn = getConnection();
 		
@@ -142,7 +142,7 @@ public class MypageService {
 	}
 	
 
-	public int slectDclCount(Member m) {
+	public int selectDclCount(Member m) {
 		
 		Connection conn = getConnection();
 		
@@ -158,6 +158,19 @@ public class MypageService {
 		Connection conn = getConnection();
 		
 		int result = dao.deleteDcl(conn, dclNo);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	//회원 탈퇴
+	public int deleteMember(int member_no) {
+
+		Connection conn = getConnection();
+		
+		int result = dao.deleteMember(conn, member_no);
 		
 		close(conn);
 		

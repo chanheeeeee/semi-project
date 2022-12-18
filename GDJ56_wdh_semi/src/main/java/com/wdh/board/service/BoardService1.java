@@ -102,5 +102,14 @@ public class BoardService1 {
 		close(conn);
 		return result;
 	}
+	
+	public int outMember(int memberNo, int wdNo) {
+		Connection conn=getConnection();
+		int result=dao.outMember(conn, memberNo, wdNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 
 }

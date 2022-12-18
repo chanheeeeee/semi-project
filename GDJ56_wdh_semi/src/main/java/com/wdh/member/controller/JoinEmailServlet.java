@@ -7,17 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import com.wdh.common.EmailSendModule;
+
 /**
- * Servlet implementation class RepasswordServlet
+ * Servlet implementation class JoinEmailServlet
  */
-@WebServlet("/member/repassword.do")
-public class RepasswordServlet extends HttpServlet {
+@WebServlet("/member/joinEmailservlet.do")
+public class JoinEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RepasswordServlet() {
+    public JoinEmailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,11 +30,25 @@ public class RepasswordServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("member_id");
-		System.out.println(memberId);//jsp에서 보낸 아이디값나오는지 확인하기
+		String email = request.getParameter("email");
+		String authNum = null;
+		String isSuccess = "N";
+		System.out.println(email);
 		
+		if(email!=null) {
+			//인증번호 발송
+			authNum = EmailSendModule.gmailSend(email);
+			//인증번호 메일 발송이 성공했다면 isSuccess 값을 Y로 변경
+			isSuccess = "Y";
+		}else {
+			System.out.println("계정이 없습니다.");
+		}
 		
-		request.getRequestDispatcher("/views/member/re_pw.jsp").forward(request, response);
+		JSONObject o = new JSONObject();
+		o.put("isSuccess", isSuccess);
+		o.put("authNum", authNum);
+		
+		response.getWriter().print(o);
 	}
 
 	/**

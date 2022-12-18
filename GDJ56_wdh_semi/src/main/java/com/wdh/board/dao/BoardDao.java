@@ -211,6 +211,21 @@ public class BoardDao {
 		}return list;
 	}
 	
+	public int outMember(Connection conn, int memberNo, int wdNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteWdJoin"));
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, wdNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
 	public static WdJoin getWdJoin(ResultSet rs) throws SQLException {
 		return WdJoin.builder().memberNo(rs.getInt("MEMBER_NO")).wdNo(rs.getInt("WD_NO")).build();
 	}
