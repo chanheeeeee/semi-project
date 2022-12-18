@@ -416,7 +416,37 @@ public class MypageDao {
 		
 	}
 	
-	
+
+	public int updateMember(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql.getProperty("updateMember"));
+			pstmt.setString(1, String.valueOf(m.getGender()));
+			pstmt.setString(2, m.getEmail());
+			pstmt.setString(3,m.getMember_nickname());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setInt(6, m.getMember_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+	}
 	
 	
 	
