@@ -37,7 +37,7 @@
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">아이디</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" value="<%= m.getMember_id() %>" readonly>
+                          <input type="text" class="form-control" id="inputName" name="memberId" value="<%= m.getMember_id() %>" readonly>
                         </div>
                       </div>
                       <div class="form-group row">
@@ -91,7 +91,7 @@
                         <div class="col-sm-10">
                           	<div style="float:left;"><input type="text" class="form-control" id="postcode" placeholder="우편번호"></div>
 							<input type="button" class="btn btn-xs btn-lblue3 min-42" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-							<input type="text" class="form-control" id="address" placeholder="주소" name="address">
+							<input type="text" class="form-control" id="address" placeholder="주소" name="address" value="<%= m.getAddress() %>">
 							<input type="text" class="form-control" id="address2" placeholder="상세주소" name="address2">
 							
                         </div>
@@ -191,7 +191,7 @@
 		<script>
 			const fn_updatePassword=()=>{
 				//새창으로 패스워드 수정페이지 연결
-				open("<%= request.getContextPath() %>/mypage/updatePassword.do",
+				open("<%= request.getContextPath() %>/mypage/updatePassword.do?memberId=<%= loginMember != null ? loginMember.getMember_id():"" %>",
 						"_blank","width=400,height=210");
 				
 			}

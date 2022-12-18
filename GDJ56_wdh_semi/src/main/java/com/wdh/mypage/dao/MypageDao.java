@@ -416,7 +416,8 @@ public class MypageDao {
 		
 	}
 	
-
+	
+	// 멤버 정보 수정
 	public int updateMember(Connection conn, Member m) {
 		
 		PreparedStatement pstmt = null;
@@ -431,6 +432,62 @@ public class MypageDao {
 			pstmt.setString(4, m.getAddress());
 			pstmt.setString(5, m.getPhone());
 			pstmt.setInt(6, m.getMember_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+	}
+	
+	//비번 바꾸기
+
+	public Member searchMember(Connection conn, String memberId, String password) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql.getProperty("searchIdPassword"));
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, password);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				m = MemberDao.getMember(rs);
+				
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
+	}
+	
+	public int updatePassword(Connection conn, String memberId, String password) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("updatePassword"));
+			pstmt.setString(1, password);
+			pstmt.setString(2, memberId);
 			
 			result = pstmt.executeUpdate();
 			
