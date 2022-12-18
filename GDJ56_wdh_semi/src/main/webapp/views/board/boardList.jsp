@@ -199,21 +199,38 @@
                 </div>
 
                     <!-- 페이징처리 -->
-                    <div id="pageBar">
-                        <%=request.getAttribute("pageBar") %>
-                    </div>
+                    
+                        <!-- <ul></ul> -->
+                        <div id="pageBar" class="row">
+		                    <ul>
+		                    
+		                    </ul>
+		                </div>
+                    
+                    <script>
+
+	                    temp = "<%=request.getAttribute("pageBar") %>";
+	                    let arr=temp.split(",");
+	                    console.log(arr);
+	                    arr.forEach(v =>{
+		                    const $e=document.querySelector("#pageBar ul");
+		                    console.log($e);
+		                    let li="<li><button>"+v+"</button></li>";
+		                    $("#pageBar ul").addClass('slick-dots');
+		                    /* $("#pageBar ul button").addClass('slick-dots'); */
+		                    //$("#pagebar ul button").attr('id','slick-slide-control00');
+		                    /* $("#pageBar li").addClass('slick-dots'); */
+		                    $e.innerHTML += li;
+		                    console.log($e.innerHTML);
+	                    });
+
+	                    
+	                    
+                    </script>
                 </section>
                 <!-- End Section -->
 
-
-
-                <div class="row">
-                    <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item">
-                            <div class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"><%=request.getAttribute("pageBar") %></div>
-                        </li>
-                    </ul>
-                </div>
+                
             </div>
 
         </div>
@@ -229,6 +246,9 @@
     div#pageBar span.cPage {color: #0066ff; }
     div#container>div {display: none;}
    a {text-decoration: none;}
-</style>
+	</style>
+
+
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bvstyle.css"/>
 
 <%@ include file="/views/common/footer.jsp" %>
