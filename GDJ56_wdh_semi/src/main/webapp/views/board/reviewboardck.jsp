@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.wdh.board.vo.*" %>
-<% Board b = (Board)request.getAttribute("board"); %>
+<% 
+	Board b=(Board)request.getAttribute("board"); 
+	Member m=(Member)request.getAttribute("member");
+%>
 <%@ include file="/views/common/header.jsp" %>
 
     <div class="container">
@@ -19,7 +22,7 @@
 		<th>참여동행</th>
 		<td><%=b.getWdTitle() %></td>
 		<th>동행자 닉네임</th>
-		<td><%=b.getMemberNo() %></td>
+		<td><%=m.getMember_nickname() %></td>
 	</tr>
 	<tr>
 		<th>참여날짜</th>

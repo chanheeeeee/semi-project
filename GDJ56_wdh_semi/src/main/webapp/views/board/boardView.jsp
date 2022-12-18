@@ -277,7 +277,7 @@
 	<!-- 댓글&작성자후기 중 작성자후기 -->                 
     <section class="py-5">
         <div class="container">
-            <div class="row text-left p-2 pb-3">
+            <div class="row text-left p-2 pb-3" >
                 <h4 id="boardView_c2">작성자후기</h4>
             </div>
 
@@ -293,7 +293,14 @@
 				                <div class="p-2 pb-3">
 				                    <div class="product-wap card rounded-0">
 				                        <div class="card-body">
-											<h6 style="text-align: left;"><%=rb.getReviewTitle() %>작성자후기제목</h6>				                            
+											<h6 style="text-align: left;"><%=rb.getReviewTitle() %>작성자후기제목</h6>		
+											<%if(rb.getMemberNo()==loginMember.getMember_no()){ %>
+												<a href="<%=request.getContextPath()%>/board/grade.do?boardNo=<%=b.getWdNo()%>">수정</a>
+												<%-- <%=request.getContextPath()%>/board/reviewupdate.do?reviewNo=<%=rb.getReviewSeq()%>">수정</a> --%>
+												<a href="<%=request.getContextPath()%>/board/reviewdelete.do?
+												reviewboardNo=<%=rb.getReviewSeq()%>&memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>">삭제</a>
+												<%} %>
+											<img src="<%=request.getContextPath()%>/reviewImg/<%=rb.getImg()%>" alt="" style="width:80px; height:80px;">		                            
 				                                <p><%=rb.getReviewContent()%></p>
 				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
 				                                <li></li>

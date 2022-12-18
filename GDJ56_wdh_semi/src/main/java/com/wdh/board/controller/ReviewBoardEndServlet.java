@@ -1,6 +1,7 @@
 package com.wdh.board.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,28 +35,49 @@ public class ReviewBoardEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-		String reviewTitle=request.getParameter("review_title");
-		String reviewContent=request.getParameter("review_content");
-		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		double score=(Integer.parseInt(request.getParameter("score")))/6.0;
-		System.out.println(reviewTitle+reviewContent+score);
-		ReviewBoard rb=ReviewBoard.builder()
-				.memberNo(memberNo).reviewTitle(reviewTitle).reviewContent(reviewContent)
-				.wdNo(wdNo).reviewScore(score).build();
-		System.out.println(rb);
-		int result=new BoardService1().insertAfterBoard(rb);
-		String msg="", loc="";
-		if(result>0) {
-			loc="/views/board/reviewboardfinish.jsp";
+		//파일 업로드
+//		String path=request.getServletContext().getRealPath("/reviewImg");
+//		System.out.println(path);
+//		MultipartRequest mr=new MultipartRequest(request,path,1024*1024*10,"UTF-8",new DefaultFileRenamePolicy());
+//		Enumeration e=mr.getFileNames();
+//		String img="";
+//		if(e.hasMoreElements()) {
+//			String imgName=(String)e.nextElement();//파일로 반환
+//			img=mr.getFilesystemName(imgName);
+//		}
+
+
+		if(!ServletFileUpload.isMultipartContent(request)) {
+			response.sendRedirect(request.getContextPath());
 		}else {
-			msg="글 작성 실패!";
-			loc="/views/board/reviewboardck.jsp";
-		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
-		
+			String path=request.getServletContext().getRealPath("/reviewImg");
+			MultipartRequest mr=new MultipartRequest(request,path,1024*1024*10,"UTF-8",new DefaultFileRenamePolicy());
+			String img=mr.getFilesystemName("reviewImg");
+			
+
+	      
+			int memberNo=Integer.parseInt(mr.getParameter("memberNo"));
+			String reviewTitle=mr.getParameter("review_title");
+			String reviewContent=mr.getParameter("review_content");
+			int wdNo=Integer.parseInt(mr.getParameter("wdNo"));
+			double score=(Integer.parseInt(mr.getParameter("score")))/6.0;
+			System.out.println(reviewTitle+reviewContent+score);
+			ReviewBoard rb=ReviewBoard.builder()
+					.memberNo(memberNo).reviewTitle(reviewTitle).reviewContent(reviewContent)
+					.wdNo(wdNo).reviewScore(score).img(img).build();
+			System.out.println(rb);
+			int result=new BoardService1().insertAfterBoard(rb);
+			String msg="", loc="";
+			if(result>0) {
+				loc="/views/board/reviewboardfinish.jsp";
+			}else {
+				msg="글 작성 실패!";
+				loc="/board/grade.do?boardNo="+wdNo;
+			}
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
+			}
 		
 		
 	}
