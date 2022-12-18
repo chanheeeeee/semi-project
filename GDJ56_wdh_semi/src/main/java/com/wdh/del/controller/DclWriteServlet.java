@@ -1,4 +1,4 @@
-package com.wdh.qs.controller;
+package com.wdh.del.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class QsAlertViewServlet
+ * Servlet implementation class DclWriteServlet
  */
-@WebServlet("/cs/qsAlert.do")
-public class QsAlertViewServlet extends HttpServlet {
+@WebServlet("/cs/dclWrite.do")
+public class DclWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//1대1문의 글 작성 후 알림 페이지로 이동할 서블릿입니다.
+    //고객센터 - 신고하기를 눌렀을때 연결할 페이지 입니다.
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QsAlertViewServlet() {
+    public DclWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,9 @@ public class QsAlertViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/cs/qsAlert.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/cs/subDcl.jsp").forward(request, response);
+	
+	
 	
 	
 	

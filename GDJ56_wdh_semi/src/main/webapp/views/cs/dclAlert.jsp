@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>고객센터 - 1대1 문의</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -57,10 +52,13 @@
         </div>
     </nav>
     <!-- Close Header -->
-    <div style="text-align:center">
+    
+        <div style="text-align:center">
     	<br>
-		<img src="<%=request.getContextPath()%>/images/QsAlert.png" style="width:49%; height:600px;">
+		<img src="<%=request.getContextPath()%>/images/DclAlert.png" style="width:49%; height:600px;">
     </div>
+    <br>
+    	<!-- 이 페이지에서 바로 마이페이지 로 연결될 버튼이 있어야할까? -->
     <br>
     
     
