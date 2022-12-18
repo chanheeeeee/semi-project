@@ -30,6 +30,8 @@ public class BoardCommentDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		int boardNo=Integer.parseInt(request.getParameter("boardNo"));
 		BoardComment bc = BoardComment.builder()
 				.commentNo(Integer.parseInt(request.getParameter("boardcomment")))
 				.build();
@@ -45,7 +47,7 @@ public class BoardCommentDeleteServlet extends HttpServlet {
 			msg="삭제 실패";
 		}
 		
-		loc="/board/boardView.do?boardNo="+wdNo; //보고 있는 게시글위치
+		loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+boardNo; //보고 있는 게시글위치
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		

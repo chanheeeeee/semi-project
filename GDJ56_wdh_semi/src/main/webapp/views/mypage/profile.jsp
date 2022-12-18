@@ -187,7 +187,7 @@
 			
 			const fn_updateMember=()=>{
 				$("#updateMemberFrm").attr("action",
-						"<%=request.getContextPath()%>/mypage/about.do");
+						"<%=request.getContextPath()%>/mypage/updateMemberEnd.do");
 				$("#updateMemberFrm").submit();
 				
 			}

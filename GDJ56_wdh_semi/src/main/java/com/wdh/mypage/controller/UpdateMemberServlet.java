@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 
-@WebServlet("/mypage/updateMember.do")
+@WebServlet(name = "mypageUpdatePassword", urlPatterns = "/mypage/updateMember.do")
 public class UpdateMemberServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

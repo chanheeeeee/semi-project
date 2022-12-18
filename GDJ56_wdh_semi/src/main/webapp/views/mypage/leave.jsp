@@ -24,7 +24,7 @@
         <div class="container-fluid p-0">
             <!-- About-->
             <section class="resume-section" id="leave" name="leave">
-                <div class="resume-section-content">
+                <!-- <div class="resume-section-content"> -->
                     <h1 class="mb-0">
                         정말
                         <span class="text-danger">탈퇴하시겠습니까?
@@ -37,7 +37,7 @@
                     <p class="lead mb-5">When you leave, all your posts will disappear and your points and membership ratings will be initialized.</p>
                     <br>
                     <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" class="btn btn-danger">탈퇴</button>
+                        <button type="submit" class="btn btn-danger" onclick="location.href='<%= request.getContextPath() %>/mypage/leaveMember.do?memberNo=<%= loginMember.getMember_no() %>';">탈퇴</button>
                     </div>
 
                 </section>

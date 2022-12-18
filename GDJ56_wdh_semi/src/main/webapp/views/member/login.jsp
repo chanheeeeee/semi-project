@@ -4,6 +4,7 @@
 
 
 <style>
+	
        
       * {
         margin: 0;
@@ -101,6 +102,30 @@
         padding: 5px 15px 5px 15px;
         font-size: 20px;
       }
+      
+       .btn_button {
+		  width: 220px;
+		  height: 35px;
+		  font-family: 'Roboto', sans-serif;
+		  font-size: 14px;
+		  text-transform: uppercase;
+		  letter-spacing: 2.5px;
+		  font-weight: 500;
+		  color: #000;
+		  background-color: rgba(223, 223, 223, 0.422);
+		  border: none;
+		  border-radius: 45px;
+		  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		  transition: all 0.3s ease 0s;
+		  cursor: pointer;
+		  outline: none;
+		  }
+		
+		.btn_button:hover {
+		  background-color: #2e93e5af;
+		  box-shadow: 0px 15px 20px #6dbcfcaf;
+		  color: #fff;
+		  transform: translateY(-7px);
 
   
 
@@ -130,9 +155,9 @@
                     <br>
 
                     <div class="forgot" >
-                    <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="font-family: Jua;border: outset;">비밀번호 찾기</button>
-                    <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="font-family:'Jua';border: outset;">아이디 찾기</button> 
-                    <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
+                    <button type="button" class="btn_button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="font-family: Jua;border: outset;">비밀번호 찾기</button><br><br>
+                    <button type="button" class="btn_button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="font-family:'Jua';border: outset;">아이디 찾기</button><br><br> 
+                    <button type="button" class="btn_button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
                     </div>
                 </div>
             </div>

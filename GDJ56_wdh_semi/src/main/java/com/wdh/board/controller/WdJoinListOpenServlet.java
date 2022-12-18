@@ -1,6 +1,7 @@
 package com.wdh.board.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.service.BoardService1;
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
 import com.wdh.board.vo.WdJoin;
-import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class WdJoinServlet
+ * Servlet implementation class WdJoinListOpenServlet
  */
-@WebServlet("/board/wdjoin.do")
-public class WdJoinServlet extends HttpServlet {
+@WebServlet("/board/wdjoinlistopen.do")
+public class WdJoinListOpenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdJoinServlet() {
+    public WdJoinListOpenServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,21 +36,21 @@ public class WdJoinServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
 		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		System.out.println(memberNo+wdNo);
-		WdJoin wj=WdJoin.builder().memberNo(memberNo).wdNo(wdNo).build();
-		System.out.println(wj);
-		int result=new BoardService1().wdJoin(wj);
+		List<Member> m=new BoardService1().JoinMember(wdNo);
+		List<WdJoin> wjW=new BoardService1().selectWdJoinW(wdNo);
+		Board b=new BoardService2().selectBoard(wdNo);
+		System.out.println(m);
 		String msg="", loc="";
-		if(result>0) {
-			msg="참가신청 완료! 동행해주셔서 감사합니다~!";
+		if(m==null) {
+			msg="참가인원이 없습니다";
 			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		}else {
-			msg="참가취소 실패! 다시 시도해주세요!";
-			loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
+			request.setAttribute("joinMember", m);
+			request.setAttribute("WdJoin", wjW);
+			request.setAttribute("board", b);
+			request.getRequestDispatcher("/views/board/wdJoinList.jsp?loginMember="+memberNo).forward(request, response);		
 		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
+
 	}
 
 	/**

@@ -10,21 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import com.google.gson.Gson;
-import com.wdh.common.EmailSendModule;
 import com.wdh.member.service.MemberService;
+import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class AuthSendCodeServlet
+ * Servlet implementation class RepasswordActionServlet
  */
-@WebServlet("/member/authSendCode.do")
-public class AuthSendCodeServlet extends HttpServlet {
+@WebServlet(name="rePassword", urlPatterns = "/member/repasswordAction.do")
+public class RepasswordActionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AuthSendCodeServlet() {
+    public RepasswordActionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,37 +32,19 @@ public class AuthSendCodeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String member_id = request.getParameter("member_id");
-		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		
-		//성공여부를 알기 위해서 플래그값을 넣음
-		String isSuccess = "N";
-		String password = new MemberService().authSendPw(member_id, name, email);
-		String authNum = null;
-		if(password!=null) {
-			//인증번호 발송
-			authNum = EmailSendModule.gmailSend(email);
-			//인증번호 메일 발송이 성공했다면 isSuccess 값을 Y로 변경
-			isSuccess = "Y";
-		}else {
-			System.out.println("계정이 없습니다.");
-		}
-		
-		JSONObject o = new JSONObject();
-		o.put("isSuccess", isSuccess);
-		o.put("password", password);
-		o.put("authNum", authNum);
-		
-		response.setContentType("application/json;cahrset=utf-8");
-		
-		response.getWriter().print(o);
+		String member_id = request.getParameter("saveId");
+		String newpw = request.getParameter("newPw");
+		System.out.println(member_id);
+		System.out.println(newpw);
 		
 		
+		int result = new MemberService().rePassword(member_id,newpw);
 		
+		JSONObject ob = new JSONObject();
 		
+		ob.put("result", result);
 		
-	
+		response.getWriter().print(ob);
 		
 		
 	}

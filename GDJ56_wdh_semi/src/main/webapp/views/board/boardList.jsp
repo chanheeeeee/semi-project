@@ -1,24 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List,com.wdh.board.vo.*" %>
 <% 
-	List<Board>	boards = (List<Board>)request.getAttribute("boards");
+   List<Board>   boards = (List<Board>)request.getAttribute("boards");
 %>
 
 
 <%@ include file="/views/common/header.jsp" %>
-    <script	src="<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
-<style>
-    /*페이지바*/
-    div#pageBar {
-        margin-top: 10px;
-        text-align: center;
-    }
-
-    div#pageBar span.cPage {
-        color: #0066ff;
-    }
-</style>
-
+    <script   src="<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
 
     <!-- Start Content -->
     <div class="container py-5">
@@ -26,62 +14,62 @@
 
             <div class="col-lg-3">
                 <div class="input-group mb-2">
-                	<input type="text" class="form-control" id="inputKeywordSearch" placeholder="Search ...">
+                   <input type="text" class="form-control" id="inputKeywordSearch" placeholder="Search ...">
                     <button class="input-group-text bg-success text-light" onclick="fn_searchSubmit();"> <!-- 검색할 함수 -->
-                    	<i class="fa fa-fw fa-search text-white"></i>
+                       <i class="fa fa-fw fa-search text-white"></i>
                     </button>
                 </div>
                 <%-- <div class="col-md-4">
                     <button type="button" class="btn btn-success btn-lg px-3" id="slideToggleAdd">검색 조건 추가하기</button>
-                    <button	type="button" class="btn btn-success btn-lg px-3" 
-                    	onclick="location.assign('<%=request.getContextPath()%>/board/writeboard.do');">글쓰기</button>
+                    <button   type="button" class="btn btn-success btn-lg px-3" 
+                       onclick="location.assign('<%=request.getContextPath()%>/board/writeboard.do');">글쓰기</button>
                 </div> --%>
                 
                 <!-- 한번 -->
                 <form name="searchFrm" action="<%=request.getContextPath()%>/board/boardSearch.do" method="post">
-	                <h1 class="h2 pb-4">검색할 조건 추가하기</h1>
-	                <ul class="list-unstyled templatemo-accordion">
-	                    <li class="pb-3">
-	                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none">
-	                            성별
-	                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
-	                        </a>
-	                        <ul class="collapse show list-unstyled pl-3">
-	                            <li><label><input type="radio" name="gender" value="F">여</label></li>
+                   <h1 class="h2 pb-4">검색할 조건 추가하기</h1>
+                   <ul class="list-unstyled templatemo-accordion">
+                       <li class="pb-3">
+                           <a class="collapsed d-flex justify-content-between h3 text-decoration-none">
+                               성별
+                               <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                           </a>
+                           <ul class="collapse show list-unstyled pl-3">
+                               <li><label><input type="radio" name="gender" value="F">여</label></li>
                                 <li><label><input type="radio" name="gender" value="M">남</label></li>
                                 <li><label><input type="radio" name="gender" value="무관">무관</label></li>
-	                        </ul>
-	                    </li>
-	                    <li class="pb-3">
-	                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-	                            목적
-	                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-	                        </a>
-	                        <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-	                            <li><label><input type="radio" name="goal" value="취미">취미</label></li>
+                           </ul>
+                       </li>
+                       <li class="pb-3">
+                           <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                               목적
+                               <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                           </a>
+                           <ul id="collapseTwo" class="collapse list-unstyled pl-3">
+                               <li><label><input type="radio" name="goal" value="취미">취미</label></li>
                                 <li><label><input type="radio" name="goal" value="친목">친목</label></li>
                                 <li><label><input type="radio" name="goal" value="다이어트">다이어트</label></li>
-	                        </ul>
-	                    </li>
-	                    <li class="pb-3">
-	                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-	                            종목
-	                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-	                        </a>
-	                        <ul id="collapseThree" class="collapse list-unstyled pl-3">
-	                            <li><label><input type="checkbox" name="event" value="구기"> 구기</label></li>
+                           </ul>
+                       </li>
+                       <li class="pb-3">
+                           <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                               종목
+                               <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                           </a>
+                           <ul id="collapseThree" class="collapse list-unstyled pl-3">
+                               <li><label><input type="checkbox" name="event" value="구기"> 구기</label></li>
                                 <li><label><input type="checkbox" name="event" value="유산소"> 유산소</label></li>
                                 <li><label><input type="checkbox" name="event" value="수상"> 수상</label></li>
                                 <li><label><input type="checkbox" name="event" value="기타"> 기타</label></li>
-	                        </ul>
-	                    </li>
-	                </ul>
-	                		<input type="hidden" name="searchKeyword">
+                           </ul>
+                       </li>
+                   </ul>
+                         <input type="hidden" name="searchKeyword">
                 </form>
                 
 
                 <%-- <div id="container">
-                	<div>슬라이드 메뉴 지도
+                   <div>슬라이드 메뉴 지도
                         <%@ include file="/views/board/map3.jsp" %>
                     </div>
                     <div>슬라이드 메뉴
@@ -113,21 +101,17 @@
                                 <input type="date" name="date" max="2022-12-31" min="2022-01-01">-
                                 <input type="date" name="date" max="2022-12-31" min="2022-01-01">
                             </div>
-							<input type="hidden" name="searchKeyword">
-								//<input type="hidden" name="gender" id="gender">
-								//<input type="hidden" name="goal">
-								//<input type="hidden" name="event">
-								//<input type="hidden" name="address"> 
+                     <input type="hidden" name="searchKeyword">
+                        //<input type="hidden" name="gender" id="gender">
+                        //<input type="hidden" name="goal">
+                        //<input type="hidden" name="event">
+                        //<input type="hidden" name="address"> 
                         </form>
                     </div>
                 </div> --%>
             </div>
             <!-- 검색 -->
-            <style>
-                div#container>div {
-                    display: none;
-                }
-            </style>
+
             <script>
                 $("#slideToggleMap").click(e => {
                     $("#containerMap>div").slideToggle(2000);
@@ -143,7 +127,7 @@
                     
                     /* let event = ""; 화면에 검색내용
                     $("input:checkbox[name=event]").each(function (index) { //가져오긴 가져오는데 한꺼번에 가져옴 -이거이용해서 체크박스도 sql검색해주기
-    	                if($(this).is(":checked")==true){
+                       if($(this).is(":checked")==true){
                             console.log($(this).val());
                             event += " "+$(this).val();
                         }
@@ -176,7 +160,7 @@
                     </div>
                     <div class="col-md-3 pb-2">
                         <div class="d-flex">
-                            <button	type="button" class="btn btn-success btn-lg px-3" onclick="location.assign('<%=request.getContextPath()%>/board/writeboard.do');">글쓰기</button>
+                            <button   type="button" class="btn btn-success btn-lg px-3" onclick="location.assign('<%=request.getContextPath()%>/board/writeboard.do');">글쓰기</button>
                         </div>
                     </div>
                 </div>
@@ -202,7 +186,9 @@
                                             class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                         </div>
                                     </div>
-                                    <a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>">
+	                        <%-- <a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>"> --%>
+	                        <!-- 동행 참여 회원 리스트 서블릿으로 이동 / view가 달라져야하기때문 -->
+	                        <a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>">
                                         <h2 class="a h5 mt-4 text-center"><%=b.getWdTitle() %></h2>
                                     </a>
                                     <h2 class="h5 mt-4 text-center"><%=b.getWdCategory()%></h2>
@@ -211,33 +197,58 @@
                         <%} 
                         } %>
                 </div>
-                <style>
-                    a {
-                          text-decoration: none;
-                    }
-                    </style>
-                    
-            
+
                     <!-- 페이징처리 -->
-                    <div id="pageBar">
-                        <%=request.getAttribute("pageBar") %>
-                    </div>
+                    
+                        <!-- <ul></ul> -->
+                        <div id="pageBar" class="row">
+		                    <ul>
+		                    
+		                    </ul>
+		                </div>
+                    
+                    <script>
+
+	                    temp = "<%=request.getAttribute("pageBar") %>";
+	                    let arr=temp.split(",");
+	                    console.log(arr);
+	                    arr.forEach(v =>{
+		                    const $e=document.querySelector("#pageBar ul");
+		                    console.log($e);
+		                    let li="<li><button>"+v+"</button></li>";
+		                    $("#pageBar ul").addClass('slick-dots');
+		                    /* $("#pageBar ul button").addClass('slick-dots'); */
+		                    //$("#pagebar ul button").attr('id','slick-slide-control00');
+		                    /* $("#pageBar li").addClass('slick-dots'); */
+		                    $e.innerHTML += li;
+		                    console.log($e.innerHTML);
+	                    });
+
+	                    
+	                    
+                    </script>
                 </section>
                 <!-- End Section -->
 
-
-
-                <div class="row">
-                    <ul class="pagination pagination-lg justify-content-end">
-                        <li class="page-item">
-                            <div class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark"><%=request.getAttribute("pageBar") %></div>
-                        </li>
-                    </ul>
-                </div>
+                
             </div>
 
         </div>
     </div>
     <!-- End Content -->
+    
+    <style>
+    /*페이지바*/
+    div#pageBar {
+        margin-top: 10px;
+        text-align: center;
+    }
+    div#pageBar span.cPage {color: #0066ff; }
+    div#container>div {display: none;}
+   a {text-decoration: none;}
+	</style>
+
+
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/css/bvstyle.css"/>
 
 <%@ include file="/views/common/footer.jsp" %>

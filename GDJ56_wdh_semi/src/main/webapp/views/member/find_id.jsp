@@ -10,6 +10,30 @@
         padding: 5px 15px 5px 15px;
         font-size: 20px;
       }
+      
+           .button {
+		  width: 80px;
+		  height: 35px;
+		  font-family: 'Roboto', sans-serif;
+		  font-size: 14px;
+		  text-transform: uppercase;
+		  letter-spacing: 2.5px;
+		  font-weight: 500;
+		  color: #000;
+		  background-color: rgba(223, 223, 223, 0.422);
+		  border: none;
+		  border-radius: 45px;
+		  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		  transition: all 0.3s ease 0s;
+		  cursor: pointer;
+		  outline: none;
+		  }
+		
+		.button:hover {
+		  background-color: #2e93e5af;
+		  box-shadow: 0px 15px 20px #6dbcfcaf;
+		  color: #fff;
+		  transform: translateY(-7px);
     </style>
 
 	<center>

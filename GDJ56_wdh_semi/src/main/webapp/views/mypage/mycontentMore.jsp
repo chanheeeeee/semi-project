@@ -6,6 +6,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	List<Board> boards = (List<Board>)request.getAttribute("boards");
 
@@ -15,12 +18,17 @@
 	
 	List<Declaration> dcl = (List<Declaration>)request.getAttribute("dcl");
 	
-	/* int result = (int)request.getAttribute("result"); */
 	int result = 0;
+	
+	/* 페이징 처리 타입 */
+	int type = (int)request.getAttribute("type");
 
 
 %>
-
+<style>
+div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 212, 0.3);}
+	div#pageBar span.cPage{color: #0066ff;}
+</style>
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
@@ -64,8 +72,9 @@
       <div class="container-fluid">
         <div class="row">
         
-        
-          <div class="col-md-6">
+        <% if(type==1) { %>
+        	<!-- 동행 -->
+          <div class="col-md-6" style="flex: auto; max-width: 100%;">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">동행</h3>
@@ -83,15 +92,11 @@
                   </thead>
                   <tbody>
                   <% if(boards.isEmpty()) { %>
-                  	<tr><td colspan="4">작성된 글이 없습니다.</td></tr>
-                  <% } else {
-                	  
-                	  int i = 0;
-
+                  	<tr><td>작성된 글이 없습니다.</td></tr>
+                  <% } else {       
 
                 	  	for(Board b : boards) {
-                	  		
-							if(i<5) {
+                	
                 	  		
 	                	  		for(ReviewBoard r : reviews) {
 	                	  			
@@ -102,11 +107,7 @@
                 	  		%>
                     <tr>
                       <td><%= b.getWdNo() %></td>
-                      <td>
-                      	<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>" style="text-decoration: none; color: black;">
-                      		<%= b.getWdTitle() %>
-                      	</a>
-                      </td>
+                      <td><%= b.getWdTitle() %></td>
                       <td><%= b.getWdTime() %></td>
                       <td>
                       <% if(result == 1) { %>
@@ -130,25 +131,34 @@
                   			result = 0;
                 	  	}
                 	  		
-                	  	i++;
-                	  }
+                	 
                   } %>
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
               
-                 	<li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=1" class="more" style="color: #9b9b9b;">더보기 >></a></li>
-                </ul>
+              <!-- 페이징 처리 -->
+              <div class="card-footer clearfix" style="float: left;">
+              	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
+              	<li class="page-item" style="float: left;">
+                 	<div id="pageBar">
+						<%=request.getAttribute("pageBar") %>
+					</div>
+				</li>
+				</ul>
               </div>
+              
+              
             </div>
            </div>
             <!-- /.card -->
+           <% } %>
             
+                 
+         <% if(type==2) { %>
             <!-- 후기 -->
-          <div class="col-md-6">
+          <div class="col-md-6" style="flex: auto; max-width: 100%;">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">후기</h3>
@@ -168,11 +178,8 @@
                     <% if(reviews.isEmpty()) { %>
                     <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
-                	  
-                	  	int i = 0;
                 	  	
                 	  	for(ReviewBoard r : reviews) {
-							if(i < 5) {
 						%>
                     <tr>
                       <td><%= r.getReviewSeq() %></td>
@@ -189,28 +196,32 @@
                     </tr>
                    <%		}
 							
-							i++;
-                   		}
-                	  	
-                	  	
                 	 } %>
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=2" class="more" style="color: #9b9b9b;">더보기 >></a></li>
-                </ul>
+              
+              <!-- 페이징 처리 -->
+              <div class="card-footer clearfix" style="float: left;">
+              	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
+              	<li class="page-item" style="float: left;">
+                 	<div id="pageBar">
+						<%=request.getAttribute("pageBar") %>
+					</div>
+				</li>
+				</ul>
               </div>
+              
             </div>
             <!-- /.card -->
             </div>
             <!-- ./후기 -->
+          <% } %>
             
-			
+		  <% if(type==3) { %>
             <!-- 문의 -->
-            <div class="col-md-6">
+            <div class="col-md-6" style="flex: auto; max-width: 100%;">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">문의</h3>
@@ -230,11 +241,8 @@
                     <% if(qs.isEmpty()) { %>
                     <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
-                	  
-                	  	int i = 0;
-                	  	
+
                 	  	for(Question q : qs) {
-							if(i < 5) {
 						%>
                     <tr>
                       <td><%= q.getQsNo() %></td>
@@ -250,30 +258,35 @@
                       </td>
                     </tr>
                    <%		}
-							
-							i++;
-                   		}
-                	  	
-                	  	
+
                 	 } %>
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=3" class="more" style="color: #9b9b9b;">더보기 >></a></li>
-                </ul>
+              
+              <!-- 페이징 처리 -->
+              <div class="card-footer clearfix" style="float: left;">
+              	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
+              	<li class="page-item" style="float: left;">
+                 	<div id="pageBar">
+						<%=request.getAttribute("pageBar") %>
+					</div>
+				</li>
+				</ul>
               </div>
+              
             </div>
             <!-- /.card -->
           <!-- /.col -->
           </div>
           <!-- 문의 -->
+         <% } %>
 
-          
+         
+         <% if(type==4) { %>
  		<!-- 신고 -->
-            <div class="col-md-6">
+            <div class="col-md-6" style="flex: auto; max-width: 100%;">
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">신고</h3>
@@ -293,11 +306,8 @@
                     <% if(dcl.isEmpty()) { %>
                     <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
-                	  
-                	  	int i = 0;
-                	  	
+	
                 	  	for(Declaration d : dcl) {
-							if(i < 5) {
 						%>
                     <tr>
                       <td><%= d.getDclNo() %></td>
@@ -313,129 +323,31 @@
                       </td>
                     </tr>
                    <%		}
-							
-							i++;
-                   		}
-                	  	
-                	  	
+  	
                 	 } %>
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=4" class="more" style="color: #9b9b9b;">더보기 >></a></li>
-                </ul>
+              
+              <!-- 페이징 처리 -->
+              <div class="card-footer clearfix" style="float: left;">
+              	<ul class="pagination pagination-sm m-0 float-right" style="float: left;">
+              	<li class="page-item" style="float: left;">
+                 	<div id="pageBar">
+						<%=request.getAttribute("pageBar") %>
+					</div>
+				</li>
+				</ul>
               </div>
-            </div>
+              
             <!-- /.card -->
           <!-- /.col -->
           </div>
           <!-- 신고 -->
-
-
-        <!-- 챌린지 -->
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">챌린지</h3>
-
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 300px;">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>챌린지</th>
-                      <th></th>
-                      <th></th>
-                      <th>기간</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>스쿼트 챌린지!</td>
-                      <td></td>
-                      <td></td>
-                      <td>2022/2~2022/3</td>
-                    </tr>
-                    <tr>
-                      <td>219</td>
-                      <td>스쿼트 챌린지!</td>
-                      <td></td>
-                      <td></td>
-                      <td>2022/2~2022/3</td>
-                    </tr>
-                    <tr>
-                      <td>657</td>
-                      <td>스쿼트 챌린지!</td>
-                      <td></td>
-                      <td></td>
-                      <td>2022/2~2022/3</td>
-                    </tr>
-                    <tr>
-                      <td>175</td>
-                      <td>스쿼트 챌린지!</td>
-                      <td></td>
-                      <td></td>
-                      <td>2022/2~2022/3</td>
-                    </tr>
-                    <tr>
-                      <td>134</td>
-                      <td>스쿼트 챌린지!</td>
-                      <td></td>
-                      <td></td>
-                      <td>2022/2~2022/3</td>
-                    </tr>
-                    <tr>
-                      <td>494</td>
-                      <td>스쿼트 챌린지!</td>
-                      <td></td>
-                      <td></td>
-                      <td>2022/2~2022/3</td>
-                    </tr>
-                    <tr>
-                      <td>832</td>
-                      <td>스쿼트 챌린지!</td>
-                      <td></td>
-                      <td></td>
-                      <td>2022/2~2022/3</td>
-                    </tr>
-                    <tr>
-                      <td>982</td>
-                      <td>스쿼트 챌린지!</td>
-                      <td></td>
-                      <td></td>
-                      <td>2022/2~2022/3</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <!-- /.챌린지 -->
+         <% } %>
             
             
-          </div>
-        </div>
-        <!-- /.row -->
-       <!-- ./챌린지 -->
        </div>
        </div>
        </section>

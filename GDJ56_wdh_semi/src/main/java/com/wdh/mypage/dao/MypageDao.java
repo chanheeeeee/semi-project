@@ -389,6 +389,34 @@ public class MypageDao {
 	}
 	
 	
+	//회원 탈퇴
+	public int deleteMember(Connection conn, int member_no) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("deleteMember"));
+			pstmt.setInt(1, member_no);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}finally {
+			
+			close(pstmt);
+			
+		}
+	
+		return result;
+		
+	}
+	
+	
 	
 	
 	
