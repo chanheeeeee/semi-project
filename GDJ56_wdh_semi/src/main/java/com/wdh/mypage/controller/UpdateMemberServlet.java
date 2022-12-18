@@ -36,8 +36,6 @@ public class UpdateMemberServlet extends HttpServlet {
 		
 		if(pass.equals(m.getPassword())) {
 			
-//			msg = "성공";
-//			loc = "/views/mypage/profile.jsp";
 			request.getRequestDispatcher("/views/mypage/profile.jsp")
 					.forward(request, response);
 			
