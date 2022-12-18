@@ -16,4 +16,5 @@ public class ReviewBoard {
 	private Date reviewDate;
 	private int wdNo;
 	private double reviewScore;
+	private String img;
 }
