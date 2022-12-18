@@ -16,7 +16,7 @@ import com.wdh.qs.model.vo.Question;
 /**
  * Servlet implementation class QsWriteEndServlet
  */
-@WebServlet("/cs/writeQs.do")
+@WebServlet("/cs/writeEndQs.do")
 public class QsWriteEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     //1대1문의글 작성하기 서블릿   
@@ -51,7 +51,8 @@ public class QsWriteEndServlet extends HttpServlet {
 		String msg="",loc="";
 		if(result>0) {
 			msg="1대1문의글 작성 성공";
-			loc="/cs/qs.do";
+			loc="/cs/qsAlert.do";
+			//문의 글 작성 성공 시 넘어갈 jsp 생성
 		}else {
 			msg="1대1문의글 작성 실패";
 			loc="/cs/writeQs.do";
