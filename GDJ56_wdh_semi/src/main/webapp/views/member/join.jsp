@@ -127,7 +127,16 @@
     
     <script>
     $(function(){
+    	//회원가입 버튼클릭시 아이디,닉네임,패스워드,이메일 유효성체크
+    	//이유:아이디, 닉네임, 패스웓, 이메일 유효성 여부를 또 다시 통신하는것이 불필요하다.
+    	let idCheck = false;
+    	let nickCheck = false;
+    	let pwdCheck = false;
+    	let emailCheck = false;
+    	
+    	
     	$("#btn_join").on("click",function(){//이메일 인증
+    		emailCheck = false;//인증후 이메일을 변경할 위험이 있기때문에 막아둠!
     		let email = $("#email").val();
     		let email2 = $("#email2").val();
     		let total = email + "@" + email2;
@@ -140,8 +149,7 @@
     				type:'POST',
     				success:function(result){
     					console.log(result);
-    					//$("#codeAuth").val(result.data);
-    					$("#join_code").val();
+    					$("#codeAuth").val(result.authNum);//보낸 인증번호와 입력할 인증번호 비교를 위해 hidden에 저장(보낸인증번호! 서블릿에서 키,벨류값을 확인!)
     					alert("인증번호가 전송되었습니다.");
     					$("#check_code").show();
     				}
@@ -151,7 +159,8 @@
     		}
     	});
     	
-    	//저장한 인증번호와 입력한 인증번호 일치여부 확인
+    	//확인 클릭시 일치여부 확인 이벤트
+    	//저장한 인증번호(hidden=authNum)와 입력한 인증번호 일치여부 확인
     	$("#okay").on("click",function(){
     		let code = $("#join_code").val();
     		let code_check=$("#codeAuth").val();
@@ -159,8 +168,10 @@
     		console.log(code_check);
     		if(code!=code_check){
     			alert("인증번호를 확인해주세요");
+    			emailCheck=false;
     		}else{
     			alert("인증이 완료되었습니다.");
+    			emailCheck=true;
     		}
     	});
     	
@@ -192,47 +203,89 @@
         	const pwck = $(e.target).val();
         	if(pwvalid()== true && pw==pwck){
         		$("#pwresult").css("color","green").text("비밀번호가 일치합니다.");
+        		pwdCheck = true;
         	}else{
         		$("#pwresult").css("color","red").text("비밀번호가 일치하지 않습니다");
+        		pwdCheck = false;
         	}
         });
     	 
-    	 //회원가입
+        function allCheck(){
+        	//아이디,닉네임,비밀번호,이메일
+        	if(idCheck == false){
+        		alert("아이디를 확인해주세요");
+        		return false;//return false하면 반환되어 구문이 끝난다!
+        	}
+        	if(nickCheck == false) {
+        		alert("닉네임을 확인해주세요");
+        		return false;
+        	}
+        	if(pwdCheck == false){
+        		alert("비밀번호를 확인해주세요");
+        		return false;
+        	}
+        	//이름은 빈캆만 확인해주면된다!
+        	if($("#name").val().trim()==""){
+        		alert("이름을 확인해주세요");
+        		return false;
+        	}
+        	//성별은 라디오 버튼으로 무조건 한개는 선택하므로 유효성 패스!
+        	//생년월일 빈값시 공백으로 나오기 때문에! 양쪽 빈칸값나올수 없기때문에 trim은 안써줘도 됨!
+        	if($("#start").val()==""){
+        		alert("생년월일은 확인해주세요");
+        		return false;
+        	}
+        	if(emailCheck == false){
+        		alert("이메일을 확인해주세요");
+        		return false;
+        	}
+        	if($("#phone").val().trim()=="" || $("#phone2").val().trim()==""){
+        		alert("휴대폰 번호를 확인해주세요");
+        		return false;
+        	}
+        	if($("#postcode").val().trim()=="" || $("#address").val().trim()=="" || $("#address2").val().trim() == ""){
+        		alert("주소를 확인해주세요");
+        		return false;
+        	}
+        	return true;//이 모든 구문은 실행됬을때 반환값이 true일경우! 유효성 검사 allcheck가 성공된것을 의미!
+        }
+        
+    	 //회원가입 + 인증번호 입력값이 일치할시도 추가! + 값이 하나라도 빈칸일경우!
     	$("#modal").on("click",function(){
-    		
-    		let d = {
-    			"member_id" : $("#id").val(),
-    			"member_nickname" : $("#nickname").val(),
-    			"name" : $("#name").val(),
-    			"password" : $("#password").val(),
-    			"gender" : $("input[name=gender]").val(),
-    			"birth" : $("#start").val(),
-    			"email" : $("#email").val() + "@" + $("#email2").val(),
-    			"phone" : $("#numberSelector").val() + "-" + $("#phone").val() + "-" + $("#phone2").val(),
-    			"address" : $("#address").val() + " " + $("#address2").val(),
-    			"grade" : 1
-    		};
-    		
-	    	$.ajax({
-				url:"<%=request.getContextPath()%>/member/joinAction.do",
-				data:d,
-				type:"POST",
-				dataType:"json",
-				success:data=>{
-					console.log(data);
-					
-					if(data > 0) {//회원가입 성공시
-						$("#exampleModal").modal("show");
-					} else {
-						$("#exampleModal2").modal("show");
-					}
-				},error:function(e,r,m){
-					console.log(e);
-					console.log(r);
-					console.log(m);
-					
-				}
-	    	});
+    		if(allCheck() == true){//allCheck true! 모든 유효성검사가 성공이 되면 회원가입이 완료된것을 의미! 
+    			let d = {
+    	    			"member_id" : $("#id").val(),
+    	    			"member_nickname" : $("#nickname").val(),
+    	    			"name" : $("#name").val(),
+    	    			"password" : $("#password").val(),
+    	    			"gender" : $("input[name=gender]").val(),
+    	    			"birth" : $("#start").val(),
+    	    			"email" : $("#email").val() + "@" + $("#email2").val(),
+    	    			"phone" : $("#numberSelector").val() + "-" + $("#phone").val() + "-" + $("#phone2").val(),
+    	    			"address" : $("#address").val() + " " + $("#address2").val(),
+    	    			"grade" : 1
+   	    		};
+   	    		
+   		    	$.ajax({
+   					url:"<%=request.getContextPath()%>/member/joinAction.do",
+   					data:d,
+   					type:"POST",
+   					dataType:"json",
+   					success:data=>{
+   						console.log(data);
+   						
+   						if(data > 0) {//회원가입 성공시
+   							$("#exampleModal").modal("show");
+   						} else {
+   							$("#exampleModal2").modal("show");
+   						}
+   					},error:function(e,r,m){
+   						console.log(e);
+   						console.log(r);
+   						console.log(m);
+   					}
+   		    	});
+    		}
     	});
     	
     	//취소하기 클릭 이벤트
@@ -282,10 +335,12 @@
 	        			console.log(result);
 	        			if(result=="불가능"){
 	        				$("#checkId").html('이미 사용중인 아이디입니다.');
-	        				$("#checkId").attr('color','red')
+	        				$("#checkId").attr('color','red');
+	        				idCheck = false;
 	        			}else{
 	        				$("#checkId").html('사용할 수 있는 아이디입니다.');
 	        				$("#checkId").attr('color','green');
+	        				idCheck = true;
 	        			}
 	        		},
 	        		error:function(e,r,m){
@@ -323,10 +378,12 @@
 		    			if(result=="불가능"){//결과값이 0보다 작으면(실패) 
 		    				$("#checknick").html('이미 사용중인 닉네임입니다.');
 		    				$("#checknick").attr('color','red')
+		    				nickCheck=false;//닉네임 유효성 실패
 		    				
 		    			}else{//결과값이 0보다 크면(성공)
 		    				$("#checknick").html('사용할 수 있는 닉네임입니다.');
 		    				$("#checknick").attr('color','green');
+		    				nickCheck = true;//닉네임 유효성 성공
 		    			}
 		    		},
 		    		error:function(e,r,m){

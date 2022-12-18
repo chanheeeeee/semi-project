@@ -8,31 +8,8 @@
 	div.forgot > button {
         margin-right: 20px;
         padding: 5px 15px 5px 15px;
-        font-size: 20px;
+        font-size: 20px; 
         
-     .button {
-		  width: 80px;
-		  height: 35px;
-		  font-family: 'Roboto', sans-serif;
-		  font-size: 14px;
-		  text-transform: uppercase;
-		  letter-spacing: 2.5px;
-		  font-weight: 500;
-		  color: #000;
-		  background-color: rgba(223, 223, 223, 0.422);
-		  border: none;
-		  border-radius: 45px;
-		  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		  transition: all 0.3s ease 0s;
-		  cursor: pointer;
-		  outline: none;
-		  }
-		
-		.button:hover {
-		  background-color: #2e93e5af;
-		  box-shadow: 0px 15px 20px #6dbcfcaf;
-		  color: #fff;
-		  transform: translateY(-7px);
       }
       
 	
@@ -69,6 +46,11 @@
 				<input type="button" id="btn_email" value="메일인증" class="button" >
 			</td>
 		</tr>
+		<div class="forgot " style="margin-top: 20px; margin-bottom: 20px;">
+         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="font-family: Jua;border: outset;">비밀번호 찾기</button>
+         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="font-family:'Jua';border: outset;">아이디 찾기</button> 
+         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
+         </div>
 		<tr id="trAuth" style="display:none">
 			<td>
 				<input type="email" name="check" id="check" class="form-control" placeholder="인증번호" style="height: 55px; border-radius:20px; width:280px;"  required>
