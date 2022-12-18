@@ -62,7 +62,7 @@
     <div style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
         <section id="notice-container">
                 <h2><strong>1 대 1 문의 글 작성</strong></h2>
-            <form action="<%=request.getContextPath() %>/cs/writeQs.do" 
+            <form action="<%=request.getContextPath() %>/cs/writeEndQs.do" 
             method="post">
                 <table id="tbl-board" border="1">
                 <tr>
@@ -93,15 +93,15 @@
                 	</td>
                 </tr>
                 
-                <%if(loginMember!=null&&
-                	loginMember.getMember_id().equals("admin")){%>
-                <tr>
-                    <th colspan="2">
-                        <input type="button" value="수정하기" onclick="">
-                        <input type="button" value="삭제하기" onclick="">
-                    </th>
-                </tr>
-                <%} %>
+<%--                 <%if(loginMember!=null&& --%>
+<%--                 	loginMember.getMember_id().equals("admin")){%> --%>
+<!--                 <tr> -->
+<!--                     <th colspan="2"> -->
+<!--                         <input type="button" value="수정하기" onclick=""> -->
+<!--                         <input type="button" value="삭제하기" onclick=""> -->
+<!--                     </th> -->
+<!--                 </tr> -->
+<%--                 <%} %> --%>
             </table>
             <button type="submit" id="qsbtn">등록</button>
     <br>

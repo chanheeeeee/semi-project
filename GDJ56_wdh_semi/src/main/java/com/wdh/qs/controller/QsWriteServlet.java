@@ -1,4 +1,4 @@
-package com.wdh.admin.controller;
+package com.wdh.qs.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class adminChallengeServelt
+ * Servlet implementation class QsWriteServlet
  */
-@WebServlet("/admin/adminChallenge.do")
-public class AdminChallengeServelt extends HttpServlet {
+@WebServlet("/cs/writeQs.do")
+public class QsWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    //메인 1대1문의 헤더 클릭시 작성하기로 바로 넘어갈 페이지 입니다.
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminChallengeServelt() {
+    public QsWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,13 @@ public class AdminChallengeServelt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("/views/cs/subQs.jsp").forward(request, response);
+	
+	
+	
+	
+	
+	
 	}
 
 	/**

@@ -54,6 +54,7 @@
 			                    <th>제목</th>
 			                    <th>작성자</th>
 			                    <th>작성일</th>
+			                    <th>첨부파일</th>
 			                    <th>처리</th>
 			                    <th>삭제</th>
 			                </tr>
@@ -71,6 +72,7 @@
 	                			<td><a href="<%=request.getContextPath()%>/cs/DclView.do?DclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
 		                		<td><%=d.getMember().getMember_id() %></td>
 		                		<td><%=d.getDclDate() %></td>
+		                		<td><%=d.getFilePath() %></td>
 		                		<td><%=d.getDclResult() %></td>
 		                		<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>
 		                		<%} 
@@ -78,10 +80,12 @@
                 			</tr>	
                 			</table>
                 			<br>
-			                 <%-- 페이징 처리 --%>
-			                <%--<div id="pageBar">
-			                	<%=request.getAttribute("pageBar") %>
-			                </div> --%>
 			            </section>
 			            <br>
-			        </div> 
+			        </div>
+  <script>
+    	const fn_deleteDcl=(dclNo,fileName)=>{
+    		//삭제하기 스크립트
+    		location.replace("<%=request.getContextPath()%>/cs/deleteDcl.do?no="+dclNo+"&fileName="+fileName);
+    	}
+    </script>
