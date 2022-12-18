@@ -63,7 +63,7 @@
                         <label for="inputName" class="col-sm-2 col-form-label"><b><%= loginMember.getMember_nickname() %> 님의 정보</b></label>
                       </div>
                       <div class="form-group row">
-                        <label for="inputSkills" class="col-sm-2 col-form-label">성별: <% if(loginMember.getGender()=='M') { %>여<%} else { %>남<%} %></label>
+                        <label for="inputSkills" class="col-sm-2 col-form-label">성별: <% if(loginMember.getGender()=='F') { %>여<%} else { %>남<%} %></label>
                       </div>
 
                       <div class="form-group row">

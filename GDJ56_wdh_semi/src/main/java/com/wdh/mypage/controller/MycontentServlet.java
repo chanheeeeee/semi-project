@@ -58,46 +58,50 @@ public class MycontentServlet extends HttpServlet {
 		
 		List<Board> boards = new MypageService().selectBoardList(cPage, numPerpage, m);
 		
+		List<Board> boardsWd = new MypageService().selectBoardWdList(cPage, numPerpage, m);
+		
 		List<ReviewBoard> reviews = new MypageService().selectBoardListR(cPage, numPerpage, m);
 		
 		List<Question> qs = new MypageService().selectQsList(cPage, numPerpage, m);
 		
 		List<Declaration> dcl = new MypageService().selectDclList(cPage, numPerpage, m);
-		
-
-		int totalData=new MypageService().selectBoardCount(m);
-		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-		
-		
-		String pageBar="";
-		int pageBarSize=5;
-		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
-		int pageEnd=pageNo+pageBarSize-1;
-		
-		if(pageNo==1) {
-			pageBar+="<span>[이전]</span>";
-		}else {
-			pageBar+="<a href='"+request.getRequestURL()
-			+ "?cPage="+(pageNo-1)+"'>[이전]</a>";
-		}
-		while(!(pageNo>pageEnd||pageNo>totalPage)) {
-			if(cPage==pageNo) {
-				pageBar+="<span>"+pageNo+"</span>";
-			}else {
-				pageBar+="<a href='"+request.getRequestURL()
-				+ "?cPage="+pageNo+"'>"+pageNo+"</a>";
-			}
-			pageNo++;
-		}
-		if(pageNo>totalPage) {
-			pageBar+="<span>[다음]</span>";
-		}else {
-			pageBar+="<a href='"+request.getRequestURL()
-			+"?cPage="+pageNo+"'>[다음]</a>";
-		}
-		
-		request.setAttribute("pageBar", pageBar);
+//		
+//
+//		int totalData=new MypageService().selectBoardCount(m);
+//		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+//		
+//		
+//		String pageBar="";
+//		int pageBarSize=5;
+//		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+//		int pageEnd=pageNo+pageBarSize-1;
+//		
+//		if(pageNo==1) {
+//			pageBar+="<span>[이전]</span>";
+//		}else {
+//			pageBar+="<a href='"+request.getRequestURL()
+//			+ "?cPage="+(pageNo-1)+"'>[이전]</a>";
+//		}
+//		while(!(pageNo>pageEnd||pageNo>totalPage)) {
+//			if(cPage==pageNo) {
+//				pageBar+="<span>"+pageNo+"</span>";
+//			}else {
+//				pageBar+="<a href='"+request.getRequestURL()
+//				+ "?cPage="+pageNo+"'>"+pageNo+"</a>";
+//			}
+//			pageNo++;
+//		}
+//		if(pageNo>totalPage) {
+//			pageBar+="<span>[다음]</span>";
+//		}else {
+//			pageBar+="<a href='"+request.getRequestURL()
+//			+"?cPage="+pageNo+"'>[다음]</a>";
+//		}
+//		
+//		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("boards", boards);
+		
+		request.setAttribute("boardsWd", boardsWd);
 		
 
 		request.setAttribute("reviews", reviews);

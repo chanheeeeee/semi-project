@@ -9,6 +9,8 @@
 <%
 	List<Board> boards = (List<Board>)request.getAttribute("boards");
 
+	List<Board> boardsWd = (List<Board>)request.getAttribute("boardsWd");
+
 	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
 	
 	List<Question> qs = (List<Question>)request.getAttribute("qs");
@@ -88,7 +90,6 @@
                 	  
                 	  int i = 0;
 
-
                 	  	for(Board b : boards) {
                 	  		
 							if(i<5) {
@@ -103,7 +104,7 @@
                     <tr>
                       <td><%= b.getWdNo() %></td>
                       <td>
-                      	<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>" style="text-decoration: none; color: black;">
+                      	<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" style="text-decoration: none; color: black;">
                       		<%= b.getWdTitle() %>
                       	</a>
                       </td>
@@ -177,7 +178,7 @@
                     <tr>
                       <td><%= r.getReviewSeq() %></td>
                       <td>
-                      	<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%= r.getWdNo() %>" style="text-decoration: none; color: black;">
+                      	<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=r.getWdNo()%>" style="text-decoration: none; color: black;">
                       		<%= r.getReviewTitle() %>
                       	</a>
                       </td>
