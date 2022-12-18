@@ -13,7 +13,7 @@ import com.wdh.mypage.service.MypageService;
 /**
  * Servlet implementation class UpdatePasswordEnd
  */
-@WebServlet("/mypage/updatePasswordEnd.do")
+@WebServlet(name="mypageUpdatePasswordEnd", urlPatterns = "/mypage/updatePasswordEnd.do")
 public class UpdatePasswordEnd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
