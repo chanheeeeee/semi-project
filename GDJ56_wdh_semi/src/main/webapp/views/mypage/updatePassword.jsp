@@ -29,7 +29,7 @@
 </head>
 <body>
 	 <div id="updatePassword-container">
-		<form name="updatePwdFrm" action="<%=request.getContextPath()%>/member/updatePasswordEnd" 
+		<form name="updatePwdFrm" action="<%=request.getContextPath()%>/mypage/updatePasswordEnd.do" 
 				method="post" onsubmit="return passwordCheck();">
 			<table>
 				<tr>
@@ -55,8 +55,8 @@
 					</td>
 				</tr>
 			</table>
-			<input	type="hidden" name="userId" 
-			value="<%=request.getParameter("userId") %>">
+			<input	type="hidden" name="memberId" 
+			value="<%=request.getParameter("memberId") %>">
 		</form>
 	</div>
 	

@@ -183,13 +183,33 @@ public class MypageService {
 		
 		Connection conn = getConnection();
 		
-		int result = dao.updateMember(conn,m);
+		int result = dao.updateMember(conn, m);
 		
 		if(result>0) commit(conn);
 		else rollback(conn);
 		
 		close(conn);
 		
+		return result;
+		
+	}
+	
+
+	public Member searchMember(String memberId, String password) {
+		Connection conn=getConnection();
+		Member m=dao.searchMember(conn,memberId,password);
+		close(conn);
+		return m;
+	}
+	
+
+	public int updatePassword(String memberId, String password) {
+		
+		Connection conn=getConnection();
+		int result=dao.updatePassword(conn, memberId, password);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
 		return result;
 		
 	}
