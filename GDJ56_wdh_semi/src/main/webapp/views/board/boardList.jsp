@@ -15,7 +15,7 @@
             <div class="col-lg-3">
                 <div class="input-group mb-2">
                    <input type="text" class="form-control" id="inputKeywordSearch" placeholder="Search ...">
-                    <button class="input-group-text bg-success text-light" onclick="fn_searchSubmit();"> <!-- 검색할 함수 -->
+                    <button class="input-group-text btn-success text-light" onclick="fn_searchSubmit();"> <!-- 검색할 함수 -->
                        <i class="fa fa-fw fa-search text-white"></i>
                     </button>
                 </div>
@@ -246,6 +246,7 @@
     div#pageBar span.cPage {color: #0066ff; }
     div#container>div {display: none;}
    a {text-decoration: none;}
+   div.services-icon-wap.hover {background-color: red;}
 	</style>
 
 
