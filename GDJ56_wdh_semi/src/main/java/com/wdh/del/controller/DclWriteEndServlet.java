@@ -77,7 +77,7 @@ public class DclWriteEndServlet extends HttpServlet {
 			String msg="",loc="";
 			if(result>0) {
 				msg="신고 글작성 성공";
-				loc="/cs/dcl.do";
+				loc="/cs/dclAlert.do";
 			}else {
 				msg="신고 글작성 실패";
 				loc="/cs/writeEnd.do";

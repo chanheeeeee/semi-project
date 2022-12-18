@@ -1,4 +1,4 @@
-package com.wdh.mypage.controller;
+package com.wdh.del.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,21 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.member.service.MemberService;
-import com.wdh.member.vo.Member;
-import com.wdh.mypage.service.MypageService;
-
 /**
- * Servlet implementation class LeaveServlet
+ * Servlet implementation class DclWriteServlet
  */
-@WebServlet("/mypage/leaveMember.do")
-public class LeaveMemberServlet extends HttpServlet {
+@WebServlet("/cs/dclWrite.do")
+public class DclWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    //고객센터 - 신고하기를 눌렀을때 연결할 페이지 입니다.
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LeaveMemberServlet() {
+    public DclWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,30 +26,13 @@ public class LeaveMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
-		
-		int result = new MypageService().deleteMember(memberNo);
-		
-
-		String msg="", loc="";
-		
-		if(result>0) {
-			
-			msg="그동안 이용해 주셔서 감사합니다.";
-			loc="/mypage/logout.do";
-			
-		}else {
-			
-			msg="탈퇴 실패!";
-			loc="/";
-			
-		}
-		
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/views/cs/subDcl.jsp").forward(request, response);
+	
+	
+	
+	
+	
+	
 	}
 
 	/**

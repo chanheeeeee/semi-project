@@ -51,6 +51,9 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dclWrite.do">신고하기</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/writeQs.do">1대1 문의</a>
                         </li>
                     </ul>
@@ -103,12 +106,6 @@
                         <textarea id="editor" name="dcl_content"></textarea>
                     <!-- </form> -->
                 </td>
-                </tr>
-                <tr>
-                    <th colspan="1">
-                        
-                        <input type="button" value="삭제하기" onclick="">
-                    </th> 
                 </tr>
                
             </table>

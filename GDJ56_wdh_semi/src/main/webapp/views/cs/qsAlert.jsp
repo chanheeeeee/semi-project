@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.List,com.wdh.qs.model.vo.Question"%>
-<%
-	List<Question> qs=(List<Question>)request.getAttribute("qs");
-%>
 <!DOCTYPE html>
+<html>
 <head>
-    <title>고객센터 - 1대1 문의</title>
+<meta charset="UTF-8">
+<title>고객센터 - 1대1 문의</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,12 +18,13 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/fontawesome.min.css">
-    <!-- Load fonts style after rendering the layout styles -->
-
-	<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/각자 발급받은 api key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
 </head>
-
 <body>
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
@@ -52,53 +51,18 @@
                         </li>
                     </ul>
                 </div>
-                
                
             </div>
 
         </div>
     </nav>
     <!-- Close Header -->
+    <div style="text-align:center">
+    	<br>
+		<img src="<%=request.getContextPath()%>/images/QsAlert.png" style="width:49%; height:600px;">
+    </div>
     <br>
-<div font-family:jua;>
-    <div style="text-align:center" id="tbl-board">
-        <h2><strong>1 대 1 문의 게시판</strong></h2>
-        <section id="board-container">
-            <table id="tbl-board">
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>분류</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    
-                </tr>
-                <%if(qs.isEmpty()){ %>
-                <tr>
-                    <td colspan="5">조회된 게시판이 없습니다.</td>
-                </tr>
-                <%}else{
-                	for(Question q : qs){
-                	%>
-                <tr>
-                	<td><%=q.getQsNo() %></td>
-                	<td><a href="<%=request.getContextPath()%>/cs/qsView.do?qsNo=<%=q.getQsNo()%>"><%=q.getQsTitle() %></a></td>
-                	<td><%=q.getQsHeadTitle() %></td>
-                	<td><%=q.getMember().getMember_id() %></td>
-                	<td><%=q.getQsDate() %></td>
-                </tr>
-                <%}
-               	}%>
-                </table>
-<!--                 <br> -->
-<%--                 	<button onclick="location.href='<%=request.getContextPath()%>/views/cs/subQs.jsp'">글쓰기</button> --%>
-<!--                 <br> -->
-                <div id="pageBar">
-        			<%=request.getAttribute("pageBar") %>
-        		</div>
-            </section>
-            <br>
-        </div>
-</div>
-
+    
+    
+    
 <%@ include file="/views/common/footer.jsp" %>
