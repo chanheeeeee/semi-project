@@ -31,16 +31,18 @@
     </table> -->
     <br><br><br>
 	<form action="<%=request.getContextPath() %>/board/reviewupdateend.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>&reviewNo=<%=rb.getReviewSeq() %>" method="post" enctype="multipart/form-data">
-    <table id="writeTable2">
+    <table id="writeTable2" style="text-align:center;">
         <tr>
-            <th colspan="4" style="text-align: center;">
+            <th colspan="4">
+            <div style="display:flex; justify-content:center">
                 제목   <input type="text" name="review_title" id="title_input" value="<%=rb.getReviewTitle()%>"><br>
                 <input type="file" name="reviewImg">
-            </th>
+             </div></th>
+           
         </tr>
         <tr>
             <th></th>
-            <td colspan="3" style="text-align: center;">
+            <td colspan="3">
                 <form method="post">
                     <textarea id="editor" name="review_content"><%=rb.getReviewContent()%></textarea>
                 </form>

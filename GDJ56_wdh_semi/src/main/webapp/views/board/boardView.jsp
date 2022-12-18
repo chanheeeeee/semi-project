@@ -292,16 +292,31 @@
 		   					
 				                <div class="p-2 pb-3">
 				                    <div class="product-wap card rounded-0">
-				                        <div class="card-body">
-											<h6 style="text-align: left;"><%=rb.getReviewTitle() %>작성자후기제목</h6>		
-											<%if(rb.getMemberNo()==loginMember.getMember_no()){ %>
-												<a href="<%=request.getContextPath()%>/board.gradeupdate.do?boardNo=<%=b.getWdNo()%>&reviewNo=<%=rb.getReviewSeq()%>">수정</a>
-												<%-- <%=request.getContextPath()%>/board/reviewupdate.do?reviewNo=<%=rb.getReviewSeq()%>">수정</a> --%>
-												<a href="<%=request.getContextPath()%>/board/reviewdelete.do?
-												reviewboardNo=<%=rb.getReviewSeq()%>&memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>">삭제</a>
-												<%} %>
-											<img src="<%=request.getContextPath()%>/reviewImg/<%=rb.getImg()%>" alt="" style="width:80px; height:80px;">		                            
-				                                <p><%=rb.getReviewContent()%></p>
+				                        <div class="card-body">	
+				                        	<div style="display: flex; justify-content:space-between;">
+				                        		<div style="display: flex;">
+													<h6 style="text-align: left;">제목 - <%=rb.getReviewTitle() %></h6>
+													<!-- 5번 for문.. rb score만큼 warning -->
+													<%for(int i=1;i<6;i++){ 
+														if(rb.getReviewScore()>=i){%>
+															<i class="fa fa-star text-warning"></i>
+														<%}else{ %>
+															<i class="fa fa-star text-secondary"></i>
+														<%} 
+													}%>
+												</div>
+												<div>
+													<%if(rb.getMemberNo()==loginMember.getMember_no()){ %>
+														<a href="<%=request.getContextPath()%>/board.gradeupdate.do?boardNo=<%=b.getWdNo()%>&reviewNo=<%=rb.getReviewSeq()%>">수정</a>
+														<a href="<%=request.getContextPath()%>/board/reviewdelete.do?
+														reviewboardNo=<%=rb.getReviewSeq()%>&memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" style="margin-left:10px;">삭제</a>
+													<%} %>
+												</div>
+											</div>
+											<div style="display: flex; justify-content:flex-start; margin-top: 20px;">
+												<img src="<%=request.getContextPath()%>/reviewImg/<%=rb.getImg()%>" alt="" style="width:80px; height:80px;">		                            
+					                                <p style="margin-left:30px;"><%=rb.getReviewContent()%></p>
+					                       	</div>
 				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
 				                                <li></li>
 				                            	<li class="text-center mb-0 primary"><%=rb.getReviewDate()%>게시시간</li>
