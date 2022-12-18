@@ -107,7 +107,11 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                 	  		%>
                     <tr>
                       <td><%= b.getWdNo() %></td>
-                      <td><%= b.getWdTitle() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" style="text-decoration: none; color: black;">
+                      		<%= b.getWdTitle() %>
+                      	</a>
+                      </td>
                       <td><%= b.getWdTime() %></td>
                       <td>
                       <% if(result == 1) { %>
@@ -184,7 +188,7 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                     <tr>
                       <td><%= r.getReviewSeq() %></td>
                       <td>
-                      	<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%= r.getWdNo() %>" style="text-decoration: none; color: black;">
+                      	<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=r.getWdNo()%>" style="text-decoration: none; color: black;">
                       		<%= r.getReviewTitle() %>
                       	</a>
                       </td>

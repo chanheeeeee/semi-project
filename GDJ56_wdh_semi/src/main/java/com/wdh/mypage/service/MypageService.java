@@ -53,6 +53,32 @@ public class MypageService {
 		close(conn);
 		return result;
 	}
+
+// 내가 참여한 동행 글 목록 불러오기
+	public List<Board> selectBoardWdList(int cPage, int numPerpage, Member m){
+			
+		Connection conn = getConnection();
+			
+		List<Board> result = dao.selectBoardWdList(conn, cPage, numPerpage, m);
+			
+		close(conn);
+		return result;
+	}
+		
+
+	public int selectBoardWdCount(Member m) {
+			
+		Connection conn = getConnection();
+			
+		int result = dao.selectBoardWdCount(conn, m);
+			
+		close(conn);
+		return result;
+	}
+
+	
+	
+	
 	
 //	후기 목록 불러오기
 

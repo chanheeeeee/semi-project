@@ -134,6 +134,65 @@ public class MypageDao {
 	}
 	
 	
+//	동행 글 목록 불러오기
+	public List<Board> selectBoardWdList(Connection conn, int cPage, int numPerpage, Member m){
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Board> list = new ArrayList();
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("selectWdJoin"));
+			pstmt.setInt(1, m.getMember_no());
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				list.add(BoardDao2.getBoard(rs));
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return list;
+		
+	}
+	
+	public int selectBoardWdCount(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectWdJoinCount"));
+			
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	
 //	후기 목록 불러오기
 	public List<ReviewBoard> selectBoardListR(Connection conn, int cPage, int numPerpage, Member m){
 		
