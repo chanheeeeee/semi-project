@@ -16,7 +16,7 @@ public class PasswordEncodingWrapper extends HttpServletRequestWrapper {
 	//비밀번호 암호화 하기 위해선 재정의 해야한다!!
 	@Override
 	public String getParameter(String name) {
-		if(name.contains("password") || name.contains("newPw")) {//이름이 password 혹은 newPw로 된 모든것들 암호화!
+		if(name.contains("password") || name.contains("newPw") || name.contains("pass")) {//이름이 password 혹은 newPw로 된 모든것들 암호화!
 //			String ori = super.getParameter(member_id);
 //			System.out.println("암호화 전 : " + ori);
 //			String encrpt = getSHA512(super.getParameter(name));

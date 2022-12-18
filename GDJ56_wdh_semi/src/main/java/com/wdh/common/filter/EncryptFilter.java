@@ -17,7 +17,7 @@ import com.wdh.common.PasswordEncodingWrapper;
  * Servlet Filter implementation class EncryptFilter
  */
 @WebFilter(servletNames = {
-		"joinAction","login","rePassword"
+		"joinAction","login","rePassword","mypageUpdatePassword"
 })
 public class EncryptFilter extends HttpFilter implements Filter {
        
