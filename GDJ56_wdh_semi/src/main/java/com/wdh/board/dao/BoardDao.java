@@ -251,6 +251,23 @@ public class BoardDao {
 		}return rb;
 	}
 	
+	public int updateReview(Connection conn, ReviewBoard rb) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("reviewUpdate"));
+			pstmt.setString(1, rb.getReviewTitle());
+			pstmt.setString(2, rb.getReviewContent());
+			pstmt.setDouble(3, rb.getReviewScore());
+			pstmt.setInt(4, rb.getReviewSeq());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
 	public static WdJoin getWdJoin(ResultSet rs) throws SQLException {
 		return WdJoin.builder().memberNo(rs.getInt("MEMBER_NO")).wdNo(rs.getInt("WD_NO")).build();
 	}

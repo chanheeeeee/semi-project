@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.wdh.board.vo.*" %>
-<% Board b = (Board)request.getAttribute("board"); %>
+<% 
+	Board b=(Board)request.getAttribute("board");
+	ReviewBoard rb=(ReviewBoard)request.getAttribute("reviewBoard");
+%>
 <%@ include file="/views/common/header.jsp" %>
 
     <div class="container">
@@ -112,7 +115,7 @@
                 <th colspan="2">
                     <div class="wrap" style="margin: 5%;">
                     	<button class="button" onclick="location.href='<%=request.getContextPath()%>/views/board/reviewboardck.jsp';">이전</button>
-                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/board/reviewboard.do?wdNo=<%=b.getWdNo()%>&grade='+indexOn;">다음</button>
+                        <button class="button" onclick="location.href='<%=request.getContextPath()%>/board/reviewupdate.do?wdNo=<%=b.getWdNo()%>&reviewNo=<%=rb.getReviewSeq()%>&grade='+indexOn;">다음</button>
                     </div>
                 </th>
             </tr>
@@ -123,7 +126,9 @@
         <script>
         	let indexOn=18;
             $( ".star_rating a" ).click(function() {
+            	//별 모두 class명 지워주기 (css적용해제)
                 $(this).parent().children("a").removeClass("on");
+                //클릭한 별과, 이전 형제들 class명 on으로 바꿔주기 (css적용)
                 $(this).addClass("on").prevAll("a").addClass("on");
                 indexOn=document.getElementsByClassName("on").length;
                 return false;

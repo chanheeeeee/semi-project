@@ -14,16 +14,16 @@ import com.wdh.board.vo.Board;
 import com.wdh.board.vo.ReviewBoard;
 
 /**
- * Servlet implementation class ReviewUpdateServlet
+ * Servlet implementation class GradeUpdateServlet
  */
-@WebServlet("/board/reviewupdate.do")
-public class ReviewUpdateServlet extends HttpServlet {
+@WebServlet("/board.gradeupdate.do")
+public class GradeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewUpdateServlet() {
+    public GradeUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +32,13 @@ public class ReviewUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
+		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
 		int reviewNo=Integer.parseInt(request.getParameter("reviewNo"));
 		Board b=new BoardService2().selectBoard(wdNo);
 		ReviewBoard rb=new BoardService1().selectReview(reviewNo);
 		request.setAttribute("board", b);
 		request.setAttribute("reviewBoard", rb);
-		request.getRequestDispatcher("/views/board/updateReview.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/board/updateGrade.jsp").forward(request, response);
 	}
 
 	/**

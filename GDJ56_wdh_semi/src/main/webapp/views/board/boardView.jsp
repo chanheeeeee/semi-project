@@ -295,7 +295,7 @@
 				                        <div class="card-body">
 											<h6 style="text-align: left;"><%=rb.getReviewTitle() %>작성자후기제목</h6>		
 											<%if(rb.getMemberNo()==loginMember.getMember_no()){ %>
-												<a href="<%=request.getContextPath()%>/board/grade.do?boardNo=<%=b.getWdNo()%>">수정</a>
+												<a href="<%=request.getContextPath()%>/board.gradeupdate.do?boardNo=<%=b.getWdNo()%>&reviewNo=<%=rb.getReviewSeq()%>">수정</a>
 												<%-- <%=request.getContextPath()%>/board/reviewupdate.do?reviewNo=<%=rb.getReviewSeq()%>">수정</a> --%>
 												<a href="<%=request.getContextPath()%>/board/reviewdelete.do?
 												reviewboardNo=<%=rb.getReviewSeq()%>&memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>">삭제</a>

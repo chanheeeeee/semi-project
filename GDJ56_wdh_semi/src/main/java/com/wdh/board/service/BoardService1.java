@@ -116,5 +116,14 @@ public class BoardService1 {
 		close(conn);
 		return rb;
 	}
+	
+	public int updateReview(ReviewBoard rb) {
+		Connection conn=getConnection();
+		int result=dao.updateReview(conn, rb);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 
 }
