@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Properties;
 
 import com.wdh.board.vo.Board;
-import com.wdh.board.vo.CopyFile;
 import com.wdh.board.vo.ReviewBoard;
 import com.wdh.board.vo.WdJoin;
 import com.wdh.member.dao.MemberDao;
@@ -64,21 +63,7 @@ public class BoardDao {
 			pstmt.setString(3, ab.getReviewContent());
 			pstmt.setInt(4, ab.getWdNo());
 			pstmt.setDouble(5, ab.getReviewScore());
-			result=pstmt.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}return result;
-	}
-	
-	public int insertFile(Connection conn, CopyFile f) {
-		PreparedStatement pstmt=null;
-		int result=0;
-		try {
-			pstmt=conn.prepareStatement(sql.getProperty("insertFile"));
-			pstmt.setInt(1, f.getReviewSeq());
-			pstmt.setString(2, f.getFileOrg());
+			pstmt.setString(6, ab.getImg());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -218,6 +203,63 @@ public class BoardDao {
 			pstmt=conn.prepareStatement(sql.getProperty("deleteWdJoin"));
 			pstmt.setInt(1, memberNo);
 			pstmt.setInt(2, wdNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	public Member selectMember(Connection conn, int wdNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectMeber"));
+			pstmt.setInt(1, wdNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=MemberDao.getMember(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+			
+		}return m;
+		
+	}
+	
+	public ReviewBoard selectReview(Connection conn, int reviewNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ReviewBoard rb=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectReview"));
+			pstmt.setInt(1, reviewNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				rb=BoardDao2.getReviewBoard(rs);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return rb;
+	}
+	
+	public int updateReview(Connection conn, ReviewBoard rb) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("reviewUpdate"));
+			pstmt.setString(1, rb.getReviewTitle());
+			pstmt.setString(2, rb.getReviewContent());
+			pstmt.setDouble(3, rb.getReviewScore());
+			pstmt.setInt(4, rb.getReviewSeq());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

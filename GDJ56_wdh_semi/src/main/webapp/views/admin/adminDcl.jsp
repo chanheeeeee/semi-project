@@ -56,6 +56,7 @@
 			                    <th>작성일</th>
 			                    <th>첨부파일</th>
 			                    <th>처리</th>
+			                    <th>답변</th>
 			                    <th>삭제</th>
 			                </tr>
 			                </thead>
@@ -72,9 +73,16 @@
 	                			<td><a href="<%=request.getContextPath()%>/cs/DclView.do?DclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
 		                		<td><%=d.getMember().getMember_id() %></td>
 		                		<td><%=d.getDclDate() %></td>
-		                		<td><%=d.getFilePath() %></td>
+		                		<td>
+		                       		<%if(d.getFilePath()!=null){ %>
+                						<img src="<%=request.getContextPath() %>/images/file.png" width="20" height="20">
+                					<%}else{ %>
+                						첨부파일 없음
+                					<%} %>
+                				</td>
 		                		<td><%=d.getDclResult() %></td>
-		                		<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>
+		                		<td><input type="button" value="답변" onclick="fn_"></td>
+		                		<td><input type="button" value="삭제" onclick="fn_deleteNotice(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>
 		                		<%} 
                	 			}%>
                 			</tr>	

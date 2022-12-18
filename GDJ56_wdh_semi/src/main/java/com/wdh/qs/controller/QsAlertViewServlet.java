@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/cs/qsAlert.do")
 public class QsAlertViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//글작성 후 알림 페이지로 이동할 서블릿입니다.
+	//1대1문의 글 작성 후 알림 페이지로 이동할 서블릿입니다.
     /**
      * @see HttpServlet#HttpServlet()
      */

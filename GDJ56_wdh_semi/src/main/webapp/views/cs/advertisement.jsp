@@ -41,6 +41,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
+          		        <li class="nav-item">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dclWrite.do">신고하기</a>
+                        </li>                        
                         <li class="nav-item">
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/writeQs.do">1대1 문의</a>
                         </li>

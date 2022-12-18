@@ -1,26 +1,23 @@
-package com.wdh.board.controller;
+package com.wdh.del.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService1;
-
 /**
- * Servlet implementation class WdJoinOutServlet
+ * Servlet implementation class DclAlertViewServlet
  */
-@WebServlet("/board/wdjoinout.do")
-public class WdJoinOutServlet extends HttpServlet {
+@WebServlet("/cs/dclAlert.do")
+public class DclAlertViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    //신고 글 작성 후 알림 페이지로 이동할 서블릿입니다.
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdJoinOutServlet() {
+    public DclAlertViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,18 +26,11 @@ public class WdJoinOutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		int result=new BoardService1().outMember(memberNo, wdNo);
-		String msg="", loc="/board/wdjoinlistopen.do?memberNo="+memberNo+"&wdNo="+wdNo;
-		if(result>0) {
-			msg="거절완료";
-		}else {
-			msg="거절실패";
-		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/cs/dclAlert.jsp").forward(request, response);
+	
+	
+	
+	
 	}
 
 	/**

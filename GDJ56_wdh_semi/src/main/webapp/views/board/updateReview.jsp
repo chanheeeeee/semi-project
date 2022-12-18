@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.wdh.board.vo.*" %>
-<% Board b = (Board)request.getAttribute("board"); %>
+<%  
+	Board b=(Board)request.getAttribute("board");
+	ReviewBoard rb=(ReviewBoard)request.getAttribute("reviewBoard");
+%>
 <%@ include file="/views/common/header.jsp" %>
     <div class="container">
       <ul class="progressbar">
@@ -27,11 +30,11 @@
         </tr>
     </table> -->
     <br><br><br>
-	<form action="<%=request.getContextPath() %>/board/reviewboardend.do?memberNo=<%=loginMember.getMember_no() %>&wdNo=<%=b.getWdNo() %>" method="post" enctype="multipart/form-data">
+	<form action="<%=request.getContextPath() %>/board/reviewupdateend.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>&reviewNo=<%=rb.getReviewSeq() %>" method="post" enctype="multipart/form-data">
     <table id="writeTable2">
         <tr>
             <th colspan="4" style="text-align: center;">
-                제목   <input type="text" name="review_title" id="title_input"><br>
+                제목   <input type="text" name="review_title" id="title_input" value="<%=rb.getReviewTitle()%>"><br>
                 <input type="file" name="reviewImg">
             </th>
         </tr>
@@ -39,7 +42,7 @@
             <th></th>
             <td colspan="3" style="text-align: center;">
                 <form method="post">
-                    <textarea id="editor" name="review_content"></textarea>
+                    <textarea id="editor" name="review_content"><%=rb.getReviewContent()%></textarea>
                 </form>
             </td>
         </tr>
