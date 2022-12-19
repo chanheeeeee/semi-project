@@ -257,11 +257,10 @@
 				    		data:{nickname:nickname},
 				    		type:'POST',
 				    		success:result=>{
-				    			if(result=="불가능" && nickname != <%= m.getMember_nickname() %>){//결과값이 0보다 작으면(실패) 
+				    			if(result=="불가능"){//결과값이 0보다 작으면(실패)
 				    				$("#checknick").html('이미 사용중인 닉네임입니다.');
-				    				$("#checknick").attr('color','red')
-				    				nickCheck=false;//닉네임 유효성 실패
-				    				
+						    		$("#checknick").attr('color','red')
+						    		nickCheck=false;//닉네임 유효성 실패
 				    			}else{//결과값이 0보다 크면(성공)
 				    				$("#checknick").html('사용할 수 있는 닉네임입니다.');
 				    				$("#checknick").attr('color','green');
