@@ -1,4 +1,4 @@
-package com.wdh.notice.controller;
+package com.wdh.challenge.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.challenge.model.service.AdminChallengeService;
+import com.wdh.challenge.model.vo.Challenge;
+
 /**
- * Servlet implementation class NoticeWriteServelt
+ * Servlet implementation class AdminChallengeServlet
  */
-@WebServlet(name = "NoticeWriteServlet", urlPatterns = { "/notice/write.do" })
-public class NoticeWriteServelt extends HttpServlet {
+@WebServlet("/challenge/adminChallengeView.do")
+public class AdminChallengeViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteServelt() {
+    public AdminChallengeViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +29,13 @@ public class NoticeWriteServelt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/notice/subNotice.jsp").forward(request, response);
+		int challengeNo=Integer.parseInt(request.getParameter("challenge_No"));
+		Challenge ch=new AdminChallengeService().selectChallenge(challengeNo);
+		
+		request.setAttribute("challenge", ch);
+		request.getRequestDispatcher("/views/challenge/adminChallengeView.jsp").forward(request, response);
+	
+	
 	}
 
 	/**

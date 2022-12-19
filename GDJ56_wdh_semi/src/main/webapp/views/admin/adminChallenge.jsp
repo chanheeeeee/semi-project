@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.wdh.challenge.model.vo.Challenge" %>
+<%@ page import="java.util.List" %>
+<%
+List<Challenge> challenge=(List<Challenge>)request.getAttribute("challenge");
+%>
+    
 
 <%@ include file="/views/common/adminHeader.jsp" %>
 
@@ -42,14 +48,37 @@
 				<hr class="one">
 				<div id="btn_group">
 					<p>
-						선택된 항목을
-						<button id="test_btn1">등록</button>
-						<button id="test_btn2">삭제</button>
-						<button id="test_btn3">공개/비공개</button>
+						신규 챌린지를
+						<button id="test_btn3" onclick="location.href='<%=request.getContextPath()%>/challenge/adminChallengeWrite.do'">등록</button>
+						&nbsp; / 선택된 항목을
+						<button id="test_btn3">삭제</button>
 						합니다.
 					</p>
 				</div>
 				<hr class="one">
+					
+					<!--게시판-->	
+					<div style="border:0px solid red;width:1100px;height:695px;margin-left:80px;">
+				            <div style="display:flex">
+				          <%if(challenge==null||challenge.isEmpty()){ %>    
+				            <div style="border:0px solid green;width:270px;height:300px;text-align: center; ">
+				                 <P>등록된 첼린지가 없습니다.</P>
+				                </div>
+				         <!--데이터 출력  -->
+				               <%}else{ 
+				                 for(Challenge ch : challenge)  { %> 
+				                        <div style="border:0px solid green;width:270px;height:300px;text-align: center; ">
+				                            <div style="border:0px solid magenta;width:180px;height:230px; margin-left :50px; margin-top :5px; " >
+				                                <img src="<%=request.getContextPath()%>/upload/challenge<%=ch.getChallenge_img()%>" alt="" style="width:100%;height:100%;margin:auto;border-radius:20px;">
+				                            </div>
+				                            <div><a href="<%=request.getContextPath()%>/challenge/adminChallengeView.do?Challenge_No=<%=ch.getChallenge_no()%>" style="color: black !important;font-size:20px !important;" ><%=ch.getChallenge_name()%></a></div>
+				                        </div>           
+				                        
+				                     <% }
+				                    }%> 
+				                    
+				                    <!--반복문에서 뺴야함  -->
+				                    </div> 
 				
 				
 				

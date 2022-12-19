@@ -86,6 +86,29 @@
             	</li>
         	</ul>
     </div>
+    
         <br>
+        
+	   <div class="container">
+		  <div class="row">
+		    <div class="col"></div>
+		    <div class="col" style="text-align:center; ">
+		    	<button type="button" id="Startbtn" class="btn btn-outline-primary" style="font-size:20px" 
+		    	onclick="location.href='<%=request.getContextPath() %>/challenge/startChallenge.do';">Start Challenge!</button>
+		    </div>
+		    
+		    <div class="col" style="text-align:center;">
+		    	<button type="button" id="Mypagebtn" class="btn btn-outline-success" style="font-size:20px"
+		    	 onclick="location.href='<%=request.getContextPath() %>/challenge/mychallenge.do';">My Challenge!</button>
+		    </div>
+		    <div class="col"></div>
+		  </div>
+ 	 	</div>
+	     
+	    <div class="row">
+          <div class="col-1"></div>
+          <span class="placeholder col-10 placeholder-xs bg-blue"></span>
+          <div class="col-1"></div>
+        </div>
 
 <%@ include file="/views/common/footer.jsp" %>
