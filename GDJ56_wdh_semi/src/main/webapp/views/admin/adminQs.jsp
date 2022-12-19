@@ -48,22 +48,24 @@
                        <hr class="one">
                         <div class="row">
                             
-                            <section id="board-container">
+              <section id="board-container">
+<!--               <form id="qsFrm" method="post"> -->
 			            <table id="datatablesSimple">
 			            <thead>
 			                <tr>			  
 			                    <th>번호</th>
-			                    <th>카테고리</th>
+			                    <th>말머리</th>
 			                    <th>제목</th>
 			                    <th>작성자</th>
 			                    <th>작성일</th>
+			                    <th>처리</th>
 			                    <th>답변</th>
 			                    <th>삭제</th>
 			                </tr>
 			                </thead>
 							<% if(question.isEmpty()){ %>
 							<tr>
-								<td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
+								<td colspan="8"><h3>조회된 게시판이 없습니다.</h3></td>
 							</tr>	
 							<%}else{ 
 								for(Question qs : question){
@@ -71,21 +73,27 @@
 							 <tr>
                 				<td><%=qs.getQsNo() %></td>
                 				<td><%=qs.getQsHeadTitle() %></td>
-	                			<td><a href="<%=request.getContextPath()%>/cs/QSView.do?DclNo=<%=qs.getQsNo()%>"><%=qs.getQsTitle()%></a></td>
+	                			<td><a href="<%=request.getContextPath()%>/cs/qSView.do?qsNo=<%=qs.getQsNo()%>"><%=qs.getQsTitle()%></a></td>
 		                		<td><%=qs.getMember().getMember_id() %></td>
 		                		<td><%=qs.getQsDate() %></td>
 		                		<td><%=qs.getQsResult() %></td>
-		                		<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=qs.getQsNo()%>);"></td>
+		                		<td><input type="button" value="답변" onclick="location.replace('<%=request.getContextPath()%>/cs/qsView.do?qsNo=<%=qs.getQsNo()%>')"></td>
+		                		<td><input type="button" value="삭제" onclick="fn_deleteQs(<%=qs.getQsNo()%>);"></td>
 		                		<%} 
                	 			}%>
                 			</tr>
                 			</table>
                 			<br>
-			                 <%-- 페이징 처리 --%>
-			                <%--<div id="pageBar">
-			                	<%=request.getAttribute("pageBar") %>
-			                </div> --%>
+<!--                 			</form> -->
 			            </section>
 			            <br>
 			        </div> 
         </div>
+<script>
+	//삭제
+	const fn_deleteQs=(qsNo)=>{
+		location.replace("<%=request.getContextPath()%>/cs/deleteQs.do?no="+qsNo);
+<%-- 		$("#qsFrm").attr("action","<%=request.getContextPath()%>/cs/deleteQs.do?no="+qsNo); --%>
+// 		$("#qsFrm").submit();
+	}
+</script>

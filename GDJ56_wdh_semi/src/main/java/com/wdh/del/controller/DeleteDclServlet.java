@@ -34,7 +34,7 @@ public class DeleteDclServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fileName=request.getParameter("fileName");
-		//parameter는 jsp에서 넘어온 값을 적는다...
+		//parameter는 jsp에서 넘어온 name 값을 적는다...
 		
 		int no=Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
@@ -48,7 +48,7 @@ public class DeleteDclServlet extends HttpServlet {
 		String msg="",loc="";
 		if(result>0) {
 			msg="신고 글 삭제";
-			loc="/cs/dcl.do";
+			loc="/admin/adminDcl.do";
 			String path=getServletContext().getRealPath("/upload/cs/");
 			File delFile=new File(path+fileName);
 			if(delFile.exists()) delFile.delete();

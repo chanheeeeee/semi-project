@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.wdh.member.dao.MemberDao;
 import com.wdh.member.vo.Member;
+import com.wdh.qs.model.vo.QsComment;
 import com.wdh.qs.model.vo.Question;
 
 public class QsDao {
@@ -115,6 +116,55 @@ public class QsDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	public List<QsComment> selectQsComment(Connection conn, int no){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<QsComment> list=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectQsComment"));
+			pstmt.setInt(1, no);
+			rs=pstmt.executeQuery();
+			while(rs.next()) list.add(getQsComment(rs));
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return list;
+	}
+	
+	public int insertQsComment(Connection conn, QsComment qsc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertQsComment"));
+			pstmt.setInt(1, qsc.getQsCommentLevel());
+			pstmt.setString(2, qsc.getQsCommentWriter());
+			pstmt.setString(3, qsc.getQsCommentContent());
+			pstmt.setInt(4, qsc.getQsRef());
+			pstmt.setString(5, qsc.getQsCommentRef()==0? null:String.valueOf(qsc.getQsCommentRef()));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	private QsComment getQsComment(ResultSet rs) throws SQLException{
+		return QsComment.builder()
+				.qsCommentNo(rs.getInt("qs_comment_no"))
+				.qsCommentLevel(rs.getInt("qs_comment_level"))
+				.qsCommentWriter(rs.getString("qs_comment_writer"))
+				.qsCommentContent(rs.getString("qs_comment_content"))
+				.qsRef(rs.getInt("qs_comment_ref"))
+				.qsCommentRef(rs.getInt("qs_comment_ref"))
+				.qsCommentDate(rs.getDate("qs_comment_date"))
+				.build();
+	}
+	
 	
 	
 	public static Question getQs(ResultSet rs) throws SQLException{
