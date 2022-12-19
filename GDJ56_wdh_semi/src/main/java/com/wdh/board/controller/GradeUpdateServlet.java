@@ -9,18 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.board.service.BoardService1;
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
+import com.wdh.board.vo.ReviewBoard;
 
 /**
- * Servlet implementation class WdJoinOutServlet
+ * Servlet implementation class GradeUpdateServlet
  */
-@WebServlet("/board/wdjoinout.do")
-public class WdJoinOutServlet extends HttpServlet {
+@WebServlet("/board.gradeupdate.do")
+public class GradeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdJoinOutServlet() {
+    public GradeUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,18 +32,13 @@ public class WdJoinOutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		int result=new BoardService1().outMember(memberNo, wdNo);
-		String msg="", loc="/board/wdjoinlistopen.do?memberNo="+memberNo+"&wdNo="+wdNo;
-		if(result>0) {
-			msg="거절완료";
-		}else {
-			msg="거절실패";
-		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
+		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
+		int reviewNo=Integer.parseInt(request.getParameter("reviewNo"));
+		Board b=new BoardService2().selectBoard(wdNo);
+		ReviewBoard rb=new BoardService1().selectReview(reviewNo);
+		request.setAttribute("board", b);
+		request.setAttribute("reviewBoard", rb);
+		request.getRequestDispatcher("/views/board/updateGrade.jsp").forward(request, response);
 	}
 
 	/**

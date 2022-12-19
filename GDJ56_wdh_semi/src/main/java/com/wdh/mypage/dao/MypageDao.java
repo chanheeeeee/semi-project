@@ -134,6 +134,65 @@ public class MypageDao {
 	}
 	
 	
+//	동행 글 목록 불러오기
+	public List<Board> selectBoardWdList(Connection conn, int cPage, int numPerpage, Member m){
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Board> list = new ArrayList();
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("selectWdJoin"));
+			pstmt.setInt(1, m.getMember_no());
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				list.add(BoardDao2.getBoard(rs));
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return list;
+		
+	}
+	
+	public int selectBoardWdCount(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectWdJoinCount"));
+			
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
+	
 //	후기 목록 불러오기
 	public List<ReviewBoard> selectBoardListR(Connection conn, int cPage, int numPerpage, Member m){
 		
@@ -417,6 +476,93 @@ public class MypageDao {
 	}
 	
 	
+	// 멤버 정보 수정
+	public int updateMember(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql.getProperty("updateMember"));
+			pstmt.setString(1, String.valueOf(m.getGender()));
+			pstmt.setString(2, m.getEmail());
+			pstmt.setString(3,m.getMember_nickname());
+			pstmt.setString(4, m.getAddress());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setInt(6, m.getMember_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+	}
+	
+	//비번 바꾸기
+
+	public Member searchMember(Connection conn, String memberId, String password) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql.getProperty("searchIdPassword"));
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, password);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				m = MemberDao.getMember(rs);
+				
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
+	}
+	
+	public int updatePassword(Connection conn, String memberId, String password) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("updatePassword"));
+			pstmt.setString(1, password);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+	}
 	
 	
 	

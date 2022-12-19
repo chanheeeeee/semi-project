@@ -36,15 +36,6 @@ public class BoardService1 {
 		close(conn);
 		return result;
 	}
-	
-	public int insertFile(CopyFile f) {
-		Connection conn=getConnection();
-		int result=dao.insertFile(conn, f);
-		if(result>0) commit(conn);
-		else rollback(conn);
-		close(conn);
-		return result;
-	}
 
 	public int deleteBoard(int wdNo) {
 		Connection conn=getConnection();
@@ -106,6 +97,29 @@ public class BoardService1 {
 	public int outMember(int memberNo, int wdNo) {
 		Connection conn=getConnection();
 		int result=dao.outMember(conn, memberNo, wdNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public Member selectMember(int wdNo) {
+		Connection conn=getConnection();
+		Member result=dao.selectMember(conn, wdNo);
+		close(conn);
+		return result;
+	}
+	
+	public ReviewBoard selectReview(int reviewNo) {
+		Connection conn=getConnection();
+		ReviewBoard rb=dao.selectReview(conn, reviewNo);
+		close(conn);
+		return rb;
+	}
+	
+	public int updateReview(ReviewBoard rb) {
+		Connection conn=getConnection();
+		int result=dao.updateReview(conn, rb);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);

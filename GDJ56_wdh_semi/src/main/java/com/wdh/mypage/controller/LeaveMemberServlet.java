@@ -41,7 +41,7 @@ public class LeaveMemberServlet extends HttpServlet {
 		if(result>0) {
 			
 			msg="그동안 이용해 주셔서 감사합니다.";
-			loc="/";
+			loc="/mypage/logout.do";
 			
 		}else {
 			

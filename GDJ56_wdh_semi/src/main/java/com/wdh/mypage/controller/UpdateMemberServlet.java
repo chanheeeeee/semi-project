@@ -33,11 +33,12 @@ public class UpdateMemberServlet extends HttpServlet {
 		
 		String msg = "", loc="";
 		
+		request.setAttribute("member", m);
 		
 		if(pass.equals(m.getPassword())) {
 			
-//			msg = "성공";
-//			loc = "/views/mypage/profile.jsp";
+			
+			
 			request.getRequestDispatcher("/views/mypage/profile.jsp")
 					.forward(request, response);
 			
@@ -48,6 +49,7 @@ public class UpdateMemberServlet extends HttpServlet {
 			
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
+			
 			
 			
 			request.getRequestDispatcher("/views/common/msgm.jsp")

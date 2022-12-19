@@ -53,6 +53,32 @@ public class MypageService {
 		close(conn);
 		return result;
 	}
+
+// 내가 참여한 동행 글 목록 불러오기
+	public List<Board> selectBoardWdList(int cPage, int numPerpage, Member m){
+			
+		Connection conn = getConnection();
+			
+		List<Board> result = dao.selectBoardWdList(conn, cPage, numPerpage, m);
+			
+		close(conn);
+		return result;
+	}
+		
+
+	public int selectBoardWdCount(Member m) {
+			
+		Connection conn = getConnection();
+			
+		int result = dao.selectBoardWdCount(conn, m);
+			
+		close(conn);
+		return result;
+	}
+
+	
+	
+	
 	
 //	후기 목록 불러오기
 
@@ -178,6 +204,41 @@ public class MypageService {
 		
 	}
 	
+	//정보 수정
+	public int updateMember(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.updateMember(conn, m);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
+
+	public Member searchMember(String memberId, String password) {
+		Connection conn=getConnection();
+		Member m=dao.searchMember(conn,memberId,password);
+		close(conn);
+		return m;
+	}
+	
+
+	public int updatePassword(String memberId, String password) {
+		
+		Connection conn=getConnection();
+		int result=dao.updatePassword(conn, memberId, password);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
+	}
 	
 	
 	
