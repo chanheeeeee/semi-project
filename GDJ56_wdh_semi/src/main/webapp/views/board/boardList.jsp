@@ -57,9 +57,19 @@
 					<li><label><input type="checkbox" name="category" value="기타" onchange="makeFilter(this);">기타</label></li>
 				</ul>
 			</li>
+			
+			<li class="pb-3">
+				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+					<button type="button" class="btn btn-success btn-lg px-3" onclick="fn_openMap();">지도검색</button>
+				</a>
+			</li>
 		</ul>
 		
 		<input type="hidden" name="searchKeyword">
+		<!-- 날짜넘기기 방법1_id값 주고 하나씩 받기
+		<input type="hidden" name="date1">
+		<input type="hidden" name="date2"> -->
+		<!-- 날짜넘기기 방법2_두개의input 값 합쳐서 보내기 -->
 		<input type="hidden" name="date">
 		
 	</form>
@@ -74,13 +84,15 @@
 	  		<li class="list-inline-item">
 				<a class="h3 text-dark text-decoration-none mr-3">기간 </a></li>
 	  		<li class="list-inline-item"><a class="h3 text-dark text-decoration-none mr-3">
-	  			<input type="date" name="date" max="2023-12-31" min="2022-01-01" onclick="fn_getDate();"></a></li>
+	  			<!--  id="date1" -->
+	  			<input type="date" name="date" max="2023-12-31" min="2022-01-01" onchange="fn_getDate();"></a></li>
 	  			
 	  		<li class="list-inline-item">
 				<a class="h3 text-dark text-decoration-none mr-3">~</a></li>
 			
 	  		<li class="list-inline-item"><a class="h3 text-dark text-decoration-none mr-3">
-	  			<input type="date" name="date" max="2023-12-31" min="2022-01-01" onclick="fn_getDate();"></a></li>
+	  			<!--  id="date2" -->
+	  			<input type="date" name="date" max="2023-12-31" min="2022-01-01" onchange="fn_getDate();"></a></li>
 	  	</ul>
 	  </div>
 	  <div class="col-md-3 pb-2">
@@ -175,13 +187,11 @@
 		searchFrm.searchKeyword.value = $("#inputKeywordSearch").val(); /* input에 입력된 값 hidden searchKeyword.value에 접근해서 값 할당 */
 		/* 나머지는 이미 value값이 들어가 있음 */
 		//date
-		searchFrm.date.value = $("input[name='date']").eq(0).val();
+			//fn_getDate()로 값 할당해줌
 		console.log(searchFrm.date.value);
 		
-		let date1 = $("input[name='date']").eq(0).val();
-        let date2 = $("input[name='date']").eq(1).val();
-        console.log(date1);
-        console.log(date2);
+		
+		
 		searchFrm.submit();
 		
 		//searchFrm.category.value = cbArr; /* cbArr */
@@ -190,19 +200,33 @@
 		
 	}
 	let date = "";
-	const fn_getDate = (()=>{
+	const fn_getDate = (()=>{//배열 인덱스 고정값이라 화면에 date추가하면 틀어질 위험이 있음
 		
 		return ()=>{
-			let date1 = $("input[name='date']").eq(0).val();
-	        let date2 = $("input[name='date']").eq(1).val();
+			let date1 = $("input[name='date']").eq(1).val();
+	        let date2 = $("input[name='date']").eq(2).val();
+	        
 	        console.log(date1);
 	        console.log(date2);
+	        console.log($("input[name='date']"));
 	        
-	        date = date1+date2;
+	        //보내줄 쿼리 WD_DATE BETWEEN TO_DATE('2022-01-14','YY/MM/DD') AND TO_DATE('2022-01-15','YY/MM/DD')+1
+	        date = "and WD_DATE BETWEEN TO_DATE('"+		date1	+"','YY/MM/DD') AND TO_DATE('"+		date2	+"','YY/MM/DD')+1"
 	        
 	        searchFrm.date.value = date;
 		}
 	})();
+	
+	
+	
+	
+
+	const fn_openMap = ()=>{
+		let map = window.open("<%=request.getContextPath()%>/board/boardSearchMap.do","pop","width=800,height=550, scrollbars=yes, resizable=yes");
+		map.moveTo(650, 300);
+	}
+	
+	
 	
 	/* $("#slideToggleMap").click(e => {
 	$("#containerMap>div").slideToggle(2000);
