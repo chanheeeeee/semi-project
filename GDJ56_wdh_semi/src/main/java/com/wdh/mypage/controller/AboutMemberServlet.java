@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.service.MypageService;
 
@@ -32,22 +37,13 @@ public class AboutMemberServlet extends HttpServlet {
 		
 		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
 		
-//		Member m = new MemberService().memberView(id);
+		Member m = new MemberService().memberView(id);
 		
 		String grade = new MypageService().memberGrade(id);
 		
-//		try {
-//			
-//			m.setEmail(AESEncrypt.decryptData(m.getEmail()));
-//			
-//		} catch(Exception e) {
-//			
-//			e.printStackTrace();
-//			
-//		}
 		
 		request.setAttribute("grade", grade);
-//		request.setAttribute("member", m);
+		request.setAttribute("member", m);
 		request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);
 		
 	}

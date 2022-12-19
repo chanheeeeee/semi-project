@@ -125,7 +125,7 @@
     							if(qsc.getQsCommentLevel()==1){%>
     							<tr class="level1">
     								<td>
-    								<img src="<%=request.getContextPath() %>/images/commentimg.png" style="float:left" width="50" height="50">
+    								<img src="<%=request.getContextPath() %>/images/commentimg.png" left="600" width="50" height="50">
     									&nbsp;<sub class="comment-writer"><%=qsc.getQsCommentWriter() %></sub>
     									<sub class="comment-date"><%=qsc.getQsCommentDate() %></sub>
     									<br>

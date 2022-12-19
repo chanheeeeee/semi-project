@@ -62,10 +62,10 @@ public class QsService {
 		Connection conn=getConnection();
 		int result=dao.insertQsComment(conn,qsc);
 		if(result>0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-			}
+			result=dao.updateQsResult(conn, qsc.getQsRef());
+			if(result>0) commit(conn);
+			else rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
