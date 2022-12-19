@@ -1,4 +1,4 @@
-package com.wdh.notice.controller;
+package com.wdh.challenge.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NoticeWriteServelt
+ * Servlet implementation class ChallengeServlet
  */
-@WebServlet(name = "NoticeWriteServlet", urlPatterns = { "/notice/write.do" })
-public class NoticeWriteServelt extends HttpServlet {
+@WebServlet("/challenge/challenge.do")
+public class ChallengeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteServelt() {
+    public ChallengeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,8 @@ public class NoticeWriteServelt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/notice/subNotice.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("/views/challenge/challenge.jsp").forward(request, response);
 	}
 
 	/**

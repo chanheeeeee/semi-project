@@ -1,4 +1,4 @@
-package com.wdh.notice.controller;
+package com.wdh.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NoticeWriteServelt
+ * Servlet implementation class boardSearchMap
  */
-@WebServlet(name = "NoticeWriteServlet", urlPatterns = { "/notice/write.do" })
-public class NoticeWriteServelt extends HttpServlet {
+@WebServlet("/board/boardSearchMap.do")
+public class boardSearchMap extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteServelt() {
+    public boardSearchMap() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,8 @@ public class NoticeWriteServelt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/notice/subNotice.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("/views/board/map3.jsp").forward(request, response);
 	}
 
 	/**

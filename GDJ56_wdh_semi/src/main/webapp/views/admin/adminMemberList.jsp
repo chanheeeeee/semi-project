@@ -70,8 +70,7 @@ List<Member> members=(List<Member>)request.getAttribute("member");
 	                                            <th>이메일</th>
 	                                            <th>전화번호</th>
 	                                            <th>주소</th>
-	                                            <th>등급</th>
-	                                            <th></th>
+	                                            <th>등급</th>                                       
 							                </tr>
 							            </thead>
 							            <tbody>
@@ -92,8 +91,7 @@ List<Member> members=(List<Member>)request.getAttribute("member");
 													<td><%=members.get(i).getEmail() %></td>
 													<td><%=members.get(i).getPhone() %></td>
 													<td><%=members.get(i).getAddress()%></td>
-													<td><%=members.get(i).getGrade() %></td>
-													<td><input type="button" value="탈퇴하기" onclick=""></td>	  				
+													<td><%=members.get(i).getGrade() %></td> 				
 						       	  			</tr>
 						       	  		<%} 
 						       	  		}%>
