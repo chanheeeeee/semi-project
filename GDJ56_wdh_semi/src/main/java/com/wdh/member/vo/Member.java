@@ -23,6 +23,7 @@ public class Member {
 	private String phone;
 	private String address;
 	private int grade;
+	private String profile;
 
 	
 }
