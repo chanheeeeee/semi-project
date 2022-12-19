@@ -10,9 +10,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-	List<Board> boards = (List<Board>)request.getAttribute("boards");
+	/* List<Board> boards = (List<Board>)request.getAttribute("boards");*/
 
-	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
+	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews"); 
+	
+	List<Board> mergedList = (List<Board>)request.getAttribute("mergedList");
 	
 	List<Question> qs = (List<Question>)request.getAttribute("qs");
 	
@@ -91,51 +93,57 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                     </tr>
                   </thead>
                   <tbody>
-                  <% if(boards.isEmpty()) { %>
-                  	<tr><td>작성된 글이 없습니다.</td></tr>
-                  <% } else {       
+                  <% if(mergedList.isEmpty()) { %>
+                  	<tr><td colspan="4">작성된 글이 없습니다.</td></tr>
+                  <% } else {
+                	  
+                	  int i = 0;
 
-                	  	for(Board b : boards) {
-                	
+                	  	for(Board ml : mergedList) {
                 	  		
 	                	  		for(ReviewBoard r : reviews) {
 	                	  			
-	                	  			if(r.getWdNo()==b.getWdNo()) {
+	                	  			if(r.getWdNo()==ml.getWdNo()) {
 	                					result = 1;
 	                				} 
 	                	  		}
                 	  		%>
                     <tr>
-                      <td><%= b.getWdNo() %></td>
+                      <td><%= ml.getWdNo() %></td>
                       <td>
-                      	<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" style="text-decoration: none; color: black;">
-                      		<%= b.getWdTitle() %>
+                      	<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=ml.getWdNo()%>" style="text-decoration: none; color: black;">
+                      		<%= ml.getWdTitle() %>
                       	</a>
                       </td>
-                      <td><%= b.getWdTime() %></td>
+                      <td><%= ml.getWdTime() %></td>
                       <td>
-                      <% if(result == 1) { %>
-                      
-                      	<button type="button" class="btn btn-xs btn-lgray min-42" disabled='disabled'>완료</button>
+                      <% if(ml.getMemberNo() != loginMember.getMember_no()) {%>
+	                      <% if(result == 1) { %>
+	                      
+	                      	<button type="button" class="btn btn-xs btn-lgray min-42" disabled='disabled'>완료</button>
+	                      	
+	                      <% 
+	                      	
+	                      
+	                      } else { %>
+	                      
+	                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/board/reviewcheckboard.do?boardNo=<%=ml.getWdNo()%>';">작성</button>
+	                      	
+	                      <%
+	                      			
+	                      	} 
+                      	} else { %>
                       	
-                      <% 
-                      	
-                      
-                      } else { %>
-                      
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/board/reviewcheckboard.do?boardNo=<%=b.getWdNo()%>';">작성</button>
-                      	
-                      <%
-                      			
-                      	} %>
+	                      	<button type="button" class="btn btn-xs btn-lred min-42" 
+	                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteMyBoard.do?boardNo=<%=ml.getWdNo()%>';">삭제</button>
+	                      		
+                      	<% } %>
                       </td>
                     </tr>
                    <% 	
                    		
                   			result = 0;
-                	  	}
-                	  		
-                	 
+                	  }
                   } %>
                   </tbody>
                 </table>
@@ -194,7 +202,7 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                       </td>
                       <td><%= r.getReviewDate() %></td>
                       <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      	<button type="button" class="btn btn-xs btn-lred min-42" 
                       		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?reviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
                       </td>
                     </tr>
@@ -257,7 +265,7 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                       </td>
                       <td><%= q.getQsDate() %></td>
                       <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      	<button type="button" class="btn btn-xs btn-lred min-42" 
                       		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteQs.do?qsNo=<%= q.getQsNo() %>';">삭제</button>
                       </td>
                     </tr>
@@ -316,13 +324,13 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                     <tr>
                       <td><%= d.getDclNo() %></td>
                       <td>
-                      	<a href="<%=request.getContextPath()%>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>" style="text-decoration: none; color: black;">
+                      	<a href="<%=request.getContextPath()%>/cs/dclView.do?dclNo=<%=d.getDclNo()%>" style="text-decoration: none; color: black;">
                       		<%= d.getDclTitle() %>
                       	</a>
 					  </td>
                       <td><%= d.getDclDate() %></td>
                       <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      	<button type="button" class="btn btn-xs btn-lred min-42" 
                       		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteDcl.do?dclNo=<%= d.getDclNo() %>';">삭제</button>
                       </td>
                     </tr>

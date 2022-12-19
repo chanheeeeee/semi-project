@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.notice.model.service.NoticeService;
+
 /**
  * Servlet implementation class NoticeDeleteServlet
  */
@@ -28,21 +30,23 @@ public class NoticeDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String fileName=request.getParameter("fileName");
-		int no=Integer.parseInt(request.getParameter("no"));
+		int noticeNo=Integer.parseInt(request.getParameter("no"));
 		
-		int result=1;
+		int result = new NoticeService().deleteNotice(noticeNo);
+		
 		String msg="",loc="";
 		if(result>0) {
-			msg="공지사항을 삭제했습니다.";
-			loc="/notice/noticeList.do";
-			String path=getServletContext().getRealPath("/upload/notice");
-			File delFile=new File(path+fileName);
-			if(delFile.exists()) delFile.delete();
+			msg="공지사항이 삭제되었습니다.";
+			loc="/notice/adminNotice.do";
+
 		}else {
-			msg="공지사항을 삭제하지 못했습니다.";
-			loc="notice/noticeView.do?noticeNo="+no;
+			msg="공지사항 수정실패!";
+			loc="/notice/noticeView.do?no="+noticeNo;
+			
 		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	
 	
 	

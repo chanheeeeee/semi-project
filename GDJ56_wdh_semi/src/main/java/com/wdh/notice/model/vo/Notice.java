@@ -22,6 +22,4 @@ public class Notice {
 	private String noticeContent;
 	private Date noticeEnroll;
 	private Member member;
-	
 }
-

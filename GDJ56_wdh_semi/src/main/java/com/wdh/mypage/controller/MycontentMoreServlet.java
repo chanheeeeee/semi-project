@@ -2,6 +2,8 @@ package com.wdh.mypage.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -61,11 +63,19 @@ public class MycontentMoreServlet extends HttpServlet {
 		
 		List<Board> boards = new MypageService().selectBoardList(cPage, numPerpage, m);
 		
+		List<Board> boardsWd = new MypageService().selectBoardWdList(cPage, numPerpage, m);
+		
 		List<ReviewBoard> reviews = new MypageService().selectBoardListR(cPage, numPerpage, m);
 		
 		List<Question> qs = new MypageService().selectQsList(cPage, numPerpage, m);
 		
 		List<Declaration> dcl = new MypageService().selectDclList(cPage, numPerpage, m);
+		
+
+		List<Board> mergedList = Stream.of(boards, boardsWd)
+                .flatMap(x -> x.stream())
+                .collect(Collectors.toList());
+
 		
 		if(type==1) {
 			
@@ -115,8 +125,9 @@ public class MycontentMoreServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("pageBar", pageBar);
-		request.setAttribute("boards", boards);
+//		request.setAttribute("boards", boards);
 		
+		request.setAttribute("mergedList", mergedList);
 
 		request.setAttribute("reviews", reviews);
 		

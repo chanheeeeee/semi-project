@@ -35,7 +35,9 @@ public class BoardSearchServlet extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String purpose = request.getParameter("purpose");
 		String[] categoryArr = request.getParameterValues("category");
-		String[] dateArr = request.getParameterValues("date");
+		//방법1.String[] dateArr = request.getParameterValues("date");
+		//방법2.프론트에서 문자열 처리해서 넘어온 값을 저장
+		String date = request.getParameter("date");
 		
 		
 		
@@ -70,35 +72,40 @@ public class BoardSearchServlet extends HttpServlet {
 			}else { 
 				sql += "and WD_GENDER LIKE '%"+gender+"%'";
 			}
-			 
-			//System.out.println(sql);
 		}
 		if(purpose!=null) {
 			sql += "and WD_PURPOSE LIKE '%"+purpose+"%'";
 		}
 		
+		
+		String categoryUrl = ""; //쿼리스트링에 넘길값을 저장할 변수
+		//배열t f 확인
 		if(categoryArr!=null) { 
 			String category = "";
-			for(String c : categoryArr) {	category += c+"|";	}
-			category = category.substring(0, category.length()-1);//System.out.println(category);
-
-			sql += "and REGEXP_LIKE( WD_CATEGORY, '"+category+"')";
+			for(String c : categoryArr) {	
+				
+				category += c+"|";	//sql문에 사용할 변수
+				
+				categoryUrl += "&category=" + c;
+			}
+				category = category.substring(0, category.length()-1);//System.out.println(category);
+				sql += "and REGEXP_LIKE( WD_CATEGORY, '"+category+"')";
+				
+				System.out.println(categoryUrl);
 		}
 		
-		if(dateArr!=null) { 
+		if(date!=null) { 
 			/*
 			 * String date = ""; for(String d : dateArr) { date += d+"|"; }
 			 * System.out.println(date);
 			 */
-
-			//sql += "and WD_PURPOSE LIKE '%"+값+"%'";
-			//SELECT * FROM (SELECT ROWNUM AS RNUM, M.* FROM(SELECT * FROM WRITEBOARD WD_DATE BETWEEN "2020-06-01" AND "2020-06-07")M) WHERE RNUM BETWEEN ? AND ?
+			
+			sql += date;
+			
 		}
 		 
 		where = where.replace("#COL", sql);
 		System.out.println(where);
-		
-		
 		
 		
 		
@@ -120,14 +127,21 @@ public class BoardSearchServlet extends HttpServlet {
 		if(pageNo==1){
 			pageBar += "<span>🡸</span>,";
 		}else {
-			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"'>🡸</a>,";
+			//pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"'>🡸</a>,";
+			//pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"&searchKeyword="+searchKeyword+"&gender="+gender+"&purpose="+purpose+"&category="+categoryUrl+"'>🡸</a>,";
+			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"&searchKeyword="+searchKeyword+"&gender="+gender+"&purpose="+(purpose==null?"":purpose)+categoryUrl+"'>🡸</a>,";
+					/*"&category="+categoryUrl+
+					"&category="+categoryUrl+
+					"&category="+categoryUrl+
+					"&category="+categoryUrl+*/
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
 				pageBar += "<span>"+pageNo+"</span>,";
 			}else {
-				pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>"+pageNo+"</a>,";
+				//pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>"+pageNo+"</a>,";
+				pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"&searchKeyword="+searchKeyword+"&gender="+gender+"&purpose="+(purpose==null?"":purpose)+categoryUrl+"'>"+pageNo+"</a>,";
 			}
 			pageNo++;
 		}
@@ -135,7 +149,8 @@ public class BoardSearchServlet extends HttpServlet {
 		if(pageNo>totalPage) {
 			pageBar += "<span>🡺</span>";
 		}else {
-			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>🡺</a>";
+			//pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>🡺</a>";
+			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"&searchKeyword="+searchKeyword+"&gender="+gender+"&purpose="+(purpose==null?"":purpose)+categoryUrl+"'>🡺</a>";
 		}
 		
 		request.setAttribute("boards", list);
@@ -143,6 +158,8 @@ public class BoardSearchServlet extends HttpServlet {
 		
 		
 		request.getRequestDispatcher("/views/board/boardList.jsp").forward(request, response);
+		
+
 	}
 
 	/**

@@ -15,14 +15,15 @@
 <div>
 	<h1 style="text-align: center;">참가자 리스트</h1>
 		<%if(members.isEmpty()){ %>
-			<p>참여 회원이 없습니다.</p>
+			<p style="text-align: center;color:red;">참여 회원이 없습니다.</p>
 		<%}else{%>
-			<div id="list" style="text-align: center;min-height: 60%;">
+			<div id="list" style="display:flex;justify-content:center;min-height: 60%;">
 			<%for(Member m : members){ %>
 				<%=m.getMember_nickname() %>
 				<%int memberNo=m.getMember_no(); %>
 				<%if(loginMember==b.getMemberNo()) {%>
-					<button id="button1" style="height:25px !important; width:80px !important;" onclick="out()">동행거절</button><br>
+					<button id="button1" style="height:25px !important; width:50px !important; margin:3px !important;" onclick="out()">쪽지</button><br>
+					<button id="button1" style="height:25px !important; width:80px !important; margin:3px !important;" onclick="out()">동행거절</button><br>
 					<input type="hidden" name="out" onclick="location.href='<%=request.getContextPath()%>/board/wdjoinout.do?memberNo=<%=memberNo%>&wdNo=<%=b.getWdNo()%>';">
 				<%} %>
 			<%}%>

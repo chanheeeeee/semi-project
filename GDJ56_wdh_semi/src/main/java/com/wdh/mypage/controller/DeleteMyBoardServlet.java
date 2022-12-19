@@ -1,4 +1,4 @@
-package com.wdh.notice.controller;
+package com.wdh.mypage.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.notice.model.service.NoticeService;
-import com.wdh.notice.model.vo.Notice;
+import com.wdh.mypage.service.MypageService;
 
 /**
- * Servlet implementation class NoticeWriteEndServlet
+ * Servlet implementation class DeleteMyBoardServlet
  */
-@WebServlet("/notice/writeEnd.do")
-public class NoticeWriteEndServlet extends HttpServlet {
+@WebServlet("/mypage/deleteMyBoard.do")
+public class DeleteMyBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeWriteEndServlet() {
+    public DeleteMyBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,33 +28,28 @@ public class NoticeWriteEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title=request.getParameter("notice_title");
-		String writer=request.getParameter("notice_writer");
-		String content=request.getParameter("notice_content");
+
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
-		Notice n=Notice.builder()
-				.noticeTitle(title)
-				.noticeWriter(writer)
-				.noticeContent(content)
-				.build();
+		int result = new MypageService().deleteMyBoard(boardNo);
 		
-		int result=new NoticeService().insertNotice(n);
-		String msg="",loc="";
+		String msg="", loc="";
+		
 		if(result>0) {
-			msg="공지사항 작성 성공 했어요";
-			loc="/notice/notice.do";
+			
+			msg="삭제 성공!";
+			loc="/mypage/mycontent.do";
+			
 		}else {
-			msg="공지사항 작성 실패 했어요";
-			loc="/notice/write.do.do";
+			
+			msg="삭제 실패!";
+			loc="/mypage/mycontent.do";
+			
 		}
+		
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-	
-	
-	
-	
-	
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
 	}
 
 	/**

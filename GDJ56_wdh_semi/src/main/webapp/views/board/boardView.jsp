@@ -24,16 +24,26 @@
         <div class="container pb-5">
             <div class="row">
                 <div class="col-lg-7 mt-5 container py-1">
+                	<h1 class="h2"><%=b.getWdTitle() %></h1>
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2"><%=b.getWdTitle() %></h1>
+                            
                             <p class="h3 py-2"><%=b.getWdCategory() %></p>
                             <p class="py-2">
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-warning"></i>
-                                <i class="fa fa-star text-secondary"></i>
+                             <%int scoreSum=0; %>
+                            <!-- 후기 별점 모두 더하기 -->
+                            <%for(ReviewBoard rb : reviews){ 
+                            	scoreSum+=rb.getReviewScore();
+                            }
+                            if(scoreSum!=0){             
+	                            for(int i=1;i<6;i++){
+	                            	if(scoreSum/(reviews.size())>=i){%>
+	                            		<i class="fa fa-star text-warning"></i>
+	                            	<%}else{ %>
+	                            		<i class="fa fa-star text-secondary"></i>
+	                            	<%} 
+	                            }
+                            }%> 
                                 <span class="list-inline-item text-dark"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>) | <%=b.getWdTime() %></span>
                                 
                                 <!--<a href="shop-single.html" class="h3 text-decoration-none">익명</a>  -->
@@ -86,20 +96,28 @@
                                                   result=1;
                                                }
                                             }%>   
-                                            <%if(loginMember.getMember_no()==b.getMemberNo()){ %>
-												<li class="list-inline-item"><span class="btn btn-success"
-												onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
-                                            <%}else if(result==1) {%>
-												<!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
-												<li class="list-inline-item"><span class="btn btn-success"
-												onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
-												<li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
-												onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
-                                            <%}else { %>
-												<li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
-												<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
-												onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
-                                 			<%} %>
+                                            <%if(wdJoinsW.size()<b.getWdCount()){ %>
+                                            	<!-- 동행작성자 -->
+	                                            <%if(loginMember.getMember_no()==b.getMemberNo()){ %>
+													<li class="list-inline-item"><span class="btn btn-success"
+													onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
+													<!-- 참가한 회원 -->
+	                                            <%}else if(result==1) {%>
+													<!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
+													<li class="list-inline-item"><span class="btn btn-success"
+													onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
+													<li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
+													onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+												<!-- 참가전 회원 -->
+	                                            <%}else { %>
+													<li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
+													<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
+													onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
+	                                 			<%} 
+	                                 		}else{%>
+	                                 			<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
+	                                 		<%} %>
+	                                 			
                                         </ul>
                                     </div>
                               </form>
@@ -341,6 +359,13 @@
    
    
     <style>
+    	/* 글 */
+    	.h2{text-align:center;}
+    
+    
+    
+    
+    
 	     /*댓글테이블*/
 	    div>div#comment-editor{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
 	    table#tbl-comment{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 

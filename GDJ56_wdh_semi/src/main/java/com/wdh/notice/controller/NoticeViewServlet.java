@@ -38,14 +38,6 @@ public class NoticeViewServlet extends HttpServlet {
 		request.setAttribute("notice", n);
 		request.getRequestDispatcher("/views/notice/noticeView.jsp").forward(request, response);
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	}
 
 	/**
