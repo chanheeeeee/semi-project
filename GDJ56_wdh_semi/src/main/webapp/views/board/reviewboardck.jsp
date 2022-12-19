@@ -18,7 +18,7 @@
 <h2 style="margin:5%; text-align:center;">동행 정보 확인</h2>
 
 <table id="info">
-	<tr>
+	<tr>	
 		<th>참여동행</th>
 		<td><%=b.getWdTitle() %></td>
 		<th>동행자 닉네임</th>
