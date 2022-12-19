@@ -29,15 +29,15 @@ public class DeleteQsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no=Integer.parseInt(request.getParameter("qs_no"));
+		int no=Integer.parseInt(request.getParameter("no"));
 		int result=new QsService().deleteQs(no);
 		String msg="",loc="";
 		if(result>0) {
 			msg="1대1문의 글 삭제";
-			loc="/cs/qs.do";
+			loc="/admin/adminQs.do";
 		}else {
 			msg="글 삭제 실패";
-			loc="/cs/qs.do?qsNo="+no;
+			loc="/admin/adminQs.do?qsNo="+no;
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);

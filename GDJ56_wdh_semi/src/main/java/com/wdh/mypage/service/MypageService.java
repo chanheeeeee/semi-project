@@ -75,7 +75,20 @@ public class MypageService {
 		close(conn);
 		return result;
 	}
-
+	
+//	동행 글 삭제
+	public int deleteMyBoard(int boardNo) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.deleteMyboard(conn, boardNo);
+		
+		close(conn);
+		
+		return result;
+		
+	}
+	
 	
 	
 	

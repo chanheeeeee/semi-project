@@ -87,8 +87,8 @@ public class UpdateMemberEndServlet extends HttpServlet {
 		
 		if(result>0) {
 			
-			msg="내 정보 업데이트 완료";
-			loc="/mypage/about.do";
+			msg="내 정보 업데이트 완료. 다시 로그인해 주세요.";
+			loc="/mypage/logout.do";
 			
 		}else {
 			
