@@ -48,7 +48,9 @@ public class BoardListServlet extends HttpServlet {
 		
 		List<Board> list = new BoardService2().selectBoardList(cPage, numPerpage);
 		
-		int totalData = new BoardService2().selectBoardCount();
+		
+		String where = "";
+		int totalData = new BoardService2().selectBoardCount(where);
 		
 		int pageBarSize = 5;
 		String pageBar = ""; //밑에서생성할것

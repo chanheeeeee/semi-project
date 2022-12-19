@@ -55,7 +55,7 @@ public class BoardSearchServlet extends HttpServlet {
 			numPerpage=12;
 		}
 		
-		//System.out.println("넘어온값 : "+"젠더:"+gender+" 목적:"+purpose+" 종목:"+category);
+		//System.out.println("넘어온값 : "+"성별:"+gender+" 목적:"+purpose+" 종목:"+category);
 		
 		//변수타입확인System.out.println(gender.getClass().getName());
 		
@@ -66,17 +66,9 @@ public class BoardSearchServlet extends HttpServlet {
 			sql += "and WD_CONTENT LIKE '%"+searchKeyword+"%'";
 		}
 		
-		if(gender!=null) {
-			if(gender.equals("A")) {
-				sql += "ORDER BY DECODE(WD_GENDER, 'A',1)";//무관 우선 정렬+여,남 모두
-			}else { 
-				sql += "and WD_GENDER LIKE '%"+gender+"%'";
-			}
-		}
 		if(purpose!=null) {
 			sql += "and WD_PURPOSE LIKE '%"+purpose+"%'";
 		}
-		
 		
 		String categoryUrl = ""; //쿼리스트링에 넘길값을 저장할 변수
 		//배열t f 확인
@@ -103,9 +95,19 @@ public class BoardSearchServlet extends HttpServlet {
 			sql += date;
 			
 		}
+		
+		//ORDER BY 절이 있어서 맨 밑으로 내림
+		if(gender!=null) {
+			if(gender.equals("A")) {
+				sql += "ORDER BY DECODE(WD_GENDER, 'A',1)";//무관 우선 정렬+여,남 모두
+			}else { 
+				sql += "and WD_GENDER LIKE '%"+gender+"%'";
+			}
+		}
+		
 		 
 		where = where.replace("#COL", sql);
-		System.out.println(where);
+		//System.out.println(where);
 		
 		
 		
@@ -114,7 +116,7 @@ public class BoardSearchServlet extends HttpServlet {
 		List<Board> list = new BoardService2().selectBoardList(where, searchKeyword, cPage, numPerpage);
 		//지도, 날짜도
 		
-		int totalData = new BoardService2().selectBoardCount();
+		int totalData = new BoardService2().selectBoardCount(where);
 		
 		int pageBarSize = 5;
 		String pageBar = "";
@@ -129,11 +131,14 @@ public class BoardSearchServlet extends HttpServlet {
 		}else {
 			//pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"'>🡸</a>,";
 			//pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"&searchKeyword="+searchKeyword+"&gender="+gender+"&purpose="+purpose+"&category="+categoryUrl+"'>🡸</a>,";
-			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"&searchKeyword="+searchKeyword+"&gender="+gender+"&purpose="+(purpose==null?"":purpose)+categoryUrl+"'>🡸</a>,";
-					/*"&category="+categoryUrl+
-					"&category="+categoryUrl+
-					"&category="+categoryUrl+
-					"&category="+categoryUrl+*/
+			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"&searchKeyword="+searchKeyword+
+																				
+																				//"&gender="+gender+
+																				"&gender="+(gender==null?"":gender)+ //선택안했을때null로넘어와서 
+																				
+																				"&purpose="+(purpose==null?"":purpose)+
+																				
+																				categoryUrl+"'>🡸</a>,";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
@@ -141,7 +146,7 @@ public class BoardSearchServlet extends HttpServlet {
 				pageBar += "<span>"+pageNo+"</span>,";
 			}else {
 				//pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>"+pageNo+"</a>,";
-				pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"&searchKeyword="+searchKeyword+"&gender="+gender+"&purpose="+(purpose==null?"":purpose)+categoryUrl+"'>"+pageNo+"</a>,";
+				pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"&searchKeyword="+searchKeyword+"&gender="+(gender==null?"":gender)+"&purpose="+(purpose==null?"":purpose)+categoryUrl+"'>"+pageNo+"</a>,";
 			}
 			pageNo++;
 		}
@@ -150,7 +155,7 @@ public class BoardSearchServlet extends HttpServlet {
 			pageBar += "<span>🡺</span>";
 		}else {
 			//pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>🡺</a>";
-			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"&searchKeyword="+searchKeyword+"&gender="+gender+"&purpose="+(purpose==null?"":purpose)+categoryUrl+"'>🡺</a>";
+			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"&searchKeyword="+searchKeyword+"&gender="+(gender==null?"":gender)+"&purpose="+(purpose==null?"":purpose)+categoryUrl+"'>🡺</a>";
 		}
 		
 		request.setAttribute("boards", list);

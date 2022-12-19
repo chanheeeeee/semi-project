@@ -22,25 +22,26 @@ private BoardDao2 dao = new BoardDao2();
 		return result;
 	}
 	
-	public int selectBoardCount() {
+	public int selectBoardCount(String where) {
 		Connection conn = getConnection();
-		int result = dao.selectBoardCount(conn);
+		int result = dao.selectBoardCount(conn, where);
 		close(conn);
 		return result;
 	}
 	
-	/*public List<Board> selectBoardList(String searchKeyword,int cPage, int numPerpage){
-		Connection conn=getConnection();
-		List<Board> result=dao.selectBoardList(conn, searchKeyword, cPage, numPerpage);
-		close(conn);
-		return result;
-	}*/
 	public List<Board> selectBoardList(String where, String searchKeyword,int cPage, int numPerpage){
 		Connection conn=getConnection();
 		List<Board> result=dao.selectBoardList(conn, where, searchKeyword, cPage, numPerpage);
 		close(conn);
 		return result;
 	}
+	
+//	public int selectBoardCount(where) { //카운트 하나로 써야하는가. 걍리스트-검색리스트 따로 카운트 만들어줘야하는가
+//		Connection conn = getConnection(); //하나만드는거지금하는중
+//		int result = dao.selectBoardCount(conn);
+//		close(conn);
+//		return result;
+//	}
 	
 	public Board selectBoard(int boardNo) {
 		Connection conn = getConnection();
