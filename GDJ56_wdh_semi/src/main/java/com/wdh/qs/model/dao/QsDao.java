@@ -151,6 +151,19 @@ public class QsDao {
 			close(pstmt);
 		}return result;
 	}
+	public int updateQsResult(Connection conn, int qsNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateQsResult"));
+			pstmt.setInt(1, qsNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 	public int deleteQsc(Connection conn, QsComment qsc) {
 		PreparedStatement pstmt=null;
 		int result=0;
