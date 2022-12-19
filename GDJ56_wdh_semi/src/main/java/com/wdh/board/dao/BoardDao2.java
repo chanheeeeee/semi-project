@@ -232,6 +232,7 @@ public class BoardDao2 {
 				.reviewDate(rs.getDate("REVIEW_DATE"))
 				.wdNo(rs.getInt("WD_NO"))
 				.reviewScore(rs.getDouble("REVIEW_SCORE"))
+				.img(rs.getString("IMG"))
 				.build();
 	}
 
