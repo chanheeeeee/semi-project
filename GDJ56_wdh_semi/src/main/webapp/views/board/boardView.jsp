@@ -24,9 +24,10 @@
         <div class="container pb-5">
             <div class="row">
                 <div class="col-lg-7 mt-5 container py-1">
+                	<h1 class="h2"><%=b.getWdTitle() %></h1>
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2"><%=b.getWdTitle() %></h1>
+                            
                             <p class="h3 py-2"><%=b.getWdCategory() %></p>
                             <p class="py-2">
                              <%int scoreSum=0; %>
@@ -358,6 +359,13 @@
    
    
     <style>
+    	/* 글 */
+    	.h2{text-align:center;}
+    
+    
+    
+    
+    
 	     /*댓글테이블*/
 	    div>div#comment-editor{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
 	    table#tbl-comment{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
