@@ -35,7 +35,7 @@
                       <div class="form-group row">
                       	<span class="d-none d-lg-block"><img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
                       							src="<%= m.getProfile() %>" onclick="fn_upfile();" />
-                      							<input type="file" name="upFile" style="display:none"><button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/mypage/profile.do';" style="margin-top: 28%;">변경</button>
+                      							<input type="file" name="upFile" style="display:none"><button type="button" class="btn btn-xs btn-lblue min-42" onclick="fn_updateProfile()" style="margin-top: 28%;">변경</button>
                       	</span>
                       </div>
                       
@@ -58,6 +58,10 @@
 								reader.readAsDataURL(e.target.files[0]);
 								
 							});
+							
+							const fn_updateProfile=()=>{
+									  location.href='<%=request.getContextPath()%>/mypage/changeProfile.do';
+							}
 					 </script>
                       
                       <div class="form-group row">

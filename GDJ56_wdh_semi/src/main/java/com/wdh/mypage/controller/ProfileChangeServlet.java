@@ -18,7 +18,7 @@ import com.wdh.mypage.service.MypageService;
 /**
  * Servlet implementation class ProfileChangeServlet
  */
-@WebServlet("/mypage/profile.do")
+@WebServlet("/mypage/changeProfile.do")
 public class ProfileChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
