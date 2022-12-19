@@ -22,7 +22,7 @@
 		<th>참여동행</th>
 		<td><%=b.getWdTitle() %></td>
 		<th>동행자 닉네임</th>
-		<td><%=m.getMember_nickname() %></td>
+		<td><%=loginMember.getMember_nickname() %></td>
 	</tr>
 	<tr>
 		<th>참여날짜</th>
