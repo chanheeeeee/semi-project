@@ -135,7 +135,7 @@ div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 21
                       	} else { %>
                       	
 	                      	<button type="button" class="btn btn-xs btn-lred min-42" 
-	                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?boardNo=<%=ml.getWdNo()%>';">삭제</button>
+	                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteMyBoard.do?boardNo=<%=ml.getWdNo()%>';">삭제</button>
 	                      		
                       	<% } %>
                       </td>
