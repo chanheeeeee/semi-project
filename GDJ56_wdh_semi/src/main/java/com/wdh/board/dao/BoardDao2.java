@@ -232,6 +232,8 @@ public class BoardDao2 {
 				.wdTime(rs.getDate("WD_TIME"))
 				.memberNo(rs.getInt("MEMBER_NO"))
 				.wdPurpose(rs.getString("WD_PURPOSE"))
+				//.dateFlag(rs.getInt("DATEFLAG"))
+				//.attendFlag(rs.getInt("ATTENDFLAG"))
 				.build();
 	}
 	

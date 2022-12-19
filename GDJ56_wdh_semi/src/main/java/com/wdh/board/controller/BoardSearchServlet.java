@@ -60,7 +60,7 @@ public class BoardSearchServlet extends HttpServlet {
 		//변수타입확인System.out.println(gender.getClass().getName());
 		
 		String sql = "";
-		String where = " WHERE 1=1 #COL"; //$COL
+		String where = "WHERE 1=1 #COL"; //$COL
 		
 		if(searchKeyword!=null) {
 			sql += "and WD_CONTENT LIKE '%"+searchKeyword+"%'";
@@ -99,7 +99,9 @@ public class BoardSearchServlet extends HttpServlet {
 		//ORDER BY 절이 있어서 맨 밑으로 내림
 		if(gender!=null) {
 			if(gender.equals("A")) {
-				sql += "ORDER BY DECODE(WD_GENDER, 'A',1)";//무관 우선 정렬+여,남 모두
+				sql += ""; //전부출력
+				//검색 SQL에 ORDERY BY가 겹쳐서 뺌
+				//sql += "ORDER BY DECODE(WD_GENDER, 'A',1)";//무관 우선 정렬+여,남 모두
 			}else { 
 				sql += "and WD_GENDER LIKE '%"+gender+"%'";
 			}

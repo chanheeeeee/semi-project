@@ -236,6 +236,11 @@
 	}) */
 
 </script>
+<!-- <style>
+.h-100 py-5 services-icon-wap shadow{
+	backgroundColor:"lime";
+}
+</style> -->
 <script>
 	temp = "<%=request.getAttribute("pageBar") %>";
 	let arr=temp.split(",");
