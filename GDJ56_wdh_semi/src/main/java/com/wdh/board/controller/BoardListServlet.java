@@ -59,25 +59,28 @@ public class BoardListServlet extends HttpServlet {
 		int pageEnd=pageNo+pageBarSize-1;
 		
 		if(pageNo==1){
-			pageBar += "<span>[이전]</span>";
+			pageBar += "<span>🡸</span>,";
 		}else {
-			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"'>[이전]</a>";
+			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"'>🡸</a>,";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar += "<span>"+pageNo+"</span>";
+				pageBar += "<span>"+pageNo+"</span>,";
 			}else {
-				pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>"+pageNo+"</a>";
+				pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>"+pageNo+"</a>,";
 			}
 			pageNo++;
 		}
 		
 		if(pageNo>totalPage) {
-			pageBar += "<span>[다음]</span>";
+			pageBar += "<span>🡺</span>";
 		}else {
-			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>[다음]</a>";
+			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>🡺</a>";
 		}
+		
+		//String[] arrPageBar = pageBar.split(",");스플릿확인
+		//for(String p : arrPageBar) System.out.println(p);
 		
 		request.setAttribute("boards", list);
 		request.setAttribute("pageBar", pageBar);

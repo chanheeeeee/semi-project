@@ -7,7 +7,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <%
-	List<Board> boards = (List<Board>)request.getAttribute("boards");
+	/* List<Board> boards = (List<Board>)request.getAttribute("boards");
+
+	List<Board> boardsWd = (List<Board>)request.getAttribute("boardsWd"); */
+	
+	List<Board> mergedList = (List<Board>)request.getAttribute("mergedList");
 
 	List<ReviewBoard> reviews = (List<ReviewBoard>)request.getAttribute("reviews");
 	
@@ -82,41 +86,53 @@
                     </tr>
                   </thead>
                   <tbody>
-                  <% if(boards.isEmpty()) { %>
-                  	<tr><td>작성된 글이 없습니다.</td></tr>
+                  <% if(mergedList.isEmpty()) { %>
+                  	<tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
                 	  
                 	  int i = 0;
 
-                	  	for(Board b : boards) {
-                	  		if(i<5) {
+                	  	for(Board ml : mergedList) {
+                	  		
+							if(i<5) {
                 	  		
 	                	  		for(ReviewBoard r : reviews) {
 	                	  			
-	                	  			if(r.getWdNo()==b.getWdNo()) {
+	                	  			if(r.getWdNo()==ml.getWdNo()) {
 	                					result = 1;
 	                				} 
 	                	  		}
                 	  		%>
                     <tr>
-                      <td><%= b.getWdNo() %></td>
-                      <td><%= b.getWdTitle() %></td>
-                      <td><%= b.getWdTime() %></td>
+                      <td><%= ml.getWdNo() %></td>
                       <td>
-                      <% if(result == 1) { %>
-                      
-                      	<button type="button" class="btn btn-xs btn-lgray min-42" disabled='disabled'>완료</button>
+                      	<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=ml.getWdNo()%>" style="text-decoration: none; color: black;">
+                      		<%= ml.getWdTitle() %>
+                      	</a>
+                      </td>
+                      <td><%= ml.getWdTime() %></td>
+                      <td>
+                      <% if(ml.getMemberNo() != loginMember.getMember_no()) {%>
+	                      <% if(result == 1) { %>
+	                      
+	                      	<button type="button" class="btn btn-xs btn-lgray min-42" disabled='disabled'>완료</button>
+	                      	
+	                      <% 
+	                      	
+	                      
+	                      } else { %>
+	                      
+	                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/board/reviewcheckboard.do?boardNo=<%=ml.getWdNo()%>';">작성</button>
+	                      	
+	                      <%
+	                      			
+	                      	} 
+                      	} else { %>
                       	
-                      <% 
-                      	
-                      
-                      } else { %>
-                      
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" onclick="location.href='<%=request.getContextPath()%>/board/reviewcheckboard.do?boardNo=<%=b.getWdNo()%>';">작성</button>
-                      	
-                      <%
-                      			
-                      	} %>
+	                      	<button type="button" class="btn btn-xs btn-lred min-42" 
+	                      		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteMyBoard.do?boardNo=<%=ml.getWdNo()%>';">삭제</button>
+	                      		
+                      	<% } %>
                       </td>
                     </tr>
                    <% 	
@@ -133,8 +149,8 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                 	<%-- <li><a href="<%=request.getContextPath()%>/mypage/paging.do?type=togather" class="more" style="color: #9b9b9b;">더보기 >></a></li> --%>
-                 	<li><a href="<%=request.getContextPath()%>/mypage/mycontent3.do" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+              
+                 	<li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=1" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -160,6 +176,7 @@
                   </thead>
                   <tbody>
                     <% if(reviews.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
                 	  
                 	  	int i = 0;
@@ -169,17 +186,23 @@
 						%>
                     <tr>
                       <td><%= r.getReviewSeq() %></td>
-                      <td><%= r.getReviewTitle() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=r.getWdNo()%>" style="text-decoration: none; color: black;">
+                      		<%= r.getReviewTitle() %>
+                      	</a>
+                      </td>
                       <td><%= r.getReviewDate() %></td>
                       <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      	<button type="button" class="btn btn-xs btn-lred min-42" 
                       		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteReview.do?reviewboardNo=<%= r.getReviewSeq() %>';">삭제</button>
                       </td>
                     </tr>
                    <%		}
+							
+							i++;
                    		}
                 	  	
-                	  	i++;
+                	  	
                 	 } %>
                   </tbody>
                 </table>
@@ -187,7 +210,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=2" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -215,6 +238,7 @@
                   </thead>
                   <tbody>
                     <% if(qs.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
                 	  
                 	  	int i = 0;
@@ -224,17 +248,23 @@
 						%>
                     <tr>
                       <td><%= q.getQsNo() %></td>
-                      <td><%= q.getQsTitle() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/cs/qs.do?qsNo=<%=q.getQsNo()%>" style="text-decoration: none; color: black;">
+                      		<%= q.getQsTitle() %>
+                      	</a>
+                      </td>
                       <td><%= q.getQsDate() %></td>
                       <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      	<button type="button" class="btn btn-xs btn-lred min-42" 
                       		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteQs.do?qsNo=<%= q.getQsNo() %>';">삭제</button>
                       </td>
                     </tr>
                    <%		}
+							
+							i++;
                    		}
                 	  	
-                	  	i++;
+                	  	
                 	 } %>
                   </tbody>
                 </table>
@@ -242,7 +272,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=3" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>
@@ -271,6 +301,7 @@
                   </thead>
                   <tbody>
                     <% if(dcl.isEmpty()) { %>
+                    <tr><td colspan="4">작성된 글이 없습니다.</td></tr>
                   <% } else {
                 	  
                 	  	int i = 0;
@@ -280,17 +311,23 @@
 						%>
                     <tr>
                       <td><%= d.getDclNo() %></td>
-                      <td><%= d.getDclTitle() %></td>
+                      <td>
+                      	<a href="<%=request.getContextPath()%>/cs/dclView.do?dclNo=<%=d.getDclNo()%>" style="text-decoration: none; color: black;">
+                      		<%= d.getDclTitle() %>
+                      	</a>
+					  </td>
                       <td><%= d.getDclDate() %></td>
                       <td>
-                      	<button type="button" class="btn btn-xs btn-lblue min-42" 
+                      	<button type="button" class="btn btn-xs btn-lred min-42" 
                       		onclick="location.href='<%=request.getContextPath()%>/mypage/deleteDcl.do?dclNo=<%= d.getDclNo() %>';">삭제</button>
                       </td>
                     </tr>
                    <%		}
+							
+							i++;
                    		}
                 	  	
-                	  	i++;
+                	  	
                 	 } %>
                   </tbody>
                 </table>
@@ -298,7 +335,7 @@
               <!-- /.card-body -->
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
-                  <li><a href="" class="more" style="color: #9b9b9b;">더보기 >></a></li>
+                  <li><a href="<%=request.getContextPath()%>/mypage/mycontentMore.do?type=4" class="more" style="color: #9b9b9b;">더보기 >></a></li>
                 </ul>
               </div>
             </div>

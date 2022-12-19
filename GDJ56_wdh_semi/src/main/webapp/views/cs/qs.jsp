@@ -45,7 +45,10 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dclWrite.do">신고하기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/writeQs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -87,9 +90,9 @@
                 <%}
                	}%>
                 </table>
-                <br>
-                	<button onclick="location.href='<%=request.getContextPath()%>/views/cs/subQs.jsp'">글쓰기</button>
-                <br>
+<!--                 <br> -->
+<%--                 	<button onclick="location.href='<%=request.getContextPath()%>/views/cs/subQs.jsp'">글쓰기</button> --%>
+<!--                 <br> -->
                 <div id="pageBar">
         			<%=request.getAttribute("pageBar") %>
         		</div>

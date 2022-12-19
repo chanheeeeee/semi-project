@@ -16,7 +16,7 @@ import com.wdh.del.model.vo.Declaration;
 /**
  * Servlet implementation class DclViewEndServlet
  */
-@WebServlet("/dcl/dclView.do")
+@WebServlet("/cs/dclView.do")
 public class DclViewEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     //신고하기 상세페이지 연결할 서블릿입니다

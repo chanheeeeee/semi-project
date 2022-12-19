@@ -1,4 +1,4 @@
-package com.wdh.board.controller;
+package com.wdh.qs.controller;
 
 import java.io.IOException;
 
@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.board.service.BoardService1;
-import com.wdh.board.vo.WdJoin;
+import com.wdh.qs.model.service.QsService;
+import com.wdh.qs.model.vo.QsComment;
 
 /**
- * Servlet implementation class WdCancleServlet
+ * Servlet implementation class QsCommentWriteServlet
  */
-@WebServlet("/board/wdcancle.do")
-public class WdCancleServlet extends HttpServlet {
+@WebServlet("/cs/qscommentWrite.do")
+public class QsCommentWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    //1대1문의 답변 서블릿입니다.
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WdCancleServlet() {
+    public QsCommentWriteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +30,29 @@ public class WdCancleServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-		int wdNo=Integer.parseInt(request.getParameter("wdNo"));
-		WdJoin wj=WdJoin.builder().memberNo(memberNo).wdNo(wdNo).build();
-		int result=new BoardService1().wdCancle(wj);
-		String msg="", loc="";
+		//답변에 입력한 데이터를 가져오기
+		QsComment qsc=QsComment.builder()
+				.qsRef(Integer.parseInt(request.getParameter("qsref")))
+				.qsCommentContent(request.getParameter("content"))
+				.qsCommentLevel(Integer.parseInt(request.getParameter("level")))
+				.qsCommentWriter(request.getParameter("commentWriter"))
+				.qsCommentRef(Integer.parseInt(request.getParameter("commentref")))
+				.build();
+		
+		int result=new QsService().insertQsComment(qsc);
+		String msg="",loc="";
 		if(result>0) {
-			msg="참가취소 완료! 다음에 다시 동행해주세요!";
-			loc="/board/boardView.do?boardNo=" + wdNo;
+			msg="문의 답변 성공";
 		}else {
-			msg="참가취소 실패! 다시 시도해주세요!";
-			loc="/board/boardView.do?boardNo=" + wdNo;
+			msg="문의 답변 실패";
 		}
+		loc="/cs/qsView.do?qsNo="+qsc.getQsRef();
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
+	
+	
+	
 	}
 
 	/**

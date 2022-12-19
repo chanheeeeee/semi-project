@@ -7,22 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.wdh.mypage.service.MypageService;
 
 /**
- * Servlet implementation class ReviewFileServlet
+ * Servlet implementation class ReviewDeleteServlet
  */
-@WebServlet("/reviewfile.do")
-public class ReviewFileServlet extends HttpServlet {
+@WebServlet("/board/reviewdelete.do")
+public class ReviewDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewFileServlet() {
+    public ReviewDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +28,21 @@ public class ReviewFileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if(!ServletFileUpload.isMultipartContent(request)) {
-			response.sendRedirect(request.getContextPath());
+		int reviewboardNo = Integer.parseInt(request.getParameter("reviewboardNo"));
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
+		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
+		int result = new MypageService().deleteReview(reviewboardNo);
+		String msg="", loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
+		if(result>0) {
+			msg="삭제 성공!";
 		}else {
-			String path=request.getServletContext().getRealPath("/images/review");
-			int maxSize=1024*1024*10;
-			String encoding="UTF-8";
-			DefaultFileRenamePolicy dfr=new DefaultFileRenamePolicy();
-			MultipartRequest mr=new MultipartRequest(request,path,maxSize,encoding,dfr);
-			String fileOrg=mr.getParameter("fileOrg");
-			
-			
+			msg="삭제 실패!";
 		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
+		
+	
 	}
 
 	/**

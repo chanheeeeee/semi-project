@@ -8,7 +8,8 @@
 	div.forgot > button {
         margin-right: 20px;
         padding: 5px 15px 5px 15px;
-        font-size: 20px;
+        font-size: 20px; 
+        
       }
       
 	
@@ -24,10 +25,12 @@
 	</div>
 	
 	<p class="text 2"> ${findid2}</p>
-	<table>
+	<table style="margin-right:-70px">
 		<tr>
 			<td colspan="2">
-				<input type="text" name="member_id" id="member_id" class="form-control" placeholder="아이디"  autofocus="" style="height: 55px; border-radius:20px; width:280px" required><br>
+			<form name="submitId">
+				<input type="text" name="member_id" id="member_id" class="form-control" placeholder="아이디"  autofocus="" style="height: 55px; border-radius:20px; width:280px" required>
+			</form>
 			</td>
 		</tr>
 		<tr>
@@ -40,20 +43,24 @@
 				<input type="email" name="email" id="email" class="form-control" placeholder="이메일"  style="height: 55px; border-radius:20px; width:280px;margin-left: -1px;" required>
 			</td>
 			<td>
-				<input type="button" id="btn_email" value="메일인증">
+				<input type="button" id="btn_email" value="메일인증" class="button" >
 			</td>
 		</tr>
-		<tr>
+		<div class="forgot " style="margin-top: 20px; margin-bottom: 20px;">
+         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="font-family: Jua;border: outset;">비밀번호 찾기</button>
+         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="font-family:'Jua';border: outset;">아이디 찾기</button> 
+         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
+         </div>
+		<tr id="trAuth" style="display:none">
 			<td>
-				<input type="email" name="check" id="check" class="form-control" placeholder="인증번호" style="height: 55px; border-radius:20px; width:280px;margin-left: -1px;" required>
+				<input type="email" name="check" id="check" class="form-control" placeholder="인증번호" style="height: 55px; border-radius:20px; width:280px;"  required>
+				<input type="hidden" id="find" value="">
 			</td>
 			<td>
-				<input type="button" value="확인" style="font-family:Jua; height:55px; margin-left:10px;">
+				<input type="button" class="button" value="인증확인" id="code_check" >
 			</td>
 		</tr>
 	</table>
-	<p class="checks" id="checks">${findpw_checkf}</p><br/>
-	<input type="button" id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" style="font-family:'Jua';width: 200px;margin-bottom: 20px;margin-left: -40px;" value="비밀번호 찾기">
 
 
 
@@ -76,27 +83,38 @@
 				data:{"member_id":id, "name":name, "email":email},
 				dataType:'json',
 				type:'POST',
-				success : result=>{
+				success:function(result){
 					console.log(result);
-					
-					
-/* 					isSuccess 인증번호가 날라갔으면 y
-					authNum 인증번호
-					password  비밀번호*/
-
-					/*
-					내일 할일
-					인증번호 넣고 확인 버튼 클릭시 인증번호가 일치할 경우 비밀번호 출력 / 일치하지 않으면 인증번호 다시 입력 하라고 하거나, 중복확인 다시 하도록 함 
-					빈값있으면 alert 띄워주기
-					
-					*/
-					
-					
+					//메일로 보내진 인증번호를 가져와 인증번호 칸과 동일한지 확인해야한다
+					//보낸인증번호와 일치한지를 알아보려면 일단 인증번호의 값을 어딘가에(input hidden) 저장한다
+					$("#find").val(result.authNum);
+					alert("인증번호가 전송되었습니다.");
+					$("#trAuth").show();
 				}
 			});
-			
+		}else{
+			alert("내용을 입력해주세요.");
 		}
-	})
+	});
+	 	//저장한 인증번호와 입력한 인증번호 일치여부 확인
+	 	$("#code_check").on("click",function(){
+	 		let code = $("#check").val();//입력한 인증번호 값 가져오기
+	 		let code_check = $("#find").val();//히든 입력한값 가져오기
+	 		
+	 		if(code!=code_check){
+	 			alert("인증번호를 확인해주세요.");
+	 		}else if(code_check == ""){
+	 			alert("인증을 진행해주세요.");	
+	 		}else{
+	 			//폼테그로 id값을 submit 해주기 위한 구문으로써 비밀번호 재설정시 어떤아이디의 비밀번호를 변경하는지 DB에 저장하기 위한 방법
+	 			//1.폼테그 및 hidden으로 인풋값을 작성하여 준다
+	 			submitId.method="post";//폼테그 메소드는 post방식
+	 			submitId.action="<%=request.getContextPath()%>/member/repassword.do";
+	 			submitId.submit();
+	 			
+	 			
+	 		}
+	 	});
 	
 	
 	</script>

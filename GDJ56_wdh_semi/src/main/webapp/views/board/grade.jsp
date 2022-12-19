@@ -123,7 +123,9 @@
         <script>
         	let indexOn=18;
             $( ".star_rating a" ).click(function() {
+            	//별 모두 class명 지워주기 (css적용해제)
                 $(this).parent().children("a").removeClass("on");
+                //클릭한 별과, 이전 형제들 class명 on으로 바꿔주기 (css적용)
                 $(this).addClass("on").prevAll("a").addClass("on");
                 indexOn=document.getElementsByClassName("on").length;
                 return false;

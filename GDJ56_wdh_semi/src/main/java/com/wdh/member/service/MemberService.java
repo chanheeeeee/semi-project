@@ -85,6 +85,13 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
+	public int rePassword(String member_id, String newpw) {
+		Connection conn = getConnection();
+		int result = new MemberDao().rePassword(conn,member_id,newpw);
+		close(conn);
+		return result;
+	}
 	
 	
 	

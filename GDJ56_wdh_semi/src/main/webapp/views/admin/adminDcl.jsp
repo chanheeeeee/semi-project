@@ -54,13 +54,15 @@
 			                    <th>제목</th>
 			                    <th>작성자</th>
 			                    <th>작성일</th>
+			                    <th>첨부파일</th>
 			                    <th>처리</th>
+			                    <th>답변</th>
 			                    <th>삭제</th>
 			                </tr>
 			                </thead>
 							<% if(declaration.isEmpty()){ %>
 							<tr>
-								<td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
+								<td colspan="9"><h3>조회된 게시판이 없습니다.</h3></td>
 							</tr>	
 							<%}else{ 
 								for(Declaration d : declaration){
@@ -68,20 +70,30 @@
 							 <tr>
                 				<td><%=d.getDclNo() %></td>
                 				<td><%=d.getDclHeadTitle() %></td>
-	                			<td><a href="<%=request.getContextPath()%>/cs/DclView.do?DclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
+	                			<td><a href="<%=request.getContextPath()%>/cs/dclView.do?dclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
 		                		<td><%=d.getMember().getMember_id() %></td>
 		                		<td><%=d.getDclDate() %></td>
+		                		<td>
+		                       		<%if(d.getFilePath()!=null){ %>
+                						<img src="<%=request.getContextPath() %>/images/file.png" width="20" height="20">
+                					<%}else{ %>
+                						첨부파일 없음
+                					<%} %>
+                				</td>
 		                		<td><%=d.getDclResult() %></td>
-		                		<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>
+		                		<td><input type="button" value="답변" onclick="location.replace('<%=request.getContextPath()%>/cs/dclView.do?dclNo=<%=d.getDclNo()%>')"></td>
+		                		<td><input type="button" value="삭제" onclick="fn_deleteDcl(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>
 		                		<%} 
                	 			}%>
-                			</tr>
+                			</tr>	
                 			</table>
                 			<br>
-			                 <%-- 페이징 처리 --%>
-			                <%--<div id="pageBar">
-			                	<%=request.getAttribute("pageBar") %>
-			                </div> --%>
 			            </section>
 			            <br>
-			        </div> 
+			        </div>
+  <script>
+    	const fn_deleteDcl=(dclNo,fileName)=>{
+    		//삭제하기 스크립트
+    		location.replace("<%=request.getContextPath()%>/cs/deleteDcl.do?no="+dclNo+"&fileName="+fileName);
+    	}
+    </script>

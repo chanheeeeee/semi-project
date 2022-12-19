@@ -9,6 +9,27 @@
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember");
 %>
+<style>
+    div#comment-container button#btn-insert{position:relative;}
+
+	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both; } 
+    table#dcl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:120%;}
+    table#dcl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
+    table#dcl-comment tr td:last-of-type {text-align:right; width: 100px;}
+/*     table#dcl-comment button.btn-reply{display:none;} */
+    table#dcl-comment button.btn-delete{display:none;}
+/*     table#dcl-comment tr:hover {background:lightgray;} */
+     table#dcl-comment tr:hover button.btn-reply{display:inline;}
+     table#dcl-comment tr:hover button.btn-delete{display:inline;}
+/*     table#dcl-comment tr.level2 {color:gray; font-size: 14px;} */
+    table#dcl-comment sub.comment-writer {color:navy; font-size:14px}
+    table#dcl-comment sub.comment-date {color:tomato; font-size:10px}
+/*     table#dcl-comment tr.level2 td:first-of-type{padding-left:100px;}*/
+/*     table#dcl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}*/
+/*     table#dcl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}*/
+
+</style>
+
 <!DOCTYhPE tml>
 <html>
 <head>
@@ -52,7 +73,10 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dclWrite.do">신고하기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/writeQs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -96,23 +120,24 @@
     				<th>내 용</th>
     				<td><%=dcl.getDclContent() %></td>
     			</tr>
-    			<!-- 관리자만 삭제할 수 있고 답변 할 수 있게 분기처리 -->
-    			<%if(loginMember!=null&&loginMember.getMember_id().equals("admin")){ %>
-    			<tr>
-    				<th colspan="1">
-    					
-    					<input type="button" value="삭제" onclick="fn_deleteDcl(<%=dcl.getDclNo() %>,'<%=dcl.getFilePath() %>');"> 
-    				</th>
-    			</tr>
-    			<%} %>
     		</table>
+    			<br>
+    			<!-- 관리자만 삭제할 수 있고 답변 할 수 있게 분기처리 -->
+<%--     			<%if(loginMember!=null&&loginMember.getMember_id().equals("admin")){ %> --%>
+<!--     			<tr> -->
+<!--     				<th colspan="1"> -->
+    					
+<%--     					<input type="button" value="삭제" onclick="fn_deleteDcl(<%=dcl.getDclNo() %>,'<%=dcl.getFilePath() %>');">  --%>
+<!--     				</th> -->
+<!--     			</tr> -->
+<%--     			<%} %> --%>
     		<div id="comment-container">
     			<div class="comment-editor">
-    				<form action="<%=request.getContextPath()%>cs/commentWrite.do" method="post">
-    					<textarea name="content" rows="30" cols="100"></textarea>
+    				<form action="<%=request.getContextPath()%>/cs/commentWrite.do" method="post">
+    					<textarea name="content" rows="10" cols="70" placeholder="신고하기 답변"></textarea>
     					<input type="hidden" name="dclref" value="<%=dcl.getDclNo() %>">
     					<input type="hidden" name="level" value="1"/>
-    					<input type="hidden" name="commentref" value="0"/>
+    					<input type="hidden" name="commentref" value="1"/>
     					<input type="hidden" name="commentWriter" value="관리자"/>
     					<button type="submit" id="btn-insert">등록</button>
      				</form>
@@ -121,23 +146,27 @@
     			<%if(!comments.isEmpty()) {
     				for(DclComment dc : comments){
     					if(dc.getDclCommentLevel()==1){%>
-    					<tr class="level1">
-    						<td class="comment-writer"><%=dc.getDclCommentWriter() %></td>
-    						<td><%=dc.getDclCommentContent() %></td>
-    						<td class="comment-date"><%=dc.getDclCommentDate() %></td>
-    					</tr>
-    					<tr>
-    						<td>
-    							<button class="btn-delete">삭제</button>
-    						</td>
-    					</tr>
-    				<%}//if
-    				}//for
-    			}//if%>
+    				<tr class="level1">
+    					<td>
+    						<sub class="comment-writer"><%=dc.getDclCommentWriter() %></sub>
+    						<sub class="comment-date"><%=dc.getDclCommentDate() %></sub>
+    						<br>
+    							<%=dc.getDclCommentContent() %>
+    					</td>
+    				</tr>
+    				<tr>
+    					<td>
+    						<button class="btn-delete">삭제</button>
+    					</td>  
+    				</tr>
+    			<%}//if
+    			}//for
+    		}//if%>
     		</table>
     		<br>
     	</div>
     </div>
+   </div>
     </section>
     <script>
     	const fn_fileDown=(fileName)=>{

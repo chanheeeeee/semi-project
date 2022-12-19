@@ -259,8 +259,8 @@ body, ul, li, p, a, label, input, div {
 .bg-black { background-color: #1d242d !important;}
 .bg-success { background-color: #124197 !important;}
 .btn-success {
-  background-color: #59ab6e !important;
-  border-color: #56ae6c !important;
+  background-color: #094d96 !important;
+  border-color: #124197 !important;
 }
 .pagination .page-link:hover {color: #000;}
 .pagination .page-link:hover, .pagination .page-link.active {
@@ -366,7 +366,7 @@ header {
 /* Services */
 .services-icon-wap {transition: .3s;}
 .services-icon-wap:hover, .services-icon-wap:hover i {color: #fff;}
-.services-icon-wap:hover {background: #124197;}
+.services-icon-wap:hover {background: linear-gradient(rgb(236, 238, 242), rgb(203, 203, 203) 83%, #aeaeae);}
 /* Contact map */
 .leaflet-control a, .leaflet-control { font-size: 10px !important;}
 .form-control { border: 1px solid #e8e8e8;}

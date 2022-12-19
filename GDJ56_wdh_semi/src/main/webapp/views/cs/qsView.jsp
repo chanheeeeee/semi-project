@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.wdh.qs.model.vo.Question" %>
+<%@ page import="java.util.List,com.wdh.qs.model.vo.Question,com.wdh.qs.model.vo.QsComment" %>
 <%
 	Question qs=(Question)request.getAttribute("qs");
+	List<QsComment> comments=(List<QsComment>)request.getAttribute("comment");
 %>
 <%@ page import="com.wdh.member.vo.Member" %>
 <%
@@ -51,7 +52,10 @@
                             <a class="nav-link" href="<%=request.getContextPath()%>/cs/spon.do">광고문의</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/qs.do">1대1 문의</a>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/dclWrite.do">신고하기</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/cs/writeQs.do">1대1 문의</a>
                         </li>
                     </ul>
                 </div>
@@ -62,6 +66,7 @@
     </nav>
     <!-- Close Header -->
     <br>
+<section id="qs-container">
     <div font-family:jua;>
     	<div id="tbl-board">
 			<h2><strong>1대1문의 상세페이지</strong></h2>    
@@ -83,19 +88,50 @@
     					<th>내 용</th>
     					<td><%=qs.getQsContent() %></td>
     				</tr>
-    				<!-- 관리자만 삭제할 수 있고 답변 할 수 있게 분기처리 -->
-    				<%if(loginMember!=null&&loginMember.getMember_id().equals("admin")) {%>
-    				<tr>
-    					<th colspan="2">
-    						<input type="button" value="답변" onclick="">
-    						<input type="button" value="삭제" onclick="location.href='<%=request.getContextPath()%>/cs/deleteQs.do?qs_no=<%=qs.getQsNo()%>';">
-    					</th>
-    				</tr>
-    				<%} %>
     			</table>
-<!--     			</form> -->
     			<br>
+<%-- <%--     				<!-- 관리자만 삭제할 수 있고 답변 할 수 있게 분기처리 --> --%>
+<%--     				<%if(loginMember!=null&&loginMember.getMember_id().equals("admin")) {%> --%>
+<%--     				<tr> --%>
+<%--     					<th colspan="2"> --%>
+<%--     						<input type="button" value="답변" onclick=""> --%>
+<%--     						<input type="button" value="삭제" onclick="location.href='<%=request.getContextPath()%>/cs/deleteQs.do?qs_no=<%=qs.getQsNo()%>';"> --%>
+<%--     					</th> --%>
+<%--     				</tr> --%>
+<%--     				<%} %> --%>
+<!--     			</form> -->
+    			<div id="comment-container">
+    				<div class="comment-editor">
+    					<form action="<%=request.getContextPath()%> /cs/qscommentWrite.do" method="post">
+    						<textarea name="content" rows="10" cols="70" placeholder="1대1문의 답변"></textarea>
+    						<input type="hidden" name="qsref" value="<%=qs.getQsNo()%>">
+    						<input type="hidden" name="level" value="1">
+    						<input type="hidden" name="commentref" value="1">
+    						<input type="hidden" name="commentWriter" value="관리자">
+    						<button type="submit" id="btn-insert">등록</button>
+    					</form>
+    				</div>
+    				<table id="qs-comment">
+    					<%if(!comments.isEmpty()) {
+    						for(QsComment qsc : comments){
+    							if(qsc.getQsCommentLevel()==1){%>
+    							<tr class="level1">
+    								<td class="comment-writer"><%=qsc.getQsCommentWriter() %></td>
+    								<td><%=qsc.getQsCommentContent() %></td>
+    								<td class="comment-data"><%=qsc.getQsCommentDate() %></td>
+    							</tr>
+    							<tr>
+    								<td>
+    									<button class="btn-delete">삭제</button>
+    								</td>
+    							</tr>
+    						<%}//if
+    						}//for
+    					}//if%>
+    				</table>
+    				<br>
+    			</div>
     	</div>
     </div>
-
+</section>
 <%@ include file="/views/common/footer.jsp" %>

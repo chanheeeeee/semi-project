@@ -15,6 +15,8 @@ import java.util.Properties;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.BoardComment;
 import com.wdh.board.vo.ReviewBoard;
+import com.wdh.member.dao.MemberDao;
+import com.wdh.member.vo.Member;
 
 public class BoardDao2 {
 	
@@ -68,27 +70,6 @@ public class BoardDao2 {
 		}return result;
 	}
 	
-	/*public List<Board> selectBoardList(Connection conn, String searchKeyword, int cPage, int numPerpage){
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List<Board> list = new ArrayList();
-		String query=sql.getProperty("selectBoardListKeyword");
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%"+searchKeyword+"%");
-			pstmt.setInt(2, (cPage-1)*numPerpage+1);
-			pstmt.setInt(3, cPage*numPerpage);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				list.add(getBoard(rs));
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rs);
-			close(pstmt);
-		}return list;
-	}*/
 	public List<Board> selectBoardList(Connection conn, String where, String searchKeyword, int cPage, int numPerpage){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -120,7 +101,11 @@ public class BoardDao2 {
 			pstmt = conn.prepareStatement(sql.getProperty("selectBoard"));
 			pstmt.setInt(1, boardNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) b=getBoard(rs);
+			if(rs.next()) {
+				b = getBoard(rs);
+				b.setMember(MemberDao.getMember(rs));
+				
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -138,7 +123,12 @@ public class BoardDao2 {
 			pstmt = conn.prepareStatement(sql.getProperty("selectBoardComment"));
 			pstmt.setInt(1, boardNo);
 			rs = pstmt.executeQuery();
-			while(rs.next()) list.add(getBoardComment(rs));
+			while(rs.next()) {
+				//list.add(getBoardComment(rs));
+				BoardComment bc = getBoardComment(rs);
+				bc.setMember(MemberDao.getMember(rs));
+				list.add(bc);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -242,6 +232,7 @@ public class BoardDao2 {
 				.reviewDate(rs.getDate("REVIEW_DATE"))
 				.wdNo(rs.getInt("WD_NO"))
 				.reviewScore(rs.getDouble("REVIEW_SCORE"))
+				.img(rs.getString("IMG"))
 				.build();
 	}
 

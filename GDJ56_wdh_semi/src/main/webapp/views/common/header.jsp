@@ -109,7 +109,7 @@
 						<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
 
 
-							<li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li>
+							<%-- <li class="nav-item"><a class="nav-link fs-2" href="<%=request.getContextPath() %>/main.do">홈</a></li> --%>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/notice/noticeList.do">공지사항</a></li>
 							<%if(loginMember!=null){ %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/board/boardList.do">동행</a></li>
@@ -126,10 +126,10 @@
 					</div>
 					<div class="navbar align-self-center d-lg-flex justify-content-lg-between"	id="templatemo_main_nav">
 						<div class="flex-fill">
-							<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+							<ul	class="nav navbar-nav d-flex justify-content-between mx-lg-auto" style="font-size: 20px;" >
 							<% if(loginMember == null) { %>
-								<li class="nav-item" id="login" ><a class="nav-link fs-3">로그인</a></li>
-								<li class="nav-item" id="join"><a class="nav-link fs-3" >회원가입</a></li>
+								<li class="nav-item" id="login" ><a class="nav-link fs-3-2">로그인</a></li>
+								<li class="nav-item" id="join"><a class="nav-link fs-3-2" >회원가입</a></li>
 							<% } else { %>
 								<li class="nav-item" id="mypage" >
 									<a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>
@@ -137,7 +137,12 @@
                       							src="<%=request.getContextPath() %>/assets/img/pocha.jpg" />
 									</a>
 								</li>
-								<li class="nav-item" id="mypage" ><a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/logout.do'>로그아웃</a></li>
+								<li class="nav-item" id="mypage" ><a class="nav-link fs-3-2" style="margin-top: 2%;"><%= loginMember.getMember_nickname() %> 회원님</a>
+									<a class="nav-link fs-3-2" href='<%=request.getContextPath()%>/mypage/logout.do' style="margin-top: -9%;">로그아웃</a>
+								</li>
+								<li class="nav-item" id="chat" >
+									<a class="nav-link fs-3-2" href='' style="margin-top: -9%;">채팅</a>
+								</li>
 							<% } %>
 							</ul>
 						</div>
@@ -145,7 +150,7 @@
 				</div>
 			</div>
 		</nav>
-		<form id="frm"></form>
+		<form id="frm" name="frm"></form>
 	</header>
 	
 	<script>
@@ -154,11 +159,19 @@
 			$("#frm").submit();
 		});
 		
-		
-		 $("#join").on("click",function(){
+		$("#join").on("click",function(){
 			$("#frm").attr("action","<%=request.getContextPath()%>/member/joinTerms.do");
 			$("#frm").submit();
 			
+		});
+		
+		//채팅 버튼 클릭시 채팅창 팝업 출력
+		$("#chat").on("click", function(){
+			open("","frm","width=300,height=300");
+			frm.action = "<%=request.getContextPath()%>/chat/chat.do";
+			frm.method = "post";
+			frm.target="frm";
+			frm.submit();
 		});
 		 
 		

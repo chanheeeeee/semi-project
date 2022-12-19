@@ -304,7 +304,7 @@
                 // Remove event from text input
                 $('#new-event').val('')
               })
-            })
+            });
           </script>
 
 <%@ include file="/views/common/footer.jsp" %>

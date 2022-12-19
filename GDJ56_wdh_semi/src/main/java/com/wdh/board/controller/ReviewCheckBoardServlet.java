@@ -1,6 +1,7 @@
 package com.wdh.board.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.board.service.BoardService1;
 import com.wdh.board.service.BoardService2;
 import com.wdh.board.vo.Board;
+import com.wdh.member.vo.Member;
+import com.wdh.mypage.service.MypageService;
 
 /**
  * Servlet implementation class ReviewCheckBoardServlet
@@ -32,7 +36,10 @@ public class ReviewCheckBoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
 		Board b=new BoardService2().selectBoard(wdNo);
+		Member m=new BoardService1().selectMember(wdNo);
+		
 		request.setAttribute("board", b);
+		request.setAttribute("member", m);
 		request.getRequestDispatcher("/views/board/reviewboardck.jsp").forward(request, response);
 		
 	}

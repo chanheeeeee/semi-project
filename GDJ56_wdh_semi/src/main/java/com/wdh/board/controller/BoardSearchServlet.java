@@ -33,8 +33,11 @@ public class BoardSearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchKeyword = request.getParameter("searchKeyword");
 		String gender = request.getParameter("gender");
-		String goal = request.getParameter("goal");
-		String event = request.getParameter("event");
+		String purpose = request.getParameter("purpose");
+		String[] categoryArr = request.getParameterValues("category");
+		String[] dateArr = request.getParameterValues("date");
+		
+		
 		
 		int cPage;
 		try {
@@ -50,24 +53,49 @@ public class BoardSearchServlet extends HttpServlet {
 			numPerpage=12;
 		}
 		
+		//System.out.println("넘어온값 : "+"젠더:"+gender+" 목적:"+purpose+" 종목:"+category);
+		
+		//변수타입확인System.out.println(gender.getClass().getName());
+		
 		String sql = "";
-		String where = " 1=1 $COL"; //where 1=1 $COL
+		String where = " WHERE 1=1 #COL"; //$COL
 		
 		if(searchKeyword!=null) {
 			sql += "and WD_CONTENT LIKE '%"+searchKeyword+"%'";
 		}
+		
 		if(gender!=null) {
-			sql += "and WD_GENDER LIKE '%"+gender+"%'";
+			if(gender.equals("A")) {
+				sql += "ORDER BY DECODE(WD_GENDER, 'A',1)";//무관 우선 정렬+여,남 모두
+			}else { 
+				sql += "and WD_GENDER LIKE '%"+gender+"%'";
+			}
+			 
+			//System.out.println(sql);
 		}
-		if(goal!=null) {
-			sql += "and WD_PURPOSE LIKE '%"+goal+"%'";
+		if(purpose!=null) {
+			sql += "and WD_PURPOSE LIKE '%"+purpose+"%'";
 		}
 		
-		if(event!=null) { 
-			sql += "and WD_CATEGORY LIKE '%"+event+"%'";
+		if(categoryArr!=null) { 
+			String category = "";
+			for(String c : categoryArr) {	category += c+"|";	}
+			category = category.substring(0, category.length()-1);//System.out.println(category);
+
+			sql += "and REGEXP_LIKE( WD_CATEGORY, '"+category+"')";
+		}
+		
+		if(dateArr!=null) { 
+			/*
+			 * String date = ""; for(String d : dateArr) { date += d+"|"; }
+			 * System.out.println(date);
+			 */
+
+			//sql += "and WD_PURPOSE LIKE '%"+값+"%'";
+			//SELECT * FROM (SELECT ROWNUM AS RNUM, M.* FROM(SELECT * FROM WRITEBOARD WD_DATE BETWEEN "2020-06-01" AND "2020-06-07")M) WHERE RNUM BETWEEN ? AND ?
 		}
 		 
-		where = where.replace("$COL", sql);
+		where = where.replace("#COL", sql);
 		System.out.println(where);
 		
 		
@@ -90,24 +118,24 @@ public class BoardSearchServlet extends HttpServlet {
 		int pageEnd=pageNo+pageBarSize-1;
 		
 		if(pageNo==1){
-			pageBar += "<span>[이전]</span>";
+			pageBar += "<span>🡸</span>,";
 		}else {
-			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"'>[이전]</a>";
+			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+(pageNo-1)+"'>🡸</a>,";
 		}
 		
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
-				pageBar += "<span>"+pageNo+"</span>";
+				pageBar += "<span>"+pageNo+"</span>,";
 			}else {
-				pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>"+pageNo+"</a>";
+				pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>"+pageNo+"</a>,";
 			}
 			pageNo++;
 		}
 		
 		if(pageNo>totalPage) {
-			pageBar += "<span>[다음]</span>";
+			pageBar += "<span>🡺</span>";
 		}else {
-			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>[다음]</a>";
+			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>🡺</a>";
 		}
 		
 		request.setAttribute("boards", list);
