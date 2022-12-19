@@ -130,7 +130,7 @@ public class DclDao {
 		ResultSet rs=null;
 		List<DclComment> list=new ArrayList();
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("seletDclComment"));
+			pstmt=conn.prepareStatement(sql.getProperty("selectDclComment"));
 			pstmt.setInt(1, no);
 			rs=pstmt.executeQuery();
 			while(rs.next()) list.add(getDclComment(rs));
@@ -159,11 +159,6 @@ public class DclDao {
 		}return result;
 	}
 	
-	
-	
-	
-	
-	
 	private DclComment getDclComment(ResultSet rs) throws SQLException{
 		return DclComment.builder()
 				.dclCommentNo(rs.getInt("dcl_comment_no"))
@@ -172,7 +167,7 @@ public class DclDao {
 				.dclCommentContent(rs.getString("dcl_comment_content"))
 				.dclRef(rs.getInt("dcl_ref"))
 				.dclCommentRef(rs.getInt("dcl_comment_ref"))
-				.DclCommentDate(rs.getDate("dcl_comment_date"))
+				.dclCommentDate(rs.getDate("dcl_comment_date"))
 				.build();
 	}
 	

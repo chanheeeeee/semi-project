@@ -191,7 +191,32 @@ public class MypageDao {
 			close(pstmt);
 		}return result;
 	}
-	
+
+//	동행 글 삭제
+	public int deleteMyboard(Connection conn, int boardNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("deleteMyBoard"));
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
 	
 //	후기 목록 불러오기
 	public List<ReviewBoard> selectBoardListR(Connection conn, int cPage, int numPerpage, Member m){

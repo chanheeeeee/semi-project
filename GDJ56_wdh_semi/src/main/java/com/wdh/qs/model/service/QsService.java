@@ -6,10 +6,13 @@ import static com.wdh.common.JDBCTemplate.getConnection;
 import static com.wdh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.wdh.member.vo.Member;
 import com.wdh.qs.model.dao.QsDao;
+import com.wdh.qs.model.vo.QsComment;
 import com.wdh.qs.model.vo.Question;
 
 public class QsService {
@@ -48,5 +51,24 @@ public class QsService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	public List<QsComment> selectQsComment(int qsNo){
+		Connection conn=getConnection();
+		List<QsComment> list=dao.selectQsComment(conn,qsNo);
+		close(conn);
+		return list;
+	}
+	public int insertQsComment(QsComment qsc) {
+		Connection conn=getConnection();
+		int result=dao.insertQsComment(conn,qsc);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+			}
+		close(conn);
+		return result;
+	
+		
 	}
 }

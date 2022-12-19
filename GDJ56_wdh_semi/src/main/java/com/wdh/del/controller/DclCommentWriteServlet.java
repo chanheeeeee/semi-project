@@ -30,7 +30,7 @@ public class DclCommentWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//댓글에 입력한 데이터 가져오기
+		//답변에 입력한 데이터 가져오기
 		DclComment dcm=DclComment.builder()
 				.dclRef(Integer.parseInt(request.getParameter("dclref")))
 				.dclCommentContent(request.getParameter("content"))
@@ -46,8 +46,8 @@ public class DclCommentWriteServlet extends HttpServlet {
 		}else {
 			msg="답변 등록 실패";
 		}
-		loc="/dcl/dclView.do?dclNo="+dcm.getDclRef();
-		request.setAttribute(msg, msg);
+		loc="/cs/dclView.do?dclNo="+dcm.getDclRef();
+		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
 	

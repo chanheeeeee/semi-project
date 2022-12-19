@@ -62,7 +62,7 @@
 			                </thead>
 							<% if(declaration.isEmpty()){ %>
 							<tr>
-								<td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
+								<td colspan="9"><h3>조회된 게시판이 없습니다.</h3></td>
 							</tr>	
 							<%}else{ 
 								for(Declaration d : declaration){
@@ -70,7 +70,7 @@
 							 <tr>
                 				<td><%=d.getDclNo() %></td>
                 				<td><%=d.getDclHeadTitle() %></td>
-	                			<td><a href="<%=request.getContextPath()%>/cs/DclView.do?DclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
+	                			<td><a href="<%=request.getContextPath()%>/cs/dclView.do?dclNo=<%=d.getDclNo()%>"><%=d.getDclTitle()%></a></td>
 		                		<td><%=d.getMember().getMember_id() %></td>
 		                		<td><%=d.getDclDate() %></td>
 		                		<td>
@@ -81,8 +81,8 @@
                 					<%} %>
                 				</td>
 		                		<td><%=d.getDclResult() %></td>
-		                		<td><input type="button" value="답변" onclick="fn_"></td>
-		                		<td><input type="button" value="삭제" onclick="fn_deleteNotice(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>
+		                		<td><input type="button" value="답변" onclick="location.replace('<%=request.getContextPath()%>/cs/dclView.do?dclNo=<%=d.getDclNo()%>')"></td>
+		                		<td><input type="button" value="삭제" onclick="fn_deleteDcl(<%=d.getDclNo()%>,'<%=d.getFilePath()%>');"></td>
 		                		<%} 
                	 			}%>
                 			</tr>	

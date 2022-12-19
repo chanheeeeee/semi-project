@@ -14,5 +14,5 @@ public class DclComment {
 	private String dclCommentContent;
 	private int dclRef;
 	private int dclCommentRef;
-	private Date DclCommentDate;
+	private Date dclCommentDate;
 }
