@@ -1,32 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.wdh.del.model.vo.Declaration,com.wdh.del.model.vo.DclComment" %>
+<%@ page import="java.util.List,com.wdh.del.model.vo.Declaration,com.wdh.del.model.vo.DclComment,com.wdh.member.vo.Member" %>
 <%
 	Declaration dcl=(Declaration)request.getAttribute("dcl");
 	List<DclComment> comments=(List<DclComment>)request.getAttribute("comment");
-%>
-<%@ page import="com.wdh.member.vo.Member" %>
-<%
+// 	DclComment dclc=(DclComment)request.getAttribute("dclc");
 	Member loginMember=(Member)session.getAttribute("loginMember");
 %>
 <style>
     div#comment-container button#btn-insert{position:relative;}
 
 	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both; } 
-    table#dcl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:120%;}
-    table#dcl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
-    table#dcl-comment tr td:last-of-type {text-align:right; width: 100px;}
-/*     table#dcl-comment button.btn-reply{display:none;} */
-    table#dcl-comment button.btn-delete{display:none;}
-/*     table#dcl-comment tr:hover {background:lightgray;} */
-     table#dcl-comment tr:hover button.btn-reply{display:inline;}
-     table#dcl-comment tr:hover button.btn-delete{display:inline;}
-/*     table#dcl-comment tr.level2 {color:gray; font-size: 14px;} */
-    table#dcl-comment sub.comment-writer {color:navy; font-size:14px}
-    table#dcl-comment sub.comment-date {color:tomato; font-size:10px}
-/*     table#dcl-comment tr.level2 td:first-of-type{padding-left:100px;}*/
-/*     table#dcl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}*/
-/*     table#dcl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}*/
+    table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:120%;}
+    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
+    table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
+
+    table#tbl-comment button.btn-delete{display:none;}
+
+     table#tbl-comment tr:hover button.btn-reply{display:inline;}
+     table#tbl-comment tr:hover button.btn-delete{display:inline;}
+
+    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
+    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
+
 
 </style>
 
@@ -88,7 +84,7 @@
     <!-- Close Header -->
     <br>
 <section id="dcl-container">
-<div font-family:Jua;>
+<div font-family:jua;>
     <div id="tbl-board">
     	<h2><strong>신고하기 상세페이지</strong></h2>
     		<table id="tbl-dcl">
@@ -122,17 +118,11 @@
     			</tr>
     		</table>
     			<br>
-    			<!-- 관리자만 삭제할 수 있고 답변 할 수 있게 분기처리 -->
-<%--     			<%if(loginMember!=null&&loginMember.getMember_id().equals("admin")){ %> --%>
-<!--     			<tr> -->
-<!--     				<th colspan="1"> -->
-    					
-<%--     					<input type="button" value="삭제" onclick="fn_deleteDcl(<%=dcl.getDclNo() %>,'<%=dcl.getFilePath() %>');">  --%>
-<!--     				</th> -->
-<!--     			</tr> -->
-<%--     			<%} %> --%>
+    		<%if(loginMember!=null&&
+    			(loginMember.getMember_id().equals("admin"))){ %>
     		<div id="comment-container">
     			<div class="comment-editor">
+    			<img src="<%=request.getContextPath() %>/images/commentimg.png" style="float:left" width="50" height="50">
     				<form action="<%=request.getContextPath()%>/cs/commentWrite.do" method="post">
     					<textarea name="content" rows="10" cols="70" placeholder="신고하기 답변"></textarea>
     					<input type="hidden" name="dclref" value="<%=dcl.getDclNo() %>">
@@ -142,21 +132,29 @@
     					<button type="submit" id="btn-insert">등록</button>
      				</form>
     			</div>
-    		<table id="dcl-comment">
+    			<%} %>
+    		<table id="tbl-comment">
     			<%if(!comments.isEmpty()) {
     				for(DclComment dc : comments){
     					if(dc.getDclCommentLevel()==1){%>
     				<tr class="level1">
     					<td>
-    						<sub class="comment-writer"><%=dc.getDclCommentWriter() %></sub>
+    					<img src="<%=request.getContextPath() %>/images/commentimg.png" style="float:left" width="50" height="50">
+    						&nbsp;<sub class="comment-writer"><%=dc.getDclCommentWriter() %></sub>
     						<sub class="comment-date"><%=dc.getDclCommentDate() %></sub>
     						<br>
     							<%=dc.getDclCommentContent() %>
     					</td>
-    				</tr>
-    				<tr>
     					<td>
-    						<button class="btn-delete">삭제</button>
+    						<form id="commentFrm" action="<%=request.getContextPath() %>/cs/deleteDclc.do?dclNo=<%=dcl.getDclNo()%>" method="post">
+<!--     								parameter(name)로 받아오는 것은 name을 준다는 건데 form태그 안에서 dclNo로 네임값을 준거임	 -->
+    							<%if(loginMember!=null&&
+    									(loginMember.getMember_id().equals("admin"))){%>
+    								<input type="hidden" name="dclcomment" value="<%=dc.getDclCommentNo() %>">
+    								<input type="hidden" name="dclref" value="<%=dcl.getDclNo() %>">
+    								<button class="btn-delete" type="submit" value="<%=dc.getDclCommentNo()%>">삭제</button>
+    							<%} %>
+    						</form>
     					</td>  
     				</tr>
     			<%}//if
@@ -177,5 +175,6 @@
     		//삭제하기 스크립트
     		location.replace("<%=request.getContextPath()%>/cs/deleteDcl.do?no="+dclNo+"&fileName="+fileName);
     	}
+    	
     </script>
 <%@ include file="/views/common/footer.jsp" %>

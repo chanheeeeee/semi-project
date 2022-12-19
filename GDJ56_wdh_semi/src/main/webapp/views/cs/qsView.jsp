@@ -1,14 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.wdh.qs.model.vo.Question,com.wdh.qs.model.vo.QsComment" %>
+<%@ page import="java.util.List,com.wdh.qs.model.vo.Question,com.wdh.qs.model.vo.QsComment,com.wdh.member.vo.Member" %>
 <%
 	Question qs=(Question)request.getAttribute("qs");
 	List<QsComment> comments=(List<QsComment>)request.getAttribute("comment");
-%>
-<%@ page import="com.wdh.member.vo.Member" %>
-<%
 	Member loginMember=(Member)session.getAttribute("loginMember");
 %>
+
+<style>
+	div#comment-container button#btn-insert{position:relative;}
+
+	table#tbl-comment{width:580px; margin:0 auto; border-collapse:collapse; clear:both; } 
+    table#tbl-comment tr td{border-bottom:1px solid; border-top:1px solid; padding:5px; text-align:left; line-height:120%;}
+    table#tbl-comment tr td:first-of-type{padding: 5px 5px 5px 50px;}
+    table#tbl-comment tr td:last-of-type {text-align:right; width: 100px;}
+    
+    table#tbl-comment button.btn-delete{display:none;}
+
+    table#tbl-comment tr:hover button.btn-reply{display:inline;}
+    table#tbl-comment tr:hover button.btn-delete{display:inline;}
+
+    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
+    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
+</style>
 <!DOCTYhPE tml>
 <html>
 <head>
@@ -90,19 +104,12 @@
     				</tr>
     			</table>
     			<br>
-<%-- <%--     				<!-- 관리자만 삭제할 수 있고 답변 할 수 있게 분기처리 --> --%>
-<%--     				<%if(loginMember!=null&&loginMember.getMember_id().equals("admin")) {%> --%>
-<%--     				<tr> --%>
-<%--     					<th colspan="2"> --%>
-<%--     						<input type="button" value="답변" onclick=""> --%>
-<%--     						<input type="button" value="삭제" onclick="location.href='<%=request.getContextPath()%>/cs/deleteQs.do?qs_no=<%=qs.getQsNo()%>';"> --%>
-<%--     					</th> --%>
-<%--     				</tr> --%>
-<%--     				<%} %> --%>
-<!--     			</form> -->
+			<%if(loginMember!=null&&
+				(loginMember.getMember_id().equals("admin"))) {%>
     			<div id="comment-container">
     				<div class="comment-editor">
-    					<form action="<%=request.getContextPath()%> /cs/qscommentWrite.do" method="post">
+    				<img src="<%=request.getContextPath() %>/images/commentimg.png" style="float:left" width="50" height="50">
+    					<form action="<%=request.getContextPath()%>/cs/qscommentWrite.do" method="post">
     						<textarea name="content" rows="10" cols="70" placeholder="1대1문의 답변"></textarea>
     						<input type="hidden" name="qsref" value="<%=qs.getQsNo()%>">
     						<input type="hidden" name="level" value="1">
@@ -111,18 +118,28 @@
     						<button type="submit" id="btn-insert">등록</button>
     					</form>
     				</div>
-    				<table id="qs-comment">
+    			<%} %>
+    				<table id="tbl-comment">
     					<%if(!comments.isEmpty()) {
     						for(QsComment qsc : comments){
     							if(qsc.getQsCommentLevel()==1){%>
     							<tr class="level1">
-    								<td class="comment-writer"><%=qsc.getQsCommentWriter() %></td>
-    								<td><%=qsc.getQsCommentContent() %></td>
-    								<td class="comment-data"><%=qsc.getQsCommentDate() %></td>
-    							</tr>
-    							<tr>
     								<td>
-    									<button class="btn-delete">삭제</button>
+    								<img src="<%=request.getContextPath() %>/images/commentimg.png" style="float:left" width="50" height="50">
+    									&nbsp;<sub class="comment-writer"><%=qsc.getQsCommentWriter() %></sub>
+    									<sub class="comment-date"><%=qsc.getQsCommentDate() %></sub>
+    									<br>
+    										<%=qsc.getQsCommentContent()%>
+    									</td>
+    								<td>
+    								<form id="commentFrm" action="<%=request.getContextPath()%>/cs/deleteQsc.do?qsNo=<%=qs.getQsNo()%>" method="post">
+    										<%if(loginMember!=null&&
+    												(loginMember.getMember_id().equals("admin"))){ %>
+    										<input type="hidden" name="qscomment" value="<%=qsc.getQsCommentNo()%>">
+    										<input type="hidden" name="qsref" value="<%=qs.getQsNo()%>">
+    										<button class="btn-delete" type="submit" value="<%=qsc.getQsCommentNo()%>">삭제</button>
+    									<%} %>
+    								</form>
     								</td>
     							</tr>
     						<%}//if

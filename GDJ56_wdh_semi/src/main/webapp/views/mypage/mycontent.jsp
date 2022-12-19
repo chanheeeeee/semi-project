@@ -303,7 +303,7 @@
                     <tr>
                       <td><%= d.getDclNo() %></td>
                       <td>
-                      	<a href="<%=request.getContextPath()%>/dcl/dclView.do?dclNo=<%=d.getDclNo()%>" style="text-decoration: none; color: black;">
+                      	<a href="<%=request.getContextPath()%>/cs/dclView.do?dclNo=<%=d.getDclNo()%>" style="text-decoration: none; color: black;">
                       		<%= d.getDclTitle() %>
                       	</a>
 					  </td>

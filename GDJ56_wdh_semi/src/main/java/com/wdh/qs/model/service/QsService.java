@@ -68,7 +68,13 @@ public class QsService {
 			}
 		close(conn);
 		return result;
-	
-		
+	}
+	public int deleteQsc(QsComment qsc) {
+		Connection conn=getConnection();
+		int result=dao.deleteQsc(conn,qsc);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 }
