@@ -10,7 +10,7 @@
 		<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%=request.getContextPath() %>/assets/img/pocha.jpg" alt="..."
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%= m.getProfile() %>" alt="..."
                 							style="width: 200px; height: 200px;" /></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -28,14 +28,15 @@
         <div class="container-fluid p-0">
 
             <!-- About-->
-            <!-- 정보수정 -->
+            <!-- 프로필 수정 -->
             <section class="resume-section" id="update">
                    <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px">
                     <form class="form-horizontal">
                       <div class="form-group row">
                       	<span class="d-none d-lg-block"><img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
-                      							src="<%=request.getContextPath() %>/assets/img/pocha.jpg" onclick="fn_upfile();" />
-                      							<input type="file" name="upFile" style="display:none"></span>
+                      							src="<%= m.getProfile() %>" onclick="fn_upfile();" />
+                      							<input type="file" name="upFile" style="display:none"><button type="button" class="btn btn-xs btn-lblue min-42" onclick="fn_updateProfile()" style="margin-top: 28%;">변경</button>
+                      	</span>
                       </div>
                       
                       <script>
@@ -57,6 +58,10 @@
 								reader.readAsDataURL(e.target.files[0]);
 								
 							});
+							
+							const fn_updateProfile=()=>{
+									  location.href='<%=request.getContextPath()%>/mypage/changeProfile.do';
+							}
 					 </script>
                       
                       <div class="form-group row">
