@@ -32,7 +32,7 @@ public class MessageServiceConServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String wdNo = request.getParameter("send_messenger"); //게시글 번호
+		String wdNo = request.getParameter("wdNo"); //게시글 번호
 		String receiveMemberNo = request.getParameter("receive_messenger"); // 받는사람
 		String content = request.getParameter("message");	//메시지 내용
 		

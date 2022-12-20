@@ -290,14 +290,11 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("sendMessage"));
-			pstmt.setString(1, wdNo);
-			pstmt.setString(2, receiveMemberNo);
+			pstmt.setInt(1, Integer.parseInt(wdNo));
+			pstmt.setInt(2, Integer.parseInt(receiveMemberNo));
 			pstmt.setString(3, content);
 			pstmt.setInt(4, msg_writer);
-			
 			result = pstmt.executeUpdate();
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

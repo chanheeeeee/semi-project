@@ -14,12 +14,14 @@
 <body>
 	<div class = "field half first">
 		<label for="send_msg">보내는 사람</label>
-		<input type="hidden" id="send_messenger" name="" value="" >
+		<input type="text" id="send_messenger" name="" value="<%=request.getAttribute("nickName") %>" readonly="readonly">
 	</div>
 	
 	<div class = "field half">
 		<label for="receive_msg">받는 사람</label>
-		<input type="hidden" id="receive_messenger" value="">
+		<input type="text" id="receive_nickName" value="<%=request.getAttribute("recvMemberNick") %>" readonly="readonly">
+		<input type="hidden" id="receive_messenger" value="<%=request.getAttribute("recvMemberNo") %>">
+		<input type="hidden" id="wdNo" value="<%=request.getAttribute("wdNo") %>">
 	</div>	
 	
 	<div class="field">
@@ -30,22 +32,21 @@
 	
 	<script>
 	$("#sendMsg").on("click",function(){
-		console.log("Asfsf");
-		const s_msg = $("#send_messenger").val();
-		const r_msg = $("#receive_messenger").val();
-		const text = $("#message").val();
+		const wdNo = $("#wdNo").val();//게시글번호
+		const r_msg = $("#receive_messenger").val();//받는사람
+		const text = $("#message").val();//내용
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/member/MessageServiceConServlet.do",
-			data:{"send_messenger":s_msg , "receive_messenger":r_msg , "message":text},
+			data:{"wdNo":wdNo , "receive_messenger":r_msg , "message":text},
 			type:'POST',
 			dataType:'json',
-			success:result=>{
+			success:data=>{
 				console.log(data);
-				
-				if(result > 0){
+				if(data.result > 0){
 					//쪽지보냄 성공
 					alert("메세지 전송 성공");
+					window.close(); 
 				}else{
 					alert("메세지 전송 실패");
 				}
