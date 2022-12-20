@@ -37,8 +37,8 @@ public class BoardDao2 {
 		List<Board> list = new ArrayList();
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("selectBoardList"));
-			pstmt.setInt(1, (cPage-1)*numPerpage+1);
-			pstmt.setInt(2, cPage*numPerpage);
+			pstmt.setInt(1, (cPage-1)*numPerpage+1); //페이지에 첫번째로 출력될 RNUM값 <-- 사용자가 누른 값에따라 cPage 값은 달라짐
+			pstmt.setInt(2, cPage*numPerpage);		 //페이지에 마지막으로 출력될 RNUM값
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				list.add(getBoard(rs));
@@ -52,12 +52,34 @@ public class BoardDao2 {
 		return list;
 	}
 	
-	public int selectBoardCount(Connection conn) {
+//	public int selectBoardCount(Connection conn) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		int result = 0;
+//		try {
+//			pstmt = conn.prepareStatement(sql.getProperty("selectBoardCount"));
+//			rs = pstmt.executeQuery();
+//			if(rs.next()) {
+//				result = rs.getInt(1);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rs);
+//			close(pstmt);
+//		}return result;
+//	}
+	
+	public int selectBoardCount(Connection conn, String where) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int result = 0;
+		
+		String query = sql.getProperty("selectBoardCount");
+		query = query.replace("$COL", where);
+		
 		try {
-			pstmt = conn.prepareStatement(sql.getProperty("selectBoardCount"));
+			pstmt = conn.prepareStatement(query);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				result = rs.getInt(1);
@@ -74,8 +96,10 @@ public class BoardDao2 {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Board> list = new ArrayList();
-		String query=sql.getProperty("selectBoardListCol");
-		query=query.replace("$COL", where);
+		
+		String query = sql.getProperty("selectBoardListCol");
+		query = query.replace("$COL", where);
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, (cPage-1)*numPerpage+1);
@@ -208,6 +232,8 @@ public class BoardDao2 {
 				.wdTime(rs.getDate("WD_TIME"))
 				.memberNo(rs.getInt("MEMBER_NO"))
 				.wdPurpose(rs.getString("WD_PURPOSE"))
+				//.dateFlag(rs.getInt("DATEFLAG"))
+				//.attendFlag(rs.getInt("ATTENDFLAG"))
 				.build();
 	}
 	

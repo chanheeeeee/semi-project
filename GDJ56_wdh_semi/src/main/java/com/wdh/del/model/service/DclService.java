@@ -53,18 +53,26 @@ public class DclService {
 	public int deleteDclc(DclComment dc) {
 		Connection conn=getConnection();
 		int result=dao.deleteDclc(conn,dc);
-		if(result>0) commit(conn);
-		else rollback(conn);
+		if(result>0) {
+			result=dao.updateDclResult1(conn, dc.getDclRef());
+			if(result>0) commit(conn);
+			else rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
+	
 	public int insertDclComment(DclComment dc) {
 		Connection conn=getConnection();
 		int result=dao.insertDclComment(conn,dc);
-		if(result>0) commit(conn);
-		else rollback(conn);
+		if(result>0) {
+			result=dao.updateDclResult(conn,dc.getDclRef());
+			if(result>0)commit(conn);
+			else rollback(conn);
+		}
 		close(conn);
 		return result;
+		
 	}
 	public List<DclComment> selectDclComment(int dclNo){
 		Connection conn=getConnection();
