@@ -282,6 +282,29 @@ public class MemberDao {
 		return result;
 	}
 
+	//쪽지보내기
+	public int sendMessage(Connection conn, String wdNo, String receiveMemberNo, String content, int msg_writer) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("sendMessage"));
+			pstmt.setString(1, wdNo);
+			pstmt.setString(2, receiveMemberNo);
+			pstmt.setString(3, content);
+			pstmt.setInt(4, msg_writer);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 
 

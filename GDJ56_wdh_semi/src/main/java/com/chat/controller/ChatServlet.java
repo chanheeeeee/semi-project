@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.wdh.member.vo.Member;
 
 /**
  * Servlet implementation class ChatServlet
@@ -26,6 +29,12 @@ public class ChatServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		Member m = (Member) session.getAttribute("loginMember");
+		String nickName = m.getMember_nickname();
+		request.setAttribute("nickName", nickName);
+//		String roomNm = (String) request.getParameter("roomNm");
 		request.getRequestDispatcher("/views/chat/chat.jsp").forward(request, response);
 	}
 

@@ -11,7 +11,7 @@
         font-size: 20px;
       }
       
-           .button {
+     .button {
 		  width: 80px;
 		  height: 35px;
 		  font-family: 'Roboto', sans-serif;
@@ -29,11 +29,12 @@
 		  outline: none;
 		  }
 		
-		.button:hover {
+	.button:hover {
 		  background-color: #2e93e5af;
 		  box-shadow: 0px 15px 20px #6dbcfcaf;
 		  color: #fff;
 		  transform: translateY(-7px);
+	}
     </style>
 
 	<center>
@@ -49,16 +50,16 @@
 	    
 		<input type="email" name="email" id="email" class="form_control" placeholder="이메일" required="" style="height: 55px; width:350px; margin-bottom: -20px; border-radius:20px;">
 			<p class="check" id="check">${check}</p><br>
-			<input type="button" id="btnFindId" class="btn btn-lg btn-primary btn-block" style="height: 65px; width: 184px; border-radius:20px;" value="아 이 디 찾 기">
+			<input type="button" id="btnFindId" class="button" style="height: 55px; width: 184px; border-radius:20px;" value="아 이 디 찾 기">
 			
 	</div>
 
 	</div>
 	
 		<div class="forgot" style="margin-top: 20px; margin-bottom: 20px;">
-         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="font-family: Jua;border: outset;">비밀번호 찾기</button>
-         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="font-family:'Jua';border: outset;">아이디 찾기</button> 
-         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
+         <input type="button" class="button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="width:120px;" value="비밀번호 찾기">
+         <input type="button" class="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="width:120px;" value="아이디 찾기">
+         <input type="button" class="button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="width:120px;" value="회 원 가 입">
          </div>
        
 	</section>
