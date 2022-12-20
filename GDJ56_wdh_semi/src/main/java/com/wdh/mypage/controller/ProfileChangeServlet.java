@@ -40,24 +40,14 @@ public class ProfileChangeServlet extends HttpServlet {
 		
 		Member m = new MemberService().memberView(id);
 		
-		//파일업로드처리하기 cos.jar 라이브러리 이용
+		
 		//1. 요청방식 multipart/form-data 방식으로 왔는지 확인
-		//ServletFileupload.isMultipartContent(request)
 		if(!ServletFileUpload.isMultipartContent(request)) {
 					
 			response.sendRedirect(request.getContextPath());
 					
 		} else {
-					//2. 요청방식이 맞는다면
-					//cos.jar에서 제공하는 클래스를 이용해서 지정된 위치에 전송된 파일을 저장
-					//MultupartRequest클래스 이용 -> 자동으로 전달된 파일을 지정된 위치에 저장
-					//MultupartRequest클래스 매개변수 있는 생성자를 이용하면 됨
-					//첫 번째 매개변수: HttpServletRequest객체
-					//두 번째 매개변수: 저장위치설정(String) *절대경로로 가져옴
-					//세 번째 매개변수: 업로드된 파일의 최대크기 설정(int)
-					//네 번째 매개변수: 인코딩방식(String) * UTF-8
-					//다섯 번째 매개변수: rename규칙클래스 *적용 기본클래스 제공/ 커스터마이징가능
-					//저장할 위치 설정하기
+					
 			String path = request.getServletContext().getRealPath("/upload/profile");
 					
 					//저장 파일 크기 설정
@@ -79,10 +69,6 @@ public class ProfileChangeServlet extends HttpServlet {
 			String fileName = mr.getFilesystemName("upFile");
 			String oriName = mr.getOriginalFileName("upFile");
 
-//					Member m = Member.builder()
-//							.profile(fileName)
-//							.build();
-					
 			int result = new MypageService().changeProfile(m, fileName);
 					
 			String msg = "", loc = "";
@@ -90,8 +76,16 @@ public class ProfileChangeServlet extends HttpServlet {
 			if(result > 0) {
 						
 				msg = "프로필이 변경되었습니다.";
-				loc = "/mypage/about.do";
-						
+				loc = "/loginAction.do";
+				
+				HttpSession session=request.getSession(false);
+				session.invalidate();	
+				
+				String loginId = request.getParameter("loginId");
+				String password = request.getParameter("password");
+				session.setAttribute("loginId", loginId);
+				session.setAttribute("password", password);
+				
 			} else {
 						
 				msg = "프로필 등록을 실패했습니다. 다시 시도해 주세요.";
@@ -102,6 +96,8 @@ public class ProfileChangeServlet extends HttpServlet {
 					
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
+			
+			
 					
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
