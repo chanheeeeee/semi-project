@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.board.service.BoardService1;
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
 import com.wdh.mypage.service.MypageService;
 
 /**
@@ -35,6 +38,7 @@ public class ReviewDeleteServlet extends HttpServlet {
 		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
 		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
 		int result = new MypageService().deleteReview(reviewboardNo);
+
 		String msg="", loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		if(result>0) {
 			msg="삭제 성공!";
@@ -48,6 +52,10 @@ public class ReviewDeleteServlet extends HttpServlet {
 		request.setAttribute("loc", loc);
 		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
 		
+		//회원레벨
+		Board b=new BoardService2().selectBoard(wdNo);
+		new BoardService1().updateGrade(b);
+		System.out.println("삭제"+b);
 	
 	}
 

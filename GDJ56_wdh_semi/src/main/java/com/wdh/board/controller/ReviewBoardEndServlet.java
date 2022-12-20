@@ -55,8 +55,7 @@ public class ReviewBoardEndServlet extends HttpServlet {
 					.wdNo(wdNo).reviewScore(score).img(img).build();
 			System.out.println(rb);
 			int result=new BoardService1().insertAfterBoard(rb);
-			Board b=new BoardService2().selectBoard(wdNo);
-			new BoardService1().updateGrade(b);
+			
 			String msg="", loc="";
 			if(result>0) {
 				loc="/views/board/reviewboardfinish.jsp";
@@ -67,8 +66,13 @@ public class ReviewBoardEndServlet extends HttpServlet {
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
 			request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
+			
+			//회원레벨
+			Board b=new BoardService2().selectBoard(wdNo);
+			new BoardService1().updateGrade(b);
 			}
 		
+			
 		
 	}
 
