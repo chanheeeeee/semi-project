@@ -86,7 +86,16 @@
 													<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
 													onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
 	                                 			<%} 
-	                                 		}else{%>
+	                                            //마감된 경우
+	                                 		}else
+	                                 			if(result==1){%>
+	                                 				<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
+	                                 			}
+	                                 		
+	                                 		{%>
+	                                 			
+	                                 		
+	                                 		
 	                                 			<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
 	                                 		<%} %>
 	                                 			
