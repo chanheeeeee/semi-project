@@ -3,6 +3,7 @@
 <%@ page import= "java.util.List, com.wdh.member.vo.Member"%>    
 <%
 List<Member> members=(List<Member>)request.getAttribute("member");
+// 	Member m=(Member)request.getAttribute("member");
 %>
 
 <%@ include file="/views/common/adminHeader.jsp" %>
@@ -70,17 +71,19 @@ List<Member> members=(List<Member>)request.getAttribute("member");
 	                                            <th>이메일</th>
 	                                            <th>전화번호</th>
 	                                            <th>주소</th>
-	                                            <th>등급</th>                                       
+	                                            <th>등급</th>
+	                                            <th>탈퇴</th>                                       
 							                </tr>
 							            </thead>
 							            <tbody>
 							       	  		<%if(members.isEmpty()){ %>
 						       	  		<tr>
-						       	  			<td><h3>조회된 회원이 없습니다</h3></td>
+						       	  			<td colspan="11"><h3>조회된 회원이 없습니다</h3></td>
 						       	  		</tr>
 						       	  		<%}else{ 
 						       	  			for(int i=0;i<members.size();i++){
 						       	  		%>
+<%-- 						       	  		<form action="<%=request.getContextPath() %>/admin/dropMember.do?memberNo=<%=members.get(i).getMember_no()%>" method="post"> --%>
 						       	  			<tr>
 													<td><%=members.get(i).getMember_no() %></td>
 													<td><%=members.get(i).getMember_id() %></td>
@@ -91,10 +94,14 @@ List<Member> members=(List<Member>)request.getAttribute("member");
 													<td><%=members.get(i).getEmail() %></td>
 													<td><%=members.get(i).getPhone() %></td>
 													<td><%=members.get(i).getAddress()%></td>
-													<td><%=members.get(i).getGrade() %></td> 				
+													<td><%=members.get(i).getGrade() %></td> 
+													<td>
+														<button type="submit" onclick="location.href='<%=request.getContextPath() %>/admin/dropMember.do?memberNo=<%=members.get(i).getMember_no()%>';">탈퇴</button>
+													</td>				
 						       	  			</tr>
 						       	  		<%} 
 						       	  		}%>
+						       	  		<!-- </form> -->
 							            </tbody>
 							        </table>
 		                            </div>

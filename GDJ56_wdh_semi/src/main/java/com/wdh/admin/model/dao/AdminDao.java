@@ -109,6 +109,21 @@ public class AdminDao {
 		}return result;
 	}
 	
+	public int deleteMember(Connection conn, int memberNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteMember"));
+			pstmt.setInt(1, memberNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+		
+	}
+	
 	public static Member getMember(ResultSet rs) throws SQLException {
 		Member m = new Member();
 		

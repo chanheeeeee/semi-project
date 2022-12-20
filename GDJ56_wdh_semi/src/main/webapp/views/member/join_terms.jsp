@@ -29,6 +29,31 @@
   .footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center; margin-left:-15px;}
   .fpmgBt1{background-color: #fff;color:#fff}
   .fpmgBt2{background-color: rgb(80, 80, 243);color: #fff}
+  
+     .button {
+		  width: 80px;
+		  height: 35px;
+		  font-family: 'Roboto', sans-serif;
+		  font-size: 14px;
+		  text-transform: uppercase;
+		  letter-spacing: 2.5px;
+		  font-weight: 500;
+		  color: #000;
+		  background-color: rgba(223, 223, 223, 0.422);
+		  border: none;
+		  border-radius: 45px;
+		  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		  transition: all 0.3s ease 0s;
+		  cursor: pointer;
+		  outline: none;
+		  }
+		
+	.button:hover {
+		  background-color: #2e93e5af;
+		  box-shadow: 0px 15px 20px #6dbcfcaf;
+		  color: #fff;
+		  transform: translateY(-7px);
+	}
    </style>
 
 
@@ -89,8 +114,8 @@
                </li>
            </ul>
            <ul class="footBtwrap clearfix">
-               <li><input type="button" onclick="location.href='<%=request.getContextPath()%>/main.do';" class="btn fpmgBt1" style="background-color:lightblue;" value="비동의"></li>
-               <li><input type="button"  class="btn fpmgBt2" id = "modal" value="동의"></li>
+               <li><input type="button" class="button" onclick="location.href='<%=request.getContextPath()%>/main.do';"  style="background-color:lightblue;" value="비동의"></li>
+               <li><input type="button" class="button" id = "modal" value="동의"></li>
            </ul>
          </div>
       
