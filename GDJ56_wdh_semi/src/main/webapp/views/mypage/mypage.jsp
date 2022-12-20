@@ -46,6 +46,7 @@
 								$("input[name=upFile]").click();
 							}
 							
+							
 							$("input[name=upFile]").change(e=>{
 								
 								console.dir(e.target);
