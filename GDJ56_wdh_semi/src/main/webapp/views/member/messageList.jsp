@@ -64,45 +64,58 @@
 	<script>
 	$(function(){
 		list();
-		function list(){
-			$.ajax({
-				url:"<%=request.getContextPath()%>/member/messageList.do",
-				data:{},
-				dataType:'json',
-				type:'POST',
-				success:data=>{
-					console.log(data);
-					let list = "";
- 					if(data.length == 0){
-						list += "<tr><td colspan=5>쪽지가 없습니다.</tr>";
-					}else{
-						for(let i=0 ; i<data.length; i++){
-							list += "<tr>";
-							list += "<td>"+(i+1)+"</td>";
-							list += "<td>"+data[i].writer_nickname+"</td>";
-							list += "<td>"+data[i].msg_content+"</td>";
-							list += "<td>"+data[i].msg_date+"</td>";
-							list += '<td><input type="button" value="삭제" onclick="del('+data[i].msg_no+')"></td>';
-							list += "</tr>";
-						};						
-					}
-					$("#tbl-body").html(list);
+	});
+	
+	//쪽지 목록 가져오기
+	function list(){
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/messageList.do",
+			data:{},
+			dataType:'json',
+			type:'POST',
+			success:data=>{
+				console.log(data);
+				let list = "";
+					if(data.length == 0){
+					list += "<tr><td colspan=5>쪽지가 없습니다.</tr>";
+				}else{
+					for(let i=0 ; i<data.length; i++){
+						list += "<tr>";
+						list += "<td>"+(i+1)+"</td>";
+						list += "<td>"+data[i].writer_nickname+"</td>";
+						list += "<td>"+data[i].msg_content+"</td>";
+						list += "<td>"+data[i].msg_date+"</td>";
+						list += '<td><input type="button" value="삭제" onclick="del('+data[i].msg_no+');"></td>';
+						list += "</tr>";
+					};						
 				}
-			});
-		}
-		function del(msg_no){
-			console.log(msg_no);
+				$("#tbl-body").html(list);
+			}
+		});
+	}
+	
+	//쪽지 삭제하기
+	function del(msg_no){
+		if(confirm("삭제하시겠습니까?")==true){
 			$.ajax({
 				url:"<%=request.getContextPath()%>/member/messageDelete.do",
-				data:{},
+				data:{"msg_no":msg_no},
 				dataType:'json',
 				type:'POST',
 				success:data=>{
-					
+					 console.log(data.result);
+					 if(data.result > 0){
+						 alert("삭제되었습니다.");
+						 list();	//리스트 메소드 다시 호출
+					 }else{
+						 alert("삭제에 실패하였습니다.");
+					 }
 				}
 			});
 		}
-	});
+		
+
+	}
 	</script>
 
 
