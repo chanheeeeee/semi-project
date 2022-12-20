@@ -21,6 +21,7 @@
 		<%}else{%>
 			<div id="list" style="display:flex;justify-content:center;min-height: 60%;">
 			<%for(Member m : members){ %>
+			<div>
 				<%=m.getMember_nickname() %>
 				<%int memberNo=m.getMember_no(); %>
 					<button id="messageSend" style="height:25px !important; width:50px !important; margin:3px !important;"
@@ -29,6 +30,7 @@
 					<button id="button1" style="height:25px !important; width:80px !important; margin:3px !important;" onclick="out()">동행거절</button><br>
 					<input type="hidden" name="out" onclick="location.href='<%=request.getContextPath()%>/board/wdjoinout.do?memberNo=<%=memberNo%>&wdNo=<%=b.getWdNo()%>';">
 				<%} %>
+				</div>
 			<%}%>
 			</div>
 		<%}%>

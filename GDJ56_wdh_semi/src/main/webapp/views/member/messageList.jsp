@@ -92,6 +92,15 @@
 		}
 		function del(msg_no){
 			console.log(msg_no);
+			$.ajax({
+				url:"<%=request.getContextPath()%>/member/messageDelete.do",
+				data:{},
+				dataType:'json',
+				type:'POST',
+				success:data=>{
+					
+				}
+			});
 		}
 	});
 	</script>

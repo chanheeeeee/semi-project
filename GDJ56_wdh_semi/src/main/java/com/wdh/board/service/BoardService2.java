@@ -43,6 +43,13 @@ private BoardDao2 dao = new BoardDao2();
 //		return result;
 //	}
 	
+	public List<Board> selectBoardList(){ //지도에 출력될 마커의 좌표구하려고
+		Connection conn = getConnection();
+		List<Board> result = dao.selectBoardList(conn);
+		close(conn);
+		return result;
+	}
+	
 	public Board selectBoard(int boardNo) {
 		Connection conn = getConnection();
 		Board result = dao.selectBoard(conn, boardNo);
