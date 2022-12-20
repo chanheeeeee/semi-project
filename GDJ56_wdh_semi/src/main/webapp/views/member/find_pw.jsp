@@ -82,9 +82,13 @@
 					console.log(result);
 					//메일로 보내진 인증번호를 가져와 인증번호 칸과 동일한지 확인해야한다
 					//보낸인증번호와 일치한지를 알아보려면 일단 인증번호의 값을 어딘가에(input hidden) 저장한다
-					$("#find").val(result.authNum);
-					alert("인증번호가 전송되었습니다.");
-					$("#trAuth").show();
+					if(result.isSuccess == "Y"){
+						$("#find").val(result.authNum);
+						alert("인증번호가 전송되었습니다.");
+						$("#trAuth").show();
+					}else{
+						alert("인증번호 전송이 실패하였습니다.");
+					}
 				}
 			});
 		}else{
