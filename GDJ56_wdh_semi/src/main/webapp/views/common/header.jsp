@@ -1,7 +1,10 @@
+<%@page import="com.wdh.member.vo.Member"%>
+<%@page import="com.wdh.member.service.MemberService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.wdh.member.vo.Member" %>
 <%
 	Member loginMember=(Member)session.getAttribute("loginMember");
+	Member m1 = (Member)request.getAttribute("member");	
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -133,11 +136,23 @@
 							<% } else { %>
 								<li class="nav-item" id="mypage" >
 									<a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>
+							<% 
+								
+								if(loginMember.getProfile() == null) { %>
+									
 									<img class="profile img-fluid img-profile rounded-circle" style="width: 70px; height: 70px; margin-left: 30%;"
+                      							src="<%=request.getContextPath()%>/assets/img/pocha.jpg" />
+                      							
+                      			<% } else { %>
+                      			
+                      			<img class="profile img-fluid img-profile rounded-circle" style="width: 70px; height: 70px; margin-left: 30%;"
                       							src="<%=request.getContextPath()%>/upload/profile/<%= loginMember.getProfile() %>" />
+                      							
+                      			<% } %>
 									</a>
 								</li>
-								<li class="nav-item" id="mypage" ><a class="nav-link fs-3-2" style="margin-top: 2%;"><%= loginMember.getMember_nickname() %> 회원님</a>
+								<li class="nav-item" id="mypage" >	
+									<a class="nav-link fs-3-2" style="margin-top: 2%;"><%= loginMember.getMember_nickname() %> 회원님</a>		
 									<a class="nav-link fs-3-2" href='<%=request.getContextPath()%>/mypage/logout.do' style="margin-top: -9%;">로그아웃</a>
 								</li>
 								<li class="nav-item" id="chat" >
