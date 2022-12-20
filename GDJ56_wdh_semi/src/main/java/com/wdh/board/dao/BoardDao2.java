@@ -41,7 +41,13 @@ public class BoardDao2 {
 			pstmt.setInt(2, cPage*numPerpage);		 //페이지에 마지막으로 출력될 RNUM값
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				list.add(getBoard(rs));
+				//원래코드list.add(getBoard(rs));
+				
+				Board b = getBoard(rs);
+				b.setDateFlag(rs.getInt("DATEFLAG"));
+				b.setAttendFlag(rs.getInt("ATTENDFLAG"));
+				list.add(b);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -106,7 +112,13 @@ public class BoardDao2 {
 			pstmt.setInt(2, cPage*numPerpage);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				list.add(getBoard(rs));
+				//원래코드list.add(getBoard(rs));
+				
+				Board b = getBoard(rs);
+				b.setDateFlag(rs.getInt("DATEFLAG"));
+				b.setAttendFlag(rs.getInt("ATTENDFLAG"));
+				list.add(b);
+				
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
