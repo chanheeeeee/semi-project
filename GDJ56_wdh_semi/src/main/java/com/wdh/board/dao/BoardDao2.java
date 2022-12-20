@@ -129,6 +129,33 @@ public class BoardDao2 {
 	}
 	
 	
+	public List<Board> selectBoardList(Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Board> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectBoardMapList")); //마감된 것은 제외하고 가져와야함
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getBoard(rs));
+				
+				Board b = getBoard(rs);
+				b.setDateFlag(rs.getInt("DATEFLAG"));
+				b.setAttendFlag(rs.getInt("ATTENDFLAG"));
+				list.add(b);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	
 	public Board selectBoard(Connection conn, int boardNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

@@ -41,7 +41,9 @@ public class AboutMemberServlet extends HttpServlet {
 		
 		String grade = new MypageService().memberGrade(id);
 		
+		int score = new MypageService().myScore(m);
 		
+		request.setAttribute("score", score);
 		request.setAttribute("grade", grade);
 		request.setAttribute("member", m);
 		request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);
