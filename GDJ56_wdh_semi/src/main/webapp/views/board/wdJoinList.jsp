@@ -2,11 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.wdh.member.vo.*" %>
 <%@ page import="java.util.List,com.wdh.board.vo.*" %>
+<%@ page import="java.util.List,com.wdh.board.service.*" %>
 <%
 	int loginMember=Integer.parseInt(request.getParameter("loginMember"));
 	List<Member> members=(List<Member>)request.getAttribute("joinMember");
 	List<WdJoin> wj=(List<WdJoin>)request.getAttribute("boardsW");
 	Board b=(Board)request.getAttribute("board");
+	Member mm=new BoardService1().selectMember(b.getWdNo());
 %>
 <head>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">	
@@ -14,8 +16,13 @@
 <script src="<%=request.getContextPath() %>/js/jquery-migrate-1.2.1.min.js"></script>
 </head>
 
-<div>
+<div style="text-align: center;">
 	<h1 style="text-align: center;">참가자 리스트</h1>
+		<div>
+			<%= mm.getMember_nickname() %> (작성자)
+			<button id="messageSend" class="button1" style="height:25px !important; width:50px !important; margin:3px !important;"
+					onclick="messageSendPop('<%=b.getWdNo()%>','<%=mm.getMember_no()%>','<%=mm.getMember_nickname()%>')">쪽지</button><br>
+		</div>
 		<%if(members.isEmpty()){ %>
 			<p style="text-align: center;color:red;">참여 회원이 없습니다.</p>
 		<%}else{%>
