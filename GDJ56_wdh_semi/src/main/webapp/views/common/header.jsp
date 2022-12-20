@@ -156,10 +156,10 @@
 									<a class="nav-link fs-3-2" href='<%=request.getContextPath()%>/mypage/logout.do' style="margin-top: -9%;">로그아웃</a>
 								</li>
 								<li class="nav-item" >
-									<a class="nav-link fs-3-2" href='' style="" id="chat" >채팅</a>
+									<a class="nav-link fs-3-2" style="" id="chat" >채팅</a>
 								</li>
 								<li class="nav-item" >
-									<a class="nav-link fs-3-2" href='' style="" id="message">쪽지확인</a>
+									<a class="nav-link fs-3-2" style="" id="message">쪽지확인</a>
 								</li>
 							<% } %>
 							</ul>
