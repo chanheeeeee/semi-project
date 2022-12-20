@@ -134,7 +134,7 @@
 								<li class="nav-item" id="mypage" >
 									<a class="nav-link fs-3" href='<%=request.getContextPath()%>/mypage/about.do'>
 									<img class="profile img-fluid img-profile rounded-circle" style="width: 70px; height: 70px; margin-left: 30%;"
-                      							src="<%=request.getContextPath() %>/assets/img/pocha.jpg" />
+                      							src="<%=request.getContextPath()%>/upload/profile/<%= loginMember.getProfile() %>" />
 									</a>
 								</li>
 								<li class="nav-item" id="mypage" ><a class="nav-link fs-3-2" style="margin-top: 2%;"><%= loginMember.getMember_nickname() %> 회원님</a>

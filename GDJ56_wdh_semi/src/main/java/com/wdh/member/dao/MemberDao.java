@@ -240,6 +240,7 @@ public class MemberDao {
 		m.setPhone(rs.getString("PHONE"));
 		m.setAddress(rs.getString("ADDRESS"));
 		m.setGrade(rs.getInt("GRADE"));
+		m.setProfile(rs.getString("PROFILE"));
 		return m;
 	}
 
