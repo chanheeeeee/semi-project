@@ -275,6 +275,18 @@ public class MypageService {
 		return result;
 	}
 	
+//	내 점수 계산 출력
+	public int myScore(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int score = dao.myScore(conn, m);
+		
+		close(conn);
+		
+		return score;
+		
+	}
 	
 	
 	
