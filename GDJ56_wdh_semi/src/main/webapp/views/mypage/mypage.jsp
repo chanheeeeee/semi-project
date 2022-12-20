@@ -10,7 +10,7 @@
 		<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%= m.getProfile() %>" alt="..."
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%=request.getContextPath()%>/upload/profile/<%= m.getProfile() %>" alt="..."
                 							style="width: 200px; height: 200px;" /></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -31,11 +31,12 @@
             <!-- 프로필 수정 -->
             <section class="resume-section" id="update">
                    <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="<%=request.getContextPath()%>/mypage/changeProfile.do" method="post" enctype="multipart/form-data">
                       <div class="form-group row">
                       	<span class="d-none d-lg-block"><img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
-                      							src="<%= m.getProfile() %>" onclick="fn_upfile();" />
-                      							<input type="file" name="upFile" style="display:none"><button type="button" class="btn btn-xs btn-lblue min-42" onclick="fn_updateProfile()" style="margin-top: 28%;">변경</button>
+                      							src="<%=request.getContextPath()%>/upload/profile/<%= m.getProfile() %>" onclick="fn_upfile();" />
+                      							<input type="file" name="upFile" style="display:none">
+                      							<input type="submit" class="btn btn-xs btn-lblue min-42" value="변경" style="margin-top: 28%;">
                       	</span>
                       </div>
                       
@@ -59,9 +60,13 @@
 								
 							});
 							
-							const fn_updateProfile=()=>{
-									  location.href='<%=request.getContextPath()%>/mypage/changeProfile.do';
-							}
+							/* $(document).ready(function(){
+								$('.profile').change(function(event){
+									var tmppath=URL.createObjectURL(event.target.files[0]);
+									$('.profile').attr('src',tmppath);
+								});
+							}); */
+							
 					 </script>
                       
                       <div class="form-group row">
@@ -107,6 +112,7 @@
             </section>
 
         </div>
+        
         
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
