@@ -10,8 +10,20 @@
 		<!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%=request.getContextPath()%>/upload/profile/<%= m.getProfile() %>" alt="..."
-                							style="width: 200px; height: 200px;" /></span>
+                <span class="d-none d-lg-block">
+                <% if(m.getProfile() == null) { %>
+									
+					<img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
+                      							src="<%=request.getContextPath()%>/assets/img/pocha.jpg" />
+                      							
+                    <% } else { %>
+                      			
+                    <img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
+                      							src="<%=request.getContextPath()%>/upload/profile/<%= m.getProfile() %>" />
+                      							
+                    <% } %>
+					
+                </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -33,10 +45,20 @@
                    <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px">
                     <form class="form-horizontal" action="<%=request.getContextPath()%>/mypage/changeProfile.do" method="post" enctype="multipart/form-data">
                       <div class="form-group row">
-                      	<span class="d-none d-lg-block"><img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
-                      							src="<%=request.getContextPath()%>/upload/profile/<%= m.getProfile() %>" onclick="fn_upfile();" />
-                      							<input type="file" name="upFile" style="display:none">
-                      							<input type="submit" class="btn btn-xs btn-lblue min-42" value="변경" style="margin-top: 28%;">
+                      	<span class="d-none d-lg-block">
+		                <% if(m.getProfile() == null) { %>
+											
+								<img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;" onclick="fn_upfile();"
+		                      							src="<%=request.getContextPath()%>/assets/img/pocha.jpg" />
+		                      							
+		                    <% } else { %>
+		                      			
+		                    	<img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
+		                      							src="<%=request.getContextPath()%>/upload/profile/<%= m.getProfile() %>" onclick="fn_upfile();"/>
+		                      							
+		                    <% } %>
+							<input type="file" name="upFile" style="display:none">
+                      		<input type="submit" class="btn btn-xs btn-lblue min-42" value="변경" style="margin-top: 28%;">
                       	</span>
                       </div>
                       
