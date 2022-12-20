@@ -61,47 +61,49 @@ public class ProfileChangeServlet extends HttpServlet {
 					
 					//저장 파일 크기 설정
 					//byte -> mb -> GB -> TB : 1024
-					int maxSize=1024*1024*10;//10MB
+			int maxSize=1024*1024*10;//10MB
 					//인코딩설정
-					String encoding="UTF-8";
+			String encoding="UTF-8";
 					//rename클래스
-					DefaultFileRenamePolicy dfr=new DefaultFileRenamePolicy();
+			DefaultFileRenamePolicy dfr=new DefaultFileRenamePolicy();
 					
 					//매개변수있는 생성자로 MultipartRequest클래스를 생성
-					MultipartRequest mr=new MultipartRequest(request, 
-								path,maxSize,encoding,dfr);
+			MultipartRequest mr=new MultipartRequest(request, 
+						path,maxSize,encoding,dfr);
 				
 				
 					//클라이언트가 보낸 데이터를 DB에 저장하는 기능
 					//파일을 저장하면서 재정의된 파일명을 저장해야 한다.
 					//리네임된 파일 이름
-					String fileName = mr.getFilesystemName("upFile");
-					String oriName = mr.getOriginalFileName("upFile");
+			String fileName = mr.getFilesystemName("upFile");
+			String oriName = mr.getOriginalFileName("upFile");
 
 //					Member m = Member.builder()
 //							.profile(fileName)
 //							.build();
 					
-					int result = new MypageService().changeProfile(m, fileName);
+			int result = new MypageService().changeProfile(m, fileName);
 					
-					String msg = "", loc = "";
+			String msg = "", loc = "";
 					
-					if(result > 0) {
+			if(result > 0) {
 						
-						msg = "프로필이 변경되었습니다.";
-						loc = "/mypage/about.do";
+				msg = "프로필이 변경되었습니다.";
+				loc = "/mypage/about.do";
 						
-					} else {
+			} else {
 						
-						msg = "프로필 등록을 실패했습니다. 다시 시도해 주세요.";
-						loc = "/mypage/about.do";
+				msg = "프로필 등록을 실패했습니다. 다시 시도해 주세요.";
+				loc = "/mypage/about.do";
 						
-					}
+			}
+			
+			request.setAttribute("member", m);
 					
-					request.setAttribute("msg", msg);
-					request.setAttribute("loc", loc);
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
 					
-					request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
 
 		
