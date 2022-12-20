@@ -92,6 +92,13 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
+	public int sendMessage(String wdNo, String receiveMemberNo, String content, int msg_writer) {
+		Connection conn = getConnection();
+		int result = new MemberDao().sendMessage(conn, wdNo, receiveMemberNo ,content, msg_writer);
+		close(conn);
+		return result;
+	}
 	
 	
 	
