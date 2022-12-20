@@ -1,6 +1,8 @@
 package com.chat.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.websocket.EncodeException;
@@ -16,6 +18,8 @@ import com.chat.vo.Message;
 @ServerEndpoint(value="/chatting", encoders = {JsonEncoder.class}, decoders = {JsonDecoder.class})
 //request.getContextPath()%>/chatting여기서 가져온것임! 서블렛 아니고 일반클래스 생성후@ServerEndpoint("/chatting")이걸로 생성해줘야함!
 public class ChattingServer {
+	
+	private Map<String, Session> sessionObject = new HashMap<String, Session>();
 	
 	//일반클래스 생성해줘야함
 	@OnOpen
@@ -75,8 +79,53 @@ public class ChattingServer {
 					}
 				}
 			}
-		}catch(IOException|EncodeException e) {
+			}catch(IOException|EncodeException e) {
 				
-		}
+			}
 	}
+	
+//	@OnMessage
+//	public void messageObject(Session session, Message msg){
+//
+//		// 세션 리스트에 저장
+//		String roomNo = msg.getRoomNo();
+//		System.out.println("roomNo : "+roomNo);
+////		private Map<String, Session> sessionObject = new HashMap<String, Session>();
+//		Session curSession = null;
+//		if(sessionObject.containsKey(roomNo)) {
+//			curSession = sessionObject.get(roomNo);
+//		} else {
+//			sessionObject.put(roomNo, session);
+//			curSession = session;
+//		}
+//		
+//		//session사용자를 확인할 데이터를 저장
+//		curSession.getUserProperties().put("msg", msg);
+//		
+//		//전체 접속자 가져오기
+//		Set<Session> clients = session.getOpenSessions();
+//		//session.isOpen();열렸는지 닫혔는지 확인 가능 한 함수!연결된 session인지 확인
+//		
+//		for (Session sess : clients) {
+//			if(sess.getId().equals(roomNo)) {
+//				try {
+//					if(msg.getReceiver().equals("")) {
+//						for(Session client : clients) {
+//							client.getBasicRemote().sendObject(msg);
+//						}
+//					}else {
+//						for(Session client : clients) {
+//							Message userMsg = (Message)client.getUserProperties().get("msg");
+//							//userMsg란?session이 갖고있는것!
+//							if(userMsg.getSender().equals(msg.getReceiver()) || userMsg.getSender().equals(msg.getSender())) {
+//								client.getBasicRemote().sendObject(msg);
+//							}
+//						}
+//					}
+//				}catch(IOException|EncodeException e) {
+//					
+//				}				
+//			}
+//		}
+//	}
 }

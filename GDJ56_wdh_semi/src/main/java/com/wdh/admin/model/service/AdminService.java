@@ -1,9 +1,13 @@
 package com.wdh.admin.model.service;
 
+import static com.wdh.common.JDBCTemplate.close;
+import static com.wdh.common.JDBCTemplate.commit;
+import static com.wdh.common.JDBCTemplate.getConnection;
+import static com.wdh.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.List;
 
-import static com.wdh.common.JDBCTemplate.*;
 import com.wdh.admin.model.dao.AdminDao;
 import com.wdh.member.vo.Member;
 
@@ -44,5 +48,13 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
-
+	
+	public int deleteMember(int memberNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteMember(conn,memberNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

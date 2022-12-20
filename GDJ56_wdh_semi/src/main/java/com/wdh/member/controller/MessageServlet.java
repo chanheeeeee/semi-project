@@ -1,6 +1,7 @@
-package com.chat.controller;
+package com.wdh.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +12,16 @@ import javax.servlet.http.HttpSession;
 import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class ChatServlet
+ * Servlet implementation class MessageServlet
  */
-@WebServlet("/chat/chat.do")
-public class ChatServlet extends HttpServlet {
+@WebServlet("/member/messageServlet.do")
+public class MessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChatServlet() {
+    public MessageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,13 +30,23 @@ public class ChatServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String wdNo = request.getParameter("wdNo");//게시글번호
+		String recvMemberNo = request.getParameter("recvMemberNo");//받는사람멤버번호
+		String recvMemberNick = request.getParameter("recvMemberNick");//받는사람 닉네임
 		
 		HttpSession session = request.getSession();
-		Member m = (Member) session.getAttribute("loginMember");
-		String nickName = m.getMember_nickname();
-		request.setAttribute("nickName", nickName);
-//		String roomNm = (String) request.getParameter("roomNm");
-		request.getRequestDispatcher("/views/chat/chat.jsp").forward(request, response);
+		Member m = (Member)session.getAttribute("loginMember");//세션에서 로그인한 정보 가져오기!
+		String nickname = m.getMember_nickname();
+		request.setAttribute("nickName", nickname);
+		request.setAttribute("recvMemberNo", recvMemberNo);
+		request.setAttribute("recvMemberNick", recvMemberNick);
+		request.setAttribute("wdNo", wdNo);
+		
+		System.out.println(wdNo);
+		System.out.println(recvMemberNo);
+		System.out.println(recvMemberNick);
+		
+		request.getRequestDispatcher("/views/member/message.jsp").forward(request, response);
 	}
 
 	/**
