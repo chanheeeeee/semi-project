@@ -34,10 +34,6 @@ public class NicknameDuplicateServlet extends HttpServlet {
 		String nickname = request.getParameter("nickname");
 		//jsp에서 닉네임 가져옴
 		
-		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
-		
-		Member m1 = new MemberService().memberView(id);
-		
 		Member m = new MemberService().NickNameDuplicate(nickname);
 		
 		//성공여부확인
