@@ -33,8 +33,11 @@ public class DclViewEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int dclNo=Integer.parseInt(request.getParameter("dclNo"));
+		System.out.println(dclNo);
+		
 		Declaration dcl=new DclService().selectDcl(dclNo);
 		List<DclComment> list=new DclService().selectDclComment(dclNo);
+		System.out.println(list);
 		
 		request.setAttribute("comment", list);
 		request.setAttribute("dcl",dcl);

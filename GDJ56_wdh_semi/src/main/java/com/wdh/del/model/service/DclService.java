@@ -50,14 +50,22 @@ public class DclService {
 		close(conn);
 		return result;
 	}
+//	public int deleteDclc(DclComment dc) {
+//		Connection conn=getConnection();
+//		int result=dao.deleteDclc(conn,dc);
+//		if(result>0) {
+//			result=dao.updateDclResult1(conn, dc.getDclRef());
+//			if(result>0) commit(conn);
+//			else rollback(conn);
+//		}
+//		close(conn);
+//		return result;
+//	}
 	public int deleteDclc(DclComment dc) {
 		Connection conn=getConnection();
-		int result=dao.deleteDclc(conn,dc);
-		if(result>0) {
-			result=dao.updateDclResult1(conn, dc.getDclRef());
-			if(result>0) commit(conn);
-			else rollback(conn);
-		}
+		int result=dao.deleteDclc(conn, dc);
+		if(result>0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		return result;
 	}
