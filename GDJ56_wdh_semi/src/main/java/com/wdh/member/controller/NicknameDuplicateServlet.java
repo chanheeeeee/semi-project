@@ -47,10 +47,6 @@ public class NicknameDuplicateServlet extends HttpServlet {
 //			System.out.println("사용 가능한 닉네임 입니다.");
 //		}
 		
-		if(nickname.equals(m1.getMember_nickname())) {
-			response.getWriter().append("가능");
-		}
-		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().append(m==null?"가능":"불가능");
 		
