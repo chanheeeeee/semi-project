@@ -230,7 +230,7 @@ public class MemberDao {
 		Member m = new Member();
 		
 		m.setMember_no(rs.getInt("MEMBER_NO"));
-		m.setMember_id(rs.getString("MEMBER_ID"));
+		m.setMember_id(rs.getString("MEMBER_ID")); 
 		m.setMember_nickname(rs.getString("MEMBER_NICKNAME"));
 		m.setName(rs.getString("MEMBER_NAME"));
 		m.setPassword(rs.getString("MEMBER_PASSWORD"));
@@ -274,6 +274,29 @@ public class MemberDao {
 			pstmt.setString(2, member_id);
 			
 			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	//쪽지보내기
+	public int sendMessage(Connection conn, String wdNo, String receiveMemberNo, String content, int msg_writer) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("sendMessage"));
+			pstmt.setString(1, wdNo);
+			pstmt.setString(2, receiveMemberNo);
+			pstmt.setString(3, content);
+			pstmt.setInt(4, msg_writer);
+			
+			result = pstmt.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -8,6 +8,7 @@
    List<WdJoin> wdJoins=(List<WdJoin>)request.getAttribute("wdJoins");
    List<WdJoin> wdJoinsW=(List<WdJoin>)request.getAttribute("boardsW");
    int result=0;
+   String gender="";
 %>
 
 <%@ include file="/views/common/header.jsp" %>
@@ -50,7 +51,12 @@
                         	<p class="text-muted"><strong>종목 - <%=b.getWdCategory() %></strong></p>
                         	<p class="text-muted"><strong>모임날짜 - <%=b.getWdDate() %></strong></p>
                         	<p class="text-muted"><strong>지역 - <%=b.getWdLocation() %></strong></p>
-                        	<p class="text-muted"><strong>성별 - <%=b.getWdGender() %></strong></p>
+                        	<p class="text-muted"><strong>성별 - 
+                         	<%if(b.getWdGender().equals("F")) gender="여";
+                        		else if(b.getWdGender().equals("M")) gender="남";
+                        		else gender="무관";%>
+                        		<%=gender %>
+                        	</strong></p>
                         	<p class="text-muted"><strong>모집인원 - <%=b.getWdCount() %></strong></p>
                         	<p class="text-muted"><strong>목적 - <%=b.getWdPurpose() %></strong></p>
                         </div>
@@ -86,9 +92,15 @@
 													<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
 													onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
 	                                 			<%} 
-	                                 		}else{%>
-	                                 			<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
-	                                 		<%} %>
+	                                            //마감된 경우
+	                                 		}else{
+	                                 			if(result==1){%>
+	                                 				<li class="list-inline-item"><span class="btn btn-success" 
+	                                 				onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">동행마감</span></li>
+	                                 			<%} else{%>
+	                                 					<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
+	                                 			<%} 
+	                                 		}%>
 	                                 			
                                         </ul>
                                     </div>

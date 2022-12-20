@@ -22,7 +22,8 @@
 				<%=m.getMember_nickname() %>
 				<%int memberNo=m.getMember_no(); %>
 				<%if(loginMember==b.getMemberNo()) {%>
-					<button id="button1" style="height:25px !important; width:50px !important; margin:3px !important;" onclick="out()">쪽지</button><br>
+					<button id="messageSend" style="height:25px !important; width:50px !important; margin:3px !important;"
+					onclick="messageSendPop('<%=b.getWdNo()%>','<%=m.getMember_id()%>','<%=m.getMember_nickname()%>')">쪽지</button><br>
 					<button id="button1" style="height:25px !important; width:80px !important; margin:3px !important;" onclick="out()">동행거절</button><br>
 					<input type="hidden" name="out" onclick="location.href='<%=request.getContextPath()%>/board/wdjoinout.do?memberNo=<%=memberNo%>&wdNo=<%=b.getWdNo()%>';">
 				<%} %>
@@ -33,6 +34,9 @@
 			<input type="button" name="listclose" id="button1" value="닫기" onClick="window.close()"
 			style="width:80px !important;=bottom: 0% !important;">		
 		</div>
+		<form id="">
+			<input type="hidden" name="">
+		</form>
 
 </div>
 
@@ -41,6 +45,10 @@
 		if(confirm("동행을 거절하시겠습니까?")==true){
 			document.getElementsByName("out")[0].click();
 		}
+	}
+	
+	const messageSendPop=(wdNo,recvMemberNo,recvMemberNick)=>{
+		console.log(wdNo,recvMemberNo,recvMemberNick);
 	}
 
 </script>

@@ -36,8 +36,8 @@ private BoardDao2 dao = new BoardDao2();
 		return result;
 	}
 	
-//	public int selectBoardCount(where) { //카운트 하나로 써야하는가. 걍리스트-검색리스트 따로 카운트 만들어줘야하는가
-//		Connection conn = getConnection(); //하나만드는거지금하는중
+//	public int selectBoardCount() { //그냥리스트-검색리스트 따로 카운트 만들어줘야? -> 하나로 만들었다
+//		Connection conn = getConnection();
 //		int result = dao.selectBoardCount(conn);
 //		close(conn);
 //		return result;

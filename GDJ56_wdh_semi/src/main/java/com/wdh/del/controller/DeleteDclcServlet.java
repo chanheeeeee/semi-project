@@ -32,7 +32,7 @@ public class DeleteDclcServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int dclNo=Integer.parseInt(request.getParameter("dclNo"));
-		//
+		System.out.println(dclNo);
 		
 		
 		DclComment dc= DclComment.builder()
@@ -41,7 +41,7 @@ public class DeleteDclcServlet extends HttpServlet {
 		
 		String dclcNo=request.getParameter("dclref");
 		int result=new DclService().deleteDclc(dc);
-		
+		System.out.println(dclNo);
 		String msg="",loc="";
 		if(result>0) {
 			msg="답변 삭제";

@@ -156,6 +156,7 @@
 								</li>
 								<li class="nav-item" id="chat" >
 									<a class="nav-link fs-3-2" href='' style="margin-top: -9%;">채팅</a>
+									
 								</li>
 							<% } %>
 							</ul>
@@ -164,7 +165,9 @@
 				</div>
 			</div>
 		</nav>
-		<form id="frm" name="frm"></form>
+		<form id="frm" name="frm">
+			<!-- <input type="text" name="roomNm"/> -->
+		</form>
 	</header>
 	
 	<script>

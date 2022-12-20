@@ -114,9 +114,11 @@
 				default : categoryImg = "https://images.unsplash.com/photo-1597769555495-c54a15cd8c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80";break;
 				}%>
 				
+				
 				<!-- board -->
 				<div class="col-md-6 col-lg-3 pb-5">
-					<div class="h-100 py-5 services-icon-wap shadow">
+					<div class="h-100 py-5 services-icon-wap shadow" 
+					id="<%=b.getDateFlag()==1||b.getAttendFlag()==1? "closeBoardColor":"boardColor"%>">
 						<div class="card rounded-0">
 							<img class="card-img rounded-0 img-fluid"
 							src="<%=categoryImg%>">
@@ -130,6 +132,23 @@
 							<h2 class="h5 mt-4 text-center"><%=b.getWdCategory()%></h2>
                      </div>
                 </div>
+				
+				<%--원래 <!-- board -->
+				<div class="col-md-6 col-lg-3 pb-5">
+					<div class="h-100 py-5 services-icon-wap shadow" id="closeBoardColor">
+						<div class="card rounded-0">
+							<img class="card-img rounded-0 img-fluid"
+							src="<%=categoryImg%>">
+							<div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"></div>
+						</div>
+							<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>">
+							<!-- 동행 참여 회원 리스트 서블릿으로 이동 / view가 달라져야하기때문 -->
+							<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>">
+								<h2 class="a h5 mt-4 text-center"><%=b.getWdTitle() %></h2>
+							</a>
+							<h2 class="h5 mt-4 text-center"><%=b.getWdCategory()%></h2>
+                     </div>
+                </div> --%>
 			<%} 
 		} %>
 	</div>
@@ -236,11 +255,6 @@
 	}) */
 
 </script>
-<!-- <style>
-.h-100 py-5 services-icon-wap shadow{
-	backgroundColor:"lime";
-}
-</style> -->
 <script>
 	temp = "<%=request.getAttribute("pageBar") %>";
 	let arr=temp.split(",");
@@ -265,12 +279,26 @@
 /*페이지바*/
 div#pageBar {
 	margin-top: 10px;
-	text-align: center;
-}
+	text-align: center;	}
 div#pageBar span.cPage {color: #0066ff; }
 div#container>div {display: none;}
 a {text-decoration: none;}
-div.services-icon-wap.hover {background-color: red;}
+div.services-icon-wap.hover {background-color: red;	}
+
+div>a{
+	color: #f39c12cc;
+}
+
+/*마감게시글*/
+#closeBoardColor{
+	/* background-color: #0d0f1040; */
+	background-color: #3c28003b;
+}
+#boardColor{
+	/* background-color: #edbe6f33; */
+	/* background-color: #3a3a3a0f; */
+	background-color: #343a400f;
+}
 </style>
 	
 	
