@@ -15,6 +15,7 @@ import java.util.Properties;
 import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
 
 import com.wdh.member.vo.Member;
+import com.wdh.member.vo.Message;
 
 public class MemberDao {
 
@@ -230,7 +231,7 @@ public class MemberDao {
 		Member m = new Member();
 		
 		m.setMember_no(rs.getInt("MEMBER_NO"));
-		m.setMember_id(rs.getString("MEMBER_ID"));
+		m.setMember_id(rs.getString("MEMBER_ID")); 
 		m.setMember_nickname(rs.getString("MEMBER_NICKNAME"));
 		m.setName(rs.getString("MEMBER_NAME"));
 		m.setPassword(rs.getString("MEMBER_PASSWORD"));
@@ -281,6 +282,58 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	//쪽지보내기
+	public int sendMessage(Connection conn, String wdNo, String receiveMemberNo, String content, int msg_writer) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("sendMessage"));
+			pstmt.setInt(1, Integer.parseInt(wdNo));
+			pstmt.setInt(2, Integer.parseInt(receiveMemberNo));
+			pstmt.setString(3, content);
+			pstmt.setInt(4, msg_writer);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	//쪽지확인리스트
+	public List<Message> messageList(Connection conn, int msg_writer) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Message> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("messageList"));
+			pstmt.setInt(1, msg_writer);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Message m = Message.builder()
+				.msg_no(rs.getInt("MSG_NO"))
+				.writer_nickname(rs.getString("MEMBER_NICKNAME"))
+				.msg_content(rs.getString("MSG_CONTENT"))
+				.msg_date(rs.getDate("MSG_DT"))
+				.read_yn(rs.getString("READ_YN").charAt(0))
+				.build();
+				
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
 	}
 
 

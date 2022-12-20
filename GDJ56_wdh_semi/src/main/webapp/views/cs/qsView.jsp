@@ -108,7 +108,7 @@
 				(loginMember.getMember_id().equals("admin"))) {%>
     			<div id="comment-container">
     				<div class="comment-editor">
-    				<img src="<%=request.getContextPath() %>/images/commentimg.png" style="float:left" width="50" height="50">
+    				<img src="<%=request.getContextPath() %>/images/commentimg.png" style="float:left;margin-left:400px;margin-right:-400px;" width="50" height="50">
     					<form action="<%=request.getContextPath()%>/cs/qscommentWrite.do" method="post">
     						<textarea name="content" rows="10" cols="70" placeholder="1대1문의 답변"></textarea>
     						<input type="hidden" name="qsref" value="<%=qs.getQsNo()%>">
@@ -125,11 +125,11 @@
     							if(qsc.getQsCommentLevel()==1){%>
     							<tr class="level1">
     								<td>
-    								<img src="<%=request.getContextPath() %>/images/commentimg.png" left="600" width="50" height="50">
+    								<img src="<%=request.getContextPath() %>/images/commentimg.png" style="text-align:center" width="50" height="50">
     									&nbsp;<sub class="comment-writer"><%=qsc.getQsCommentWriter() %></sub>
     									<sub class="comment-date"><%=qsc.getQsCommentDate() %></sub>
     									<br>
-    										<%=qsc.getQsCommentContent()%>
+    										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=qsc.getQsCommentContent()%>
     									</td>
     								<td>
     								<form id="commentFrm" action="<%=request.getContextPath()%>/cs/deleteQsc.do?qsNo=<%=qs.getQsNo()%>" method="post">

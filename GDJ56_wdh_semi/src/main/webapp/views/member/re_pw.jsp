@@ -44,21 +44,17 @@
 	</div>
 	
 	<div class="id_body">
-	<div class="form-signin">
+		<div class="form-signin">
 			<b><p class="text 2" style="font-size:11px; text-align:center; color:blue; ">**비밀번호는 숫자,영문 조합 최소 8자이상이여야 합니다**</p></b>
-		<input type="password" name="name" id="new_pw" class="form_control" placeholder="새비밀번호" required="" autofocus="" style=" height: 55px; border-radius:20px; width:220px">
-		<font id="new_pw_result" size="2"></font><br><br>
-		<input type="password" name="email" id="check_newpw" class="form_control" placeholder="새비밀번호 확인" required="" style="height: 55px; width:220px; margin-bottom: -20px; border-radius:20px;">
-		<font id="check_newpw_result" size="2"></font>
-			<p class="check" id="check">${check}</p><br>
-			<input type="button" id="btnFindPw" class="button" style="height: 65px; width: 184px; border-radius:20px; margin-bottom:25px " value="저  장  하  기">
-			
-			<input type="hidden" id="saveId" value="<%=request.getParameter("member_id") %>">
+			<input type="password" name="name" id="new_pw" class="form_control" placeholder="새비밀번호" required="" autofocus="" style=" height: 55px; border-radius:20px; width:220px"><br>
+			<font id="new_pw_result" size="2"></font><br>
+			<input type="password" name="email" id="check_newpw" class="form_control" placeholder="새비밀번호 확인" required="" style="height: 55px; width:220px; border-radius:20px;"><br>
+			<font id="check_newpw_result" size="2"></font>
+				<p class="check" id="check">${check}</p>
+				<input type="button" id="btnFindPw" class="button" style="height: 65px; width: 184px; border-radius:20px; margin-bottom:25px " value="저  장  하  기">
+				<input type="hidden" id="saveId" value="<%=request.getParameter("member_id") %>">
+		</div>
 	</div>
-
-	</div>
-	
-       
 	</section>
 	</center>
 	

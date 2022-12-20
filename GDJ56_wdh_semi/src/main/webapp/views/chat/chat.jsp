@@ -12,9 +12,10 @@
 </head>
 <body>
 	<div id="container">
-		보낸사람<input type="text" size="4" id="sender">
+		보낸사람<input type="text" size="4" id="sender" value="<%=request.getAttribute("nickName")%>" readonly="readonly">
 		받는사람<input type="text" size="4" id="receiver"><br>
 		<input type="text" id="sendMsg" placeholder="전송할 메세지 작성!">
+		<input type="hidden" id="roomNo" value="<%=request.getParameter("roomNm")%>">
 		<button id="btnSend">전송</button>
 	</div>
 	<div id="msgcontainer"></div>
@@ -32,6 +33,7 @@
 		socket.onopen=e=>{
 			console.log(e);
 			console.log("채팅서버 접속!");
+			//접속하였습니다 하면 여기에서 채팅 하면 됨
 		}
 		
 		//서버에서 보낸 데이터를 처리하는 핸들러 등록
@@ -90,7 +92,8 @@
 			
 			//class Message{ 이거 생성후 위에 보다 아래처럼 작성 가능!
 			//이렇게 객채화 시키면 키값이 고정된다!
-			const data = new Message($("#sender").val(),
+			const data = new Message($("#roomNo").val(),
+						$("#sender").val(),
 						$("#receiver").val(),
 						$("#sendMsg").val());
 			console.log(data);
@@ -99,7 +102,8 @@
 		});
 		
 		class Message{
-			constructor(sender, receiver, msg){
+			constructor(roomNo, sender, receiver, msg){
+				this.roomNo = roomNo;
 				this.sender = sender;
 				this.receiver = receiver;
 				this.msg = msg;

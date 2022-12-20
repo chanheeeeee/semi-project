@@ -9,8 +9,20 @@
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2 profile" src="<%=request.getContextPath()%>/upload/profile/<%= loginMember.getProfile() %>" alt="..."
-                							style="width: 200px; height: 200px;" /></span>
+                <span class="d-none d-lg-block">
+                <% 
+					if(loginMember.getProfile() == null) { %>
+									
+					<img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
+                      							src="<%=request.getContextPath()%>/assets/img/pocha.jpg" />
+                      							
+                    <% } else { %>
+                      			
+                    <img class="profile img-fluid img-profile rounded-circle" style="width: 200px; height: 200px;"
+                      							src="<%=request.getContextPath()%>/upload/profile/<%= loginMember.getProfile() %>" />
+                      							
+                    <% } %>
+                </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -195,13 +207,6 @@
 						"_blank","width=400,height=210");
 				
 			}
-			
-			<%-- const fn_updateMember=()=>{
-				$("#updateMemberFrm").attr("action",
-						"<%=request.getContextPath()%>/mypage/updateMemberEnd.do");
-				$("#updateMemberFrm").submit();
-				
-			} --%>
 			
 			$(function(){
 		    	//회원가입 버튼클릭시 아이디,닉네임,패스워드,이메일 유효성체크
