@@ -590,6 +590,35 @@ public class MypageDao {
 	}
 	
 	
+
+	public int changeProfile(Connection conn, Member m, String fileName) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("changeProfile"));
+			pstmt.setString(1, fileName);
+			pstmt.setInt(2, m.getMember_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+	}
+	
+	
 	
 
 }

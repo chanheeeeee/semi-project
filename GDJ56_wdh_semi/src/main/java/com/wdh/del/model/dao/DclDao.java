@@ -124,6 +124,19 @@ public class DclDao {
 			close(pstmt);
 		}return result;
 	}
+	public int deleteDclc(Connection conn, DclComment dc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteDclc"));
+			pstmt.setInt(1, dc.getDclCommentNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 	
 	public List<DclComment> selectDclComment(Connection conn, int no){
 		PreparedStatement pstmt=null;
@@ -158,6 +171,33 @@ public class DclDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	public int updateDclResult(Connection conn, int dclNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateDclResult"));
+			pstmt.setInt(1, dclNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+//	public int updateDclResult1(Connection conn, int dclNo) {
+//		PreparedStatement pstmt=null;
+//		int result=0;
+//		try {
+//			pstmt=conn.prepareStatement(sql.getProperty("updateDclResult1"));
+//			pstmt.setInt(1, dclNo);
+//			result=pstmt.executeUpdate();
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(pstmt);
+//		}return result;
+//	}
 	
 	private DclComment getDclComment(ResultSet rs) throws SQLException{
 		return DclComment.builder()

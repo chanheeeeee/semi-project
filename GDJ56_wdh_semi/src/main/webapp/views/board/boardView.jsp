@@ -8,6 +8,7 @@
    List<WdJoin> wdJoins=(List<WdJoin>)request.getAttribute("wdJoins");
    List<WdJoin> wdJoinsW=(List<WdJoin>)request.getAttribute("boardsW");
    int result=0;
+   String gender="";
 %>
 
 <%@ include file="/views/common/header.jsp" %>
@@ -24,11 +25,12 @@
         <div class="container pb-5">
             <div class="row">
                 <div class="col-lg-7 mt-5 container py-1">
+                	
+                	
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2"><%=b.getWdTitle() %></h1>
-                            <p class="h3 py-2"><%=b.getWdCategory() %></p>
-                            <p class="py-2">
+                        <div><h1 class="h2"><%=b.getWdTitle() %></h1></div>
+                        <div class="star">
                              <%int scoreSum=0; %>
                             <!-- 후기 별점 모두 더하기 -->
                             <%for(ReviewBoard rb : reviews){ 
@@ -42,46 +44,23 @@
 	                            		<i class="fa fa-star text-secondary"></i>
 	                            	<%} 
 	                            }
-                            }%> 
-                                <span class="list-inline-item text-dark"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>) | <%=b.getWdTime() %></span>
-                                
-                                <!--<a href="shop-single.html" class="h3 text-decoration-none">익명</a>  -->
-                            </p>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>목적:</h5>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong><%=b.getWdPurpose() %></strong></p>
-                                </li>
-                            </ul>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>지역:</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong><%=b.getWdLocation() %></strong></p>
-                                </li>
-                            </ul>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>성별:</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong><%=b.getWdGender() %></strong></p>
-                                </li>
-                            </ul>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>모임날짜:</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong><%=b.getWdDate() %></strong></p>
-                                </li>
-                            </ul>
-
-                            <h6>글내용</h6>
-                            <p><%=b.getWdContent() %></p>
+                            }%>  
+                        </div>    
+                        <div id="memberNic"><span class="list-inline-item text-dark"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>) | <%=b.getWdTime() %></span></div>                   
+                        <div class="select">
+                        	<p class="text-muted"><strong>종목 - <%=b.getWdCategory() %></strong></p>
+                        	<p class="text-muted"><strong>모임날짜 - <%=b.getWdDate() %></strong></p>
+                        	<p class="text-muted"><strong>지역 - <%=b.getWdLocation() %></strong></p>
+                        	<p class="text-muted"><strong>성별 - 
+                         	<%if(b.getWdGender().equals("F")) gender="여";
+                        		else if(b.getWdGender().equals("M")) gender="남";
+                        		else gender="무관";%>
+                        		<%=gender %>
+                        	</strong></p>
+                        	<p class="text-muted"><strong>모집인원 - <%=b.getWdCount() %></strong></p>
+                        	<p class="text-muted"><strong>목적 - <%=b.getWdPurpose() %></strong></p>
+                        </div>
+                            <p class="content"><%=b.getWdContent() %></p>
 
                             <form action="" method="GET" id="">
                                 <input type="hidden" name="product-title" value="Activewear">
@@ -109,13 +88,19 @@
 													onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
 												<!-- 참가전 회원 -->
 	                                            <%}else { %>
-													<li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li>
+													<div class="joinCount"><li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li></div>
 													<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
 													onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
 	                                 			<%} 
-	                                 		}else{%>
-	                                 			<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
-	                                 		<%} %>
+	                                            //마감된 경우
+	                                 		}else{
+	                                 			if(result==1){%>
+	                                 				<li class="list-inline-item"><span class="btn btn-success" 
+	                                 				onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">동행마감</span></li>
+	                                 			<%} else{%>
+	                                 					<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
+	                                 			<%} 
+	                                 		}%>
 	                                 			
                                         </ul>
                                     </div>
@@ -358,6 +343,17 @@
    
    
     <style>
+    	/* 글 */
+    	.h2{text-align:center;margin-top:10%;font-weight: bold;}
+    	#memberNic{text-align:center;}
+    	.select{margin:8%; margin-bottom:2% !important; padding:8%;border:1px solid lightgray;border-radius:15px;}
+    	.star{margin-top:20px;text-align:center;}
+    	.content{margin-left:11%;margin-right:11%}
+    	.col-auto{text-align:center; margin-top:50px;}
+    	.joinCount{margin-bottom:1px;}
+    
+    
+    
 	     /*댓글테이블*/
 	    div>div#comment-editor{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 
 	    table#tbl-comment{width:600px; margin:0 auto; border-collapse:collapse; clear:both; } 

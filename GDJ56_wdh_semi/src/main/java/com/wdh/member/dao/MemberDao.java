@@ -230,7 +230,7 @@ public class MemberDao {
 		Member m = new Member();
 		
 		m.setMember_no(rs.getInt("MEMBER_NO"));
-		m.setMember_id(rs.getString("MEMBER_ID"));
+		m.setMember_id(rs.getString("MEMBER_ID")); 
 		m.setMember_nickname(rs.getString("MEMBER_NICKNAME"));
 		m.setName(rs.getString("MEMBER_NAME"));
 		m.setPassword(rs.getString("MEMBER_PASSWORD"));
@@ -240,6 +240,7 @@ public class MemberDao {
 		m.setPhone(rs.getString("PHONE"));
 		m.setAddress(rs.getString("ADDRESS"));
 		m.setGrade(rs.getInt("GRADE"));
+		m.setProfile(rs.getString("PROFILE"));
 		return m;
 	}
 
