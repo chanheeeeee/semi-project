@@ -94,9 +94,13 @@
 	                                 			<%} 
 	                                            //마감된 경우
 	                                 		}else{
+	                                 			//참가한회원
 	                                 			if(result==1){%>
+	                                 				<li class="list-inline-item"><span class="btn btn-success"
+													onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
 	                                 				<li class="list-inline-item"><span class="btn btn-success" 
-	                                 				onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">동행마감</span></li>
+	                                 				onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+	                                 			<!-- 참가안한회원 -->
 	                                 			<%} else{%>
 	                                 					<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
 	                                 			<%} 
@@ -316,8 +320,10 @@
 												</div>
 											</div>
 											<div style="display: flex; justify-content:flex-start; margin-top: 20px;">
-												<img src="<%=request.getContextPath()%>/reviewImg/<%=rb.getImg()%>" alt="" style="width:80px; height:80px;">		                            
-					                                <p style="margin-left:30px;"><%=rb.getReviewContent()%></p>
+												<%if(rb.getImg()!=null){ %>
+													<img src="<%=request.getContextPath()%>/reviewImg/<%=rb.getImg()%>" alt="" style="width:80px; height:80px;">	
+												<%} %>	                            
+					                            <p style="margin-left:30px;"><%=rb.getReviewContent()%></p>
 					                       	</div>
 				                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
 				                                <li></li>
