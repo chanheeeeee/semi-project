@@ -196,13 +196,6 @@
 				
 			}
 			
-			<%-- const fn_updateMember=()=>{
-				$("#updateMemberFrm").attr("action",
-						"<%=request.getContextPath()%>/mypage/updateMemberEnd.do");
-				$("#updateMemberFrm").submit();
-				
-			} --%>
-			
 			$(function(){
 		    	//회원가입 버튼클릭시 아이디,닉네임,패스워드,이메일 유효성체크
 		    	//이유:아이디, 닉네임, 패스웓, 이메일 유효성 여부를 또 다시 통신하는것이 불필요하다.
