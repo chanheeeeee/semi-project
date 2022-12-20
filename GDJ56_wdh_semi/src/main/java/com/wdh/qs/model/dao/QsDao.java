@@ -143,7 +143,33 @@ public class QsDao {
 			pstmt.setString(2, qsc.getQsCommentWriter());
 			pstmt.setString(3, qsc.getQsCommentContent());
 			pstmt.setInt(4, qsc.getQsRef());
-			pstmt.setString(5, qsc.getQsCommentRef()==0? null:String.valueOf(qsc.getQsCommentRef()));
+//			pstmt.setString(5, qsc.getQsCommentRef()==0? null:String.valueOf(qsc.getQsCommentRef()));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int updateQsResult(Connection conn, int qsNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateQsResult"));
+			pstmt.setInt(1, qsNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	public int deleteQsc(Connection conn, QsComment qsc) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteQsc"));
+			pstmt.setInt(1, qsc.getQsCommentNo());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -159,8 +185,8 @@ public class QsDao {
 				.qsCommentLevel(rs.getInt("qs_comment_level"))
 				.qsCommentWriter(rs.getString("qs_comment_writer"))
 				.qsCommentContent(rs.getString("qs_comment_content"))
-				.qsRef(rs.getInt("qs_comment_ref"))
-				.qsCommentRef(rs.getInt("qs_comment_ref"))
+				.qsRef(rs.getInt("qs_ref"))
+//				.qsCommentRef(rs.getInt("qs_comment_ref"))
 				.qsCommentDate(rs.getDate("qs_comment_date"))
 				.build();
 	}

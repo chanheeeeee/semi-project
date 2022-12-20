@@ -73,7 +73,7 @@
 							 <tr>
                 				<td><%=qs.getQsNo() %></td>
                 				<td><%=qs.getQsHeadTitle() %></td>
-	                			<td><a href="<%=request.getContextPath()%>/cs/qSView.do?qsNo=<%=qs.getQsNo()%>"><%=qs.getQsTitle()%></a></td>
+	                			<td><a href="<%=request.getContextPath()%>/cs/qsView.do?qsNo=<%=qs.getQsNo()%>"><%=qs.getQsTitle()%></a></td>
 		                		<td><%=qs.getMember().getMember_id() %></td>
 		                		<td><%=qs.getQsDate() %></td>
 		                		<td><%=qs.getQsResult() %></td>

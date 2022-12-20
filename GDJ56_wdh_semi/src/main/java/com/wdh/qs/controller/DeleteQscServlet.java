@@ -1,6 +1,5 @@
-package com.wdh.del.controller;
+package com.wdh.qs.controller;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -9,22 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.del.model.service.DclService;
-import com.wdh.del.model.vo.Declaration;
+import com.wdh.qs.model.service.QsService;
+import com.wdh.qs.model.vo.QsComment;
 
 /**
- * Servlet implementation class DeleteDclServlet
+ * Servlet implementation class DeleteQscServlet
  */
-@WebServlet("/cs/deleteDcl.do")
-public class DeleteDclServlet extends HttpServlet {
+@WebServlet("/cs/deleteQsc.do")
+public class DeleteQscServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-    //신고 게시글 삭제하기 서블릿
-	
+    //1대1문의 답변 삭제 서블릿입니다.  
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteDclServlet() {
+    public DeleteQscServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,27 +30,22 @@ public class DeleteDclServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String fileName=request.getParameter("fileName");
-		//parameter는 jsp에서 넘어온 name 값을 적는다...
+		int qsNo=Integer.parseInt(request.getParameter("qsNo"));
 		
-		int no=Integer.parseInt(request.getParameter("no"));
-		System.out.println(no);
+		QsComment qsc=QsComment.builder()
+				.qsCommentNo(Integer.parseInt(request.getParameter("qscomment")))
+				.build();
 		
-//		Declaration dcl=Declaration.builder().dclNo(Integer.parseInt(request.getParameter("dcl_no"))).build();
-//		System.out.println(dcl);
-		int result=new DclService().deleteDcl(no);
+		String qscNo=request.getParameter("qsref");
+		int result=new QsService().deleteQsc(qsc);
 		
 		String msg="",loc="";
 		if(result>0) {
-			msg="신고 글 삭제";
-			loc="/admin/adminDcl.do";
-			String path=getServletContext().getRealPath("/upload/cs/");
-			File delFile=new File(path+fileName);
-			if(delFile.exists()) delFile.delete();
+			msg="답변 삭제";
 		}else {
-			msg="글 삭제 실패";
-			loc="/cs/dcl.do?dclNo="+no;
+			msg="답변 삭제 실패";
 		}
+		loc="/cs/qsView.do?qsNo="+qsNo;
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
 		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
