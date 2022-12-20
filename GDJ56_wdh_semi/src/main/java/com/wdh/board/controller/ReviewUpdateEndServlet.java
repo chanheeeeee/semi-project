@@ -13,6 +13,8 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.wdh.board.service.BoardService1;
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
 import com.wdh.board.vo.ReviewBoard;
 
 /**
@@ -52,7 +54,7 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 			ReviewBoard rb=ReviewBoard.builder().reviewTitle(title).reviewContent(content).reviewScore(score).reviewSeq(reviewNo).build();
 			System.out.println(rb);
 			int result=new BoardService1().updateReview(rb);
-			System.out.println(result);
+			System.out.println(result);	
 			String msg="", loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+boardNo;
 			if(result>0) {
 				msg="수정성공!";
@@ -62,6 +64,10 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
 			request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
+			
+			//회원레벨
+			Board b=new BoardService2().selectBoard(boardNo);
+			new BoardService1().updateGrade(b);
 		}
 	}
 
