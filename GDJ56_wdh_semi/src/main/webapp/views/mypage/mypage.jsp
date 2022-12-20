@@ -5,6 +5,8 @@
 <% 
 	Member m = (Member)request.getAttribute("member"); 
 	String grade = (String)request.getAttribute("grade");
+	int score = (int)request.getAttribute("score");
+	
 %>
 
 		<!-- Navigation-->
@@ -42,7 +44,7 @@
             <!-- About-->
             <!-- 프로필 수정 -->
             <section class="resume-section" id="update">
-                   <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px">
+                   <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px; margin-top: -18%;'">
                     <form class="form-horizontal" action="<%=request.getContextPath()%>/mypage/changeProfile.do" method="post" enctype="multipart/form-data">
                       <div class="form-group row">
                       	<span class="d-none d-lg-block">
@@ -113,6 +115,10 @@
                       
                       <div class="form-group row">
                         <label for="inputName2" class="col-sm-2 col-form-label">내 등급: <%= grade %>단계</label>
+                      </div>
+                      
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">내 점수: <%= score %>점</label>
                       </div>
                       
 

@@ -618,6 +618,38 @@ public class MypageDao {
 		
 	}
 	
+	public int myScore(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int score=0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("myScore"));
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				score = rs.getInt("SUM(REVIEW_SCORE)");
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return score;
+		
+	}
+	
 	
 	
 
