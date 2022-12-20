@@ -19,20 +19,20 @@
 		<%if(members.isEmpty()){ %>
 			<p style="text-align: center;color:red;">참여 회원이 없습니다.</p>
 		<%}else{%>
-			<div id="list" style="display:flex;justify-content:center;min-height: 60%;">
+			<!-- <div id="list" style="display:flex;justify-content:center;min-height: 60%;"> -->
 			<%for(Member m : members){ %>
 			<div>
 				<%=m.getMember_nickname() %>
 				<%int memberNo=m.getMember_no(); %>
-					<button id="messageSend" style="height:25px !important; width:50px !important; margin:3px !important;"
+					<button id="messageSend" class="button1" style="height:25px !important; width:50px !important; margin:3px !important;"
 					onclick="messageSendPop('<%=b.getWdNo()%>','<%=m.getMember_no()%>','<%=m.getMember_nickname()%>')">쪽지</button><br>
 				<%if(loginMember==b.getMemberNo()) {%>
 					<button id="button1" style="height:25px !important; width:80px !important; margin:3px !important;" onclick="out()">동행거절</button><br>
 					<input type="hidden" name="out" onclick="location.href='<%=request.getContextPath()%>/board/wdjoinout.do?memberNo=<%=memberNo%>&wdNo=<%=b.getWdNo()%>';">
 				<%} %>
-				</div>
-			<%}%>
 			</div>
+			<%}%>
+			<!-- </div> -->
 		<%}%>
 		<div style="text-align: center;">
 			<input type="button" name="listclose" id="button1" value="닫기" onClick="window.close()"
@@ -56,13 +56,10 @@
 	//참가리스트에 쪽지버튼 눌렀을때
 	const messageSendPop=(wdNo,recvMemberNo,recvMemberNick)=>{//넘길데이터 게시글번호,멤버번호,멤버닉네임 
 		console.log(wdNo,recvMemberNo,recvMemberNick);
-
-		
 	
 		$("#wdNo").val(wdNo);
 		$("#recvMemberNo").val(recvMemberNo);
 		$("#recvMemberNick").val(recvMemberNick);
-		
 
 		open("","frmMessage","width=300,height=300");
 		frm.method="post";

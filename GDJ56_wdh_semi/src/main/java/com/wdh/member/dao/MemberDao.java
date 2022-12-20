@@ -336,17 +336,21 @@ public class MemberDao {
 		return list;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	//쪽지삭제
+	public int deleteMessage(Connection conn, int msg_no) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteMessage"));
+			pstmt.setInt(1, msg_no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

@@ -86,26 +86,37 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
-
+	
+	//비밀번호 재설정
 	public int rePassword(String member_id, String newpw) {
 		Connection conn = getConnection();
 		int result = new MemberDao().rePassword(conn,member_id,newpw);
 		close(conn);
 		return result;
 	}
-
+	
+	//쪽지보내기
 	public int sendMessage(String wdNo, String receiveMemberNo, String content, int msg_writer) {
 		Connection conn = getConnection();
 		int result = new MemberDao().sendMessage(conn, wdNo, receiveMemberNo ,content, msg_writer);
 		close(conn);
 		return result;
 	}
-
+	
+	//쪽지 리스트
 	public List<Message> messageList(int msg_writer) {
 		Connection conn = getConnection();
 		List<Message>list = new MemberDao().messageList(conn,msg_writer);
 		close(conn);
 		return list;
+	}
+	
+	//쪽지 지우기
+	public int deleteMessage(int msg_no) {
+		Connection conn = getConnection();
+		int result = new MemberDao().deleteMessage(conn,msg_no);
+		close(conn);
+		return result;
 	}
 	
 	
