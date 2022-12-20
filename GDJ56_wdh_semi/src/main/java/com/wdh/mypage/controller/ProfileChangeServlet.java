@@ -40,6 +40,8 @@ public class ProfileChangeServlet extends HttpServlet {
 		
 		Member m = new MemberService().memberView(id);
 		
+//		String loginId = m.getMember_id();
+//		String password = m.getPassword();
 		
 		//1. 요청방식 multipart/form-data 방식으로 왔는지 확인
 		if(!ServletFileUpload.isMultipartContent(request)) {
@@ -76,15 +78,17 @@ public class ProfileChangeServlet extends HttpServlet {
 			if(result > 0) {
 						
 				msg = "프로필이 변경되었습니다.";
-				loc = "/loginAction.do";
+				loc = "/mypage/about.do";
 				
-				HttpSession session=request.getSession(false);
-				session.invalidate();	
+				HttpSession session = request.getSession();
 				
-				String loginId = request.getParameter("loginId");
-				String password = request.getParameter("password");
-				session.setAttribute("loginId", loginId);
-				session.setAttribute("password", password);
+				String id2 = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
+				
+				m = new MemberService().memberView(id2);
+				
+				session.setAttribute("loginMember", m);
+
+				
 				
 			} else {
 						
