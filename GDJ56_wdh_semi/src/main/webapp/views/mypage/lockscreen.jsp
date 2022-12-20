@@ -40,7 +40,7 @@
   <div class="lockscreen-item">
     <!-- 프로필사진 -->
     <div class="lockscreen-image">
-      <img src="<%=request.getContextPath() %>/assets/img/pocha.jpg" class="profile" alt="User Image">
+      <img src="<%=request.getContextPath()%>/upload/profile/<%= loginMember.getProfile() %>" class="profile" alt="User Image">
     </div>
 
     <!-- 비밀번호 체크 폼 -->
