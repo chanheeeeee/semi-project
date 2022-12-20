@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.wdh.member.dao.MemberDao;
 import com.wdh.member.vo.Member;
+import com.wdh.member.vo.Message;
 
 public class MemberService {
 	private MemberDao dao = new MemberDao();
@@ -98,6 +99,13 @@ public class MemberService {
 		int result = new MemberDao().sendMessage(conn, wdNo, receiveMemberNo ,content, msg_writer);
 		close(conn);
 		return result;
+	}
+
+	public List<Message> messageList(int msg_writer) {
+		Connection conn = getConnection();
+		List<Message>list = new MemberDao().messageList(conn,msg_writer);
+		close(conn);
+		return list;
 	}
 	
 	

@@ -22,6 +22,7 @@
 	href="<%=request.getContextPath() %>/images/favicon.ico">
 
 <link rel="stylesheet"
+
 	href="<%=request.getContextPath() %>/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/css/templatemo.css">
@@ -155,9 +156,11 @@
 									<a class="nav-link fs-3-2" style="margin-top: 2%;"><%= loginMember.getMember_nickname() %> 회원님</a>		
 									<a class="nav-link fs-3-2" href='<%=request.getContextPath()%>/mypage/logout.do' style="margin-top: -9%;">로그아웃</a>
 								</li>
-								<li class="nav-item" id="chat" >
-									<a class="nav-link fs-3-2" href='' style="margin-top: -9%;">채팅</a>
-									
+								<li class="nav-item" >
+									<a class="nav-link fs-3-2" href='' style="" id="chat" >채팅</a>
+								</li>
+								<li class="nav-item" >
+									<a class="nav-link fs-3-2" href='' style="" id="message">쪽지확인</a>
 								</li>
 							<% } %>
 							</ul>
@@ -190,6 +193,12 @@
 			frm.method = "post";
 			frm.target="frm";
 			frm.submit();
+		});
+		
+		$("#message").on("click",function(){
+			$("#frm").attr("action","<%=request.getContextPath()%>/member/messageListAction.do");
+			$("#frm").submit();
+			
 		});
 		 
 		
