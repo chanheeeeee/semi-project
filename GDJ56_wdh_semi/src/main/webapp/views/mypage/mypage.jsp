@@ -44,7 +44,7 @@
             <!-- About-->
             <!-- 프로필 수정 -->
             <section class="resume-section" id="update">
-                   <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px; margin-top: -18%;'">
+                   <div class="tab-pane" id="settings" style="width: 700px; border: 1px solid gray; padding: 20px;'">
                     <form class="form-horizontal" action="<%=request.getContextPath()%>/mypage/changeProfile.do" method="post" enctype="multipart/form-data">
                       <div class="form-group row">
                       	<span class="d-none d-lg-block">
