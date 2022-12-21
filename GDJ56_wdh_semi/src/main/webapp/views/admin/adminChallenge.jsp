@@ -69,9 +69,9 @@ List<Challenge> challenge=(List<Challenge>)request.getAttribute("challenge");
 				                 for(Challenge ch : challenge)  { %> 
 				                        <div style="border:0px solid green;width:270px;height:300px;text-align: center; ">
 				                            <div style="border:0px solid magenta;width:180px;height:230px; margin-left :50px; margin-top :5px; " >
-				                                <img src="<%=request.getContextPath()%>/upload/challenge<%=ch.getChallenge_img()%>" alt="" style="width:100%;height:100%;margin:auto;border-radius:20px;">
+				                                <img src="<%=request.getContextPath()%>/upload/challenge/<%=ch.getChallenge_img()%>" alt="" style="width:100%;height:100%;margin:auto;border-radius:20px;">
 				                            </div>
-				                            <div><a href="<%=request.getContextPath()%>/challenge/adminChallengeView.do?Challenge_No=<%=ch.getChallenge_no()%>" style="color: black !important;font-size:20px !important;" ><%=ch.getChallenge_name()%></a></div>
+				                            <div><a href="<%=request.getContextPath()%>/challenge/adminChallengeView.do?challenge_No=<%=ch.getChallenge_no()%>" style="color: black !important;font-size:20px !important;" ><%=ch.getChallenge_name()%></a></div>
 				                        </div>           
 				                        
 				                     <% }
