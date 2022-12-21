@@ -111,29 +111,29 @@
 	    			<div class="form-group row" style="margin-top: -4.5%;">													
 				      	<div class="col-sm-10" style="">
 				      		<label for="inputTitle" class="col-form-label">운동</label>
-					       	<input type="text" class="form-control" name="title" style="width: 50%;">
+					       	<input type="text" class="form-control" id="title" style="width: 50%;">
 					    </div>
 					    <div class="col-sm-10" style="margin-top: 2%;">
 						    <label for="inputContent" class="col-form-label">메모</label>
-						    <input type="text" class="form-control" name="content" style="width: 70%;">
+						    <input type="text" class="form-control" id="memo" style="width: 70%; height: 55%;">
 					    </div>
 					    <div class="col-sm-10" style="margin-top: 2%;">
 						    <label for="inputStart" class="col-form-label">시작합니다</label>
-						    <input type="datetime-local" class="form-control" name="start" style="width: 50%;">
+						    <input type="datetime-local" class="form-control" id="start" style="width: 50%;">
 					    </div>
 					    <div class="col-sm-10" style="margin-top: 2%;">
 						    <label for="inputEnd" class="col-form-label">마칩니다</label>
-						    <input type="datetime-local" class="form-control" name="end" style="width: 50%;">
+						    <input type="datetime-local" class="form-control" id="end" style="width: 50%;">
 					    </div>
 					     <div class="col-sm-10" style="margin-top: 4%;">
 						    <label for="title" class="col-form-label">색상 선택</label>
 				        	<div class="col-9 btn-group w-100 my-20">
 					         	<ul class="fc-color-picker" id="color-chooser">
-                                    <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
-                                    <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
-                                    <li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
-                                    <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
-                                    <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
+                                    <li><a class="text-primary" href="#" id="bgColor"><i class="fas fa-square"></i></a></li>
+                                    <li><a class="text-warning" href="#" id="bgColor"><i class="fas fa-square"></i></a></li>
+                                    <li><a class="text-success" href="#" id="bgColor"><i class="fas fa-square"></i></a></li>
+                                    <li><a class="text-danger" href="#" id="bgColor"><i class="fas fa-square"></i></a></li>
+                                    <li><a class="text-muted" href="#" id="bgColor"><i class="fas fa-square"></i></a></li>
                                 </ul>
 				        	</div>
 			        	</div>
@@ -142,16 +142,12 @@
 			  </div>
 			  
 		      <div class="modal-footer" id="test">
-		        <button type="button" id="addBtn" class="btn btn-primary" onclick="addDiary()">추가</button>
+		        	<button type="button" id="addBtn" class="btn btn-primary" name="addDiary">추가</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
 	<!-- /Modal -->
-	
-	
-
-
 	
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
@@ -159,14 +155,6 @@
 		// new FullCalendar.Calendar(대상 DOM객체, {속성:속성값, 속성2:속성값2..})
 		
 	    var calendar = new FullCalendar.Calendar(calendarEl, {
-	    	customButtons: {
-	    	    myCustomButton: {
-	    	      text: '추가',
-	    	      click: function() {
-	    	        alert('clicked the custom button!');
-	    	      }
-	    	    }
-	    	  },
 	      headerToolbar: {
 	        left: 'prev,next today',
 	        center: 'title',
@@ -181,10 +169,13 @@
 	      select: function(arg) {
 	    	  console.log(arg);
 				
-	    	  var title = $("#diaryUpadte input[name=title]").val();
+	    	  /* var title = $("#diaryUpadte input[name=title]").val();
+	    	  var title = $("#diaryUpadte input[name=content]").val();
+	    	  var title = $("#diaryUpadte input[name=start]").val();
+	    	  var title = $("#diaryUpadte input[name=end]").val(); */
 	    	  $("#diaryUpdate").modal("show");
 	        /* var title = prompt('입력할 일정:'); */
-	    // title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
+	    	// title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
 	        if (title) {
 	          calendar.addEvent({
 	            title: title,
@@ -227,9 +218,9 @@
 	      editable: true,
 	      dayMaxEvents: true, // allow "more" link when too many events
 	      events :[
-	      ],
+	      ]
 	      
-	      eventResize: function(event, delta, revertFunc) {           //일정기간 움직일시 해당 일자 넘겨줘서 새로 저장
+	      /*, eventResize: function(event, delta, revertFunc) {           //일정기간 움직일시 해당 일자 넘겨줘서 새로 저장
 	    	    var act = 'edit';
 	    	    var schd_idx = event.schd_idx;
 	    	    var title = event.title;
@@ -246,7 +237,7 @@
 	    	      $('#calendar').fullCalendar('unselect');
 	    	     }
 	    	    });    
-	    	   }
+	    	   } */
 	    	   
 	    	   
 	    	
@@ -266,7 +257,7 @@
     				 
     			 });
     		 }
-    	  })
+    	  });
     	  
     	  /* 색상 버튼 이벤트 추가 */
     	  var currColor = '#007bff' //디폴트 컬러
@@ -280,7 +271,33 @@
                   'background-color': currColor,
                   'border-color'    : currColor
                 })
-              })
+              });
+             
+    	  $(document).on("click", "button[name='addDiary']", function () {
+    		 let d = {
+   	    			"title" : $("#title").val(),
+   	    			"memo" : $("#memo").val(),
+   	    			"start" : moment($("#start").val()).format('YYYY-MM-DD hh:mm'),
+   	    			"end" : moment($("#end").val()).format('YYYY-MM-DD hh:mm'),
+   	    			"bgColor" : currColor
+  	    		};
+
+	    	    $.ajax({
+	    	    	url:"<%=request.getContextPath()%>/mypage/addDiary.do",
+	    	     	type:"post",
+	    	     	dataType:"json",
+	    	     	data:d,
+	    	     	success:function(data){
+	    	     		console.log(data);
+	
+	    	     	}, error:function(e,r,m){
+						console.log(e);
+						console.log(r);
+						console.log(m);
+					}
+	    	    });  
+	     	 });
+              
               
               /* $('#addBtn').click(function (e) {
                 e.preventDefault()
@@ -305,13 +322,14 @@
 	  
 	  
  </script>
-<!--  fullcalendar css -->
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css"> -->
+ 
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <!-- fullcalendar 언어 설정관련 script -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<!-- moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <%@ include file="/views/common/footer.jsp" %>
 
