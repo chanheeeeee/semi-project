@@ -372,4 +372,26 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+
+	public int readCount(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0; 
+			
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("readCount"));
+			pstmt.setInt(1, mem_no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result=rs.getInt("CNT");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

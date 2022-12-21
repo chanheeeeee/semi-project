@@ -146,6 +146,14 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
+	//이모티콘 갯수
+	public int readCount(int mem_no) {
+		Connection conn = getConnection();
+		int result = new MemberDao().readCount(conn,mem_no);
+		close(conn);
+		return result;
+	}
 	
 	
 	
