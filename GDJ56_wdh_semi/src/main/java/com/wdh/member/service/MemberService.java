@@ -134,6 +134,19 @@ public class MemberService {
 		return result;
 	}
 	
+	//답장하기
+	public int readYN(int msgNo) {
+		Connection conn = getConnection();
+		int result = new MemberDao().readYn(conn,msgNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
 	
 	
 	

@@ -320,8 +320,10 @@ public class MemberDao {
 				.msg_no(rs.getInt("MSG_NO"))
 				.writer_nickname(rs.getString("MEMBER_NICKNAME"))
 				.msg_content(rs.getString("MSG_CONTENT"))
-				.msg_date(rs.getDate("MSG_DT"))
+				.msg_date(rs.getString("MSG_DT"))
 				.read_yn(rs.getString("READ_YN").charAt(0))
+				.wdNo(rs.getInt("WD_NO"))
+				.msg_writer(rs.getInt("MSG_WRITER"))
 				.build();
 				
 				list.add(m);
@@ -344,6 +346,23 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("deleteMessage"));
 			pstmt.setInt(1, msg_no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int readYn(Connection conn, int msgNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("reSendMessage"));
+			pstmt.setInt(1, msgNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

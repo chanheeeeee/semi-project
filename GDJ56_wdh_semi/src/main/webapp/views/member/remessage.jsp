@@ -10,39 +10,47 @@
 
 
 %>
-<title>쪽지보내기</title>
+<title>답장하기</title>
 </head>
-<body>
+<body style="margin:0;">
 	<div id="body">
 	<div class = "field half first">
-		<label for="send_msg" style="display: none;'">보내는 사람</label>
-		<input type="hidden" id="send_messenger" name="" value="<%=request.getAttribute("nickName") %>" readonly="readonly">
+		<label for="send_msg">보낸 사람</label>
+		<input type="text" id="receive_nickName" name="" value="<%=request.getAttribute("nickName") %>" readonly="readonly">
+		<input type="hidden" id="msgNo" name="" value="<%=request.getAttribute("msgNo") %>">
+		<input type="hidden" id="wdNo" name="" value="<%=request.getAttribute("wdNo") %>">
+		<input type="hidden" id="receive_messenger" name="" value="<%=request.getAttribute("receive_messenger") %>">
 	</div>
-	
-	<div class = "field half">
-		<label for="receive_msg" style="font-size: 12px;">받는 사람</label>
-		<input type="text" id="receive_nickName" value="<%=request.getAttribute("recvMemberNick") %>" readonly="readonly">
-		<input type="hidden" id="receive_messenger" value="<%=request.getAttribute("recvMemberNo") %>">
-		<input type="hidden" id="wdNo" value="<%=request.getAttribute("wdNo") %>">
-	</div>	
-	
 	<div class="field">
-		<textarea id="message" rows="6" name="message"></textarea>	
-	</div>	
+		<textarea id="message" rows="6" name="message" readonly="readonly" class="txtArea"><%=request.getAttribute("content") %></textarea>	
+	</div>
+	<br>
 	<div style="text-align: center;">
-		<input type="button1" value="발송" class="button" id="sendMsg" style="text-align:center; margin-top:20px; justify-content:center;"/>
+		<input type="button" value="답장하기" class="button" id="open" style="text-align:center; margin-top:20px; justify-content:center;"/>
+	</div>
+	<div id="inputDiv" style="display: none;">
+		<div class="field">
+			<textarea id="contents" rows="6" name="contents" class="txtArea"></textarea>	
+		</div>
+		<div style="text-align: center;">
+			<input type="button" value="전송하기" class="button" id="sendMsg" style="text-align:center; margin-top:20px; justify-content:center;"/>
+		</div>
 	</div>
 	</div>
 	
 	<script>
+	$("#open").on("click", function(){
+		$("#inputDiv").show();
+	});
+	
 	$("#sendMsg").on("click",function(){
 		const wdNo = $("#wdNo").val();//게시글번호
-		const r_msg = $("#receive_messenger").val();//받는사람
-		const text = $("#message").val();//내용
+		const content = $("#contents").val();//내용
+		const r_msg = $("#receive_messenger").val();//받는사람 시퀀스 -> 보낸사람
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/member/MessageServiceConServlet.do",
-			data:{"wdNo":wdNo , "receive_messenger":r_msg , "message":text},
+			data:{"wdNo":wdNo , "receive_messenger":r_msg , "message":content},
 			type:'POST',
 			dataType:'json',
 			success:data=>{
@@ -77,7 +85,7 @@
 		  border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
 		}		
 		
-		#message {
+		textArea.txtArea {
 			margin-top:20px;
 			width: 100%;
 			height: 180px;

@@ -219,6 +219,8 @@
 		if(<%=loginMember!=null%>){
 			$.get("<%=request.getContextPath()%>/recievemessage.do?no=<%=loginMember!=null?loginMember.getMember_no():""%>",
 					data=>{
+						alert("메세지가 도착하였습니다.");
+						
 						if(data>0){
 							$("#msgCount").text(data);
 						}
