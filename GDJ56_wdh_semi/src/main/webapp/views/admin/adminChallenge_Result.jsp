@@ -73,20 +73,20 @@ List<Member> members=(List<Member>)request.getAttribute("member");
                                         </tr>
                                     </thead>                      
                                     <tbody>
-                                    		<%if(members.isEmpty()){ %>     
+                                    	<%-- 	<%if(members.isEmpty()){ %>     
                                         <tr>
                                         	<td colspan="4"><h3>조회된 회원이 없습니다</h3></td>
                                         </tr>
 						       	  		<%}else{ 
 						       	  			for(int i=0;i<members.size();i++){
-						       	  		%>	                                         
-                                            <td><%=members.get(i).getMember_no() %></td>
+						       	  		%>	                               --%>           
+                                         <%--    <td><%=members.get(i).getMember_no() %></td>
                                             <td><%=members.get(i).getMember_id() %></td>
                                             <td><%=members.get(i).getMember_nickname() %></td>
                                             <td><%=members.get(i).getPhone() %></td>
                                             <td>
                                             <div id="btn_group">
-                                            <button id="test_btn1">확인</button> 
+                                            <button id="test_btn1">확인</button>  --%>
                                             
                                             </div>
                                             </td>
