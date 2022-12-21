@@ -72,4 +72,18 @@ public class AdminChallengeService {
 		close(conn);
 		return result;
 	}
+	
+	public int selectChallengeResultCount() {
+		Connection conn=getConnection();
+		int result=dao.selectChallengeCount(conn);
+		close(conn);
+		return result;
+	}
+	public List<Challenge> searchChallengeResult(int cPage, int numPerpage) {
+		Connection conn=getConnection();
+		List<Challenge> result=dao.searchChallenge(conn,cPage,numPerpage);
+		close(conn);
+		return result;
+	}
+	
 	}

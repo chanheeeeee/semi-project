@@ -95,6 +95,7 @@ public class AdminChallengeDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				ch=getChallenge(rs);
+				System.out.println(ch);
 				
 			}
 		}catch(SQLException e) {
@@ -149,6 +150,7 @@ public class AdminChallengeDao {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				ch.add(getMyChallenge(rs));	
+				//System.out.println(ch);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -174,6 +176,9 @@ public class AdminChallengeDao {
 			close(pstmt);
 		}return result;
 	}
+	
+	
+	
 	
 	private Map<String,String> getMyChallenge(ResultSet rs) throws SQLException{
 		Map<String,String> data=new HashMap();

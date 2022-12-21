@@ -43,7 +43,7 @@ public class EnrollChallengeServlet extends HttpServlet {
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			response.getWriter().print(0);
 		}else {
-			String path=getServletContext().getRealPath("/upload/challenge/");
+			String path=getServletContext().getRealPath("/upload/challenge_user/");
 			MultipartRequest mr=new MultipartRequest(request, path, 1024*1024*100,"UTF-8",new DefaultFileRenamePolicy());
 			
 			int challengeNo=Integer.parseInt(mr.getParameter("challengeNo"));
