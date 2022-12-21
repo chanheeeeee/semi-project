@@ -91,6 +91,11 @@ public class MemberService {
 	public int rePassword(String member_id, String newpw) {
 		Connection conn = getConnection();
 		int result = new MemberDao().rePassword(conn,member_id,newpw);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
@@ -99,6 +104,11 @@ public class MemberService {
 	public int sendMessage(String wdNo, String receiveMemberNo, String content, int msg_writer) {
 		Connection conn = getConnection();
 		int result = new MemberDao().sendMessage(conn, wdNo, receiveMemberNo ,content, msg_writer);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
@@ -115,6 +125,11 @@ public class MemberService {
 	public int deleteMessage(int msg_no) {
 		Connection conn = getConnection();
 		int result = new MemberDao().deleteMessage(conn,msg_no);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}

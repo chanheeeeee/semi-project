@@ -33,17 +33,7 @@ public class NoticeWirteEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//파일업로드 처리하기
-				//파일 업로드처리시에는 cos.jar 라이브러리에서 제공하는 클래스를 이용함.
-				//1.클라이언트가 보낸 데이터가 multipart형식인지 확인하기
-				if(!ServletFileUpload.isMultipartContent(request)) {
-					//잘못된 요청이기때문에 
-					request.setAttribute("msg", "공지사항 작성오류 [form:enctype] 관리자에게 문의하세요 :(");
-					request.setAttribute("loc", "/notice/noticeList");
-					request.getRequestDispatcher("/views/common/msg.jsp")
-					.forward(request,response);
-					return;
-				}
+		
 				
 				//2.파일 업로드처리를 위한 필요한 값을 설정하기
 				//1) 파일업로드 위치 -> 절대경로로 가져와야함.

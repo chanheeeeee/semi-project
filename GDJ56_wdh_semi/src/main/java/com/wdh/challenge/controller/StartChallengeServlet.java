@@ -16,7 +16,10 @@ import com.wdh.challenge.model.vo.Challenge;
 @WebServlet("/challenge/startChallenge.do")
 public class StartChallengeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+     
+	//상세페이지 서블릿
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */

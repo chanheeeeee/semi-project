@@ -31,13 +31,14 @@
 	                <td><%=n.getMember().getMember_id() %></td>
 	                <td><%=n.getNoticeEnroll() %></td>
                 </tr>
-                <%if(loginMember!=null&&
-                      loginMember.getMember_id().equals("admin")) {%>
-                   <button onclick="location.replace('<%=request.getContextPath()%>/views/notice/subNotice.jsp')">글쓰기</button>
-               		 	<%} 
-               	 	}%>
-                <%} %>
+               		 	<%}//if
+                	}%>
                 </table>
+               		<br>
+               		<%if(loginMember!=null&&
+                      		(loginMember.getMember_id().equals("admin"))) {%>
+                   				<button onclick="location.replace('<%=request.getContextPath()%>/notice/writeEnd.do')">글쓰기</button>
+                   	<%} %>				
                 <br>
                 <%-- 페이징 처리 --%>
                 <div id="pageBar">

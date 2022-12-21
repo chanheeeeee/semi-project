@@ -42,7 +42,7 @@
    				</tr>
    				<tr>
    					<th colspan="2">
-   						<input type="button" value="신청하기" onclick="location.href='<%=request.getContextPath()%>/challenge/enrollChallenge.do?challenge_no=<%=ch.getChallenge_no()%>';">
+   						<input type="button" value="신청하기" onclick="location.href='<%=request.getContextPath()%>/challenge/attanceChallenge.do?challenge_no=<%=ch.getChallenge_no()%>';">
    					</th>
    				</tr>
    			</table>

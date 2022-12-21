@@ -42,12 +42,11 @@ public class LoginCheckFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session=((HttpServletRequest)request).getSession(false);
 		Member loginMember=(Member)session.getAttribute("loginMember");
-		if(loginMember!=null&&
-				loginMember.getMember_id().equals(request.getParameter("id"))) {
+		if(loginMember!=null) {
 				chain.doFilter(request, response);
 		}else {
-			request.setAttribute("msg", "잘못된 접근입니다 :q");
-			request.setAttribute("loc","/");
+			request.setAttribute("msg", "로그인 후 이용해주세요 :q");
+			request.setAttribute("loc","/member/loginMember.do");
 			request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
 		}
 	}
