@@ -30,12 +30,12 @@ public class UpdateNoticeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
-				//사용자가 수정할 noticeNo를 보냄 -> notice를 가져와 넘겨주기
+		//사용자가 수정할 noticeNo를 보냄 -> notice를 가져와 넘겨주기
 				Notice n=new NoticeService().selectNotice(Integer.parseInt(request.getParameter("no")));
 				
 				request.setAttribute("notice",n);
 				
-				request.getRequestDispatcher("/views/notice/noticeUpdate.jsp")
+				request.getRequestDispatcher("/views/notice/UpdateNotice.jsp")
 				.forward(request, response);
 			
 			

@@ -33,25 +33,34 @@
             <th>내 용</th>
             <td><%=n.getNoticeContent() %></td>
         </tr>
-    	
+        
+        </table>
+    <div>
     <%if(loginMember!=null&&loginMember.getMember_id().equals("admin")) {%>
     	<tr>
-    		<th colspan="2">
+    		<th>
      			<input type="button" value="수정하기" onclick="fn_updateNotice(<%=n.getNoticeNo() %>)" >
-    			<input type="button" value="삭제하기" "location.href='<%=request.getContextPath()%>/notice/noticeDelete.do?n_no=<%=n.getNoticeNo()%>';">
+    			<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=n.getNoticeNo()%>);">
     		</th>
     	</tr>
     		 <%} %>
-    </table>
+    	</div>
   </div>
     
+    
+    
     <script>
-    	
-    	const fn_deleteNotice=(noticeNo,fileName)=>{
-    		//삭제 스크립트
-    		location.replace("<%=request.getContextPath()%>/notice/noticeDelete.do?no="+noticeNo+"&fileName="+fileName);
-    	}
-    </script>
+	//공지사항 삭제
+	const fn_deleteNotice=(NoticeNo)=>{
+			location.replace("<%=request.getContextPath()%>/notice/noticeDelete.do?no="+NoticeNo);
+	}
+	//공지사항 수정
+	const fn_updateNotice=(NoticeNo)=>{
+		location.replace("<%=request.getContextPath()%>/notice/updateNotice.do?no="+NoticeNo);
+	}
+	
+	
+   </script>	
     
     
     

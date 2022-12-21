@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="Diary">
+	<resultMap type="Calendar" id="calMap">
+		<result property="start" column="start1"/>
+		<result property="end" column="end1"/>
+	</resultMap>
+	<select id="calendarList" resultMap="calMap">
+		SELECT * FROM DIARY
+	</select>
+</mapper>

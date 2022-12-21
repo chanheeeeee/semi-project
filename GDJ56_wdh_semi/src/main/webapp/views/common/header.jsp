@@ -119,7 +119,7 @@
 							<%}else{ %>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/member/loginMember.do">동행</a></li>
 							<%} %>
-							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/views/challenge/challenge.jsp">챌린지</a></li>
+							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/challenge/challenge.do">챌린지</a></li>
 							<li class="nav-item"><a class="nav-link fs-3" href="<%=request.getContextPath() %>/cs/spon.do">고객센터</a></li>
 							<%if(loginMember!=null
 							&&loginMember.getMember_id().equals("admin")){ %>

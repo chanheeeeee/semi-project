@@ -1,6 +1,8 @@
-package com.wdh.mypage.controller;
+package com.wdh.challenge.controller;
 
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,21 +13,22 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.wdh.member.service.MemberService;
+import com.wdh.admin.model.service.AdminService;
 import com.wdh.member.vo.Member;
-import com.wdh.mypage.service.MypageService;
 
 /**
- * Servlet implementation class AboutMember
+ * Servlet implementation class EnrollChallengeServlet
  */
-@WebServlet("/mypage/about.do")
-public class AboutMemberServlet extends HttpServlet {
+@WebServlet("/challenge/enrollChallenge.do")
+public class EnrollChallengeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AboutMemberServlet() {
+    public EnrollChallengeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,18 +38,27 @@ public class AboutMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
 		
-		Member m = new MemberService().memberView(id);
+		response.setContentType("text/csv;charset=utf-8;");
+		if(!ServletFileUpload.isMultipartContent(request)) {
+			response.getWriter().print(0);
+		}else {
+			String path=getServletContext().getRealPath("/upload/challenge/");
+			MultipartRequest mr=new MultipartRequest(request, path, 1024*1024*100,"UTF-8",new DefaultFileRenamePolicy());
+			
+			int challengeNo=Integer.parseInt(mr.getParameter("challengeNo"));
+			int day=Integer.parseInt(mr.getParameter("day"));
+			String fileName=mr.getFilesystemName("file");
+			Map<String,Object> param=Map.of("challengeNo",challengeNo,"fileName",fileName,"day",day);
+			
+			int result=new AdminService().insertChallenge(param);
+			
+			response.getWriter().print(result);
+		}
 		
-		String grade = new MypageService().memberGrade(id);
 		
-		int score = new MypageService().myScore(m);
 		
-		request.setAttribute("score", score);
-		request.setAttribute("grade", grade);
-		request.setAttribute("member", m);
-		request.getRequestDispatcher("/views/mypage/mypage.jsp").forward(request, response);
+		
 		
 	}
 

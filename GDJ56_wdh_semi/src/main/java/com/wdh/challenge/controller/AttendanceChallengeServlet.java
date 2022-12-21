@@ -1,23 +1,27 @@
-package com.wdh.mypage.controller;
+package com.wdh.challenge.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.challenge.model.service.AdminChallengeService;
+import com.wdh.member.vo.Member;
+
 /**
- * Servlet implementation class DiaryServlet
+ * Servlet implementation class AttendanceChallengeServlet
  */
-@WebServlet("/mypage/diary.do")
-public class DiaryServlet extends HttpServlet {
+@WebServlet("/challenge/attanceChallenge.do")
+public class AttendanceChallengeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DiaryServlet() {
+    public AttendanceChallengeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +31,19 @@ public class DiaryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/mypage/diary2.jsp").forward(request, response);
+		int challengeNo=Integer.parseInt(request.getParameter("challenge_no"));
+		int memberNo=((Member)request.getSession().getAttribute("loginMember")).getMember_no();
+		int result=new AdminChallengeService().attenceChallenge(challengeNo,memberNo);
+		if(result>0) {
+			request.getRequestDispatcher("/challenge/mychallenge.do").forward(request, response);
+		}else {
+			request.setAttribute("msg", "신청에 실패했습니다. 다시 시도하세요");
+			request.setAttribute("loc", "/challenge/startChallenge.do");
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		}
+		
+		
+		
 	}
 
 	/**

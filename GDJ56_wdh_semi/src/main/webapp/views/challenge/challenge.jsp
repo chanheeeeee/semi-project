@@ -89,6 +89,7 @@
     
         <br>
         
+        <!-- 이달 챌린지 상세 페이지로 이동  -->
 	   <div class="container">
 		  <div class="row">
 		    <div class="col"></div>
@@ -97,6 +98,7 @@
 		    	onclick="location.href='<%=request.getContextPath() %>/challenge/startChallenge.do';">Start Challenge!</button>
 		    </div>
 		    
+		    <!-- 챌린지 진행 중일 경우 바로 인증 페이지로 이동  -->
 		    <div class="col" style="text-align:center;">
 		    	<button type="button" id="Mypagebtn" class="btn btn-outline-success" style="font-size:20px"
 		    	 onclick="location.href='<%=request.getContextPath() %>/challenge/mychallenge.do';">My Challenge!</button>
