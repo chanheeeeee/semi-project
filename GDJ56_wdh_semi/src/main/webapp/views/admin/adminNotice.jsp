@@ -76,7 +76,7 @@
 			                </thead>
 							<% if(notice.isEmpty()){ %>
 							<tr>
-								<td colspan="4"><h3>조회된 게시판이 없습니다.</h3></td>
+								<td colspan="5"><h3>조회된 게시판이 없습니다.</h3></td>
 							</tr>	
 							<%}else{ 
 								for(Notice n : notice){
@@ -87,7 +87,7 @@
 	                			<td><a href="<%=request.getContextPath()%>/notice/noticeView.do?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
 		                		<td><%=n.getMember().getMember_id() %></td>
 		                		<td><%=n.getNoticeEnroll() %></td>
-		                		<td><input type="button" value="삭제하기" "location.href='<%=request.getContextPath()%>/notice/noticeDelete.do?n_no=<%=n.getNoticeNo()%>';"></td>
+		                		<td><input type="button" value="삭제하기" onclick="fn_deleteNotice(<%=n.getNoticeNo()%>);"></td>
 		                		<%} 
                	 			}%>
                 			</tr>
@@ -98,11 +98,17 @@
 			                <%--<div id="pageBar">
 			                	<%=request.getAttribute("pageBar") %>
 			                </div> --%>
-			              	
-			              	
-			                
-			                
+			        
 			            </section>
 			            <br>
 			        </div> 
+			        
+				<script>
+					//공지사항 삭제
+					const fn_deleteNotice=(NoticeNo)=>{
+						location.replace("<%=request.getContextPath()%>/notice/noticeDelete.do?no="+NoticeNo);
+					}
+				</script>	        
+			        
+			        
                   
