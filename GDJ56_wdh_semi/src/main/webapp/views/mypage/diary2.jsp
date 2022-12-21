@@ -70,21 +70,56 @@
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		        <span aria-hidden="true">×</span></button>
+		        
 		        <h4 class="modal-title" id="myModalLabel">내 운동 상세 기록</h4>
+		        
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-right: 0;">
+		        	<span aria-hidden="true">×</span>
+		        </button>
 		      </div>
 		      <div class="modal-body" id="content">
-		       	<h2></h2>
+		       	운동: <label id="d_title"></label><br>
+		       	메모: <label id="d_content"></label><br>
+		       	시작날짜: <label id="d_start"></label><br>
+		       	마친날짜: <label id="d_end"></label>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">삭제</button>
+		        <button type="button" class="btn btn-primary">수정</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
 	<!-- Modal -->
+	
+	<!-- Modal -->
+		<div class="modal fade" id="diaryUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        
+		        <h4 class="modal-title" id="myModalLabel">내 운동 상세 기록</h4>
+		        
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-right: 0;">
+		        	<span aria-hidden="true">×</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" id="content" style="text-align: center;">
+		       	운동: <label id="d_title"></label><br>
+		       	메모: <label id="d_content"></label><br>
+		       	시작날짜: <label id="d_start"></label><br>
+		       	마친날짜: <label id="d_end"></label>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">삭제</button>
+		        <button type="button" class="btn btn-primary">수정</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- Modal -->
+	
+	
 
 
 	
@@ -122,12 +157,27 @@
 	        calendar.unselect()
 	      },
 	      eventClick: function(arg) {
-	    	  // 있는 일정 클릭시,
-	    	  console.log("#등록된 일정 클릭#");
-	    	  console.log(arg);
-	    	  console.log(arg.event._def.title);
+	    	// 있는 일정 클릭시,
+	    	console.log("#등록된 일정 클릭#");
+	    	console.log(arg);
+	    	console.log(arg.event._def.title);
 	    	  /* alert("제목 "+arg.event._def.title); */
+	    	 
+	    	/* $("#diaryMore .modal-title").html('내 일정'); */
+		    $("#d_title").html(arg.event._def.title);
+		    $("#d_content").html(arg.event.extendedProps.memo);
+		    $("#d_start").html(arg.event._instance.range.start);
+		    $("#d_end").html(arg.event._instance.range.end);
+		   /*  $("#diaryMore input[name=schd_idx]").val(calEvent.schd_idx);
+		    $('input:radio[value='+calEvent.type+']').attr('checked','checked');
+		    $("#schd_title").val(calEvent.title);
+		    $("#schd_content").val(calEvent.content); */
+		    
+		    /* dt_start = moment(calEvent.start).format('YYYY-MM-DD hh:mm');
+		    dt_end = moment(calEvent.end).format('YYYY-MM-DD hh:mm'); */
+		    
 	    	  $("#diaryMore").modal('show');
+	    	  	
 	    	  
 	        /* if (confirm('Are you sure you want to delete this event?')) {
 	          arg.event.remove()
@@ -136,8 +186,6 @@
 	      editable: true,
 	      dayMaxEvents: true, // allow "more" link when too many events
 	      events :[
-	    	  title: 
-	    	  
 	      ]		   
 		  });
 		
@@ -152,79 +200,12 @@
     			 data.forEach(v=>{
     				 calendar.addEvent(v);	
     				 
-    				 let d=$("<h2>").text(v);
-    				 $("#diaryMore").append(d);
-    				 
     			 });
     		 }
-    	  }).done(function(resp){
-    		  resp=JSON.parse(resp);
-    		  
-    		  
-    	  });
-		   
-		  
+    	  })
     	 
 	  });
 	  
-	
-	done(function(resp){
-		resp=JSON.parse(resp);
-		var seq=resp.seq;
-			var projcet_seq=resp.project_seq;
-			var title = resp.title;
-			var contents = resp.contents;
-			var writer = resp.writer;
-			var start_date=resp.start_date;
-			var end_date=resp.end_date;
-			var color=resp.color;
-			
-			$('.dialog__content h4').append('<div class='+'dynamic'+'>'+title+'</div>'); 
-			$('.dialog__content>div:nth-child(2)').append('<div class="dynamic" style="width:270px;">'+contents+'</div>');
-			$('.dialog__content>div:nth-child(4)').append('<div class='+'dynamic'+'>'+start_date+'</div>');
-			$('.dialog__content>div:nth-child(4)').after('<div class='+'dynamic'+' style="margin-left:80px">'+end_date+'</div>');
-			$('.dialog__content>div:nth-child(6)').append('<div class="dynamic" style="float:left">'+writer+'</div>');
-			
-			$('#title-color').css('background-color',color);
-			
-		const modal = document.querySelector('dialog');
-    	const btnClose = document.querySelectorAll('.button-close');
-    	modal.showModal();
-    	btnClose.forEach((elm) => elm.addEventListener('click', () => closeModal()));
-    	modal.addEventListener('click', (e) => detectBackdropClick(e));
-  
-    	closeModal = () => {
-    	    modal.classList.add("dialog__animate-out");
-    	    modal.addEventListener('animationend', handleClose, false);
-    	   
-    	}
-
-    	handleClose = () => {
-    	    modal.classList.remove("dialog__animate-out");
-    	    modal.removeEventListener('animationend', handleClose, false);
-    	    modal.close();
-    	    $('.dynamic').remove(); 
-    	}
-
-    	detectBackdropClick = (event) => {
-    	    if(event.target === modal) {
-    	        closeModal();
-    	    }
-    	}
-    	
-    	 $('#eventEdit').on('click',function(){    		 
-    		 closeModal();	
-    		 //수정하기 modal에  값 채워넣기 
-    		 $('#Editrecipient-name').val(title);
-    		 $("#Editmessage-text").val(contents)
-    		 $('#Editmodal_date_start').val(start_date);
-    		 $('#Editmodal_date_end').val(end_date);
-    		 /* $('.Editcustom-radios input[type=radio][name=Editcolor][background-color:'+color+']:checked'); */
-    		 //색깔 선택 수정하기 !!!!!!
-    		 sessionStorage.setItem("seq",seq);
-        	 $("#EditmyModal").modal();
-    		 
-        }) 
 	  
  </script>
 <!--  fullcalendar css -->
