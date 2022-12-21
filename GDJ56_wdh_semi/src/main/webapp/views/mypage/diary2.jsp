@@ -4,7 +4,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <%
-	List<Diary> d = (List<Diary>)request.getAttribute("d");
 
 %>
 <!-- Navigation-->
@@ -66,7 +65,28 @@
 		</div>
 	</section>
 	
-	
+	 <!-- Modal -->
+		<div class="modal fade" id="diaryMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <span aria-hidden="true">×</span></button>
+		        <h4 class="modal-title" id="myModalLabel">내 운동 상세 기록</h4>
+		      </div>
+		      <div class="modal-body" id="content">
+		       	<h2></h2>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- Modal -->
+
+
 	
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
@@ -106,14 +126,19 @@
 	    	  console.log("#등록된 일정 클릭#");
 	    	  console.log(arg);
 	    	  console.log(arg.event._def.title);
-	    	  alert("제목 "+arg.event._def.title);
+	    	  /* alert("제목 "+arg.event._def.title); */
+	    	  $("#diaryMore").modal('show');
+	    	  
 	        /* if (confirm('Are you sure you want to delete this event?')) {
 	          arg.event.remove()
 	        } */
 	      },
 	      editable: true,
 	      dayMaxEvents: true, // allow "more" link when too many events
-	      events :[]		   
+	      events :[
+	    	  title: 
+	    	  
+	      ]		   
 		  });
 		
 		  calendar.render();
@@ -125,42 +150,82 @@
     		 success:data=>{
     			 console.log(data);
     			 data.forEach(v=>{
-    				 calendar.addEvent(v);		    			 
+    				 calendar.addEvent(v);	
+    				 
+    				 let d=$("<h2>").text(v);
+    				 $("#diaryMore").append(d);
+    				 
     			 });
     		 }
+    	  }).done(function(resp){
+    		  resp=JSON.parse(resp);
+    		  
+    		  
     	  });
+		   
+		  
     	 
 	  });
 	  
-	  <%-- document.addEventListener('DOMContentLoaded', function() {
-			var calendarEl = document.getElementById('calendar');
-			var calendar = new FullCalendar.Calendar(calendarEl, {
-				initialView : 'dayGridMonth',
-				locale : 'ko', // 한국어 설정
-				headerToolbar : {
-		        	start : "",
-		            center : "prev title next",
-		            end : 'dayGridMonth,dayGridWeek,dayGridDay'
-		            },
-			selectable : true,
-			droppable : true,
-			editable : true,
-			events : [ 
-					<%if (!d.isEmpty()) {%>
-		            <%for (Diary dr : d) {%>
-		            {
-		            	title : '<%= dr.getTitle() %>',
-		                start : '<%= dr.getStart() %>',
-		                end : '<%= dr.getEnd() %>',
-		                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
-		             },
-			<%}
-		}%>
-						]
-						
-					});
-					calendar.render();
-				}); --%>
+	
+	done(function(resp){
+		resp=JSON.parse(resp);
+		var seq=resp.seq;
+			var projcet_seq=resp.project_seq;
+			var title = resp.title;
+			var contents = resp.contents;
+			var writer = resp.writer;
+			var start_date=resp.start_date;
+			var end_date=resp.end_date;
+			var color=resp.color;
+			
+			$('.dialog__content h4').append('<div class='+'dynamic'+'>'+title+'</div>'); 
+			$('.dialog__content>div:nth-child(2)').append('<div class="dynamic" style="width:270px;">'+contents+'</div>');
+			$('.dialog__content>div:nth-child(4)').append('<div class='+'dynamic'+'>'+start_date+'</div>');
+			$('.dialog__content>div:nth-child(4)').after('<div class='+'dynamic'+' style="margin-left:80px">'+end_date+'</div>');
+			$('.dialog__content>div:nth-child(6)').append('<div class="dynamic" style="float:left">'+writer+'</div>');
+			
+			$('#title-color').css('background-color',color);
+			
+		const modal = document.querySelector('dialog');
+    	const btnClose = document.querySelectorAll('.button-close');
+    	modal.showModal();
+    	btnClose.forEach((elm) => elm.addEventListener('click', () => closeModal()));
+    	modal.addEventListener('click', (e) => detectBackdropClick(e));
+  
+    	closeModal = () => {
+    	    modal.classList.add("dialog__animate-out");
+    	    modal.addEventListener('animationend', handleClose, false);
+    	   
+    	}
+
+    	handleClose = () => {
+    	    modal.classList.remove("dialog__animate-out");
+    	    modal.removeEventListener('animationend', handleClose, false);
+    	    modal.close();
+    	    $('.dynamic').remove(); 
+    	}
+
+    	detectBackdropClick = (event) => {
+    	    if(event.target === modal) {
+    	        closeModal();
+    	    }
+    	}
+    	
+    	 $('#eventEdit').on('click',function(){    		 
+    		 closeModal();	
+    		 //수정하기 modal에  값 채워넣기 
+    		 $('#Editrecipient-name').val(title);
+    		 $("#Editmessage-text").val(contents)
+    		 $('#Editmodal_date_start').val(start_date);
+    		 $('#Editmodal_date_end').val(end_date);
+    		 /* $('.Editcustom-radios input[type=radio][name=Editcolor][background-color:'+color+']:checked'); */
+    		 //색깔 선택 수정하기 !!!!!!
+    		 sessionStorage.setItem("seq",seq);
+        	 $("#EditmyModal").modal();
+    		 
+        }) 
+	  
  </script>
 <!--  fullcalendar css -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css"> -->
