@@ -75,31 +75,55 @@
 			type:'POST',
 			success:data=>{
 				console.log(data);
-				let list = "";
-					if(data.length == 0){
-					list += "<tr><td colspan=5>쪽지가 없습니다.</tr>";
+				//let list = "";
+				$("#tbl-body").html("");
+				if(data.length == 0){
+					const tr=$("<tr>");
+					//list += "<tr><td colspan=5>쪽지가 없습니다.</tr>";
+					const td=$("<td colspan='5'>").text("쪽지가 없습니다");
+					tr.append(td);
+					$("#tbl-body").append(tr);
 				}else{
 					for(let i=0 ; i<data.length; i++){
-						list += "<tr>";
+						let tr=$("<tr>");
+						let num=$("<td>").text((i+1));
+						let sender=$("<td>").text(data[i].writer_nickname);
+						let content=$("<td>").text(data[i].msg_content);
+						let date=$("<td>").text(data[i].msg_date);
+						let deleteTd=$("<td>");
+						let deleteInput=$("<input>").attr({
+							type:"button",
+							value:"삭제",
+							name:data[i].msg_no
+						});
+						deleteInput.on("click",del)
+						
+						deleteTd.append(deleteInput);
+						tr.append(num);
+						tr.append(sender);
+						tr.append(content);
+						tr.append(date);
+						tr.append(deleteTd);
+						/* list += "<tr>";
 						list += "<td>"+(i+1)+"</td>";
 						list += "<td>"+data[i].writer_nickname+"</td>";
 						list += "<td>"+data[i].msg_content+"</td>";
 						list += "<td>"+data[i].msg_date+"</td>";
 						list += '<td><input type="button" value="삭제" onclick="del('+data[i].msg_no+');"></td>';
-						list += "</tr>";
+						list += "</tr>"; */
+						$("#tbl-body").append(tr);
 					};						
 				}
-				$("#tbl-body").html(list);
 			}
 		});
 	}
 	
 	//쪽지 삭제하기
-	function del(msg_no){
+	function del(e){//
 		if(confirm("삭제하시겠습니까?")==true){
 			$.ajax({
 				url:"<%=request.getContextPath()%>/member/messageDelete.do",
-				data:{"msg_no":msg_no},
+				data:{"msg_no":e.target.name},
 				dataType:'json',
 				type:'POST',
 				success:data=>{

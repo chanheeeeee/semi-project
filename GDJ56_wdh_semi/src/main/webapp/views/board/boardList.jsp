@@ -15,7 +15,7 @@
 
 			
 	<!-- 추가검색form -->
-	<form name="searchFrm" action="<%=request.getContextPath()%>/board/boardSearch.do" method="post">
+	<form name="searchFrm" action="<%=request.getContextPath()%>/board/boardSearch.do" method="post" >
 	 <h1 class="h2 pb-4"></h1>
 	 <h1 class="h2 pb-4"></h1>
 	 	<!-- 위치검색 -->
