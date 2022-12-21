@@ -9,22 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.service.MypageService;
 import com.wdh.mypage.vo.Diary;
 
 /**
- * Servlet implementation class DiaryServlet
+ * Servlet implementation class DiaryMydataServlet
  */
-@WebServlet("/mypage/diary.do")
-public class DiaryServlet extends HttpServlet {
+@WebServlet("/mypage/diarydata.do")
+public class DiaryMydataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DiaryServlet() {
+    public DiaryMydataServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,8 +34,17 @@ public class DiaryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
 		
-		request.getRequestDispatcher("/views/mypage/diary2.jsp").forward(request, response);
+		Member m = new MemberService().memberView(id);
+		
+		List<Diary> d = new MypageService().myDiary(m);
+//		d.add(new Diary(0, id, 0, 0, id, id, id, id))
+//		
+		response.setContentType("application/json/charset=utf-8");
+		new Gson().toJson(d, response.getWriter());
+		
 	}
 
 	/**
