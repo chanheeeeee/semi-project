@@ -6,17 +6,13 @@
 %>
 
 <%@ include file="/views/common/header.jsp" %>
-<style>
-   section#notice-container{width:600px; margin:0 auto; text-align:center;}
-   section#notice-container h2{margin:10px 0;}
-   table#tbl-notice{width:500px; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
-   table#tbl-notice th {width: 125px; border:1px solid; padding: 5px 0; text-align:center;} 
-   table#tbl-notice td {border:1px solid; padding: 5px 0 5px 10px; text-align:left;}
-</style>
 
-  <div id="notice-container">
-   <!--  <h2><strong>공지사항 상세페이지</strong></h2> -->
-    <table id="tbl-notice">
+<br>
+<div font-family:Jua;>
+  <div style="text-align:center" id="tbl-board">
+   <h2><strong>공지사항 상세페이지</strong></h2>
+   <section id="board-container">
+    <table id="tbl-board">
         <tr>
             <th>제 목</th>
             <td><%=n.getNoticeTitle() %></td>
@@ -35,6 +31,7 @@
         </tr>
         
         </table>
+        <br>
     <div>
     <%if(loginMember!=null&&loginMember.getMember_id().equals("admin")) {%>
     	<tr>
@@ -45,8 +42,11 @@
     	</tr>
     		 <%} %>
     	</div>
-  </div>
-    
+  	</div>
+  </section>
+  
+</div>
+<br>
     
     
     <script>
