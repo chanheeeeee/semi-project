@@ -13,6 +13,7 @@ import com.wdh.board.vo.ReviewBoard;
 import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.dao.MypageDao;
+import com.wdh.mypage.vo.Diary;
 import com.wdh.qs.model.vo.Question;
 
 public class MypageService {
@@ -288,6 +289,17 @@ public class MypageService {
 		
 	}
 	
+//	내 다이어리 불러오기
+	public List<Diary> myDiary(Member m) {
+		
+		Connection conn = getConnection();
+		
+		List<Diary> result = dao.myDiary(conn, m);
+		
+		close(conn);
+		return result;
+		
+	}
 	
 	
 
