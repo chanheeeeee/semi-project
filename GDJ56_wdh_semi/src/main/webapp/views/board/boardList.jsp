@@ -19,15 +19,15 @@
 	 <h1 class="h2 pb-4"></h1>
 	 <h1 class="h2 pb-4"></h1>
 	 	<!-- 위치검색 -->
-	 	<input type="button" onclick="sample6_execDaumPostcode()" value="위치 추가"><br>
-	 	<!-- <input type="text" style="border:0 solid black;" id="bname" placeholder="지번"> 
-		<input type="text" style="border:0 solid black;" id="roadname" placeholder="도로명">-->
+	 	<input type="button" onclick="sample6_execDaumPostcode();" value="위치 추가"><br>
+<!-- 	 	<input type="text" style="border:0 solid black;" id="bname" placeholder="지번"> 
+		<input type="text" style="border:0 solid black;" id="roadname" placeholder="도로명"> -->
 		
 		
 		<ul class="list-unstyled templatemo-accordion">
 			<li class="pb-3">
 				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-					<p id="bname"></p>
+					<p class="bname"></p>
 				</a>
 			</li>
 		
@@ -88,9 +88,12 @@
 		<!-- 날짜넘기기 방법2_두개의input 값 합쳐서 보내기 -->
 		<input type="hidden" name="date">
 		
-		<!-- <input type="hidden" name="sido" id="sido"> -->
+		<input type="hidden" name="sido" id="sido">
 		<input type="hidden" name="bname" id="bname">
 		<input type="hidden" name="roadname" id="roadname">
+
+		<input type="hidden" name="location" id="location">
+		
 		
 	</form>
 	
@@ -232,17 +235,16 @@
 			console.log("검색할 값 : "+cbArr);
 	} */
 	
-	const fn_searchSubmit = ()=>{
+	function fn_searchSubmit(){
 		
 		//keyword
 		searchFrm.searchKeyword.value = $("#inputKeywordSearch").val(); /* input에 입력된 값 hidden searchKeyword.value에 접근해서 값 할당 */
 		/* 나머지는 이미 value값이 들어가 있음 */
 		//date
 			//fn_getDate()로 값 할당해줌
-		console.log(searchFrm.date.value);
+		//console.log(searchFrm.date.value);
 		
-		console.log(searchFrm.searchKeyword.value);
-		
+		//console.log(searchFrm.searchKeyword.value);
 		
 		searchFrm.submit();
 		
@@ -271,8 +273,8 @@
 	/* 지도 */
 	<%-- const fn_openMap = ()=>{
 		let map = window.open("<%=request.getContextPath()%>/board/boardSearchMapServlet.do","pop","width=800,height=550, scrollbars=yes, resizable=yes");
-		map.moveTo(650, 300); --%>
-	}
+		map.moveTo(650, 300);
+	} --%>
 	
 	
 	
@@ -318,25 +320,34 @@
 
                 
                 } else {
-                    document.getElementById("sample6_extraAddress").value = '';
+                   // document.getElementById("sample6_extraAddress").value = '';
                 }
 
                
                 
-                //if(data.bname == null){data.bname = "";} api문서에서 null아닌 공백으로 가져온다함
-                //if(data.roadname == null){data.roadname = "";}
+                if(data.bname == null){data.bname = "";} //api문서에서 null아닌 공백으로 가져온다함..?null인데 -> 그래서 |도로명 이렇게 안되게 하기 위해 도로명| 순서바꿔주기
+                if(data.roadname == null){data.roadname = "";}
                 
                 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 //document.getElementById('sido').value = data.sido; //시.도
-                document.getElementById('bname').value = data.bname; //지번
-                document.getElementById("roadname").value = data.roadname; //도로명
+                //document.getElementById('bname').value = data.bname; //지번
+                //document.getElementById("roadname").value = data.roadname; //도로명
+                
+
+                //폼.네임.에 바로 넣어줌
+                searchFrm.sido.value = data.sido;
+                searchFrm.bname.value = data.bname;
+                searchFrm.roadname.value = data.roadname;
                 
                 //화면
-                $("#bname").css("color","blue").text(data.bname);
+                $(".bname").css("color","blue").text(data.bname);
+                
+                
+                
                 
                 console.log(data.bname);
-                console.log(document.getElementById('bname').value);
+
             }
         }).open();
     }
