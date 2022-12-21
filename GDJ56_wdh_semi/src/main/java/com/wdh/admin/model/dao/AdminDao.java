@@ -10,8 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import com.wdh.challenge.model.vo.Challenge;
 import com.wdh.member.vo.Member;
 
 public class AdminDao {
@@ -109,6 +111,24 @@ public class AdminDao {
 		}return result;
 	}
 	
+	public int insertChallenge(Connection conn, Map<String,Object> param) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertChallenge"));
+			pstmt.setInt(1, (Integer)param.get("challengeNo"));
+			pstmt.setString(2, (String)param.get("fileName"));
+			pstmt.setInt(3, (Integer)param.get("day"));
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	
 	public static Member getMember(ResultSet rs) throws SQLException {
 		Member m = new Member();
 		
@@ -125,6 +145,10 @@ public class AdminDao {
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
 	}
+
+	
+
+	
 	
 	
 	
