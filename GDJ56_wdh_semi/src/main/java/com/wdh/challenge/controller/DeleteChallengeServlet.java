@@ -1,30 +1,25 @@
-package com.wdh.mypage.controller;
+package com.wdh.challenge.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.member.service.MemberService;
-import com.wdh.member.vo.Member;
-import com.wdh.mypage.service.MypageService;
-import com.wdh.mypage.vo.Diary;
+import com.wdh.challenge.model.service.AdminChallengeService;
 
 /**
- * Servlet implementation class DiaryServlet
+ * Servlet implementation class DeleteChallengeServlet
  */
-@WebServlet("/mypage/diary.do")
-public class DiaryServlet extends HttpServlet {
+@WebServlet("/challenge/deleteChallenge.do")
+public class DeleteChallengeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DiaryServlet() {
+    public DeleteChallengeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +29,23 @@ public class DiaryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/mypage/diary2.jsp").forward(request, response);
+		int no=Integer.parseInt(request.getParameter("no"));
+		int result=new AdminChallengeService().deleteChallenge(no);
+		
+		String msg="",loc="";
+		if(result>0) {
+			msg="등록된 챌린지가 삭제 되었습니다";
+			loc="/admin/adminChallenge.do";
+		}else {
+			msg="삭제 실패 하였습니다";
+			loc="/admin/adminChallenge.do?ChallengeNo="+no;
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		
+	
+	
 	}
 
 	/**

@@ -671,6 +671,12 @@ public class MypageDao {
 				Diary d = new Diary();
 				d.setDiaryId(rs.getInt("DIARY_ID"));
 				d.setTitle(rs.getString("DIARY_TITLE"));
+				d.setMemberNo(rs.getInt("MEMBER_NO"));
+				d.setWdNo(rs.getInt("WD_NO"));
+				d.setStart(rs.getString("DIARY_START"));
+				d.setEnd(rs.getString("DIARY_END"));
+				d.setMemo(rs.getString("DIARY_MEMO"));
+				d.setBgColor(rs.getString("BACKGROUND_COLOR"));
 				
 				list.add(d);
 			}

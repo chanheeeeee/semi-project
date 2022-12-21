@@ -1,11 +1,12 @@
+<%@page import="com.wdh.mypage.vo.Diary"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-<style>
-	.headerToolbar{
-		background-color: #007bff!important;
-	}
-</style>
+<%
+	List<Diary> d = (List<Diary>)request.getAttribute("d");
+
+%>
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
@@ -78,7 +79,7 @@
 	        center: 'title',
 	        right: 'dayGridMonth,timeGridWeek,timeGridDay'
 	      },
-	      initialDate: '2021-04-12', // 초기 로딩 날짜.
+	      initialDate: '2022-12-21', // 초기 로딩 날짜.
 	      navLinks: true, // can click day/week names to navigate views
 	      selectable: true,
 	      selectMirror: true,
@@ -103,37 +104,63 @@
 	      eventClick: function(arg) {
 	    	  // 있는 일정 클릭시,
 	    	  console.log("#등록된 일정 클릭#");
-	    	  console.log(arg.event);
-	    	  
-	        if (confirm('Are you sure you want to delete this event?')) {
+	    	  console.log(arg);
+	    	  console.log(arg.event._def.title);
+	    	  alert("제목 "+arg.event._def.title);
+	        /* if (confirm('Are you sure you want to delete this event?')) {
 	          arg.event.remove()
-	        }
+	        } */
 	      },
 	      editable: true,
 	      dayMaxEvents: true, // allow "more" link when too many events
-	      events: [
-		        {
-		          "title"  : "event1",
-		          "start"  : "2010-01-01"
-		        },
-		        {
-		          "title"  : "event2",
-		          "start"  : "2010-01-05",
-		          "end"    : "2010-01-07"
-		        },
-		        {
-		          "title"  : "event3",
-		          "start"  : "2010-01-09T12:30:00",
-		          "allDay" : false
-		        }
-		      ]
-		    
-	      //================ ajax데이터 불러올 부분 =====================//
+	      events :[]		   
+		  });
+		
+		  calendar.render();
+		  
+		   $.ajax({
+    		 type:"get",
+    		 url:"<%= request.getContextPath() %>/mypage/diarydata.do",
+    		 dataType:"json",
+    		 success:data=>{
+    			 console.log(data);
+    			 data.forEach(v=>{
+    				 calendar.addEvent(v);		    			 
+    			 });
+    		 }
+    	  });
+    	 
 	  });
-	
-	    calendar.render();
-	    
-	  });
+	  
+	  <%-- document.addEventListener('DOMContentLoaded', function() {
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				initialView : 'dayGridMonth',
+				locale : 'ko', // 한국어 설정
+				headerToolbar : {
+		        	start : "",
+		            center : "prev title next",
+		            end : 'dayGridMonth,dayGridWeek,dayGridDay'
+		            },
+			selectable : true,
+			droppable : true,
+			editable : true,
+			events : [ 
+					<%if (!d.isEmpty()) {%>
+		            <%for (Diary dr : d) {%>
+		            {
+		            	title : '<%= dr.getTitle() %>',
+		                start : '<%= dr.getStart() %>',
+		                end : '<%= dr.getEnd() %>',
+		                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
+		             },
+			<%}
+		}%>
+						]
+						
+					});
+					calendar.render();
+				}); --%>
  </script>
 <!--  fullcalendar css -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css"> -->
