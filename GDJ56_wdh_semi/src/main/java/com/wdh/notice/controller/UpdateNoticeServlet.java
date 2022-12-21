@@ -32,7 +32,7 @@ public class UpdateNoticeServlet extends HttpServlet {
 				
 		//사용자가 수정할 noticeNo를 보냄 -> notice를 가져와 넘겨주기
 				Notice n=new NoticeService().selectNotice(Integer.parseInt(request.getParameter("no")));
-				
+				System.out.println(n);
 				request.setAttribute("notice",n);
 				
 				request.getRequestDispatcher("/views/notice/UpdateNotice.jsp")

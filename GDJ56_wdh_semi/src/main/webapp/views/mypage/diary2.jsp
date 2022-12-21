@@ -4,7 +4,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <%
-	List<Diary> d = (List<Diary>)request.getAttribute("d");
 
 %>
 <!-- Navigation-->
@@ -66,7 +65,63 @@
 		</div>
 	</section>
 	
+	 <!-- Modal -->
+		<div class="modal fade" id="diaryMore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        
+		        <h4 class="modal-title" id="myModalLabel">내 운동 상세 기록</h4>
+		        
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-right: 0;">
+		        	<span aria-hidden="true">×</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" id="content">
+		       	운동: <label id="d_title"></label><br>
+		       	메모: <label id="d_content"></label><br>
+		       	시작날짜: <label id="d_start"></label><br>
+		       	마친날짜: <label id="d_end"></label>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">삭제</button>
+		        <button type="button" class="btn btn-primary">수정</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- Modal -->
 	
+	<!-- Modal -->
+		<div class="modal fade" id="diaryUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        
+		        <h4 class="modal-title" id="myModalLabel">내 운동 상세 기록</h4>
+		        
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-right: 0;">
+		        	<span aria-hidden="true">×</span>
+		        </button>
+		      </div>
+		      <div class="modal-body" id="content" style="text-align: center;">
+		       	운동: <label id="d_title"></label><br>
+		       	메모: <label id="d_content"></label><br>
+		       	시작날짜: <label id="d_start"></label><br>
+		       	마친날짜: <label id="d_end"></label>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">삭제</button>
+		        <button type="button" class="btn btn-primary">수정</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	<!-- Modal -->
+	
+	
+
+
 	
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
@@ -102,18 +157,36 @@
 	        calendar.unselect()
 	      },
 	      eventClick: function(arg) {
-	    	  // 있는 일정 클릭시,
-	    	  console.log("#등록된 일정 클릭#");
-	    	  console.log(arg);
-	    	  console.log(arg.event._def.title);
-	    	  alert("제목 "+arg.event._def.title);
+	    	// 있는 일정 클릭시,
+	    	console.log("#등록된 일정 클릭#");
+	    	console.log(arg);
+	    	console.log(arg.event._def.title);
+	    	  /* alert("제목 "+arg.event._def.title); */
+	    	 
+	    	/* $("#diaryMore .modal-title").html('내 일정'); */
+		    $("#d_title").html(arg.event._def.title);
+		    $("#d_content").html(arg.event.extendedProps.memo);
+		    $("#d_start").html(arg.event._instance.range.start);
+		    $("#d_end").html(arg.event._instance.range.end);
+		   /*  $("#diaryMore input[name=schd_idx]").val(calEvent.schd_idx);
+		    $('input:radio[value='+calEvent.type+']').attr('checked','checked');
+		    $("#schd_title").val(calEvent.title);
+		    $("#schd_content").val(calEvent.content); */
+		    
+		    /* dt_start = moment(calEvent.start).format('YYYY-MM-DD hh:mm');
+		    dt_end = moment(calEvent.end).format('YYYY-MM-DD hh:mm'); */
+		    
+	    	  $("#diaryMore").modal('show');
+	    	  	
+	    	  
 	        /* if (confirm('Are you sure you want to delete this event?')) {
 	          arg.event.remove()
 	        } */
 	      },
 	      editable: true,
 	      dayMaxEvents: true, // allow "more" link when too many events
-	      events :[]		   
+	      events :[
+	      ]		   
 		  });
 		
 		  calendar.render();
@@ -125,42 +198,15 @@
     		 success:data=>{
     			 console.log(data);
     			 data.forEach(v=>{
-    				 calendar.addEvent(v);		    			 
+    				 calendar.addEvent(v);	
+    				 
     			 });
     		 }
-    	  });
+    	  })
     	 
 	  });
 	  
-	  <%-- document.addEventListener('DOMContentLoaded', function() {
-			var calendarEl = document.getElementById('calendar');
-			var calendar = new FullCalendar.Calendar(calendarEl, {
-				initialView : 'dayGridMonth',
-				locale : 'ko', // 한국어 설정
-				headerToolbar : {
-		        	start : "",
-		            center : "prev title next",
-		            end : 'dayGridMonth,dayGridWeek,dayGridDay'
-		            },
-			selectable : true,
-			droppable : true,
-			editable : true,
-			events : [ 
-					<%if (!d.isEmpty()) {%>
-		            <%for (Diary dr : d) {%>
-		            {
-		            	title : '<%= dr.getTitle() %>',
-		                start : '<%= dr.getStart() %>',
-		                end : '<%= dr.getEnd() %>',
-		                color : '#' + Math.round(Math.random() * 0xffffff).toString(16)
-		             },
-			<%}
-		}%>
-						]
-						
-					});
-					calendar.render();
-				}); --%>
+	  
  </script>
 <!--  fullcalendar css -->
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css"> -->
