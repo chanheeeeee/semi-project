@@ -268,8 +268,23 @@ public class BoardDao {
 		}return result;
 	}
 	
+	public int updateGrade(Connection conn, Board b) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateGrade"));
+			pstmt.setInt(1, b.getMemberNo());
+			pstmt.setInt(2, b.getMemberNo());
+			pstmt.setInt(3, b.getMemberNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
 	public static WdJoin getWdJoin(ResultSet rs) throws SQLException {
 		return WdJoin.builder().memberNo(rs.getInt("MEMBER_NO")).wdNo(rs.getInt("WD_NO")).build();
 	}
-
 }

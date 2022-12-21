@@ -38,6 +38,7 @@ public class ReviewCheckBoardServlet extends HttpServlet {
 		Board b=new BoardService2().selectBoard(wdNo);
 		Member m=new BoardService1().selectMember(wdNo);
 		
+		System.out.println(m);
 		request.setAttribute("board", b);
 		request.setAttribute("member", m);
 		request.getRequestDispatcher("/views/board/reviewboardck.jsp").forward(request, response);

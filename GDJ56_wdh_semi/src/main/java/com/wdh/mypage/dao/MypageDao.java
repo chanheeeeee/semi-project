@@ -19,6 +19,7 @@ import com.wdh.del.model.dao.DclDao;
 import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.dao.MemberDao;
 import com.wdh.member.vo.Member;
+import com.wdh.mypage.vo.Diary;
 import com.wdh.qs.model.dao.QsDao;
 import com.wdh.qs.model.vo.Question;
 
@@ -586,6 +587,106 @@ public class MypageDao {
 		}
 		
 		return result;
+		
+	}
+	
+	
+
+	public int changeProfile(Connection conn, Member m, String fileName) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("changeProfile"));
+			pstmt.setString(1, fileName);
+			pstmt.setInt(2, m.getMember_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+		
+	}
+	
+//	내 점수 불러오기
+	public int myScore(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int score = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("myScore"));
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				score = rs.getInt("SUM(REVIEW_SCORE)");
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return score;
+		
+	}
+	
+//	다이어리 데이터 가져오기
+	public List<Diary> myDiary(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Diary> list = new ArrayList();
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("myDiary"));
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Diary d = new Diary();
+				d.setDiaryId(rs.getInt("DIARY_ID"));
+				d.setTitle(rs.getString("DIARY_TITLE"));
+				
+				list.add(d);
+			}
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+		
+		} finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return list; 
 		
 	}
 	

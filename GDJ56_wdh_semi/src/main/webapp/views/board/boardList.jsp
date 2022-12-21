@@ -11,19 +11,32 @@
 <div class="container py-5">
  <div class="row">
   <div class="col-lg-3">
-  	<!-- 키워드+추가검색 -->
-	<div class="input-group mb-2">
-		<input type="text" class="form-control" id="inputKeywordSearch" placeholder="Search ...">
-		<button class="input-group-text btn-success text-light" onclick="fn_searchSubmit();"> <!-- 검색할 함수 -->
-		<i class="fa fa-fw fa-search text-white"></i><!-- 검색icon -->
-		</button>
-	</div>
+  
+
 			
 	<!-- 추가검색form -->
 	<form name="searchFrm" action="<%=request.getContextPath()%>/board/boardSearch.do" method="post">
 	 <h1 class="h2 pb-4"></h1>
-	 <h1 class="h2 pb-4">추가 검색 조건</h1>
+	 <h1 class="h2 pb-4"></h1>
+	 	<!-- 위치검색 -->
+	 	<input type="button" onclick="sample6_execDaumPostcode()" value="위치 추가"><br>
+	 	<!-- <input type="text" style="border:0 solid black;" id="bname" placeholder="지번"> 
+		<input type="text" style="border:0 solid black;" id="roadname" placeholder="도로명">-->
+		
+		
 		<ul class="list-unstyled templatemo-accordion">
+			<li class="pb-3">
+				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+					<p id="bname"></p>
+				</a>
+			</li>
+		
+			<li class="pb-3">
+				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+					<%-- <%@ include file="/views/board/map2.jsp" %> --%>
+				</a>
+			</li>
+			
 			<li class="pb-3">
 				<a class="collapsed d-flex justify-content-between h3 text-decoration-none">
 					성별<i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
@@ -58,22 +71,41 @@
 				</ul>
 			</li>
 			
-			<li class="pb-3">
+			
+			<!-- <li class="pb-3">
 				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
 					<button type="button" class="btn btn-success btn-lg px-3" onclick="fn_openMap();">지도검색</button>
 				</a>
-			</li>
+			</li> -->
 		</ul>
 		
+		
 		<input type="hidden" name="searchKeyword">
+		
 		<!-- 날짜넘기기 방법1_id값 주고 하나씩 받기
 		<input type="hidden" name="date1">
 		<input type="hidden" name="date2"> -->
 		<!-- 날짜넘기기 방법2_두개의input 값 합쳐서 보내기 -->
 		<input type="hidden" name="date">
 		
+		<!-- <input type="hidden" name="sido" id="sido"> -->
+		<input type="hidden" name="bname" id="bname">
+		<input type="hidden" name="roadname" id="roadname">
+		
 	</form>
+	
+	
+  	<!-- 키워드+추가검색 -->
+	<div class="input-group mb-2">
+		<input type="text" class="form-control" id="inputKeywordSearch" placeholder="Search ...">
+		<button class="input-group-text btn-success text-light" onclick="fn_searchSubmit();"> <!-- 검색할 함수 -->
+		<i class="fa fa-fw fa-search text-white"></i><!-- 검색icon -->
+		</button>
+	</div>
   </div>
+
+
+
 
 
 
@@ -85,7 +117,7 @@
 				<a class="h3 text-dark text-decoration-none mr-3">기간 </a></li>
 	  		<li class="list-inline-item"><a class="h3 text-dark text-decoration-none mr-3">
 	  			<!--  id="date1" -->
-	  			<input type="date" name="date" max="2023-12-31" min="2022-01-01" onchange="fn_getDate();"></a></li>
+	  			<input type="date" name="date" max=sysdate min="2022-01-01" onchange="fn_getDate();"></a></li>
 	  			
 	  		<li class="list-inline-item">
 				<a class="h3 text-dark text-decoration-none mr-3">~</a></li>
@@ -114,9 +146,11 @@
 				default : categoryImg = "https://images.unsplash.com/photo-1597769555495-c54a15cd8c3f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80";break;
 				}%>
 				
+				
 				<!-- board -->
 				<div class="col-md-6 col-lg-3 pb-5">
-					<div class="h-100 py-5 services-icon-wap shadow">
+					<div class="h-100 py-5 services-icon-wap shadow" 
+					id="<%=b.getDateFlag()==1||b.getAttendFlag()==1? "closeBoardColor":"boardColor"%>">
 						<div class="card rounded-0">
 							<img class="card-img rounded-0 img-fluid"
 							src="<%=categoryImg%>">
@@ -130,6 +164,23 @@
 							<h2 class="h5 mt-4 text-center"><%=b.getWdCategory()%></h2>
                      </div>
                 </div>
+				
+				<%--원래 <!-- board -->
+				<div class="col-md-6 col-lg-3 pb-5">
+					<div class="h-100 py-5 services-icon-wap shadow" id="closeBoardColor">
+						<div class="card rounded-0">
+							<img class="card-img rounded-0 img-fluid"
+							src="<%=categoryImg%>">
+							<div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center"></div>
+						</div>
+							<a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>">
+							<!-- 동행 참여 회원 리스트 서블릿으로 이동 / view가 달라져야하기때문 -->
+							<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>">
+								<h2 class="a h5 mt-4 text-center"><%=b.getWdTitle() %></h2>
+							</a>
+							<h2 class="h5 mt-4 text-center"><%=b.getWdCategory()%></h2>
+                     </div>
+                </div> --%>
 			<%} 
 		} %>
 	</div>
@@ -190,6 +241,7 @@
 			//fn_getDate()로 값 할당해줌
 		console.log(searchFrm.date.value);
 		
+		console.log(searchFrm.searchKeyword.value);
 		
 		
 		searchFrm.submit();
@@ -216,14 +268,10 @@
 	        searchFrm.date.value = date;
 		}
 	})();
-	
-	
-	
-	
-
-	const fn_openMap = ()=>{
-		let map = window.open("<%=request.getContextPath()%>/board/boardSearchMap.do","pop","width=800,height=550, scrollbars=yes, resizable=yes");
-		map.moveTo(650, 300);
+	/* 지도 */
+	<%-- const fn_openMap = ()=>{
+		let map = window.open("<%=request.getContextPath()%>/board/boardSearchMapServlet.do","pop","width=800,height=550, scrollbars=yes, resizable=yes");
+		map.moveTo(650, 300); --%>
 	}
 	
 	
@@ -236,6 +284,65 @@
 	}) */
 
 </script>
+
+<!-- 지역주소검색 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c7c123be4a65e88c927263be5cea14c0&libraries=services"></script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=appkey=c7c123be4a65e88c927263be5cea14c0&libraries=services"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+               
+                
+                //if(data.bname == null){data.bname = "";} api문서에서 null아닌 공백으로 가져온다함
+                //if(data.roadname == null){data.roadname = "";}
+                
+                
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                //document.getElementById('sido').value = data.sido; //시.도
+                document.getElementById('bname').value = data.bname; //지번
+                document.getElementById("roadname").value = data.roadname; //도로명
+                
+                //화면
+                $("#bname").css("color","blue").text(data.bname);
+                
+                console.log(data.bname);
+                console.log(document.getElementById('bname').value);
+            }
+        }).open();
+    }
+</script>
+
+<!-- 페이징페이지바 -->
 <script>
 	temp = "<%=request.getAttribute("pageBar") %>";
 	let arr=temp.split(",");
@@ -260,12 +367,31 @@
 /*페이지바*/
 div#pageBar {
 	margin-top: 10px;
-	text-align: center;
-}
+	text-align: center;	}
 div#pageBar span.cPage {color: #0066ff; }
 div#container>div {display: none;}
 a {text-decoration: none;}
-div.services-icon-wap.hover {background-color: red;}
+div.services-icon-wap.hover {background-color: red;	}
+
+div>a{
+	color: #f39c12cc;
+}
+
+/*마감게시글*/
+#closeBoardColor{
+	/* background-color: #0d0f1040; */
+	background-color: #3c28003b;
+}
+#boardColor{
+	/* background-color: #edbe6f33; */
+	/* background-color: #3a3a3a0f; */
+	background-color: #343a400f;
+}
+
+/*주소입력창*/
+#sample4_roadAddress{
+	width : 100px;
+}
 </style>
 	
 	

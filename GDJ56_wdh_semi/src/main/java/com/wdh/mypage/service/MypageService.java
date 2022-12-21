@@ -233,7 +233,7 @@ public class MypageService {
 		
 	}
 	
-
+//	멤버 아이디 비번 비교
 	public Member searchMember(String memberId, String password) {
 		Connection conn=getConnection();
 		Member m=dao.searchMember(conn,memberId,password);
@@ -241,7 +241,7 @@ public class MypageService {
 		return m;
 	}
 	
-
+//  비밀번호 변경
 	public int updatePassword(String memberId, String password) {
 		
 		Connection conn=getConnection();
@@ -250,6 +250,41 @@ public class MypageService {
 		else rollback(conn);
 		close(conn);
 		return result;
+		
+	}
+	
+//	프로필 사진 변경
+	public int changeProfile(Member m, String fileName) {
+
+		Connection conn = getConnection();
+		
+		int result = dao.changeProfile(conn, m, fileName);
+		
+		if (result > 0) {
+			
+			commit(conn);
+			
+		} else {
+			
+			rollback(conn);
+			
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+//	내 점수 계산 출력
+	public int myScore(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int score = dao.myScore(conn, m);
+		
+		close(conn);
+		
+		return score;
 		
 	}
 	

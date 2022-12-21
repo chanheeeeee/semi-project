@@ -24,5 +24,6 @@ public class Board {
    private int memberNo;
    private String wdPurpose;
    private Member member;
-   private String wdClose;
+   private int dateFlag;
+   private int attendFlag;
 }

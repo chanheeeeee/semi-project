@@ -4,15 +4,11 @@
 
 
 <style>
-
 	div.forgot > button {
         margin-right: 20px;
         padding: 5px 15px 5px 15px;
         font-size: 20px; 
-        
       }
-      
-	
     </style>
 
 
@@ -46,11 +42,6 @@
 				<input type="button" id="btn_email" value="메일인증" class="button" >
 			</td>
 		</tr>
-		<div class="forgot " style="margin-top: 20px; margin-bottom: 20px;">
-         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="font-family: Jua;border: outset;">비밀번호 찾기</button>
-         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="font-family:'Jua';border: outset;">아이디 찾기</button> 
-         <button type="button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="font-family:'Jua';border: outset;">회 원 가 입</button> 
-         </div>
 		<tr id="trAuth" style="display:none">
 			<td>
 				<input type="email" name="check" id="check" class="form-control" placeholder="인증번호" style="height: 55px; border-radius:20px; width:280px;"  required>
@@ -61,7 +52,11 @@
 			</td>
 		</tr>
 	</table>
-
+	<div class="forgot " style="margin-top: 20px; margin-bottom: 20px;">
+         <input type="button" class="button" onclick="location.href='<%=request.getContextPath() %>/member/findPw.do';" style="width:110px;" value="비밀번호 찾기">
+         <input type="button" class="button" onclick="location.href='<%=request.getContextPath() %>/member/findId.do';" style="width:110px;" value="아이디 찾기">
+         <input type="button" class="button" onclick="location.href='<%=request.getContextPath() %>/member/joinTerms.do';" style="width:110px;" value="회 원 가 입">
+	</div>
 
 
 
@@ -87,9 +82,13 @@
 					console.log(result);
 					//메일로 보내진 인증번호를 가져와 인증번호 칸과 동일한지 확인해야한다
 					//보낸인증번호와 일치한지를 알아보려면 일단 인증번호의 값을 어딘가에(input hidden) 저장한다
-					$("#find").val(result.authNum);
-					alert("인증번호가 전송되었습니다.");
-					$("#trAuth").show();
+					if(result.isSuccess == "Y"){
+						$("#find").val(result.authNum);
+						alert("인증번호가 전송되었습니다.");
+						$("#trAuth").show();
+					}else{
+						alert("인증번호 전송이 실패하였습니다.");
+					}
 				}
 			});
 		}else{

@@ -39,11 +39,9 @@ public class DeleteDclServlet extends HttpServlet {
 		int no=Integer.parseInt(request.getParameter("no"));
 		System.out.println(no);
 		
-		
 //		Declaration dcl=Declaration.builder().dclNo(Integer.parseInt(request.getParameter("dcl_no"))).build();
 //		System.out.println(dcl);
 		int result=new DclService().deleteDcl(no);
-		
 		
 		String msg="",loc="";
 		if(result>0) {

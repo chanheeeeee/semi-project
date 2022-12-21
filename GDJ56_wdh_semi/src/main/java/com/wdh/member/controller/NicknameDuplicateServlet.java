@@ -34,10 +34,6 @@ public class NicknameDuplicateServlet extends HttpServlet {
 		String nickname = request.getParameter("nickname");
 		//jsp에서 닉네임 가져옴
 		
-		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
-		
-		Member m1 = new MemberService().memberView(id);
-		
 		Member m = new MemberService().NickNameDuplicate(nickname);
 		
 		//성공여부확인
@@ -46,10 +42,6 @@ public class NicknameDuplicateServlet extends HttpServlet {
 //		}else {
 //			System.out.println("사용 가능한 닉네임 입니다.");
 //		}
-		
-		if(nickname.equals(m1.getMember_nickname())) {
-			response.getWriter().append("가능");
-		}
 		
 		response.setContentType("text/csv;charset=utf-8");
 		response.getWriter().append(m==null?"가능":"불가능");

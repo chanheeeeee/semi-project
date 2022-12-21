@@ -62,4 +62,13 @@ public class AdminService {
 	}
 	
 
+	
+	public int deleteMember(int memberNo) {
+		Connection conn=getConnection();
+		int result=dao.deleteMember(conn,memberNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

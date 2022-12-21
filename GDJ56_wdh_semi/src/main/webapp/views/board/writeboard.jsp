@@ -5,7 +5,7 @@
 <div id="write-container">
     <form action="<%=request.getContextPath() %>/board/writeboardend.do?memberNo=<%=loginMember.getMember_no() %>" method="post">
 		<div class="wrap" style="margin-top: 3%;">
-			<select name="type" id="button1" onchange="selectValue()">
+			<select name="type" id="button1" onchange="selectValue()" required>
 				<option value="종목선택" style="text-align: center;">종목선택</option>
 				<option value="구기"> 구기 (축구, 야구 테니스 등)</option>
 				<option value="유산소"> 유산소 (등산, 자전거, 걷기 등)</option>
@@ -13,7 +13,7 @@
 				<option value="기타"> 기타</option>
 			</select>  
 			
-				<input type="button" onClick="goPopup();" id="roadFullButton" class="button1" value="지역선택">
+				<input type="button" onClick="goPopup();" id="roadFullButton" class="button1" value="지역선택" required>
 				<div id="list"></div>
 				<div id="callBackDiv">
 					<table>
@@ -31,8 +31,8 @@
 					document.getElementById("roadFullAddr").value=roadFullAddr
 				}
 			</script>                    
-			<input type="number" name="count" id="button1" placeholder="모집인원">      
-			<input class="button1" name="date" id="datepicker" value="모임 날짜 선택">
+			<input type="number" name="count" id="button1" placeholder="모집인원" required>      
+			<input class="button1" name="date" id="datepicker" value="모임 날짜 선택" required>
 			<script>
 				$('#datepicker').datepicker();
 			</script> 
@@ -42,16 +42,16 @@
 			<tr>
 				<th style="font-size: 13px;">성별</th>
 				<td>
-					&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="F">  여
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="M">  남
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="A">  무관
+					&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="F" required>  여
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="M" required>  남
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="A" required>  무관
 				</td>
 				<th>목적</th>
 				<td>
-					&nbsp;&nbsp;<input type="radio" name="purpose" value="취미">  취미
-					&nbsp;&nbsp;<input type="radio" name="purpose" value="친목">  친목
-					&nbsp;&nbsp;<input type="radio" name="purpose" value="다이어트">  다이어트
-					&nbsp;&nbsp;<input type="radio" name="purpose" value="건강"> 건강    
+					&nbsp;&nbsp;<input type="radio" name="purpose" value="취미" required>  취미
+					&nbsp;&nbsp;<input type="radio" name="purpose" value="친목" required>  친목
+					&nbsp;&nbsp;<input type="radio" name="purpose" value="다이어트" required>  다이어트
+					&nbsp;&nbsp;<input type="radio" name="purpose" value="건강" required> 건강    
 				</td>
 			</tr>
 		</table>

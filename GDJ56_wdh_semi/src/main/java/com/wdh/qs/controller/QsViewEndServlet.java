@@ -33,10 +33,13 @@ public class QsViewEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int qsNo=Integer.parseInt(request.getParameter("qsNo"));
+		System.out.println(qsNo);
+		
 		Question qs=new QsService().selectQs(qsNo);
 		List<QsComment> list=new QsService().selectQsComment(qsNo);
+		System.out.println(list);
 		
-		request.setAttribute("comment", qs);
+		request.setAttribute("comment", list);
 		request.setAttribute("qs", qs);
 		request.getRequestDispatcher("/views/cs/qsView.jsp").forward(request, response);
 	

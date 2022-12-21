@@ -22,22 +22,30 @@ private BoardDao2 dao = new BoardDao2();
 		return result;
 	}
 	
-	public int selectBoardCount() {
+	public int selectBoardCount(String where) {
 		Connection conn = getConnection();
-		int result = dao.selectBoardCount(conn);
+		int result = dao.selectBoardCount(conn, where);
 		close(conn);
 		return result;
 	}
 	
-	/*public List<Board> selectBoardList(String searchKeyword,int cPage, int numPerpage){
-		Connection conn=getConnection();
-		List<Board> result=dao.selectBoardList(conn, searchKeyword, cPage, numPerpage);
-		close(conn);
-		return result;
-	}*/
 	public List<Board> selectBoardList(String where, String searchKeyword,int cPage, int numPerpage){
 		Connection conn=getConnection();
 		List<Board> result=dao.selectBoardList(conn, where, searchKeyword, cPage, numPerpage);
+		close(conn);
+		return result;
+	}
+	
+//	public int selectBoardCount() { //그냥리스트-검색리스트 따로 카운트 만들어줘야? -> 하나로 만들었다
+//		Connection conn = getConnection();
+//		int result = dao.selectBoardCount(conn);
+//		close(conn);
+//		return result;
+//	}
+	
+	public List<Board> selectBoardList(){ //지도에 출력될 마커의 좌표구하려고
+		Connection conn = getConnection();
+		List<Board> result = dao.selectBoardList(conn);
 		close(conn);
 		return result;
 	}
