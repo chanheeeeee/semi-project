@@ -301,6 +301,39 @@ public class MypageService {
 		
 	}
 	
+//	다이어리에 저장
+	public int addDiary(Diary d, Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.addDiary(conn, d, m);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+		
+	}
 	
+//	내가 쓴 동행과 참여한 동행 다이어리에 뿌려 주기
+	public List<Diary> myWd(Member m) {
+		
+		Connection conn = getConnection();
+		
+		List<Diary> result = dao.myWd(conn, m);
+		
+		close(conn);
+		return result;
+		
+	}
 
 }
+
+
+
+
+
