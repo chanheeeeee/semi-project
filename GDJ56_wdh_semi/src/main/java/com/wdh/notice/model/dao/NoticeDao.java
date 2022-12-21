@@ -51,10 +51,10 @@ public class NoticeDao {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty(""));
+			pstmt=conn.prepareStatement(sql.getProperty("insertNotice"));
 			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeWriter());
-			pstmt.setString(3, n.getNoticeContent());
+//			pstmt.setString(2, n.getNoticeWriter());
+			pstmt.setString(2, n.getNoticeContent());
 			//pstmt.setString(4, n.getFilePath());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
