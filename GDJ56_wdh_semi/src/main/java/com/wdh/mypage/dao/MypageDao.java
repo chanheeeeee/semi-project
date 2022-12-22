@@ -774,6 +774,33 @@ public class MypageDao {
 		
 	}
 	
+	//다이어리 삭제
+		public int deleteDiary(Connection conn, int diary_id) {
+			
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			try {
+				
+				pstmt = conn.prepareStatement(sql.getProperty("deleteDiary"));
+				pstmt.setInt(1, diary_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(SQLException e) {
+				
+				e.printStackTrace();
+				
+			}finally {
+				
+				close(pstmt);
+				
+			}
+		
+			return result;
+			
+		}
+	
 	
 
 }

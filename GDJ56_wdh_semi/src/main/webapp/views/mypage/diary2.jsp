@@ -78,15 +78,16 @@
 		        </button>
 		      </div>
 		      <div class="modal-body" id="content">
+		      <input type="text" class="form-control" id="diaryId" style="width: 50%;">
 		       	운동: <label id="d_title"></label><br>
 		       	메모: <label id="d_content"></label><br>
 		       	시작날짜: <label id="d_start"></label><br>
 		       	마친날짜: <label id="d_end"></label>
 		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal" name="">삭제</button>
+		      <!-- <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal" name="deleteDiary">삭제</button>
 		        <button type="button" class="btn btn-primary" name="">수정</button>
-		      </div>
+		      </div> -->
 		    </div>
 		  </div>
 		</div>
@@ -101,13 +102,13 @@
 		        <h4 class="modal-title" id="myModalLabel">내 운동 등록</h4>
 		        
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-right: 0;">
-		        	<span aria-hidden="true" name="close">×</span>
+		        	<span aria-hidden="true" name="close1">×</span>
 		        </button>
 		      </div>
 		      
 		      <!-- 일정 저장 모달폼 설정 -->
 		      <div class="modal-body" id="content" style="margin: 3%; margin-bottom: 17%;">
-				<form class="form-horizontal" id="updateDiaryFrm" action="<%= request.getContextPath() %>/mypage/updateDiary.do" method="post" >
+				<form class="form-horizontal" id="updateDiaryFrm" action="<%= request.getContextPath() %>/mypage/updateDiary.do" method="post">
 	    			<div class="form-group row" style="margin-top: -4.5%;">													
 				      	<div class="col-sm-10" style="">
 				      		<label for="inputTitle" class="col-form-label">운동</label>
@@ -150,12 +151,17 @@
 	<!-- /Modal -->
 	
 <script>
-	const now = new Date(); // 현재 시간
+	/* const now = new Date(); // 현재 시간
 	const utcNow = now.getTime() + (now.getTimezoneOffset() * 60 * 1000); // 현재 시간을 utc로 변환한 밀리세컨드값
 	const koreaTimeDiff = 9 * 60 * 60 * 1000; // 한국 시간은 UTC보다 9시간 빠름(9시간의 밀리세컨드 표현)
-	const koreaNow = new Date(utcNow + koreaTimeDiff); // utc로 변환된 값을 한국 시간으로 변환시키기 위해 9시간(밀리세컨드)를 더함
-	document.getElementById('start').value= new Date(utcNow + koreaTimeDiff);
-	document.getElementById('end').value= new Date(utcNow + koreaTimeDiff);
+	const koreaNow = new Date(utcNow + koreaTimeDiff); // utc로 변환된 값을 한국 시간으로 변환시키기 위해 9시간(밀리세컨드)를 더함 */
+	//document.getElementById('start').value = new Date();
+	//console.log(koreaNow);
+	//console.log(document.getElementById('start').value);
+	//document.getElementById('end').value = new Date();
+	//new Date(utcNow + koreaTimeDiff).toISOString().slice(0, 16);
+	//document.getElementById('end').value= koreaNow;
+	//new Date(utcNow + koreaTimeDiff).toISOString().slice(0, 16);
 	
 	//document.getElementById('start').value= new Date().toISOString().slice(0, 16);
 	//document.getElementById('end').value= new Date().toISOString().slice(0, 16);
@@ -165,6 +171,7 @@
 		// new FullCalendar.Calendar(대상 DOM객체, {속성:속성값, 속성2:속성값2..})
 		
 	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	    	timeZone: 'local',
 	      headerToolbar: {
 	        left: 'prev,next today',
 	        center: 'title',
@@ -210,28 +217,60 @@
 	    	  /* alert("제목 "+arg.event._def.title); */
 	    	 
 	    	/* $("#diaryMore .modal-title").html('내 일정'); */
+	    	console.log(arg.event._def.extendedProps.diaryId);
+	    	//$("#diaryId").html(arg.event._def.extendedProps.diaryId);
+	    	var diaryId = arg.event._def.extendedProps.diaryId;
+	    	$('input[name=diaryId]').attr('value',diaryId);
 		    $("#d_title").html(arg.event._def.title);
 		    $("#d_content").html(arg.event.extendedProps.memo);
-		    $("#d_start").html(arg.event._instance.range.start);
-		    $("#d_end").html(arg.event._instance.range.end);
+		    //$("#d_start").html(arg.event._instance.range.start);
+		    $("#d_start").html(moment(arg.event._instance.range.start).format('YYYY-MM-DD HH:mm'));
+		    $("#d_end").html(moment(arg.event._instance.range.end).format('YYYY-MM-DD HH:mm'));
+		    //$("#d_end").html(arg.event._instance.range.end);
 		   
 		    
 		    /* d_start = moment(calEvent.start).format('YYYY-MM-DD hh:mm');
 		    d_end = moment(calEvent.end).format('YYYY-MM-DD hh:mm'); */
 		    
-	    	  $("#diaryMore").modal('show');
-	    	  	
+	    	 $("#diaryMore").modal('show');
 	    	  
 	        /* if (confirm('Are you sure you want to delete this event?')) {
 	          arg.event.remove()
 	        } */
 	      },
-	      editable: true,
-	      dayMaxEvents: true, // allow "more" link when too many events
-	      events :[
-	      ]
-	         
-		});
+	      eventDrop: function (arg){
+	    	  if(confirm("기록을 삭제하시겠습니까?")){
+		    	  var diaryId = arg.event._def.extendedProps.diaryId;
+		    	  console.log(arg.event._def.extendedProps.diaryId);
+		    	  arg.event.remove();
+	    	  } else {
+	    		  location.reload();
+	    	  }
+	    	  $(function deleteData(){
+	    		  $.ajax({
+			    	   url:"<%=request.getContextPath()%>/mypage/deleteDiary.do",
+			    	   method:"DELETE",
+			    	   dataType:"json",
+			    	   data:{"diaryId":JSON.stringify(diaryId)},
+			    	   success:function(data){
+			    	   console.log(diaryId);
+				    	   if(data=='성공') {
+				    	    	event.remove();
+				    	    } else alert("삭제 실패했습니다 다시 시도하세요 :(");
+			    	    }, error:function(e,r,m){
+								console.log(e);
+								console.log(r);
+								console.log(m);
+							}
+			    	}); 
+              })
+	      	},
+		      editable: true,
+		      dayMaxEvents: true, // allow "more" link when too many events
+		      events :[
+		      ]
+		         
+			});
 		
 		  calendar.render();
 		  
@@ -261,13 +300,14 @@
               //'border-color'    : currColor
             })
           });
-             
+   
+    	  
     	  $(document).on("click", "button[name='addDiary']", function () {
 	    		 let d = {
 	   	    			"title" : $("#title").val(),
 	   	    			"description" : $("#memo").val(),
-	   	    			"start" : new Date(moment($("#start").val()).format('YYYY-MM-DD hh:mm')),
-	   	    			"end" : new Date(moment($("#end").val()).format('YYYY-MM-DD hh:mm')),
+	   	    			"start" : new Date(moment($("#start").val()).format('YYYY-MM-DD HH:mm')),
+	   	    			"end" : new Date(moment($("#end").val()).format('YYYY-MM-DD HH:mm')),
 	   	    			"backgroundColor" : currColor
 	  	    		};
 		    		console.log(d);
@@ -278,10 +318,17 @@
 		    	     	//dataType:"json",
 		    	     	data:{diary:JSON.stringify(d)},
 		    	     	success:function(data){
-		    	     		if(data=='성공!') calendar.addEvent(d);
-		    	     		else alert("일정등록에 실패했습니다 다시 시도하세요 :(");
-		    	     		//모달내용 삭제
-		    	     		$("#diaryAdd").modal('hide');
+		    	     		if(data=='성공!') {
+		    	     			calendar.addEvent(d);
+		    	     			//모달 내용 초기화
+		    	     			$("#updateDiaryFrm")[0].reset();
+		    	     			$("#diaryAdd").modal('hide');
+		    	     		}
+		    	     		else {
+		    	     			alert("기록을 실패했습니다 다시 시도하세요 :(");
+		    	     			
+		    	     		}
+		   	
 		    	     	}, error:function(e,r,m){
 							console.log(e);
 							console.log(r);
@@ -290,11 +337,52 @@
 		    	    });  
 		     	 });
 		    	    
-		     $(document).on("click", "span[name='close']", function () {
-		     	$("#diaryAdd").modal('hide');
-		     	$("#diary").modal('hide');
-		     	$("#diaryMore").modal('hide');
+		    	    
+		     	<%-- $(document).on("click", "button[name='deleteDiary']", function () {
+		     			
+		     		let obj = new Object();
+		     			obj.diaryId = Object.extendedProps.diaryId;
+		     			
+		     			console.log(Object.extendedProps.diaryId);
+			    	    $.ajax({
+			    	    	url:"<%=request.getContextPath()%>/mypage/deleteDiary.do",
+			    	     	type:"post",
+			    	     	dataType:"json",
+			    	     	data:{"diaryId":diaryId},
+			    	     	success:function(data){
+			    	     		console.log(diaryId);
+			    	     		if(data=='성공') {
+			    	     			event.remove();
+			    	     			$("#diaryAdd").modal('hide');
+			    	     		}
+			    	     		else alert("삭제 실패했습니다 다시 시도하세요 :(");
+			    	     		
+			    	     	}, error:function(e,r,m){
+								console.log(e);
+								console.log(r);
+								console.log(m);
+							}
+			    	    });  
+			     	 }); --%>
+		    	    
+		     $(document).on("click", "span[name='close1']", function () {
+		    	//나가면 모달 폼 초기화
+		    	if(confirm("창을 닫으면 내용이 초기화됩니다. 그래도 닫으시겠습니까?")){
+					$("#updateDiaryFrm")[0].reset();
+					$("#diaryAdd").modal('hide');
+			     	
+		    	} else {
+		    		alert("동작을 취소했습니다.");
+		    		$("#diaryAdd").modal('show');
+		    	}
+			
 		     });
+		     
+		     $(document).on("click", "span[name='close']", function () {
+		    	 $("#diary").modal('hide');
+			     $("#diaryMore").modal('hide');
+		     });
+		     
               
 	  });
 	  
