@@ -216,6 +216,7 @@
 			
 		});
 		 
+		//메세지 갯수!
 		if(<%=loginMember!=null%>){
 			$.get("<%=request.getContextPath()%>/recievemessage.do?no=<%=loginMember!=null?loginMember.getMember_no():""%>",
 					data=>{

@@ -21,7 +21,7 @@
 		<label for="receive_msg" style="font-size: 12px;">받는 사람</label>
 		<input type="text" id="receive_nickName" value="<%=request.getAttribute("recvMemberNick") %>" readonly="readonly">
 		<input type="hidden" id="receive_messenger" value="<%=request.getAttribute("recvMemberNo") %>">
-		<input type="hidden" id="wdNo" value="<%=request.getAttribute("wdNo") %>">
+		<input type="hidden" id="wdNo" value="<%=request.getAttribute("wdNo") %>"><!-- //값을 넘기기위해서 숨겨놓는다! -->
 	</div>	
 	
 	<div class="field">
