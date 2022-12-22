@@ -109,7 +109,7 @@
                 </tr>
                
             </table>
-                     <button onclick="location.replace='<%=request.getContextPath()%>/views/cs/del.jsp'" id="delbtn">등록</button>
+                     <button type="submit" id="delbtn">등록</button>
                      <br>
             </form>
             
