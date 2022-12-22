@@ -71,4 +71,12 @@ public class AdminService {
 		close(conn);
 		return result;
 	}
+	
+	public List<Member> challengeAttanceMember(int no){
+		Connection conn=getConnection();
+		List<Member> list=dao.challengeAttanceMember(conn,no);
+		close(conn);
+		return list;
+	}
+	
 }

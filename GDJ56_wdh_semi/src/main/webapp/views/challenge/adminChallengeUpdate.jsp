@@ -8,12 +8,6 @@ Challenge ch=(Challenge)request.getAttribute("ch");
 
 <%@ include file="/views/common/adminHeader.jsp" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>:::챌린지 수정하기 - 관리자:::</title>
-
 
 					<div style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
 			        

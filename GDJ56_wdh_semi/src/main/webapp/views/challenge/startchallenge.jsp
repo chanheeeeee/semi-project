@@ -34,7 +34,7 @@
   <section id="container">
   	<div id="titleLogo">
   		<img src="<%=request.getContextPath() %>/upload/challenge/<%=challengeList.get(0).get("challengeImg")%>"
-  		width="300" height="300">
+  		width="500" height="500">
   	</div>
 	<h2> <%=challengeList.get(0).get("challengeName") %> 챌린지 당신의 도전!</h2>
 	<br>
@@ -125,9 +125,10 @@
 			 			alert("도전성공을 축하합니다.!");
 			 			$("img[title="+number+"]").attr("src","<%=request.getContextPath() %>/images/challengesuccess.png");
 						// modal 비워주기
-						//추가
+						//추가 (같은 사진 같은 경로 막기)
 						$("div#challengeImg").html("");
 						$("input#addChallenge").val("");
+						
 			 			$(".modal-footer>button.btn-danger").click();
 			 		}else{
 			 			alert("등록에 실패했습니다 다시 시도하세요! 죄송합니다.ㅠㅠ");

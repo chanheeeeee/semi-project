@@ -160,6 +160,24 @@ public class AdminDao {
 		m.setGrade(rs.getInt("GRADE"));
 		return m;
 	}
+	
+	public List<Member> challengeAttanceMember(Connection conn, int no){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Member> result=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("challengeAttanceMember"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				result.add(AdminDao.getMember(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
 
 	
 

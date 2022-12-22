@@ -14,8 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.wdh.admin.model.dao.AdminDao;
 import com.wdh.challenge.model.vo.Challenge;
-import com.wdh.challenge.model.vo.ChallengeResult;
+import com.wdh.challenge.model.vo.Challenge2;
+import com.wdh.member.vo.Member;
+import com.wdh.notice.model.vo.Notice;
 
 public class AdminChallengeDao {
 	private Properties sql=new Properties();
@@ -178,31 +181,6 @@ public class AdminChallengeDao {
 		}return result;
 	}
 	
-//	public List<ChallengeResult> searchChallengeResult(Connection conn, int cPage, int numPerpage) {
-//		PreparedStatement pstmt=null;
-//		ResultSet rs=null;
-//		List<Challenge> result=new ArrayList();
-//		try {
-//			pstmt=conn.prepareStatement(sql.getProperty("selectChallengeResultList"));
-//			pstmt.setInt(1, (cPage-1)*numPerpage+1);
-//			pstmt.setInt(2, cPage*numPerpage);
-//			rs=pstmt.executeQuery();
-//			while(rs.next()) {
-//				ChallengeResult cr=getChallengeResult(rs);
-//				System.out.println(cr);
-//				result.add(cr);
-//			}
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			close(rs);
-//			close(pstmt);
-//		}return result;
-//	}
-	
-	
-	
-	
 	private Map<String,String> getMyChallenge(ResultSet rs) throws SQLException{
 		Map<String,String> data=new HashMap();
 		data.put("filePath",rs.getString("file_path"));
@@ -222,15 +200,54 @@ public class AdminChallengeDao {
 				.build();
 	}
 	
-	private Challenge getChallengeResult(ResultSet rs) throws SQLException{
-		return Challenge.builder()
+	
+	
+	public int selectChallenge2Count(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectChallengeCount"));
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				count=rs.getInt("cnt");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return count;
+	}
+	
+	private Challenge2 getChallenge2(ResultSet rs) throws SQLException{
+		return Challenge2.builder()
 				.challenge_no(rs.getInt("challenge_no"))
 				.challenge_img(rs.getString("challenge_img"))
 				.challenge_name(rs.getString("challenge_name"))
 				.challenge_date(rs.getDate("challenge_date"))
-
+				.file_path(rs.getString("file_path"))
 				.build();
 	}
+	
+	public List<Challenge2> callengeMemberResult(Connection conn, int no) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Challenge2> result=new ArrayList();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("callengeMemberResult"));
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				result.add(getChallenge2(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	
 	
 	
 }	
