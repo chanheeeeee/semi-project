@@ -50,28 +50,34 @@ public class DiaryAddServlet extends HttpServlet {
 		//JsonDiary d=new Gson().fromJson(diary,JsonDiary.class);
 		//System.out.println(d);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
-		TimeZone tz;
-		tz = TimeZone.getTimeZone("Asia/Seoul"); 
-		sdf.setTimeZone(tz);
-		
-		String start = param.get("start").replace("T", " ").replace("Z", "");
-		String end = param.get("end").replace("T", " ").replace("Z", "");
+//		TimeZone tz;
+//		tz = TimeZone.getTimeZone("Asia/Seoul"); 
+//		sdf.setTimeZone(tz);
+//		
+//		String start = param.get("start").replace("T", " ").replace("Z", "");
+//		String end = param.get("end").replace("T", " ").replace("Z", "");
 		
 		Date startSql = null;
 		Date endSql = null;
 		
 		try {
 			
-			startSql = sdf.parse(start);
-			endSql = sdf.parse(end);
+//			startSql = sdf.parse(start);
+//			endSql = sdf.parse(end);
+
+			startSql = sdf.parse(param.get("start"));
+			endSql = sdf.parse(param.get("end"));
 			
 		} catch (ParseException e) {
 			
 			e.printStackTrace();
 			
 		}
+		
+		System.out.println("startSql : "+startSql);
+		System.out.println("endSql : "+endSql);
 		
 		Diary d = Diary.builder()
 				.title(param.get("title"))

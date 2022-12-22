@@ -61,7 +61,7 @@
           <tr>
             <td> 성별 </td>
             <td>
-              <input type="radio" name="gender" value="M" checked> 남자
+              <input type="radio" name="gender" value="M"> 남자
               <input type="radio" name="gender" value="F"> 여자
             </td>
           </tr>
@@ -229,10 +229,15 @@
         		alert("이름을 확인해주세요");
         		return false;
         	}
-        	//성별은 라디오 버튼으로 무조건 한개는 선택하므로 유효성 패스!
+        	//성별 유효성 체크
+        	if($("input[name=gender]:checked").val()== undefined ){
+        		alert("성별을 확인해주세요");
+        		return false;
+        	}
+        	
         	//생년월일 빈값시 공백으로 나오기 때문에! 양쪽 빈칸값나올수 없기때문에 trim은 안써줘도 됨!
         	if($("#start").val()==""){
-        		alert("생년월일은 확인해주세요");
+        		alert("생년월일을 확인해주세요");
         		return false;
         	}
         	if(emailCheck == false){
@@ -258,7 +263,7 @@
     	    			"member_nickname" : $("#nickname").val(),
     	    			"name" : $("#name").val(),
     	    			"password" : $("#password").val(),
-    	    			"gender" : $("input[name=gender]").val(),
+    	    			"gender" : $("input[name=gender]:checked").val(),	//라디오버튼일때 현재 선택된 라디오버튼의 value 값을 가져옴
     	    			"birth" : $("#start").val(),
     	    			"email" : $("#email").val() + "@" + $("#email2").val(),
     	    			"phone" : $("#numberSelector").val() + "-" + $("#phone").val() + "-" + $("#phone2").val(),
