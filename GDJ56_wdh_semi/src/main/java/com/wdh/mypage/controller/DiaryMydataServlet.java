@@ -54,7 +54,7 @@ public class DiaryMydataServlet extends HttpServlet {
 		
 		
 		response.setContentType("application/json;charset=utf-8");
-		new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss").create().toJson(d, response.getWriter());
+		new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create().toJson(mergeD, response.getWriter());
 		
 	}
 
