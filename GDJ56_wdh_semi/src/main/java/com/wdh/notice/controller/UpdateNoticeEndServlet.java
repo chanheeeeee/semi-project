@@ -32,16 +32,17 @@ public class UpdateNoticeEndServlet extends HttpServlet {
 		
 		Notice n = Notice.builder()
 				.noticeNo(Integer.parseInt(request.getParameter("noticeNo")))
-				.noticeTitle(request.getParameter("noticeTitle"))
+				.noticeTitle(request.getParameter("notice_title"))
 				
-				.noticeContent(request.getParameter("noticeContent"))
+				.noticeContent(request.getParameter("board_content"))
 				.build();
+		
 			int result = new NoticeService().updateNotice(n);
 			
 			String msg="",loc="";
 			if(result>0) {
 				msg = "공지사항 수정이 완료되었습니다.^^";
-				loc = "/notice/noticeList.do";
+				loc = "/admin/adminNotice.do";
 			} else {
 				msg = "공지사항 수정 실패";
 				loc = "/notice/updateNotice.do?noticeNo="+n.getNoticeNo();

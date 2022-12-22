@@ -87,7 +87,13 @@
 </head>
 
 <style>
-
+ #msgCount{
+ 	position: relative;
+ 	top:-50px;
+ 	left:20px;
+ 	color:red;
+ 	font-size:13px;
+ }
 </style>
 
 
@@ -165,6 +171,7 @@
 									</a>
 									<a class="nav-link fs-3-2" style="" id="message">
 										<img src="<%= request.getContextPath() %>/images/message.png" style="width: 25px; height: 18px; margin-left: 10%; margin-top: -50%;" />
+										<span id="msgCount">0</span>
 									</a>
 								</li>
 								<li class="nav-item" >
@@ -209,7 +216,14 @@
 			
 		});
 		 
-		
+		if(<%=loginMember!=null%>){
+			$.get("<%=request.getContextPath()%>/recievemessage.do?no=<%=loginMember!=null?loginMember.getMember_no():""%>",
+					data=>{
+						if(data>0){
+							$("#msgCount").text(data);
+						}
+				});	
+		}
 	 
 	</script>
     <!-- Close Header -->

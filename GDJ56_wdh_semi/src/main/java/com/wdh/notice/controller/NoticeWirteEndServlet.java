@@ -34,31 +34,14 @@ public class NoticeWirteEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-				
-				//2.파일 업로드처리를 위한 필요한 값을 설정하기
-				//1) 파일업로드 위치 -> 절대경로로 가져와야함.
-				String path=request.getServletContext().getRealPath("/upload/notice/");
-				System.out.println("경로 : "+path);
-				//2) 저장할 파일에 대한 최대크기 설정
-				int maxSize=1024*1024*10;//10MB
-				//3) 문자열 인코딩
-				String encode="utf-8";
-				//4) 업로드된 파일에 대한 이름 재정의(rename)
-				// 개발자가 직접 작성할 수도 있고, 기본으로 제공하는 클래스가 있음(DefaultFileRenamePolicy)
-				
-				//파일업로드하기
-				//MultipartRequest클래스를 생성 -> request로 전송된 데이터가 지정한 경로에 저장
-				//MultipartRequest클래스생성자는 5개의 매개변수를 가지고 있음
-				//1. HttpServletRequest, 2. 파일경로,3. 파일최대크기, 4. 인코딩, 5.rename규칙
-				MultipartRequest mr=new MultipartRequest(request,path,maxSize,
-						encode,new DefaultFileRenamePolicy());
-				
-				
-				Notice n=new Notice();
-				n.setNoticeTitle(mr.getParameter("noticeTitle"));
-				n.setNoticeWriter(mr.getParameter("noticeWrite"));
-				n.setNoticeContent(mr.getParameter("content"));
-				//파일명을 DB에 저장해야함. -> rename된 파일을 가져오기		
+		String title=request.getParameter("notice_title");
+		System.out.println(title);
+		String content=request.getParameter("board_content");
+		System.out.println(content);
+		Notice n=Notice.builder()
+				.noticeTitle(title)
+				.noticeContent(content)
+				.build();
 				
 				int result=new NoticeService().insertNotice(n);
 				
@@ -68,18 +51,14 @@ public class NoticeWirteEndServlet extends HttpServlet {
 				String loc="";
 				if(result>0) {
 					msg="공지사항등록 성공";
-					loc="/admin/adminNotice";
+					loc="/admin/adminNotice.do";
 				}else {
 					msg="공지사항등록 실패";
-					loc="/notice/subNotice";
+					loc="/notice/write.do";
 				}
 				request.setAttribute("msg",msg);
 				request.setAttribute("loc",loc);
-				request.getRequestDispatcher("/views/common/msg.jsp")
-				.forward(request, response);
-			
-			
-			
+				request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 			}
 
 			/**

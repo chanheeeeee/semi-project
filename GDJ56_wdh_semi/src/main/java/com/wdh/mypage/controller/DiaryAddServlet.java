@@ -1,9 +1,9 @@
 package com.wdh.mypage.controller;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,16 +18,16 @@ import com.wdh.mypage.service.MypageService;
 import com.wdh.mypage.vo.Diary;
 
 /**
- * Servlet implementation class DiaryMydataServlet
+ * Servlet implementation class DiaryAddServlet
  */
-@WebServlet("/mypage/diarydata.do")
-public class DiaryMydataServlet extends HttpServlet {
+@WebServlet("/mypage/addDiary.do")
+public class DiaryAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DiaryMydataServlet() {
+    public DiaryAddServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,21 +36,59 @@ public class DiaryMydataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		String id = ((Member)request.getSession().getAttribute("loginMember")).getMember_id();
 		
 		Member m = new MemberService().memberView(id);
 		
-		List<Diary> d = new MypageService().myDiary(m);
-//		d.add(new Diary(0, id, 0, 0, id, id, id, id))
-		List<Diary> wd = new MypageService().myWd(m);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		
-		List<Diary> mergeD = Stream.of(d, wd)
-                .flatMap(x -> x.stream())
-                .collect(Collectors.toList());
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
 		
-		response.setContentType("application/json/charset=utf-8");
-		new Gson().toJson(mergeD, response.getWriter());
+		Date startSql = null;
+		Date endSql = null;
+		
+		try {
+			
+			startSql = sdf.parse(start);
+			endSql = sdf.parse(end);
+			
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		Diary d = Diary.builder()
+				.title(request.getParameter("title"))
+				.memo(request.getParameter("memo"))
+				.start(startSql)
+				.end(endSql)
+				.bgColor(request.getParameter("background_color"))
+				.build();
+		
+		System.out.println(d);
+		
+		int result = new MypageService().addDiary(d, m);
+
+		String msg="", loc="";
+		
+		if(result>0) {
+			
+			msg="성공!";
+			loc="/mypage/diary.do";
+			
+		}else {
+			
+			msg="실패!";
+			loc="/mypage/diary.do";
+			
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
 		
 	}
 

@@ -37,7 +37,7 @@
 			<input type="number" name="count" id="button1" placeholder="모집인원" value="<%=b.getWdCount()%>">      
 			<input class="button1" name="date" id="datepicker" value="<%=b.getWdDate()%>">
 			<script>
-				$('#datepicker').datepicker();
+				$('#datepicker').datepicker("getDate");
 			</script> 
 		</div>
 

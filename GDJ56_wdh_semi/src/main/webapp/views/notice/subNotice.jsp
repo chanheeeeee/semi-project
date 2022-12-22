@@ -9,12 +9,12 @@
         
         <section id="notice-container">
                 <h2><strong>공지사항 글 작성</strong></h2>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="<%=request.getContextPath() %>/notice/writeEnd.do" method="post">
                 <table id="tbl-board" border="1">
                 <tr>
                     <th>제 목</th>
                     <td>
-                        &nbsp;&nbsp;<input type="text" placeholder="제목입력" name="notice-title">
+                        &nbsp;&nbsp;<input type="text" placeholder="제목입력" name="notice_title">
                     </td>
                 </tr>
                 <tr>
@@ -34,7 +34,7 @@
                 </td>
                 </tr>
             </table>
-             <input type="submit" value="등록하기" onclick="">
+             	<input type="submit" value="등록">
             </form>
             
         </section>

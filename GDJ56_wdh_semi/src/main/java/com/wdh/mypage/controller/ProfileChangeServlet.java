@@ -89,7 +89,6 @@ public class ProfileChangeServlet extends HttpServlet {
 				session.setAttribute("loginMember", m);
 
 				
-				
 			} else {
 						
 				msg = "프로필 등록을 실패했습니다. 다시 시도해 주세요.";
