@@ -6,6 +6,7 @@
 <script src="<%=request.getContextPath() %>/js/templatemo.js"></script>
 <script src="<%=request.getContextPath() %>/js/custom.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
 <title>쪽지보내기</title>
 </head>
@@ -72,7 +73,8 @@
 		  background-color: rgba(223, 223, 223, 0.422); */
 		  font-weight:bold;font-size: 15px;
 		  border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;
-		}		
+		  font-family:'Jua';
+		 }		
 		
 		#message {
 			margin-top:20px;
@@ -84,9 +86,11 @@
 			border-radius: 10px;
 			font-size: 16px;
 			resize: both;
+			font-family:'Jua';
 		}
 		#body{
 			padding:20px;
+			font-family:'Jua';
 		}
 
 	</style>
