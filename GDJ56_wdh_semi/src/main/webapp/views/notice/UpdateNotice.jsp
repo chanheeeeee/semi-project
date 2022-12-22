@@ -14,13 +14,13 @@
         
         <section id="notice-container">
                 <h2><strong>글 수정하기</strong></h2>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action='<%=request.getContextPath()%>/notice/updateNoticeEnd.do' method="post">
                 <table id="tbl-board" border="1">
                 <tr>
                     <th>제 목</th>
                     <td>
-                        &nbsp;&nbsp;<input type="text" placeholder="제목입력" value="<%=n.getNoticeTitle() %>">
-                        
+                        &nbsp;&nbsp;<input type="text" name="notice_title" placeholder="제목입력" value="<%=n.getNoticeTitle() %>">
+                        	
                     </td>
                 </tr>
                 <tr>
@@ -40,33 +40,33 @@
                     </form>
                 </td>
                 </tr>
-            </table>
-            <tr>
-	            <th colspan="2">
-	                <input type="submit" value="수정하기" onclick="">
-	            </th>
-        	</tr>
-            <div>
-    		<input type="hidden" name="noticeNo" value ="<%=n.getNoticeNo()%>">
-    		</div>
-            </form>
-            
-        </section>
-        <br>
-        </div>
-        
-        <script>
+    <div>
+    	<input type="hidden" name="noticeNo" value ="<%=n.getNoticeNo()%>">
+    </div>
+             <tr>
+            <th colspan="2">
+                <input type="submit" value="수정하기" onclick="">
+            </th>
+        </tr>
+    </table>
+    </form>
+    </div>    
+	</section>
+	<script>
 		const noticeCheck = () => {
-		if($("[name=noticeTitle]").val() == ""){
-			alert("제목을 입력해 주세요!!");
-			return false;
+			if($("[name=noticeTitle]").val() == ""){
+				alert("제목을 입력해 주세요!!");
+				return false;
+// 			}
+// 			else if($("[name=noticeWriter]").val() == ""){
+// 				alert("작성자를 입력해 주세요!!");
+// 				return false;
+			}
+			else if($("[name=noticeContent]").val() == ""){
+				alert("내용 입력해 주세요!!");
+				return false;
+			}
 		}
-		
-		else if($("[name=noticeContent]").val() == ""){
-			alert("내용 입력해 주세요!!");
-			return false;
-		}
-	}
 	</script>
 		
 		<!-- 웹에디터  -->

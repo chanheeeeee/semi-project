@@ -7,11 +7,11 @@ import static com.wdh.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.wdh.challenge.model.dao.AdminChallengeDao;
-import com.wdh.challenge.model.service.AdminChallengeService;
 import com.wdh.challenge.model.vo.Challenge;
-import com.wdh.member.vo.Member;
+import com.wdh.challenge.model.vo.ChallengeResult;
 
 public class AdminChallengeService {
 	
@@ -42,6 +42,7 @@ public class AdminChallengeService {
 		close(conn);
 		return result;
 		}
+	
 	public int deleteChallenge(int no) {
 		Connection conn=getConnection();
 		int result=dao.deleteChallenge(conn,no);
@@ -57,8 +58,33 @@ public class AdminChallengeService {
 		close(conn);
 		return ch;
 	}
-	public void selectMyChallenge(String member_id) {
+	public List<Map<String,String>> selectMyChallenge(int member_id) {
 		// TODO Auto-generated method stub
-		
+		Connection conn=getConnection();
+		List<Map<String,String>> ch=dao.selectMyChallenge(conn, member_id);
+		close(conn);
+		return ch;
 	}
+	public int attenceChallenge(int challengeNo, int memberNo) {
+		Connection conn=getConnection();
+		int result=dao.attenceChallenge(conn,challengeNo,memberNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	public int selectChallengeResultCount() {
+		Connection conn=getConnection();
+		int result=dao.selectChallengeCount(conn);
+		close(conn);
+		return result;
+	}
+//	public List<ChallengeResult> searchChallengeResult(int cPage, int numPerpage) {
+//		Connection conn=getConnection();
+//		List<ChallengeResult> result=dao.searchChallengeResult(conn,cPage,numPerpage);
+//		close(conn);
+//		return result;
+//	}
+	
 	}

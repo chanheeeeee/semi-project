@@ -13,6 +13,7 @@ import com.wdh.board.vo.ReviewBoard;
 import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.dao.MypageDao;
+import com.wdh.mypage.vo.Diary;
 import com.wdh.qs.model.vo.Question;
 
 public class MypageService {
@@ -275,8 +276,64 @@ public class MypageService {
 		return result;
 	}
 	
+//	내 점수 계산 출력
+	public int myScore(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int score = dao.myScore(conn, m);
+		
+		close(conn);
+		
+		return score;
+		
+	}
 	
+//	내 다이어리 불러오기
+	public List<Diary> myDiary(Member m) {
+		
+		Connection conn = getConnection();
+		
+		List<Diary> result = dao.myDiary(conn, m);
+		
+		close(conn);
+		return result;
+		
+	}
 	
+//	다이어리에 저장
+	public int addDiary(Diary d, Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = dao.addDiary(conn, d, m);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+		
+	}
 	
+//	내가 쓴 동행과 참여한 동행 다이어리에 뿌려 주기
+	public List<Diary> myWd(Member m) {
+		
+		Connection conn = getConnection();
+		
+		List<Diary> result = dao.myWd(conn, m);
+		
+		close(conn);
+		return result;
+		
+	}
 
 }
+
+
+
+
+

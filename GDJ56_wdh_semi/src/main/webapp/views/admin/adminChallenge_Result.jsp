@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import= "java.util.List, com.wdh.member.vo.Member, com.wdh.challenge.model.vo.Challenge"%>    
+<%
+List<Member> members=(List<Member>)request.getAttribute("member");
+
+%>
+
 <%@ include file="/views/common/adminHeader.jsp" %>
 
 <style>
@@ -26,7 +31,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">첼린지 마감</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">첼린지 결과를 관리합니다.</li>
+                            <li class="breadcrumb-item active">첼린지 결과를 출력합니다.</li>
                         </ol>
                     
                     <div class="row">
@@ -34,29 +39,24 @@
                         <table id="ctable" class="table">
                             <thead>
                                 <tr>
-                                    <th>운영 기간</th>
-                                    <th>전체 참여자</th>
+                                   <%--  <th><%=cr.challenge_name %></th>
+                                    <th><%=cr.challenge_ %></th> --%>
                                     <th>전체 스템프</th>
                                     <th>리워드 수량</th>
-                                    <th>리워드 발급 인원</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>2022.12.01 - 2022.12.31</th>
-                                    <th>0</th>
+                                    <th></th>
+                                    <th></th>
                                     <th>28</th>
                                     <th>5</th>
-                                    <th>0</th>
                                 </tr>    
                             </tbody>
                         </table>
                     </div>    
                     </div>
 					
-					<div id="btn_group">
-                    <p>선택한 회원을 <button id="test_btn1">리워드 발급</button> 합니다</p>
-                    </div>
                     <hr class="one">
 
 
@@ -65,158 +65,30 @@
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <th>회원번호</th>
-                                            <th>아이디</th>
-                                            <th>이름</th>
-                                            <th>닉네임</th>
-                                            <th>스탬프 갯수</th>
-                                            <th></th>
+                                        <tr>                                      
+                                            <th>첼린지번호</th>
+                                            <th>아이디</th>                                           
+                                            <th>참여횟수</th>
+                                            <th>사 진</th>                                        
                                         </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <th>회원번호</th>
-                                            <th>아이디</th>
-                                            <th>이름</th>
-                                            <th>닉네임</th>
-                                            <th>스탬프 갯수</th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
+                                    </thead>                      
                                     <tbody>
+                                    	<%-- <%if(ChallengeResult.isEmpty()){ %>     
                                         <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td>1</td>
-                                            <td>admin</td>
-                                            <td>관리자</td>
-                                            <td>예시용도</td>
-                                            <th></th>
+                                        	<td colspan="4"><h3>조회된 회원이 없습니다</h3></td>
+                                        </tr>
+						       	  		<%}else{ 
+						       	  			for(ChallengeResult cr : ChallengeResult){
+						       	  		%>          
+                                         	<td><%=cr.challenge_no %></td>
+                                            <td><%=cr.member_no %></td>
+                                            <td><%=cr.day_cnt %></td>
                                             <td>
                                             <div id="btn_group">
                                             <button id="test_btn1">확인</button>
                                             </div>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                           <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th><input type="checkbox" name="checkall" id="checkall"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                            <div id="btn_group">
-                                            <button id="test_btn1">확인</button>
-                                            </div>
-                                            </td>
-                                        </tr>
+                                        </tr>                          --%>
 
                                     </tbody>
                                 </table>

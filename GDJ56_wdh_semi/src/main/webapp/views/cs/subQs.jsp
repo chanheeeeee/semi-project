@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/fontawesome.min.css">
     
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -62,7 +65,7 @@
     </nav>
     <!-- Close Header -->
 <div font-family:jua;>
-    <div style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
+    <div>
         <section id="notice-container">
                 <h2><strong>1 대 1 문의 글 작성</strong></h2>
             <form action="<%=request.getContextPath() %>/cs/writeEndQs.do" 

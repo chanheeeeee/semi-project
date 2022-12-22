@@ -51,10 +51,10 @@ public class NoticeDao {
 		PreparedStatement pstmt=null;
 		int result=0;
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty(""));
+			pstmt=conn.prepareStatement(sql.getProperty("insertNotice"));
 			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeWriter());
-			pstmt.setString(3, n.getNoticeContent());
+//			pstmt.setString(2, n.getNoticeWriter());
+			pstmt.setString(2, n.getNoticeContent());
 			//pstmt.setString(4, n.getFilePath());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
@@ -108,9 +108,9 @@ public class NoticeDao {
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("updateNotice"));
 			pstmt.setString(1, n.getNoticeTitle());
-			pstmt.setString(2, n.getNoticeWriter());
-			pstmt.setString(3, n.getNoticeContent());
-			pstmt.setInt(4, n.getNoticeNo());
+//			pstmt.setString(2, n.getNoticeWriter());
+			pstmt.setString(2, n.getNoticeContent());
+			pstmt.setInt(3, n.getNoticeNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,20 +121,19 @@ public class NoticeDao {
 		return result;
 	}
 	
-	public int deleteNotice(Connection conn, int noticeNo) {
-		PreparedStatement pstmt = null;
-		int result = 0;
+	public int deleteNotice(Connection conn, int no) {
+		PreparedStatement pstmt =null;
+		int result=0;
 		try {
-			pstmt = conn.prepareStatement(sql.getProperty("deleteNotice"));
-			pstmt.setInt(1, noticeNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteNotice"));
+			pstmt.setInt(1, no);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(pstmt);
-		}
-
-		return result;
+		}return result;
 	}
 	
 	

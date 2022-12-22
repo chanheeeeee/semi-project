@@ -19,6 +19,7 @@ import com.wdh.del.model.dao.DclDao;
 import com.wdh.del.model.vo.Declaration;
 import com.wdh.member.dao.MemberDao;
 import com.wdh.member.vo.Member;
+import com.wdh.mypage.vo.Diary;
 import com.wdh.qs.model.dao.QsDao;
 import com.wdh.qs.model.vo.Question;
 
@@ -533,8 +534,7 @@ public class MypageDao {
 		
 	}
 	
-	//비번 바꾸기
-
+	//비번 바꾸기 하기 위한 멤버 검색
 	public Member searchMember(Connection conn, String memberId, String password) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -562,6 +562,8 @@ public class MypageDao {
 		}return m;
 	}
 	
+	
+//	비밀번호 변경
 	public int updatePassword(Connection conn, String memberId, String password) {
 		
 		PreparedStatement pstmt = null;
@@ -590,7 +592,7 @@ public class MypageDao {
 	}
 	
 	
-
+//	프로필 변경
 	public int changeProfile(Connection conn, Member m, String fileName) {
 		
 		PreparedStatement pstmt=null;
@@ -618,6 +620,159 @@ public class MypageDao {
 		
 	}
 	
+//	내 점수 불러오기
+	public int myScore(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int score = 0;
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("myScore"));
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				score = rs.getInt("SUM(REVIEW_SCORE)");
+				
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return score;
+		
+	}
+	
+//	다이어리 데이터 가져오기
+	public List<Diary> myDiary(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Diary> list = new ArrayList();
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("myDiary"));
+			pstmt.setInt(1, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Diary d = new Diary();
+				d.setDiaryId(rs.getInt("DIARY_ID"));
+				d.setTitle(rs.getString("DIARY_TITLE"));
+				d.setMemberNo(rs.getInt("MEMBER_NO"));
+				d.setWdNo(rs.getInt("WD_NO"));
+				d.setStart(rs.getDate("DIARY_START"));
+				d.setEnd(rs.getDate("DIARY_END"));
+				d.setMemo(rs.getString("DIARY_MEMO"));
+				d.setBackgroundColor(rs.getString("BACKGROUND_COLOR"));
+				
+				list.add(d);
+			}
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+		
+		} finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return list; 
+		
+	}
+	
+//	다이어리 추가
+	public int addDiary(Connection conn, Diary d, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("addDiary"));
+
+			pstmt.setString(1, d.getTitle());
+			pstmt.setInt(2, m.getMember_no());
+			pstmt.setDate(3, d.getStart());
+			pstmt.setDate(4, d.getEnd());
+			pstmt.setString(5, d.getMemo());
+			pstmt.setString(6, d.getBackgroundColor());
+
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			close(pstmt);
+			
+		}
+		
+		return result;
+	}
+	
+	
+//	내가 쓴 동행과 참여한 동행 다이어리에 뿌려 주기
+	public List<Diary> myWd(Connection conn, Member m) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Diary> list = new ArrayList();
+		
+		try {
+			
+			pstmt = conn.prepareStatement(sql.getProperty("myWd"));
+			pstmt.setInt(1, m.getMember_no());
+			pstmt.setInt(2, m.getMember_no());
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				Diary d = new Diary();
+//				d.setDiaryId(rs.getInt("DIARY_ID"));
+				d.setTitle(rs.getString("WD_TITLE"));
+				d.setMemberNo(rs.getInt("MEMBER_NO"));
+				d.setWdNo(rs.getInt("WD_NO"));
+				d.setStart(rs.getDate("WD_DATE"));
+				d.setEnd(rs.getDate("WD_DATE"));
+				d.setMemo(rs.getString("WD_CONTENT"));
+//				d.setBgColor(rs.getString("BACKGROUND_COLOR"));
+				
+				list.add(d);
+			}
+			
+		} catch(SQLException e) {
+			
+			e.printStackTrace();
+		
+		} finally {
+			
+			close(rs);
+			close(pstmt);
+			
+		}
+		
+		return list; 
+		
+	}
 	
 	
 

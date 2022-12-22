@@ -99,7 +99,7 @@ public class BoardDao {
 			pstmt.setDate(6, new java.sql.Date(b.getWdDate().getTime()));
 			pstmt.setInt(7, b.getWdCount());
 			pstmt.setString(8, b.getWdPurpose());
-			pstmt.setInt(9, b.getWdNo());
+			pstmt.setInt(9, b.getWdNo()); 
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

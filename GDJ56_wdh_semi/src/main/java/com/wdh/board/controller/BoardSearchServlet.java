@@ -38,6 +38,10 @@ public class BoardSearchServlet extends HttpServlet {
 		//방법1.String[] dateArr = request.getParameterValues("date");
 		//방법2.프론트에서 문자열 처리해서 넘어온 값을 저장
 		String date = request.getParameter("date");
+		String sido  = request.getParameter("sido");
+		String bname  = request.getParameter("bname");
+		String roadname = request.getParameter("roadname");
+		//String location = request.getParameter("location");
 		
 		
 		
@@ -95,6 +99,29 @@ public class BoardSearchServlet extends HttpServlet {
 			sql += date;
 			
 		}
+		
+		if(sido!=null&&bname!=null&&roadname!=null) {
+			// XXX sql += "and WD_LOCATION LIKE '%"+bname+"%' and WD_LOCATION LIKE '%"+roadname+"%'";
+			
+			//String location = "bname|roadname";
+			//순서바꾸기
+			//String address = sido+"|"+roadname+"|"+bname;
+			//sql += "and REGEXP_LIKE( WD_LOCATION, '"+address+"')";
+			
+			//and WD_LOCATION LIKE '서울특별시%가산동%' AND WD_LOCATION LIKE '서울특별시%벚꽃로%'
+			//and WD_LOCATION LIKE '서울%벚꽃로%' and WD_LOCATION LIKTE '서울%가리봉동%'
+			
+			System.out.println(sido);
+			
+			String address = "and WD_LOCATION LIKE '"+sido+"%%"+roadname+"%' and WD_LOCATION LIKE '"+sido+"%%"+bname+"%'" ;
+			//System.out.println(a);
+			
+			sql += address;
+						
+			
+		}
+		
+		
 		
 		//ORDER BY 절이 있어서 맨 밑으로 내림
 		if(gender!=null) {

@@ -31,26 +31,27 @@ public class UpdateNoticeEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Notice n = Notice.builder()
-						.noticeNo(Integer.parseInt(request.getParameter("noticeNo")))
-						.noticeTitle(request.getParameter("noticeTitle"))
-						.noticeWriter(request.getParameter("noticeWriter"))
-						.noticeContent(request.getParameter("noticeContent"))
-						.build();
-		int result = new NoticeService().updateNotice(n);
+				.noticeNo(Integer.parseInt(request.getParameter("noticeNo")))
+				.noticeTitle(request.getParameter("notice_title"))
+				
+				.noticeContent(request.getParameter("board_content"))
+				.build();
 		
-		String msg="",loc="";
-		if(result>0) {
-			msg = "공지사항 수정이 완료되었습니다.";
-			loc = "/notice/notice.do";
-		} else {
-			msg = "공지사항 수정 실패하였습니다.";
-			loc = "/notice/updateNotice.do?noticeNo="+n.getNoticeNo();
-		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-		
-	}
+			int result = new NoticeService().updateNotice(n);
+			
+			String msg="",loc="";
+			if(result>0) {
+				msg = "공지사항 수정이 완료되었습니다.^^";
+				loc = "/admin/adminNotice.do";
+			} else {
+				msg = "공지사항 수정 실패";
+				loc = "/notice/updateNotice.do?noticeNo="+n.getNoticeNo();
+			}
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			
+			}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

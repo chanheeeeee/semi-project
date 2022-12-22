@@ -11,15 +11,29 @@
 <div class="container py-5">
  <div class="row">
   <div class="col-lg-3">
+  
+
 			
 	<!-- 추가검색form -->
-	<form name="searchFrm" action="<%=request.getContextPath()%>/board/boardSearch.do" method="post">
+	<form name="searchFrm" action="<%=request.getContextPath()%>/board/boardSearch.do" method="post" >
 	 <h1 class="h2 pb-4"></h1>
-	 <h1 class="h2 pb-4">추가 검색 조건</h1>
+	 <h1 class="h2 pb-4"></h1>
+	 	<!-- 위치검색 -->
+	 	<input type="button" onclick="sample6_execDaumPostcode();" value="위치 추가"><br>
+<!-- 	 	<input type="text" style="border:0 solid black;" id="bname" placeholder="지번"> 
+		<input type="text" style="border:0 solid black;" id="roadname" placeholder="도로명"> -->
+		
+		
 		<ul class="list-unstyled templatemo-accordion">
 			<li class="pb-3">
 				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-					<%@ include file="/views/board/map2.jsp" %>
+					<p class="bname"></p>
+				</a>
+			</li>
+		
+			<li class="pb-3">
+				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+					<%-- <%@ include file="/views/board/map2.jsp" %> --%>
 				</a>
 			</li>
 			
@@ -57,16 +71,6 @@
 				</ul>
 			</li>
 			
-			<li class="pb-3">
-				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-					<!-- 위치검색 -->
-					<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-					<input type="button" onclick="localPostcode()" value="지역 넣기"><br>
-					<div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
-		
-				</a>
-			</li>
-			
 			
 			<!-- <li class="pb-3">
 				<a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
@@ -77,11 +81,19 @@
 		
 		
 		<input type="hidden" name="searchKeyword">
+		
 		<!-- 날짜넘기기 방법1_id값 주고 하나씩 받기
 		<input type="hidden" name="date1">
 		<input type="hidden" name="date2"> -->
 		<!-- 날짜넘기기 방법2_두개의input 값 합쳐서 보내기 -->
 		<input type="hidden" name="date">
+		
+		<input type="hidden" name="sido" id="sido">
+		<input type="hidden" name="bname" id="bname">
+		<input type="hidden" name="roadname" id="roadname">
+
+		<input type="hidden" name="location" id="location">
+		
 		
 	</form>
 	
@@ -223,14 +235,16 @@
 			console.log("검색할 값 : "+cbArr);
 	} */
 	
-	const fn_searchSubmit = ()=>{
+	function fn_searchSubmit(){
 		
 		//keyword
 		searchFrm.searchKeyword.value = $("#inputKeywordSearch").val(); /* input에 입력된 값 hidden searchKeyword.value에 접근해서 값 할당 */
 		/* 나머지는 이미 value값이 들어가 있음 */
 		//date
 			//fn_getDate()로 값 할당해줌
-		console.log(searchFrm.date.value);
+		//console.log(searchFrm.date.value);
+		
+		//console.log(searchFrm.searchKeyword.value);
 		
 		searchFrm.submit();
 		
@@ -257,10 +271,10 @@
 		}
 	})();
 	/* 지도 */
-	const fn_openMap = ()=>{
+	<%-- const fn_openMap = ()=>{
 		let map = window.open("<%=request.getContextPath()%>/board/boardSearchMapServlet.do","pop","width=800,height=550, scrollbars=yes, resizable=yes");
 		map.moveTo(650, 300);
-	}
+	} --%>
 	
 	
 	
@@ -278,9 +292,8 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=appkey=c7c123be4a65e88c927263be5cea14c0&libraries=services"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    function localPostcode() {
+    function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -304,26 +317,37 @@
                     if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
                         extraAddr += data.bname;
                     }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
+
                 
                 } else {
-                    document.getElementById("sample6_extraAddress").value = '';
+                   // document.getElementById("sample6_extraAddress").value = '';
                 }
 
+               
+                
+                if(data.bname == null){data.bname = "";} //api문서에서 null아닌 공백으로 가져온다함..?null인데 -> 그래서 |도로명 이렇게 안되게 하기 위해 도로명| 순서바꿔주기
+                if(data.roadname == null){data.roadname = "";}
+                
+                
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                //document.getElementById('sido').value = data.sido; //시.도
+                //document.getElementById('bname').value = data.bname; //지번
+                //document.getElementById("roadname").value = data.roadname; //도로명
+                
+
+                //폼.네임.에 바로 넣어줌
+                searchFrm.sido.value = data.sido;
+                searchFrm.bname.value = data.bname;
+                searchFrm.roadname.value = data.roadname;
+                
+                //화면
+                $(".bname").css("color","blue").text(data.bname);
+                
+                
+                
+                
+                console.log(data.bname);
+
             }
         }).open();
     }

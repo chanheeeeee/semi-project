@@ -1,6 +1,9 @@
 package com.wdh.member.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 import com.wdh.member.vo.Message;
@@ -35,6 +37,8 @@ public class MessageListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+
 		
 		Member m = (Member) request.getSession().getAttribute("loginMember");	//로그인한 멤버의 고유값 (보내는사람)
 		int msg_writer = m.getMember_no();

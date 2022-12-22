@@ -56,6 +56,10 @@
         <div style="text-align:center">
     	<br>
 		<img src="<%=request.getContextPath()%>/images/DclAlert.png" style="width:49%; height:600px;">
+		<br>
+		<br>
+			<button onclick="location.href='<%=request.getContextPath()%>/mypage/mycontent.do'">마이페이지</button>
+			
     </div>
     <br>
     	<!-- 이 페이지에서 바로 마이페이지 로 연결될 버튼이 있어야할까? -->

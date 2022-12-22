@@ -70,13 +70,15 @@
 		$("#recvMemberNo").val(recvMemberNo);
 		$("#recvMemberNick").val(recvMemberNick);
 
+<<<<<<< HEAD
 		open("","frmMessage","width=300,height=340");
+=======
+		open("","frmMessage","width=400,height=300");
+>>>>>>> branch 'dev' of https://github.com/chanheeeeee/wdhsemi.git
 		frm.method="post";
 		frm.action="<%=request.getContextPath()%>/member/messageServlet.do";
 		frm.target="frmMessage";
 		frm.submit();
-		
-		
 	}
 
 </script>

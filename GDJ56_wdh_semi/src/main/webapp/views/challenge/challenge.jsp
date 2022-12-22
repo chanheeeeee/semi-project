@@ -25,14 +25,6 @@
             </div>
     </nav>
     <br>
-    <div id="challcontainer6">
-        <img src="<%=request.getContextPath() %>/images/challengecall1.png" alt="" id="chcall" onclick="">
-        <button id="checkbtn" type="file"><img src="<%=request.getContextPath() %>/images/check.png" width="100" height="100" id="chimg"></button>
-        <input type="file" name="upfile" style="display: none;">
-    </div>
-
-
-
 
     <div id="challcontainer7">
         <p><strong>※주의사항! 챌린지 이미지 출석체크 이렇게 인증 해주세요!</strong></p>
@@ -89,6 +81,7 @@
     
         <br>
         
+        <!-- 이달 챌린지 상세 페이지로 이동  -->
 	   <div class="container">
 		  <div class="row">
 		    <div class="col"></div>
@@ -97,6 +90,7 @@
 		    	onclick="location.href='<%=request.getContextPath() %>/challenge/startChallenge.do';">Start Challenge!</button>
 		    </div>
 		    
+		    <!-- 챌린지 진행 중일 경우 바로 인증 페이지로 이동  -->
 		    <div class="col" style="text-align:center;">
 		    	<button type="button" id="Mypagebtn" class="btn btn-outline-success" style="font-size:20px"
 		    	 onclick="location.href='<%=request.getContextPath() %>/challenge/mychallenge.do';">My Challenge!</button>
