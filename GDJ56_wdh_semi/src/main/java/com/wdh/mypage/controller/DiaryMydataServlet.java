@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wdh.member.service.MemberService;
 import com.wdh.member.vo.Member;
 import com.wdh.mypage.service.MypageService;
@@ -49,8 +50,11 @@ public class DiaryMydataServlet extends HttpServlet {
                 .flatMap(x -> x.stream())
                 .collect(Collectors.toList());
 		
-		response.setContentType("application/json/charset=utf-8");
-		new Gson().toJson(mergeD, response.getWriter());
+		System.out.println(mergeD);
+		
+		
+		response.setContentType("application/json;charset=utf-8");
+		new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create().toJson(mergeD, response.getWriter());
 		
 	}
 

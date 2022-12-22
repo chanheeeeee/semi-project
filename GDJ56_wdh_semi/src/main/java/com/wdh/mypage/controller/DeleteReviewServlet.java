@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.board.service.BoardService1;
+import com.wdh.board.service.BoardService2;
+import com.wdh.board.vo.Board;
 import com.wdh.board.vo.ReviewBoard;
 import com.wdh.mypage.service.MypageService;
 
@@ -33,6 +36,9 @@ public class DeleteReviewServlet extends HttpServlet {
 		int reviewboardNo = Integer.parseInt(request.getParameter("reviewboardNo"));
 		
 		int result = new MypageService().deleteReview(reviewboardNo);
+		
+		Board b=new BoardService2().selectBoard(reviewboardNo);
+        new BoardService1().updateGrade(b);
 		
 		String msg="", loc="";
 		

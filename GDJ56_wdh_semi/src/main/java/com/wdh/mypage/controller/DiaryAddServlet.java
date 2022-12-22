@@ -1,9 +1,11 @@
 package com.wdh.mypage.controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,10 +43,21 @@ public class DiaryAddServlet extends HttpServlet {
 		
 		Member m = new MemberService().memberView(id);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		
-		String start = request.getParameter("start");
-		String end = request.getParameter("end");
+		String diary=request.getParameter("diary");
+		
+		Map<String,String> param=new Gson().fromJson(diary,Map.class);
+		//JsonDiary d=new Gson().fromJson(diary,JsonDiary.class);
+		//System.out.println(d);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		TimeZone tz;
+		tz = TimeZone.getTimeZone("Asia/Seoul"); 
+		sdf.setTimeZone(tz);
+		
+		String start = param.get("start").replace("T", " ").replace("Z", "");
+		String end = param.get("end").replace("T", " ").replace("Z", "");
 		
 		Date startSql = null;
 		Date endSql = null;
@@ -61,34 +74,31 @@ public class DiaryAddServlet extends HttpServlet {
 		}
 		
 		Diary d = Diary.builder()
-				.title(request.getParameter("title"))
-				.memo(request.getParameter("memo"))
-				.start(startSql)
-				.end(endSql)
-				.bgColor(request.getParameter("background_color"))
+				.title(param.get("title"))
+				.memo(param.get("description"))
+				.start(new java.sql.Date(startSql.getTime()))
+				.end(new java.sql.Date(endSql.getTime()))
+				.backgroundColor(param.get("backgroundColor"))
 				.build();
-		
-		System.out.println(d);
-		
+
+//		System.out.println(d);
+	
 		int result = new MypageService().addDiary(d, m);
 
-		String msg="", loc="";
+		String msg="";
 		
 		if(result>0) {
 			
 			msg="성공!";
-			loc="/mypage/diary.do";
 			
 		}else {
 			
 			msg="실패!";
-			loc="/mypage/diary.do";
 			
 		}
-		
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
+				
+		response.getWriter().print(msg);
+
 		
 	}
 

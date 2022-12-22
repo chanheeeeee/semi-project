@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.wdh.board.vo.*,com.wdh.member.vo.Member" %>
+<%@ page import="java.util.Date" %>
 <%
    Board b = (Board)request.getAttribute("board");
    List<BoardComment> comments = (List<BoardComment>)request.getAttribute("comments");
@@ -48,17 +49,17 @@
                         </div>    
                         <div id="memberNic"><span class="list-inline-item text-dark"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>) | <%=b.getWdTime() %></span></div>                   
                         <div class="select">
-                        	<p class="text-muted"><strong>종목 - <%=b.getWdCategory() %></strong></p>
-                        	<p class="text-muted"><strong>모임날짜 - <%=b.getWdDate() %></strong></p>
-                        	<p class="text-muted"><strong>지역 - <%=b.getWdLocation() %></strong></p>
-                        	<p class="text-muted"><strong>성별 - 
-                         	<%if(b.getWdGender().equals("F")) gender="여";
-                        		else if(b.getWdGender().equals("M")) gender="남";
-                        		else gender="무관";%>
-                        		<%=gender %>
-                        	</strong></p>
-                        	<p class="text-muted"><strong>모집인원 - <%=b.getWdCount() %></strong></p>
-                        	<p class="text-muted"><strong>목적 - <%=b.getWdPurpose() %></strong></p>
+                        	<h6 class="text-muted"><strong>종목 - <%=b.getWdCategory() %></strong></h6>
+                           <h6 class="text-muted"><strong>모임날짜 - <%=b.getWdDate() %></strong></h6>
+                           <h6 class="text-muted"><strong>지역 - <%=b.getWdLocation() %></strong></h6>
+                           <h6 class="text-muted"><strong>성별 - 
+                            <%if(b.getWdGender().equals("F")) gender="여";
+                              else if(b.getWdGender().equals("M")) gender="남";
+                              else gender="무관";%>
+                              <%=gender %>
+                           </strong></h6>
+                           <h6 class="text-muted"><strong>모집인원 - <%=b.getWdCount() %></strong></h6>
+                           <h6 class="text-muted"><strong>목적 - <%=b.getWdPurpose() %></strong></h6>
                         </div>
                             <p class="content"><%=b.getWdContent() %></p>
 
@@ -74,37 +75,30 @@
                                                   result=1;
                                                }
                                             }%>   
-                                            <%if(wdJoinsW.size()<b.getWdCount()){ %>
-                                            	<!-- 동행작성자 -->
-	                                            <%if(loginMember.getMember_no()==b.getMemberNo()){ %>
-													<li class="list-inline-item"><span class="btn btn-success"
-													onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
-													<!-- 참가한 회원 -->
-	                                            <%}else if(result==1) {%>
-													<!-- <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참가리스트</span></li> -->
-													<li class="list-inline-item"><span class="btn btn-success"
-													onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
-													<li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
-													onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
-												<!-- 참가전 회원 -->
-	                                            <%}else { %>
-													<div class="joinCount"><li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li></div>
-													<li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
-													onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
-	                                 			<%} 
-	                                            //마감된 경우
-	                                 		}else{
-	                                 			//참가한회원
-	                                 			if(result==1){%>
-	                                 				<li class="list-inline-item"><span class="btn btn-success"
-													onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
-	                                 				<li class="list-inline-item"><span class="btn btn-success" 
-	                                 				onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
-	                                 			<!-- 참가안한회원 -->
-	                                 			<%} else{%>
-	                                 					<li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
-	                                 			<%} 
-	                                 		}%>
+                                            <%for(WdJoin wj : wdJoins) {
+                                               if(wj.getWdNo()==b.getWdNo()) {
+                                                  result=1;
+                                               }
+                                            }%>   
+                                          <% Date dt=new Date(); 
+                                              long timeInMilliSeconds=dt.getTime();
+                                             java.sql.Date sqlDate=new java.sql.Date(timeInMilliSeconds); //util -> sql변환 
+                                             System.out.println(b.getWdDate().after(sqlDate)); //날짜비교(오늘이 bDate이후이면 true반환)%>                         
+                                          <div class="joinCount"><li class="list-inline-item"><span class="badge bg-secondary" id="var-value">참여현황 : <%=wdJoinsW.size() %> / <%=b.getWdCount() %></span></li></div>
+                                 <li class="list-inline-item"><span class="btn btn-success"
+                                 onclick="window.open('<%=request.getContextPath() %>/board/wdjoinlistopen.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>','joinList','width=350, height=500');">참가리스트</span></li>
+                                 <!-- 참가/날짜마감전(참가한 사람이 날짜 마감 전엔 취소할 수 있어야함) -->
+                                 <%if(result==1 &&b.getWdDate().after(sqlDate)){ %>
+                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-minus"
+                                    onclick="location.href='<%=request.getContextPath()%>/board/wdcancel.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가취소</span></li>
+                                 <!-- 미참가/인원마감전/날짜마감전 -->
+                                          <%}else if(result==0&&wdJoinsW.size()<b.getWdCount()&&b.getWdDate().after(sqlDate)){ %>
+                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-plus" 
+                                    onclick="location.href='<%=request.getContextPath()%>/board/wdjoin.do?memberNo=<%=loginMember.getMember_no()%>&wdNo=<%=b.getWdNo()%>';">참가하기</span></li>
+                                 <!-- 이외(마감) -->
+                                 <%}else{ %>
+                                    <li class="list-inline-item"><span class="btn btn-success">동행마감</span></li>
+                                          <%} %>
 	                                 			
                                         </ul>
                                     </div>
@@ -190,34 +184,53 @@
 					   						<sub class="comment-writer"><%=bc.getMember().getMember_nickname()%>(<%=bc.getMember().getMember_id() %>)</sub>
 					   						<sub class="comment-date"><%=bc.getWcDate() %>게시시간</sub>
 					   						<br>
-					   						<%=bc.getWcContent() %>댓글내용
+					   						<%=bc.getWcContent() %>
 					   					</td>
 					   					<td>
 					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post">
 						   						<%if(loginMember!=null&&
-										   							(loginMember.getMember_id()=="admin"||
+										   							(loginMember.getMember_id().equals("admin")||
 										   							loginMember.getMember_no()==bc.getMemberNo())) {%>
 										   				<input type="hidden" name="boardcomment" value="<%=bc.getCommentNo()%>">
 										   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
-<!-- 여기	 -->				   							<button	type="submit" class="btn-delete" value="<%=bc.getCommentNo()%>">삭제</button> <!-- 댓글의 PK를 넘겨줘야함 -->
+<!-- 여기	 -->				   							<button	type="submit" class="btn-delete input-group-text btn-insert2" value="<%=bc.getCommentNo()%>">삭제</button> <!-- 댓글의 PK를 넘겨줘야함 -->
 						   							<!-- <input type="button" value="삭제" onclick="fn_deleteMember();"/> -->
 						   						<%} %>
 					   						</form>
 					   						<%if(loginMember!=null){ %>
-					   							<button class="btn-reply" value="<%=bc.getCommentNo() %>">답글</button> <!-- 댓글의 PK를 넘겨줘야함 -->
+					   							<button class="btn-reply input-group-text btn-insert2" value="<%=bc.getCommentNo() %>">답글</button> <!-- 댓글의 PK를 넘겨줘야함 -->
 					   						<%} %>
 					   					</td>
 					   				</tr>
 					   			<%} else{%>
 					   				<tr class="level2">
 					   					<td>
-					   						<sub><%=bc.getMemberNo() %>작성자</sub>
-					   						<sub><%=bc.getWcDate() %>게시시간</sub>
+					   						<sub class="comment-writer"><%=bc.getMember().getMember_nickname()%>(<%=bc.getMember().getMember_id() %>)</sub>
+					   						<sub class="comment-date"><%=bc.getWcDate() %>게시시간</sub>
 					   						<br>
-					   						<%=bc.getWcContent() %>댓글내용
+					   						<%=bc.getWcContent() %>
 					   					</td>
+					   					
+					   					
+					   					<!-- 리댓 삭제 -->
 					   					<td>
+					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post">
+						   						<%if(loginMember!=null&&
+										   							(loginMember.getMember_id().equals("admin")||
+										   							loginMember.getMember_no()==bc.getMemberNo())) {%>
+										   				<input type="hidden" name="boardcomment" value="<%=bc.getCommentNo()%>">
+										   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
+<!-- 여기	 -->				   							<button	type="submit" class="btn-delete input-group-text btn-insert2" value="<%=bc.getCommentNo()%>">삭제</button> <!-- 댓글의 PK를 넘겨줘야함 -->
+						   							<!-- <input type="button" value="삭제" onclick="fn_deleteMember();"/> -->
+						   						<%} %>
+					   						</form>
+					   						<%if(loginMember!=null){ %>
+					   							<button class="btn-reply input-group-text btn-insert2" value="<%=bc.getCommentNo() %>">답글</button> <!-- 댓글의 PK를 넘겨줘야함 -->
+					   						<%} %>
 					   					</td>
+					   					
+					   					
+					   					
 					   				</tr>
 					   			<% }
 					   			}//for
@@ -234,7 +247,7 @@
     </section>
 
     <script>
-    	/* 댓글 등록 못하게 */
+
     	$(() =>{
     		$(".btn-reply").click(e=>{
     			const tr=$("<tr>");
@@ -247,9 +260,12 @@
     			const td=$("<td>").attr("colspan","2").append(form); //만든 FORM 태그를 TD를 만들어 넣고 
     			tr.append(td); //TD를  TR에 넣음
     			
+    			//답글창
     			tr.find("td").css("display","none"); //안보이게 하고
     			tr.insertAfter($(e.target).parents("tr")).children("td").slideDown(100);//$(e.target).parents("tr"):버튼의 부모들중에 TR 뒤에INSERTAFTER
     			$(e.target).off("click");
+    			
+
     		});
 <%--      		$(".btn-delete").click(e=>{
     			
@@ -284,13 +300,15 @@
     <section class="py-5">
         <div class="container">
             <div class="row text-left p-2 pb-3" >
-                <h4 id="boardView_c2">작성자후기</h4>
+                <h4 id="boardView_c2"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>)님에 달린 후기</h4>
+                <button id="addLocbtn"
+                onclick="window.open('<%=request.getContextPath() %>/board/boardViewReviewAll.do?Review=all&BoardWriterNo=<%=b.getMember().getMember_no() %>','전체 후기 더보기' ,'width=700, height=600', left='600', top='500');">작성자후기더보기</button>
             </div>
 
             <!--Start comment_작성자후기-->
             <div id="carousel-related-product">
             	<%if(reviews.isEmpty()){ %>
-            		<h6 style="margin-left:50px;">아직 작성된 작성자 후기가 없습니다</h6>
+            		<h6 style="margin-left:50px;">해당 게시글에는 아직 작성된 작성자 후기가 없습니다</h6>
             	
             	<%} else {
             	
@@ -301,7 +319,7 @@
 				                        <div class="card-body">	
 				                        	<div style="display: flex; justify-content:space-between;">
 				                        		<div style="display: flex;">
-													<h6 style="text-align: left;">제목 - <%=rb.getReviewTitle() %></h6>
+													<h6 style="text-align: left;">[ <%=rb.getReviewTitle() %> ]</h6>
 													<!-- 5번 for문.. rb score만큼 warning -->
 													<%for(int i=1;i<6;i++){ 
 														if(rb.getReviewScore()>=i){%>
@@ -349,14 +367,16 @@
    
    
     <style>
-    	/* 글 */
-    	.h2{text-align:center;margin-top:10%;font-weight: bold;}
-    	#memberNic{text-align:center;}
-    	.select{margin:8%; margin-bottom:2% !important; padding:8%;border:1px solid lightgray;border-radius:15px;}
-    	.star{margin-top:20px;text-align:center;}
-    	.content{margin-left:11%;margin-right:11%}
-    	.col-auto{text-align:center; margin-top:50px;}
-    	.joinCount{margin-bottom:1px;}
+    	      /* 글 */
+       .h2{text-align:center;margin-top:10%;font-weight: bold;}
+       #memberNic{text-align:center;}
+       .select{margin:8%; margin-bottom:2% !important; padding:8%;border:1px solid lightgray;border-radius:15px;}
+       .star{margin-top:20px;text-align:center;}
+       .content{margin-left:11%;margin-right:11%}
+       .col-auto{text-align:center; margin-top:50px;}
+       .joinCount{margin-bottom:1px;}
+       p{margin-left:11%;margin-right:11%}
+       h6{margin-top:20px;}
     
     
     
@@ -372,14 +392,21 @@
 	/*    table#tbl-comment tr:hover button.btn-reply{display:inline;}
 	/*     table#tbl-comment tr:hover button.btn-delete{display:inline;}
 	    table#tbl-comment tr.level2 {color:gray; font-size: 14px;} */
-	    table#tbl-comment sub.comment-writer {color:navy; font-size:14px}
-	    table#tbl-comment sub.comment-date {color:tomato; font-size:10px}
+	    table#tbl-comment sub.comment-writer { font-size:14px}
+	    table#tbl-comment sub.comment-date {color:grey; font-size:10px}
 	    table#tbl-comment tr.level2 td:first-of-type{padding-left:100px;}
-	    table#tbl-comment tr.level2 sub.comment-writer {color:#8e8eff; font-size:14px}
-	    table#tbl-comment tr.level2 sub.comment-date {color:#ff9c8a; font-size:10px}
+	    table#tbl-comment tr.level2 sub.comment-writer { font-size:14px}
+	    table#tbl-comment tr.level2 sub.comment-date {color:grey; font-size:10px}
 	    /*답글관련*/
 	    table#tbl-comment textarea{margin: 4px 0 0 0;}
 	   /*  table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; background:#3300ff; position:relative; top:-5px; left:10px;} */
+	   
+	   .btn-delete input-group-text btn-insert2{
+		   color : #e62e2e;
+	   }
+	   #addLocbtn {
+	   		border: 1px solid lightgray;
+	   }
 	</style>
     
     

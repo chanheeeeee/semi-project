@@ -677,7 +677,7 @@ public class MypageDao {
 				d.setStart(rs.getDate("DIARY_START"));
 				d.setEnd(rs.getDate("DIARY_END"));
 				d.setMemo(rs.getString("DIARY_MEMO"));
-				d.setBgColor(rs.getString("BACKGROUND_COLOR"));
+				d.setBackgroundColor(rs.getString("BACKGROUND_COLOR"));
 				
 				list.add(d);
 			}
@@ -707,10 +707,10 @@ public class MypageDao {
 
 			pstmt.setString(1, d.getTitle());
 			pstmt.setInt(2, m.getMember_no());
-			pstmt.setDate(3, new java.sql.Date(d.getStart().getTime()));
-			pstmt.setDate(4, new java.sql.Date(d.getEnd().getTime()));
+			pstmt.setDate(3, d.getStart());
+			pstmt.setDate(4, d.getEnd());
 			pstmt.setString(5, d.getMemo());
-			pstmt.setString(6, d.getBgColor());
+			pstmt.setString(6, d.getBackgroundColor());
 
 			
 			result = pstmt.executeUpdate();
@@ -754,7 +754,7 @@ public class MypageDao {
 				d.setStart(rs.getDate("WD_DATE"));
 				d.setEnd(rs.getDate("WD_DATE"));
 				d.setMemo(rs.getString("WD_CONTENT"));
-//				d.setBgColor(rs.getString("BACKGROUND_COLOR"));
+				d.setBackgroundColor("#ff84ce"); //동행은 분홍색으로 지정
 				
 				list.add(d);
 			}
@@ -773,6 +773,33 @@ public class MypageDao {
 		return list; 
 		
 	}
+	
+	//다이어리 삭제
+		public int deleteDiary(Connection conn, int diary_id) {
+			
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			try {
+				
+				pstmt = conn.prepareStatement(sql.getProperty("deleteDiary"));
+				pstmt.setInt(1, diary_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(SQLException e) {
+				
+				e.printStackTrace();
+				
+			}finally {
+				
+				close(pstmt);
+				
+			}
+		
+			return result;
+			
+		}
 	
 	
 

@@ -262,7 +262,7 @@
                     <tr>
                       <td><%= q.getQsNo() %></td>
                       <td>
-                      	<a href="<%=request.getContextPath()%>/cs/qs.do?qsNo=<%=q.getQsNo()%>" style="text-decoration: none; color: black;">
+                      	<a href="<%=request.getContextPath()%>/cs/qsView.do?qsNo=<%=q.getQsNo()%>" style="text-decoration: none; color: black;">
                       		<%= q.getQsTitle() %>
                       	</a>
                       </td>

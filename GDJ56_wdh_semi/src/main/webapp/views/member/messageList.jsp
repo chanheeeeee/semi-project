@@ -3,7 +3,7 @@
 <%@ include file="/views/common/header.jsp"%>
 
 <style>
-	section#message-container{width:600px; margin:0 auto; text-align:center;}
+	section#message-container{width:600px; margin:0 auto; text-align:center; font-family:'jua';}
 	section#message-container h2{margin:10px 0;}
 	table#tbl-message{width:100%; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
 	table#tbl-message th, table#tbl-board td {border:1px solid; padding: 5px 0; text-align:center;} 

@@ -209,7 +209,7 @@ public class BoardDao2 {
 			pstmt = conn.prepareStatement(sql.getProperty("selectReviewBoard"));
 			pstmt.setInt(1, boardNo);
 			pstmt.setInt(2, 1);
-			pstmt.setInt(3, 5);
+			pstmt.setInt(3, 30);
 			rs = pstmt.executeQuery();
 			while(rs.next()) list.add(getReviewBoard(rs));
 		} catch (SQLException e) {
@@ -219,6 +219,44 @@ public class BoardDao2 {
 			close(pstmt);
 		}
 		return list;
+	}
+	
+	public List<ReviewBoard> selectReviewBoardAll(Connection conn, int BoardWriterNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<ReviewBoard> list = new ArrayList();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectReviewBoardAll"));
+			pstmt.setInt(1, BoardWriterNo); //게시글작성자인 memberno가 들어가야함
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				list.add(getReviewBoard(rs));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+		public int selectReviewBoardAllCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectReviewBoardAllCount"));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
 	}
 	
 	public int insertBoardComment(Connection conn, BoardComment bc) {

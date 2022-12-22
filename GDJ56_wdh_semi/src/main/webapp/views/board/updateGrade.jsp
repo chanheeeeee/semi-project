@@ -161,7 +161,7 @@
 	  width: 30px;
 	  height: 30px;
 	  line-height : 30px;
-	  border: 1px solid blue;
+	  border: 2px solid #ddd;
 	  border-radius: 100%;
 	  display: block;
 	  text-align: center;
@@ -182,15 +182,14 @@
 	  content: none;
 	}
 	.progressbar li.active {
-	  color: blue;
+	  color: #2A47BA;
 	}
 	.progressbar li.active:before {
-	  border-color: blue;
+	  border-color: #2A47BA;
 	} 
-	 	.progressbar li.active + li:after {
-	  background-color: blue;
+ 	.progressbar li.active + li:after {
+	  background-color: #2A47BA;
 	} 
-
 </style>
 
 

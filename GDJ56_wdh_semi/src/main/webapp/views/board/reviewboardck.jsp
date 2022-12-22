@@ -15,22 +15,50 @@
       </ul>
     </div>
 
-<h2 style="margin:5%; text-align:center;">동행 정보 확인</h2>
+<h1>동행 정보 확인</h1>
+<div id="first">
+	<div id="check">
+		<div>
+			<div>참여 동행 - <%=b.getWdTitle() %></div>
+			<div>동행자 닉네임 - <%=m.getMember_nickname() %></div>
+			<div>운동 종목 - <%=b.getWdCategory() %></div>
+			<div>참여 날짜 - <%=b.getWdCategory() %></div>
+		</div>		
+	</div>
+</div>
+<style>
+	#check{
+		font-family: 'Jua', sans-serif;
+		font-size: 26px;
+		text-align: center;
+		color: grey;
+		border: 2px solid grey;	
+		width:600px;
+		height:300px;
+		justify-content:center;
+		border-radius: 40px;
+	}
+	#check>div>div{
+		margin-bottom: 20px;
+		
+	}
+	h1{
+		font-family: 'Jua', sans-serif;
+		text-align:center;
+		margin-top:100px;
+		margin-bottom: 30px;
+	}
+	#first{
+		display: flex;
+		justify-content: center;
+	}
+	#check>div{
+		margin-top:40px;
+	}
+</style>
 
-<table id="info">
-	<tr>	
-		<th>참여동행</th>
-		<td><%=b.getWdTitle() %></td>
-		<th>동행자 닉네임</th>
-		<td><%=m.getMember_nickname() %></td>
-	</tr>
-	<tr>
-		<th>참여날짜</th>
-		<td><%=b.getWdDate() %></td>
-		<th>운동종목</th>
-		<td><%=b.getWdCategory() %></td>
-	</tr>
-</table>
+
+
     
 <div style="margin:5%; text-align:center;">
 	<button class="button" onclick="location.href='<%=request.getContextPath()%>/board/grade.do?boardNo=<%=b.getWdNo()%>'">확인</button>
@@ -61,7 +89,7 @@
 	  width: 30px;
 	  height: 30px;
 	  line-height : 30px;
-	  border: 1px solid #ddd;
+	  border: 2px solid #ddd;
 	  border-radius: 100%;
 	  display: block;
 	  text-align: center;
@@ -82,10 +110,10 @@
 	  content: none;
 	}
 	.progressbar li.active {
-	  color: blue;
+	  color: #2A47BA;
 	}
 	.progressbar li.active:before {
-	  border-color: blue;
+	  border-color: #2A47BA;
 	} 
 /* 	.progressbar li.active + li:after {
 	  background-color: green;
