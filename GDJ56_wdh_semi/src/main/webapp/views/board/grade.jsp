@@ -7,26 +7,10 @@
     <div class="container">
       <ul class="progressbar">
         <li class="active">Step 1. 정보확인</li>
-        <li>Step 2. 작성자 평가</li>
+        <li style="color: ">Step 2. 작성자 평가</li>
         <li>Step 3. 후기글 작성</li>
       </ul>
     </div>
-
-
-<!--     <table id="info">
-        <tr>
-            <th>참여동행</th>
-            <td>정보가져오기~~</td>
-            <th>동행자 닉네임</th>
-            <td>정보가져오기~~</td>
-        </tr>
-        <tr>
-            <th>참여날짜</th>
-            <td>정보가져오기~~</td>
-            <th>운동종목</th>
-            <td>정보가져오기~~</td>
-        </tr>
-    </table> -->
     <br><br><br>
 
 
@@ -158,7 +142,7 @@
 	  width: 30px;
 	  height: 30px;
 	  line-height : 30px;
-	  border: 1px solid blue;
+	  border: 2px solid #2A47BA;
 	  border-radius: 100%;
 	  display: block;
 	  text-align: center;
@@ -179,15 +163,14 @@
 	  content: none;
 	}
 	.progressbar li.active {
-	  color: blue;
+	  color: #2A47BA;
 	}
 	.progressbar li.active:before {
-	  border-color: blue;
+	  border-color: #2A47BA;
 	} 
 	 	.progressbar li.active + li:after {
-	  background-color: blue;
+	  background-color: #2A47BA;
 	} 
-
 </style>
 
 

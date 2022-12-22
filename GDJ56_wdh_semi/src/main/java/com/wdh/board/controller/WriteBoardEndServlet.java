@@ -63,7 +63,7 @@ public class WriteBoardEndServlet extends HttpServlet {
 		int result=new BoardService1().insertBoard(b);
 		String msg="", loc="";
 		if(result>0) {
-			loc="/views/board/finish.jsp";
+			loc="/board/boardfinish.do";
 		}else {
 			msg="글 작성 실패!";
 			loc="/board/writeboard.do";

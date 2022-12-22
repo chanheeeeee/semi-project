@@ -14,7 +14,7 @@
 	<form action="<%=request.getContextPath() %>/board/reviewboardend.do?memberNo=<%=loginMember.getMember_no() %>&wdNo=<%=b.getWdNo() %>" method="post" enctype="multipart/form-data">
     <table id="writeTable2">
         <tr>
-            <th colspan="4" style="text-align: center;">
+            <th colspan="4"  style="display:flex; justify-content:center">
                 제목   <input type="text" name="review_title" id="title_input"><br>
                 <input type="file" name="reviewImg">
             </th>
