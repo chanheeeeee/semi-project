@@ -29,7 +29,7 @@
 	<script>
 		setTimeout(()=>{
 			location.replace("<%=request.getContextPath()%>");
-		},5000)
+		},2000)
 	</script>
 </body>
 </html>
