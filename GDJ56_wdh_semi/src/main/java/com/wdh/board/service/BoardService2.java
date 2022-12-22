@@ -71,6 +71,20 @@ private BoardDao2 dao = new BoardDao2();
 		return result;
 	}
 	
+	public List<ReviewBoard> selectReviewBoardAll(int BoardWriterNo){
+		Connection conn = getConnection();
+		List<ReviewBoard> result = dao.selectReviewBoardAll(conn, BoardWriterNo);
+		close(conn);
+		return result;
+	}
+	
+	public int selectReviewBoardAllCount() { //작성자에대한후기 더보기
+		Connection conn = getConnection();
+		int result = dao.selectReviewBoardAllCount(conn);
+		close(conn);
+		return result;
+	}
+	
 	public int insertBoardComment(BoardComment bc) {
 		Connection conn=getConnection();
 		int result=dao.insertBoardComment(conn,bc);
