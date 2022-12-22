@@ -8,44 +8,73 @@
 
 <%@ include file="/views/common/header.jsp" %>
 <style>
-	div#tbl-board{
+	div#tb-board{
 		display:flex;
 		flex-direction: column;
 		justify-content:center;
 		align-items: center;
 	}
-	table#tbl-challenge{
+	table#tb-challenge{
 		width:60%;
 		height:400px;
+		text-align:center;
 	}
-	div#tbl-board>h2{
+	div#tb-board>h2{
 		margin-top:6%;
 		margin-bottom: 6%;
 	}
+
+ #test_btn1{
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            /* margin-right:-4px; */
+        }
+        #test_btn2{
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;    
+            /* margin-left:-3px; */
+        }
+        #test_btn3{
+        }
+   	
+        #btn_group button{
+            border: 1px solid skyblue;
+            background-color: rgba(0,0,0,0);
+            color: skyblue;
+            padding: 5px;
+        }
+        #btn_group button:hover{
+            color:white;
+            background-color: cornflowerblue;
+        }
+        
 </style>
-<div id="tbl-board">
-		<h2><strong>챌린지 상세페이지</strong></h2>    
-   			<table id="tbl-challenge">
-				<tr>
+        
+<div id="tb-board">
+		<h2><strong>이번달 챌린지와 함께 운동행</strong></h2>    
+   			<table id="tb-challenge">
+				<tr style="background-color:write; ">
 					<td colspan="2">
 						<img src="<%=request.getContextPath()%>/upload/challenge/<%=ch.getChallenge_img() %>" 
-						width="400px" height="200px">
+						width="600px" height="600px">
 					</td>
 				</tr>
 				<tr>
-					<th>제 목</th>
-					<td><%=ch.getChallenge_name() %></td>
+					<th style="background-color:write; color:royalblue; ">제 목</th>
+					<td style="background-color:write; color:royalblue; "><%=ch.getChallenge_name() %></td>
 				</tr>
    				<tr>
-   					<th>시작일</th>
-   					<td><%=ch.getChallenge_date() %></td>
+   					<th style="background-color:write; color:royalblue; ">시작일</th>
+   					<td style="background-color:write; color:royalblue; "><%=ch.getChallenge_date() %></td>
    				</tr>
    				<tr>
-   					<th colspan="2">
-   						<input type="button" value="신청하기" onclick="location.href='<%=request.getContextPath()%>/challenge/attanceChallenge.do?challenge_no=<%=ch.getChallenge_no()%>';">
-   					</th>
+   					
    				</tr>
    			</table>
+   			<div id="btn_group">
+   						<button id="test_btn3" onclick="location.href='<%=request.getContextPath()%>/challenge/attanceChallenge.do?challenge_no=<%=ch.getChallenge_no()%>';">신청하기</button>
+   					
+   					</div>
    			<br>
    	</div>
    	<%@ include file="/views/common/footer.jsp" %>	

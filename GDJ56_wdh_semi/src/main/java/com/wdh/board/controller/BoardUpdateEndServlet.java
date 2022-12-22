@@ -34,7 +34,7 @@ public class BoardUpdateEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String wdDate=request.getParameter("date");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date wdDate1 = null;
 		try {
 			wdDate1 = sdf.parse(wdDate);

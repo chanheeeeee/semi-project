@@ -25,14 +25,6 @@
             </div>
     </nav>
     <br>
-    <div id="challcontainer6">
-        <img src="<%=request.getContextPath() %>/images/challengecall1.png" alt="" id="chcall" onclick="">
-        <button id="checkbtn" type="file"><img src="<%=request.getContextPath() %>/images/check.png" width="100" height="100" id="chimg"></button>
-        <input type="file" name="upfile" style="display: none;">
-    </div>
-
-
-
 
     <div id="challcontainer7">
         <p><strong>※주의사항! 챌린지 이미지 출석체크 이렇게 인증 해주세요!</strong></p>

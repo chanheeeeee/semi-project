@@ -68,13 +68,11 @@
 		$("#recvMemberNo").val(recvMemberNo);
 		$("#recvMemberNick").val(recvMemberNick);
 
-		open("","frmMessage","width=300,height=300");
+		open("","frmMessage","width=400,height=300");
 		frm.method="post";
 		frm.action="<%=request.getContextPath()%>/member/messageServlet.do";
 		frm.target="frmMessage";
 		frm.submit();
-		
-		
 	}
 
 </script>

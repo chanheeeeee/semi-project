@@ -1,5 +1,7 @@
 package com.wdh.mypage.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,10 +17,10 @@ public class Diary {
 	private String title; //제목
 	private int memberNo; //멤버 번호
 	private int wdNo; //불러올 동행 번호
-	private String start; //시작 날짜
-	private String end; //끝 날짜
+	private Date start; //시작 날짜
+	private Date end; //끝 날짜
 	private String memo; //메모
-	private String bgColor; //메모 색깔
+	private String backgroundColor; //메모 색깔
 	
 
 }
