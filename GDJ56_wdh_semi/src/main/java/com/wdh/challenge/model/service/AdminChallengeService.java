@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.wdh.challenge.model.dao.AdminChallengeDao;
 import com.wdh.challenge.model.vo.Challenge;
+import com.wdh.challenge.model.vo.ChallengeResult;
 
 public class AdminChallengeService {
 	
@@ -79,11 +80,11 @@ public class AdminChallengeService {
 		close(conn);
 		return result;
 	}
-	public List<Challenge> searchChallengeResult(int cPage, int numPerpage) {
-		Connection conn=getConnection();
-		List<Challenge> result=dao.searchChallenge(conn,cPage,numPerpage);
-		close(conn);
-		return result;
-	}
+//	public List<ChallengeResult> searchChallengeResult(int cPage, int numPerpage) {
+//		Connection conn=getConnection();
+//		List<ChallengeResult> result=dao.searchChallengeResult(conn,cPage,numPerpage);
+//		close(conn);
+//		return result;
+//	}
 	
 	}

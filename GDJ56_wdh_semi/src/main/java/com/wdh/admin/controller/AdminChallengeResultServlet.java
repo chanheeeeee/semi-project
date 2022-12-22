@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.challenge.model.service.AdminChallengeService;
-import com.wdh.challenge.model.vo.Challenge;
+import com.wdh.challenge.model.vo.ChallengeResult;
 
 /**
  * Servlet implementation class AdminChallengeResultServlet
@@ -33,53 +33,39 @@ public class AdminChallengeResultServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int cPage;
-		int numPerpage=10;
-		
-		try {
-			cPage=Integer.parseInt(request.getParameter("cPage"));
-		}catch(NumberFormatException e) {
-			cPage=1;
-		}
-		List<Challenge> challengeResults=new AdminChallengeService().searchChallengeResult(cPage,numPerpage);
-		
-		int totalData=new AdminChallengeService().selectChallengeResultCount();
-		
-		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-		
-		String pageBar="";
-		int pageBarSize=5;
-		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
-		int pageEnd=pageNo+pageBarSize-1;
-		
-		if(pageNo==1) {
-			pageBar+="<span>[이전]</span>";
-		}else {
-			pageBar+="<a href='"+request.getRequestURL()
-			+"?cPage="+(pageNo-1)+"'>[이전]</a>";
-		}
-		while(!(pageNo>pageEnd||pageNo>totalPage)) {
-			if(cPage==pageNo) {
-				pageBar+="<span>"+pageNo+"</span>";
-			}else {
-				pageBar+="<a href='"+request.getRequestURL()
-				+"?cPage="+pageNo+"'>"+pageNo+"</a>";
-			}
-			pageNo++;
-		}
-		if(pageNo>totalPage) {
-			pageBar+="<span>[다음]</span>";
-		}else {
-			pageBar+="<a href='"+request.getRequestURL()
-			+"?cPage="+pageNo+"'>[다음]</a>";
-		}
-		request.setAttribute("pageBar", pageBar);
-		request.setAttribute("challengeResult", challengeResults);
-		RequestDispatcher rd=request.getRequestDispatcher("/views/admin/adminChallenge_Result.jsp");
-		rd.forward(request, response);
-			
-	
-	}
+	/*
+	 * int cPage; int numPerpage=10;
+	 * 
+	 * try { cPage=Integer.parseInt(request.getParameter("cPage"));
+	 * }catch(NumberFormatException e) { cPage=1; } List<ChallengeResult>
+	 * challengeResults=new
+	 * AdminChallengeService().searchChallengeResult(cPage,numPerpage);
+	 * 
+	 * int totalData=new AdminChallengeService().selectChallengeResultCount();
+	 * 
+	 * int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+	 * 
+	 * String pageBar=""; int pageBarSize=5; int
+	 * pageNo=((cPage-1)/pageBarSize)*pageBarSize+1; int
+	 * pageEnd=pageNo+pageBarSize-1;
+	 * 
+	 * if(pageNo==1) { pageBar+="<span>[이전]</span>"; }else {
+	 * pageBar+="<a href='"+request.getRequestURL()
+	 * +"?cPage="+(pageNo-1)+"'>[이전]</a>"; }
+	 * while(!(pageNo>pageEnd||pageNo>totalPage)) { if(cPage==pageNo) {
+	 * pageBar+="<span>"+pageNo+"</span>"; }else {
+	 * pageBar+="<a href='"+request.getRequestURL()
+	 * +"?cPage="+pageNo+"'>"+pageNo+"</a>"; } pageNo++; } if(pageNo>totalPage) {
+	 * pageBar+="<span>[다음]</span>"; }else {
+	 * pageBar+="<a href='"+request.getRequestURL() +"?cPage="+pageNo+"'>[다음]</a>";
+	 * } request.setAttribute("pageBar", pageBar);
+	 * request.setAttribute("challengeResult", challengeResults); RequestDispatcher
+	 * rd=request.getRequestDispatcher("/views/admin/adminChallenge_Result.jsp");
+	 * rd.forward(request, response);
+	 * 
+	 */ 
+	  }
+	 
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

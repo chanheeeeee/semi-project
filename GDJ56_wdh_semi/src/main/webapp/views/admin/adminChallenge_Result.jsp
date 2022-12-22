@@ -3,6 +3,7 @@
 <%@ page import= "java.util.List, com.wdh.member.vo.Member, com.wdh.challenge.model.vo.Challenge"%>    
 <%
 List<Member> members=(List<Member>)request.getAttribute("member");
+
 %>
 
 <%@ include file="/views/common/adminHeader.jsp" %>
@@ -38,16 +39,16 @@ List<Member> members=(List<Member>)request.getAttribute("member");
                         <table id="ctable" class="table">
                             <thead>
                                 <tr>
-                                    <th>운영 기간</th>
-                                    <th>전체 참여자</th>
+                                   <%--  <th><%=cr.challenge_name %></th>
+                                    <th><%=cr.challenge_ %></th> --%>
                                     <th>전체 스템프</th>
                                     <th>리워드 수량</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>2022.12.01 - 2022.12.31</th>
-                                    <th>0</th>
+                                    <th></th>
+                                    <th></th>
                                     <th>28</th>
                                     <th>5</th>
                                 </tr>    
@@ -65,32 +66,29 @@ List<Member> members=(List<Member>)request.getAttribute("member");
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>                                      
-                                            <th>회원번호</th>
+                                            <th>첼린지번호</th>
                                             <th>아이디</th>                                           
-                                            <th>닉네임</th>
-                                            <th>전화번호</th>
+                                            <th>참여횟수</th>
                                             <th>사 진</th>                                        
                                         </tr>
                                     </thead>                      
                                     <tbody>
-                                    	<%-- 	<%if(members.isEmpty()){ %>     
+                                    	<%-- <%if(ChallengeResult.isEmpty()){ %>     
                                         <tr>
                                         	<td colspan="4"><h3>조회된 회원이 없습니다</h3></td>
                                         </tr>
 						       	  		<%}else{ 
-						       	  			for(int i=0;i<members.size();i++){
-						       	  		%>	                               --%>           
-                                         <%--    <td><%=members.get(i).getMember_no() %></td>
-                                            <td><%=members.get(i).getMember_id() %></td>
-                                            <td><%=members.get(i).getMember_nickname() %></td>
-                                            <td><%=members.get(i).getPhone() %></td>
+						       	  			for(ChallengeResult cr : ChallengeResult){
+						       	  		%>          
+                                         	<td><%=cr.challenge_no %></td>
+                                            <td><%=cr.member_no %></td>
+                                            <td><%=cr.day_cnt %></td>
                                             <td>
                                             <div id="btn_group">
-                                            <button id="test_btn1">확인</button>  --%>
-                                            
+                                            <button id="test_btn1">확인</button>
                                             </div>
                                             </td>
-                                        </tr>                         
+                                        </tr>                          --%>
 
                                     </tbody>
                                 </table>

@@ -65,7 +65,7 @@
 			<div class="modal-body">
 			  <div id="challengeImg">
 			  </div>
-			  <input type="file" name="challengeImg" id="addChallenge">
+			  <input type="file" value="" name="challengeImg" id="addChallenge">
 			  <input type="hidden" name="day">
 			</div>
 	  
@@ -125,6 +125,9 @@
 			 			alert("도전성공을 축하합니다.!");
 			 			$("img[title="+number+"]").attr("src","<%=request.getContextPath() %>/images/challengesuccess.png");
 						// modal 비워주기
+						//추가
+						$("div#challengeImg").html("");
+						$("input#addChallenge").val("");
 			 			$(".modal-footer>button.btn-danger").click();
 			 		}else{
 			 			alert("등록에 실패했습니다 다시 시도하세요! 죄송합니다.ㅠㅠ");

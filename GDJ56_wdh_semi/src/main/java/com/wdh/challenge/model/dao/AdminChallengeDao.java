@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.wdh.challenge.model.vo.Challenge;
+import com.wdh.challenge.model.vo.ChallengeResult;
 
 public class AdminChallengeDao {
 	private Properties sql=new Properties();
@@ -177,6 +178,28 @@ public class AdminChallengeDao {
 		}return result;
 	}
 	
+//	public List<ChallengeResult> searchChallengeResult(Connection conn, int cPage, int numPerpage) {
+//		PreparedStatement pstmt=null;
+//		ResultSet rs=null;
+//		List<Challenge> result=new ArrayList();
+//		try {
+//			pstmt=conn.prepareStatement(sql.getProperty("selectChallengeResultList"));
+//			pstmt.setInt(1, (cPage-1)*numPerpage+1);
+//			pstmt.setInt(2, cPage*numPerpage);
+//			rs=pstmt.executeQuery();
+//			while(rs.next()) {
+//				ChallengeResult cr=getChallengeResult(rs);
+//				System.out.println(cr);
+//				result.add(cr);
+//			}
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rs);
+//			close(pstmt);
+//		}return result;
+//	}
+	
 	
 	
 	
@@ -198,5 +221,16 @@ public class AdminChallengeDao {
 
 				.build();
 	}
+	
+	private Challenge getChallengeResult(ResultSet rs) throws SQLException{
+		return Challenge.builder()
+				.challenge_no(rs.getInt("challenge_no"))
+				.challenge_img(rs.getString("challenge_img"))
+				.challenge_name(rs.getString("challenge_name"))
+				.challenge_date(rs.getDate("challenge_date"))
+
+				.build();
+	}
+	
 	
 }	
