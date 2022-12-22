@@ -28,7 +28,7 @@
 		<%}else{%>
 			<!-- <div id="list" style="display:flex;justify-content:center;min-height: 60%;"> -->
 			<%for(Member m : members){ %>
-			<div>
+			<div style="display: flex; justify-content: center;">
 				<%=m.getMember_nickname() %>
 				<%int memberNo=m.getMember_no(); %>
 					<button id="messageSend" class="button1" style="height:25px !important; width:50px !important; margin:3px !important;"

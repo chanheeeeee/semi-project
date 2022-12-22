@@ -9,10 +9,8 @@
         <tr style="border-bottom: 1px solid lightgray;">
             <th >
                 <h2 style="font-weight: bolder; color: gray;">게시글이 등록되었습니다.</h2><br>
-                    <button id="button">작성글확인</button>
                     <button id="button" style="margin-left: 20px; margin-right: 20px;"
                     onclick="location.replace('<%=request.getContextPath()%>/board/boardList.do')">목록보기</button>
-                    <button id="button" onclick="location.replace('<%=request.getContextPath()%>/board/writeboard.do')">글쓰기</button>   
             </th>
         </tr>
     </table>

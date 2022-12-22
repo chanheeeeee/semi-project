@@ -58,7 +58,7 @@ public class ReviewBoardEndServlet extends HttpServlet {
 			
 			String msg="", loc="";
 			if(result>0) {
-				loc="/views/board/reviewboardfinish.jsp";
+				loc="/board/boardfinish.do";
 			}else {
 				msg="글 작성 실패!";
 				loc="/board/grade.do?boardNo="+wdNo;

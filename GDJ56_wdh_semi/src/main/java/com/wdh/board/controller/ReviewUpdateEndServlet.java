@@ -38,16 +38,26 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String oriImg=request.getParameter("oriFile"); //기존 이미지
-		//String img=request.getParameter("reviewImg");
+		
 		//파일업로드
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			response.sendRedirect(request.getContextPath());
 		}else {
 			String path=request.getServletContext().getRealPath("/reviewImg");
 			MultipartRequest mr=new MultipartRequest(request,path,1024*1024*10,"UTF-8",new DefaultFileRenamePolicy());
-			String img=mr.getFilesystemName("reviewImg");		
+			String img=mr.getFilesystemName("reviewImg"); //새로운 이미지
 
+			System.out.println("oriImg : " + oriImg);
+			System.out.println("img : " + img);
 
+			//oriFile 값을 추가로 첨기고, img 값이 null이라면 ReviewBoard.builder 에 img 값을 oriImg값으로 넣고, 아니라면 img 값을 넣으면 된다
+			String insertImg = "";
+			if(img == null || img.isEmpty()) {
+				insertImg = oriImg;
+			} else {
+				insertImg = img;
+			}
+			
 			int memberNo=Integer.parseInt(mr.getParameter("memberNo"));
 			int boardNo=Integer.parseInt(mr.getParameter("boardNo"));
 			String title=mr.getParameter("review_title");
@@ -55,16 +65,21 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 			double grade=(Integer.parseInt(mr.getParameter("grade")))/6.0;
 			System.out.println(grade);
 			int reviewNo=Integer.parseInt(mr.getParameter("reviewNo"));
-			ReviewBoard rb=ReviewBoard.builder().reviewTitle(title).reviewContent(content).reviewScore(grade).reviewSeq(reviewNo).img(img).build();
-			System.out.println(rb);
+			
+//			ReviewBoard rb=ReviewBoard.builder().reviewTitle(title).reviewContent(content).reviewScore(grade).reviewSeq(reviewNo).img(img).build();
+			ReviewBoard rb=ReviewBoard.builder().reviewTitle(title).reviewContent(content).reviewScore(grade).reviewSeq(reviewNo).img(insertImg).build();
+			//System.out.println(rb);
 			int result=new BoardService1().updateReview(rb);
-			System.out.println(result);	
+	
 			String msg="", loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+boardNo;
 			if(result>0) {
 				msg="수정성공!";
-				String deletePath=getServletContext().getRealPath("/reviewImg/");
-				File delFile=new File(deletePath+oriImg);
-				if(delFile.exists()) delFile.delete();
+				//사진을 업로드 하지 않으면 사진이 삭제가 되지 않아야 하므로 img 값이 비어있지 않았을 경우가 업로드 하지 않은 조건값이니, 아래 조건으로 이미지 삭제여부 파악
+				if(img != null && !img.isEmpty()) {
+					String deletePath=getServletContext().getRealPath("/reviewImg/");
+					File delFile=new File(deletePath+oriImg);
+					if(delFile.exists()) delFile.delete();				
+				}
 			}else {
 				msg="수정 실패!";
 			}

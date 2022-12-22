@@ -162,7 +162,7 @@
 						</div>
 							<%-- <a href="<%=request.getContextPath()%>/board/boardView.do?boardNo=<%=b.getWdNo()%>"> --%>
 							<!-- 동행 참여 회원 리스트 서블릿으로 이동 / view가 달라져야하기때문 -->
-							<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>">
+							<a href="<%=request.getContextPath()%>/board/wdjoinlist.do?memberNo=<%=loginMember!=null?loginMember.getMember_no():""%>&boardNo=<%=b.getWdNo()%>">
 								<h2 class="a h5 mt-4 text-center"><%=b.getWdTitle() %></h2>
 							</a>
 							<h2 class="h5 mt-4 text-center"><%=b.getWdCategory()%></h2>

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.wdh.board.service.BoardService2;
 import com.wdh.board.vo.Board;
@@ -85,8 +86,7 @@ public class BoardListServlet extends HttpServlet {
 		
 		request.setAttribute("boards", list);
 		request.setAttribute("pageBar", pageBar);
-		
-		
+
 		request.getRequestDispatcher("/views/board/boardList.jsp").forward(request, response);
 	}
 
