@@ -3,9 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-<%
-
-%>
+<style>
+	a {color: black;}
+</style>
 <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
             <a class="navbar-brand js-scroll-trigger" href="<%=request.getContextPath() %>/mypage/about.do">
@@ -176,16 +176,15 @@
 	    	  $("#diaryUpdate").modal("show");
 	        /* var title = prompt('입력할 일정:'); */
 	    	// title 값이 있을때, 화면에 calendar.addEvent() json형식으로 일정을 추가
-	        if (title) {
+	        /* if (title) {
 	          calendar.addEvent({
 	            title: title,
 	            start: arg.start,
 	            end: arg.end,
-	            allDay: arg.allDay,
 	            backgroundColor:"#007bff",
 	            textColor:"white"
 	          })
-	        }
+	        } */
 	        calendar.unselect()
 	      },
 	      eventClick: function(arg) {
@@ -200,13 +199,10 @@
 		    $("#d_content").html(arg.event.extendedProps.memo);
 		    $("#d_start").html(arg.event._instance.range.start);
 		    $("#d_end").html(arg.event._instance.range.end);
-		   /*  $("#diaryMore input[name=schd_idx]").val(calEvent.schd_idx);
-		    $('input:radio[value='+calEvent.type+']').attr('checked','checked');
-		    $("#schd_title").val(calEvent.title);
-		    $("#schd_content").val(calEvent.content); */
+		   
 		    
-		    /* dt_start = moment(calEvent.start).format('YYYY-MM-DD hh:mm');
-		    dt_end = moment(calEvent.end).format('YYYY-MM-DD hh:mm'); */
+		    /* d_start = moment(calEvent.start).format('YYYY-MM-DD hh:mm');
+		    d_end = moment(calEvent.end).format('YYYY-MM-DD hh:mm'); */
 		    
 	    	  $("#diaryMore").modal('show');
 	    	  	
@@ -221,17 +217,16 @@
 	      ]
 	      
 	      /*, eventResize: function(event, delta, revertFunc) {           //일정기간 움직일시 해당 일자 넘겨줘서 새로 저장
-	    	    var act = 'edit';
 	    	    var schd_idx = event.schd_idx;
 	    	    var title = event.title;
 	    	    var content = event.content;
-	    	    var dt_start = moment(event.start).format('YYYY-MM-DD hh:mm');
-	    	    var dt_end = moment(event.end).format('YYYY-MM-DD hh:mm');
+	    	    var d_start = moment(event.start).format('YYYY-MM-DD hh:mm');
+	    	    var d_end = moment(event.end).format('YYYY-MM-DD hh:mm');
 
 	    	    $.ajax({
 	    	     type:"post",
-	    	     url:"../prcs/schd-schd-add/",
-	    	     data:{"act":act,"schd_idx":schd_idx,"title":title,"content":content,"start":dt_start,"end":dt_end},
+	    	     url:,
+	    	     data:{"schd_idx":schd_idx,"title":title,"content":content,"start":dt_start,"end":dt_end},
 	    	     success:function(data){
 	    	      //calendar.fullCalendar('updateEvent',event);
 	    	      $('#calendar').fullCalendar('unselect');
@@ -249,47 +244,50 @@
 		   $.ajax({
     		 type:"get",
     		 url:"<%= request.getContextPath() %>/mypage/diarydata.do",
-    		 dataType:"json",
+    		 //dataType:"json",
     		 success:data=>{
     			 console.log(data);
     			 data.forEach(v=>{
     				 calendar.addEvent(v);	
-    				 
     			 });
     		 }
     	  });
     	  
     	  /* 색상 버튼 이벤트 추가 */
     	  var currColor = '#007bff' //디폴트 컬러
-              // Color chooser button
-              $('#color-chooser > li > a').click(function (e) {
-                e.preventDefault()
-                // 저장할 색
-                currColor = $(this).css('color')
-                // 추가 버튼에 색 변경 이벤트
-                $('#addBtn').css({
-                  'background-color': currColor,
-                  'border-color'    : currColor
-                })
-              });
+    	  
+          // Color chooser button
+          $('#color-chooser > li > a').click(function (e) {
+            e.preventDefault()
+            // 저장할 색
+            currColor = $(this).css('color');
+            // 추가 버튼에 색 변경 이벤트
+            $('#addBtn').css({
+              'background-color': currColor,
+              'border-color'    : currColor
+            })
+          });
              
     	  $(document).on("click", "button[name='addDiary']", function () {
     		 let d = {
    	    			"title" : $("#title").val(),
-   	    			"memo" : $("#memo").val(),
-   	    			"start" : moment($("#start").val()).format('YYYY-MM-DD hh:mm'),
-   	    			"end" : moment($("#end").val()).format('YYYY-MM-DD hh:mm'),
-   	    			"bgColor" : currColor
+   	    			"description" : $("#memo").val(),
+   	    			"start" : new Date(moment($("#start").val()).format('YYYY-MM-DD hh:mm')),
+   	    			"end" : new Date(moment($("#end").val()).format('YYYY-MM-DD hh:mm')),
+   	    			"backgroundColor" : currColor
   	    		};
-
+	    		console.log(d);
+				
 	    	    $.ajax({
 	    	    	url:"<%=request.getContextPath()%>/mypage/addDiary.do",
 	    	     	type:"post",
-	    	     	dataType:"json",
-	    	     	data:d,
+	    	     	//dataType:"json",
+	    	     	data:{diary:JSON.stringify(d)},
 	    	     	success:function(data){
-	    	     		console.log(data);
-	
+	    	     		if(data='성공') calendar.addEvent(d);
+	    	     		else alert("일정등록에 실패했습니다 다시 시도하세요 :(");
+	    	     		//모달내용 삭제
+	    	     		$("#diaryUpdate").modal('hide');
 	    	     	}, error:function(e,r,m){
 						console.log(e);
 						console.log(r);
@@ -298,26 +296,6 @@
 	    	    });  
 	     	 });
               
-              
-              /* $('#addBtn').click(function (e) {
-                e.preventDefault()
-                // null값 안 되게
-                var val = $('#new-event').val()
-                if (val.length == 0) {
-                  return
-                } */
-          
-                // 이벤트 생성
-                /* var event = $('<div />')
-                event.css({
-                  'background-color': currColor,
-                  'border-color'    : currColor,
-                  'color'           : '#fff'
-                }).addClass('external-event')
-                event.text(val)
-                $('#external-events').prepend(event)*/
-                
-              /* }); */ 
 	  });
 	  
 	  
