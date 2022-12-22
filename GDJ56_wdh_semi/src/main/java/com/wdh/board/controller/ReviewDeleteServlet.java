@@ -34,6 +34,7 @@ public class ReviewDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String img=request.getParameter("img"); //view에서 보내줄때 이미지이름 넣어주기
+		System.out.println(img);
 		int reviewboardNo = Integer.parseInt(request.getParameter("reviewboardNo"));
 		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
 		int wdNo=Integer.parseInt(request.getParameter("boardNo"));
@@ -42,7 +43,7 @@ public class ReviewDeleteServlet extends HttpServlet {
 		String msg="", loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+wdNo;
 		if(result>0) {
 			msg="삭제 성공!";
-			String path=getServletContext().getRealPath("/reviewImg"); //삭제안되면 / 넣어주기
+			String path=getServletContext().getRealPath("/reviewImg/");
 			File delFile=new File(path+img);
 			if(delFile.exists()) delFile.delete();
 		}else {

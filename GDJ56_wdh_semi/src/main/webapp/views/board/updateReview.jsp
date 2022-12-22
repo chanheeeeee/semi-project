@@ -13,22 +13,6 @@
         <li>Step 3. 후기글 작성</li>
       </ul>
     </div>
-
-
-<!--     <table id="info">
-        <tr>
-            <th>참여동행</th>
-            <td>정보가져오기~~</td>
-            <th>동행자 닉네임</th>
-            <td>정보가져오기~~</td>
-        </tr>
-        <tr>
-            <th>참여날짜</th>
-            <td>정보가져오기~~</td>
-            <th>운동종목</th>
-            <td>정보가져오기~~</td>
-        </tr>
-    </table> -->
     <br><br><br>
 	<form action="<%=request.getContextPath() %>/board/reviewupdateend.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>&reviewNo=<%=rb.getReviewSeq() %>" method="post" enctype="multipart/form-data">
     <table id="writeTable2" style="text-align:center;">
@@ -36,9 +20,12 @@
             <th colspan="4">
             <div style="display:flex; justify-content:center">
                 제목   <input type="text" name="review_title" id="title_input" value="<%=rb.getReviewTitle()%>"><br>
-                <input type="file" name="reviewImg">
-             </div></th>
-           
+                <!-- 수정할 이미지 -->
+                <input type="file" name="reviewImg" value="<%=rb.getImg()%>">
+                <!-- 기존 이미지 -->
+                <input type="hidden" name="oriFile" value="<%=rb.getImg()%>"> 
+             </div>
+             </th>
         </tr>
         <tr>
             <th></th>
@@ -54,7 +41,7 @@
                 <div class="wrap" style="margin: 5%;">
                 	<button class="button" onclick="location.replace('<%=request.getContextPath()%>/board/grade.do');">이전</button>&nbsp;&nbsp;&nbsp;
                     <input type="submit" class="button" value="등록">
-                    <input type="hidden" name="score" value="<%=request.getParameter("grade")%>">
+                    <input type="hidden" name="grade" value="<%=request.getParameter("grade")%>">
                 </div>
 
             </th>

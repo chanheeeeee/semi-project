@@ -23,16 +23,18 @@
 			<button id="messageSend" class="button1" style="height:25px !important; width:50px !important; margin:3px !important;"
 					onclick="messageSendPop('<%=b.getWdNo()%>','<%=mm.getMember_no()%>','<%=mm.getMember_nickname()%>')">쪽지</button><br>
 		</div>
+		<!-- 참여회원 x -->
 		<%if(members.isEmpty()){ %>
 			<p style="text-align: center;color:red;">참여 회원이 없습니다.</p>
 		<%}else{%>
-			<!-- <div id="list" style="display:flex;justify-content:center;min-height: 60%;"> -->
 			<%for(Member m : members){ %>
 			<div>
+				<!-- 공통 -->
 				<%=m.getMember_nickname() %>
 				<%int memberNo=m.getMember_no(); %>
 					<button id="messageSend" class="button1" style="height:25px !important; width:50px !important; margin:3px !important;"
 					onclick="messageSendPop('<%=b.getWdNo()%>','<%=m.getMember_no()%>','<%=m.getMember_nickname()%>')">쪽지</button><br>
+				<!-- 동행 작성자 -> 동행 거절 기능 -->
 				<%if(loginMember==b.getMemberNo()) {%>
 					<button id="button1" style="height:25px !important; width:80px !important; margin:3px !important;" onclick="out()">동행거절</button><br>
 					<input type="hidden" name="out" onclick="location.href='<%=request.getContextPath()%>/board/wdjoinout.do?memberNo=<%=memberNo%>&wdNo=<%=b.getWdNo()%>';">
@@ -68,7 +70,7 @@
 		$("#recvMemberNo").val(recvMemberNo);
 		$("#recvMemberNick").val(recvMemberNick);
 
-		open("","frmMessage","width=300,height=300");
+		open("","frmMessage","width=300,height=340");
 		frm.method="post";
 		frm.action="<%=request.getContextPath()%>/member/messageServlet.do";
 		frm.target="frmMessage";

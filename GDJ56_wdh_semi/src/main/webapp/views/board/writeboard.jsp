@@ -31,10 +31,12 @@
 					document.getElementById("roadFullAddr").value=roadFullAddr
 				}
 			</script>                    
-			<input type="number" name="count" id="button1" placeholder="모집인원" required>      
-			<input class="button1" name="date" id="datepicker" value="모임 날짜 선택" required>
+			<input type="number" name="count" id="button1" placeholder="모집인원" min="1" required>      
+			<input class="button1" name="date" id="datepicker" value="모임 날짜 선택" minDate:0 required>
 			<script>
 				$('#datepicker').datepicker();
+				$("#startDay").datepicker({ dateFormat: "yy-mm-dd", minDate : 0}).val();
+				$("#endDay").datepicker({ dateFormat: "yy-mm-dd", minDate : 0}).val();
 			</script> 
 		</div>
 

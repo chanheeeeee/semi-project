@@ -10,22 +10,6 @@
         <li>Step 3. 후기글 작성</li>
       </ul>
     </div>
-
-
-<!--     <table id="info">
-        <tr>
-            <th>참여동행</th>
-            <td>정보가져오기~~</td>
-            <th>동행자 닉네임</th>
-            <td>정보가져오기~~</td>
-        </tr>
-        <tr>
-            <th>참여날짜</th>
-            <td>정보가져오기~~</td>
-            <th>운동종목</th>
-            <td>정보가져오기~~</td>
-        </tr>
-    </table> -->
     <br><br><br>
 	<form action="<%=request.getContextPath() %>/board/reviewboardend.do?memberNo=<%=loginMember.getMember_no() %>&wdNo=<%=b.getWdNo() %>" method="post" enctype="multipart/form-data">
     <table id="writeTable2">

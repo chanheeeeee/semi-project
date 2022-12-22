@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.wdh.board.service.BoardService1;
 import com.wdh.board.service.BoardService2;
 import com.wdh.board.vo.Board;
 import com.wdh.board.vo.BoardComment;
