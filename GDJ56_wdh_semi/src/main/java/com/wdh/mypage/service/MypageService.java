@@ -330,6 +330,20 @@ public class MypageService {
 		return result;
 		
 	}
+	
+
+	//다이어리 삭제
+	public int deleteDiary(int diary_id) {
+
+		Connection conn = getConnection();
+		
+		int result = dao.deleteDiary(conn, diary_id);
+		
+		close(conn);
+		
+		return result;
+		
+	}
 
 }
 

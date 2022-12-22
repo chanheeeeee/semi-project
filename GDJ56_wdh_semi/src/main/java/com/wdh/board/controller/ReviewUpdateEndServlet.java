@@ -1,5 +1,6 @@
 package com.wdh.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -36,28 +37,34 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String oriImg=request.getParameter("oriFile"); //기존 이미지
+		//String img=request.getParameter("reviewImg");
 		//파일업로드
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			response.sendRedirect(request.getContextPath());
 		}else {
 			String path=request.getServletContext().getRealPath("/reviewImg");
 			MultipartRequest mr=new MultipartRequest(request,path,1024*1024*10,"UTF-8",new DefaultFileRenamePolicy());
-			String img=mr.getFilesystemName("reviewImg");
+			String img=mr.getFilesystemName("reviewImg");		
 
-			int memberNo=Integer.parseInt(request.getParameter("memberNo"));
-			int boardNo=Integer.parseInt(request.getParameter("boardNo"));
-			int reviewNo=Integer.parseInt(request.getParameter("reviewNo"));
-			double score=(Integer.parseInt(mr.getParameter("score")))/6.0;
+
+			int memberNo=Integer.parseInt(mr.getParameter("memberNo"));
+			int boardNo=Integer.parseInt(mr.getParameter("boardNo"));
 			String title=mr.getParameter("review_title");
 			String content=mr.getParameter("review_content");
-			System.out.println(reviewNo+title+content+memberNo+boardNo);
-			ReviewBoard rb=ReviewBoard.builder().reviewTitle(title).reviewContent(content).reviewScore(score).reviewSeq(reviewNo).build();
+			double grade=(Integer.parseInt(mr.getParameter("grade")))/6.0;
+			System.out.println(grade);
+			int reviewNo=Integer.parseInt(mr.getParameter("reviewNo"));
+			ReviewBoard rb=ReviewBoard.builder().reviewTitle(title).reviewContent(content).reviewScore(grade).reviewSeq(reviewNo).img(img).build();
 			System.out.println(rb);
 			int result=new BoardService1().updateReview(rb);
 			System.out.println(result);	
 			String msg="", loc="/board/wdjoinlist.do?memberNo="+memberNo+"&boardNo="+boardNo;
 			if(result>0) {
 				msg="수정성공!";
+				String deletePath=getServletContext().getRealPath("/reviewImg/");
+				File delFile=new File(deletePath+oriImg);
+				if(delFile.exists()) delFile.delete();
 			}else {
 				msg="수정 실패!";
 			}
@@ -69,6 +76,7 @@ public class ReviewUpdateEndServlet extends HttpServlet {
 			Board b=new BoardService2().selectBoard(boardNo);
 			new BoardService1().updateGrade(b);
 		}
+		
 	}
 
 	/**

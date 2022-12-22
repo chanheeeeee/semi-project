@@ -22,7 +22,7 @@
 			<%= mm.getMember_nickname() %> (작성자)
 			<button id="messageSend" class="button1" style="height:25px !important; width:50px !important; margin:3px !important;"
 					onclick="messageSendPop('<%=b.getWdNo()%>','<%=mm.getMember_no()%>','<%=mm.getMember_nickname()%>')">쪽지</button><br>
-		</div>
+		</div>		
 		<%if(members.isEmpty()){ %>
 			<p style="text-align: center;color:red;">참여 회원이 없습니다.</p>
 		<%}else{%>

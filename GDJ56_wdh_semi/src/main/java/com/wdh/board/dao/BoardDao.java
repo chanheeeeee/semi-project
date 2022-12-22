@@ -259,7 +259,8 @@ public class BoardDao {
 			pstmt.setString(1, rb.getReviewTitle());
 			pstmt.setString(2, rb.getReviewContent());
 			pstmt.setDouble(3, rb.getReviewScore());
-			pstmt.setInt(4, rb.getReviewSeq());
+			pstmt.setString(4, rb.getImg());
+			pstmt.setInt(5, rb.getReviewSeq());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();

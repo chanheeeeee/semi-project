@@ -754,7 +754,7 @@ public class MypageDao {
 				d.setStart(rs.getDate("WD_DATE"));
 				d.setEnd(rs.getDate("WD_DATE"));
 				d.setMemo(rs.getString("WD_CONTENT"));
-//				d.setBgColor(rs.getString("BACKGROUND_COLOR"));
+				d.setBackgroundColor("#ff84ce"); //동행은 분홍색으로 지정
 				
 				list.add(d);
 			}
@@ -773,6 +773,33 @@ public class MypageDao {
 		return list; 
 		
 	}
+	
+	//다이어리 삭제
+		public int deleteDiary(Connection conn, int diary_id) {
+			
+			PreparedStatement pstmt = null;
+			int result = 0;
+			
+			try {
+				
+				pstmt = conn.prepareStatement(sql.getProperty("deleteDiary"));
+				pstmt.setInt(1, diary_id);
+				
+				result = pstmt.executeUpdate();
+				
+			}catch(SQLException e) {
+				
+				e.printStackTrace();
+				
+			}finally {
+				
+				close(pstmt);
+				
+			}
+		
+			return result;
+			
+		}
 	
 	
 

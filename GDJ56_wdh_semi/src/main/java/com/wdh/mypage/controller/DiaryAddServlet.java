@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,7 +50,11 @@ public class DiaryAddServlet extends HttpServlet {
 		//JsonDiary d=new Gson().fromJson(diary,JsonDiary.class);
 		//System.out.println(d);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		
+		TimeZone tz;
+		tz = TimeZone.getTimeZone("Asia/Seoul"); 
+		sdf.setTimeZone(tz);
 		
 		String start = param.get("start").replace("T", " ").replace("Z", "");
 		String end = param.get("end").replace("T", " ").replace("Z", "");
@@ -67,7 +72,7 @@ public class DiaryAddServlet extends HttpServlet {
 			e.printStackTrace();
 			
 		}
-////		
+		
 		Diary d = Diary.builder()
 				.title(param.get("title"))
 				.memo(param.get("description"))
@@ -75,29 +80,25 @@ public class DiaryAddServlet extends HttpServlet {
 				.end(new java.sql.Date(endSql.getTime()))
 				.backgroundColor(param.get("backgroundColor"))
 				.build();
-//		
+
 //		System.out.println(d);
-//		
+	
 		int result = new MypageService().addDiary(d, m);
-//
-		String msg="", loc="";
+
+		String msg="";
 		
 		if(result>0) {
 			
 			msg="성공!";
-			//loc="/mypage/diary.do";
 			
 		}else {
 			
 			msg="실패!";
-//			loc="/mypage/diary.do";
 			
 		}
 				
 		response.getWriter().print(msg);
-//		request.setAttribute("msg", msg);
-//		request.setAttribute("loc", loc);
-//		request.getRequestDispatcher("/views/common/msgm.jsp").forward(request, response);
+
 		
 	}
 
