@@ -42,7 +42,7 @@
             <!--Start comment_작성자후기-->
             <div id="carousel-related-product">
             	<%if(rbAllList.isEmpty()) {%>
-            		<h6 style="margin-left:50px;">아직 작성된 작성자 후기가 없습니다</h6>
+            		<h6 style="margin-left:200px;">아직 작성된 작성자 후기가 없습니다</h6>
             	
             	<%} else {
             	
