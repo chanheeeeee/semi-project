@@ -677,7 +677,7 @@ public class MypageDao {
 				d.setStart(rs.getDate("DIARY_START"));
 				d.setEnd(rs.getDate("DIARY_END"));
 				d.setMemo(rs.getString("DIARY_MEMO"));
-				d.setBgColor(rs.getString("BACKGROUND_COLOR"));
+				d.setBackgroundColor(rs.getString("BACKGROUND_COLOR"));
 				
 				list.add(d);
 			}
@@ -707,10 +707,10 @@ public class MypageDao {
 
 			pstmt.setString(1, d.getTitle());
 			pstmt.setInt(2, m.getMember_no());
-			pstmt.setDate(3, new java.sql.Date(d.getStart().getTime()));
-			pstmt.setDate(4, new java.sql.Date(d.getEnd().getTime()));
+			pstmt.setDate(3, d.getStart());
+			pstmt.setDate(4, d.getEnd());
 			pstmt.setString(5, d.getMemo());
-			pstmt.setString(6, d.getBgColor());
+			pstmt.setString(6, d.getBackgroundColor());
 
 			
 			result = pstmt.executeUpdate();
