@@ -60,6 +60,10 @@
     <div style="text-align:center">
     	<br>
 		<img src="<%=request.getContextPath()%>/images/QsAlert.png" style="width:49%; height:600px;">
+		<br>
+		<br>
+			<button onclick="location.href='<%=request.getContextPath()%>/mypage/mycontent.do'">마이페이지</button>
+			
     </div>
     <br>
     

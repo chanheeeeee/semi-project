@@ -66,7 +66,7 @@
     <!-- Close Header -->
 <!-- 신고 글 작성하고 넘어 갈 서블릿에서 => msg.jsp로 넘어가기 -->
 <div font-family:jua;>
-    <div style="background-image:url('<%=request.getContextPath()%>/images/backback.png')">
+    <div >
         <section id="notice-container">
                 <h2><strong>신고하기 글 작성</strong></h2>
             <form action="<%=request.getContextPath() %>/cs/writeEnd.do" method="post" enctype="multipart/form-data">
