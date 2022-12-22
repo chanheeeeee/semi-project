@@ -6,10 +6,7 @@
 <script src="<%=request.getContextPath() %>/js/templatemo.js"></script>
 <script src="<%=request.getContextPath() %>/js/custom.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/post.css">
-<%
 
-
-%>
 <title>쪽지보내기</title>
 </head>
 <body>
