@@ -754,7 +754,7 @@ public class MypageDao {
 				d.setStart(rs.getDate("WD_DATE"));
 				d.setEnd(rs.getDate("WD_DATE"));
 				d.setMemo(rs.getString("WD_CONTENT"));
-//				d.setBgColor(rs.getString("BACKGROUND_COLOR"));
+				d.setBackgroundColor("#ff84ce"); //동행은 분홍색으로 지정
 				
 				list.add(d);
 			}
