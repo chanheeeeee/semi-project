@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.wdh.board.service.BoardService1;
 import com.wdh.board.vo.Board;
@@ -70,6 +71,8 @@ public class WriteBoardEndServlet extends HttpServlet {
 		}
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
+		HttpSession session=request.getSession();
+		System.out.println(request.getSession().getId());
 		request.getRequestDispatcher("/views/common/msgch.jsp").forward(request, response);
 		
 		
