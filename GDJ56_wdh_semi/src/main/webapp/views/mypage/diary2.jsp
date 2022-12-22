@@ -77,12 +77,20 @@
 		        	<span aria-hidden="true" name="close">×</span>
 		        </button>
 		      </div>
-		      <div class="modal-body" id="content">
-		      <input type="text" class="form-control" id="diaryId" style="width: 50%;">
-		       	운동: <label id="d_title"></label><br>
-		       	메모: <label id="d_content"></label><br>
-		       	시작날짜: <label id="d_start"></label><br>
-		       	마친날짜: <label id="d_end"></label>
+		      <div class="modal-body" id="content" style="margin-bottom: -17%; margin-left: -12%; text-align: center;">
+		      <!-- <input type="text" class="form-control" id="diaryId" style="width: 50%;"> -->
+		      <div class="col-sm-10" style="">
+		       		<label for="inputTitle" class="col-form-label">내 운동: </label> <label id="d_title"></label>
+		       </div>
+		       <div class="col-sm-10" style="">
+		       	<label for="inputContent" class="col-form-label">메모: </label> <label id="d_content"></label>
+		       	</div>
+		       	<div class="col-sm-10" style="">
+		       	<label for="inputStart" class="col-form-label">시작합니다: </label> <label id="d_start"></label>
+		       	</div>
+				<div class="col-sm-10" style="">
+		       	<label for="inputEnd" class="col-form-label">마칩니다: </label> <label id="d_end"></label>
+		       	</div>
 		      </div>
 		      <!-- <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal" name="deleteDiary">삭제</button>
