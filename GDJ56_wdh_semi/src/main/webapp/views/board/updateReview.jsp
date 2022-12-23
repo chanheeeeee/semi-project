@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <th></th>
-            <td colspan="3">
+            <td colspan="3" style="text-align: center;">
                 <form method="post">
                     <textarea id="editor" name="review_content"><%=rb.getReviewContent()%></textarea>
                 </form>

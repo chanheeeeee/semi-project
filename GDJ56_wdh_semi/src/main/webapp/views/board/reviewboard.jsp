@@ -12,11 +12,13 @@
     </div>
     <br><br><br>
 	<form action="<%=request.getContextPath() %>/board/reviewboardend.do?memberNo=<%=loginMember.getMember_no() %>&wdNo=<%=b.getWdNo() %>" method="post" enctype="multipart/form-data">
-    <table id="writeTable2">
+    <table id="writeTable2" style="text-align:center;">
         <tr>
-            <th colspan="4"  style="display:flex; justify-content:center">
+            <th colspan="4"">
+            <div style="display:flex; justify-content:center">
                 제목   <input type="text" name="review_title" id="title_input"><br>
                 <input type="file" name="reviewImg">
+               </div>
             </th>
         </tr>
         <tr>
