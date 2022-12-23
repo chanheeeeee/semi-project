@@ -12,14 +12,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ChallengeResult {
+public class Challenge2 {
 	
 	private int challenge_no;
 	private String challenge_name;
 	private Date challenge_date;
 	private String challenge_img;
-	private String member_no;
 	private String file_path;
-	private int day_cnt;
 	
 }

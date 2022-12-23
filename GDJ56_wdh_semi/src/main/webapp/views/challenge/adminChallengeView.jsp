@@ -41,7 +41,7 @@
 	    <div>
 	    	<tr>
 	    		<th>
-	    			<input type="button" value="삭제" onclick="location.href='<%=request.getContextPath()%>/Challenge/deleteChallenge.do?challenge_no=<%=ch.getChallenge_no()%>';">
+	    			<input type="button" value="삭제하기" onclick="fn_deleteChallenge(<%=ch.getChallenge_no()%>);">
 	    		</th>
 	    	</tr>
 	    	<%-- 페이징 처리 --%>
@@ -54,7 +54,7 @@
 	  
 	   <script>
 			//챌린지 게시글 삭제
-			const fn_deleteNotice=(NoticeNo)=>{
+			const fn_deleteChallenge=(Challenge_No)=>{
 					location.replace("<%=request.getContextPath()%>/challenge/deleteChallenge.do?no="+challenge_no);
 			}
 	   </script>					

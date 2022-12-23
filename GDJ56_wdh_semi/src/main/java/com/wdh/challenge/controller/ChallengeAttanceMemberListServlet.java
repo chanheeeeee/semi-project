@@ -1,25 +1,28 @@
 package com.wdh.challenge.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wdh.challenge.model.service.AdminChallengeService;
+import com.wdh.admin.model.service.AdminService;
+import com.wdh.member.vo.Member;
 
 /**
- * Servlet implementation class DeleteChallengeServlet
+ * Servlet implementation class ChallengeAttanceMemberListServlet
  */
-@WebServlet("/challenge/deleteChallenge.do")
-public class DeleteChallengeServlet extends HttpServlet {
+@WebServlet("/admin/challendAttanceMemberList.do")
+public class ChallengeAttanceMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteChallengeServlet() {
+    public ChallengeAttanceMemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,24 +31,15 @@ public class DeleteChallengeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		int challengeNo=Integer.parseInt(request.getParameter("challengeNo"));
 		
-		int no=Integer.parseInt(request.getParameter("no"));
-		int result=new AdminChallengeService().deleteChallenge(no);
+		List<Member> members=new AdminService().challengeAttanceMember(challengeNo);
+		request.setAttribute("members", members);
 		
-		String msg="",loc="";
-		if(result>0) {
-			msg="등록된 챌린지가 삭제 되었습니다";
-			loc="/admin/adminChallenge.do";
-		}else {
-			msg="삭제 실패 하였습니다";
-			loc="/admin/adminChallenge.do?Challenge_No="+no;
-		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-		
-	
-	
+		request.getRequestDispatcher("/views/admin/challengeAttanceMember.jsp")
+		.forward(request, response);
 	}
 
 	/**

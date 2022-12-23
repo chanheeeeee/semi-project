@@ -184,7 +184,7 @@
 					   						<sub class="comment-writer"><%=bc.getMember().getMember_nickname()%>(<%=bc.getMember().getMember_id() %>)</sub>
 					   						<sub class="comment-date"><%=bc.getWcDate() %>게시시간</sub>
 					   						<br>
-					   						<%=bc.getWcContent() %>댓글내용
+					   						<%=bc.getWcContent() %>
 					   					</td>
 					   					<td>
 					   						<form id="commentDmlFrm" action="<%=request.getContextPath() %>/board/commentDelete.do?memberNo=<%=loginMember.getMember_no()%>&boardNo=<%=b.getWdNo()%>" method="post">
@@ -193,12 +193,12 @@
 										   							loginMember.getMember_no()==bc.getMemberNo())) {%>
 										   				<input type="hidden" name="boardcomment" value="<%=bc.getCommentNo()%>">
 										   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
-<!-- 여기	 -->				   							<button	type="submit" class="btn-delete" value="<%=bc.getCommentNo()%>">삭제</button> <!-- 댓글의 PK를 넘겨줘야함 -->
+<!-- 여기	 -->				   							<button	type="submit" class="btn-delete input-group-text btn-insert2" value="<%=bc.getCommentNo()%>">삭제</button> <!-- 댓글의 PK를 넘겨줘야함 -->
 						   							<!-- <input type="button" value="삭제" onclick="fn_deleteMember();"/> -->
 						   						<%} %>
 					   						</form>
 					   						<%if(loginMember!=null){ %>
-					   							<button class="btn-reply" value="<%=bc.getCommentNo() %>">답글</button> <!-- 댓글의 PK를 넘겨줘야함 -->
+					   							<button class="btn-reply input-group-text btn-insert2" value="<%=bc.getCommentNo() %>">답글</button> <!-- 댓글의 PK를 넘겨줘야함 -->
 					   						<%} %>
 					   					</td>
 					   				</tr>
@@ -208,7 +208,7 @@
 					   						<sub class="comment-writer"><%=bc.getMember().getMember_nickname()%>(<%=bc.getMember().getMember_id() %>)</sub>
 					   						<sub class="comment-date"><%=bc.getWcDate() %>게시시간</sub>
 					   						<br>
-					   						<%=bc.getWcContent() %>댓글내용
+					   						<%=bc.getWcContent() %>
 					   					</td>
 					   					
 					   					
@@ -220,12 +220,12 @@
 										   							loginMember.getMember_no()==bc.getMemberNo())) {%>
 										   				<input type="hidden" name="boardcomment" value="<%=bc.getCommentNo()%>">
 										   				<input type="hidden" name="boardref" value="<%=b.getWdNo() %>">
-<!-- 여기	 -->				   							<button	type="submit" class="btn-delete" value="<%=bc.getCommentNo()%>">삭제</button> <!-- 댓글의 PK를 넘겨줘야함 -->
+<!-- 여기	 -->				   							<button	type="submit" class="btn-delete input-group-text btn-insert2" value="<%=bc.getCommentNo()%>">삭제</button> <!-- 댓글의 PK를 넘겨줘야함 -->
 						   							<!-- <input type="button" value="삭제" onclick="fn_deleteMember();"/> -->
 						   						<%} %>
 					   						</form>
 					   						<%if(loginMember!=null){ %>
-					   							<button class="btn-reply" value="<%=bc.getCommentNo() %>">답글</button> <!-- 댓글의 PK를 넘겨줘야함 -->
+					   							<button class="btn-reply input-group-text btn-insert2" value="<%=bc.getCommentNo() %>">답글</button> <!-- 댓글의 PK를 넘겨줘야함 -->
 					   						<%} %>
 					   					</td>
 					   					
@@ -301,8 +301,8 @@
         <div class="container">
             <div class="row text-left p-2 pb-3" >
                 <h4 id="boardView_c2"><%=b.getMember().getMember_nickname()%>(<%=b.getMember().getMember_id() %>)님에 달린 후기</h4>
-                <button 
-                onclick="window.open('<%=request.getContextPath() %>/board/boardViewReviewAll.do?Review=all&BoardWriterNo=<%=b.getMember().getMember_no() %>','작성자후기더보기' ,'width=700, height=600', left='600', top='500');">작성자후기더보기</button>
+                <button id="addLocbtn"
+                onclick="window.open('<%=request.getContextPath() %>/board/boardViewReviewAll.do?Review=all&BoardWriterNo=<%=b.getMember().getMember_no() %>','전체 후기 더보기' ,'width=700, height=600', left='600', top='500');">작성자후기더보기</button>
             </div>
 
             <!--Start comment_작성자후기-->
@@ -400,6 +400,13 @@
 	    /*답글관련*/
 	    table#tbl-comment textarea{margin: 4px 0 0 0;}
 	   /*  table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; background:#3300ff; position:relative; top:-5px; left:10px;} */
+	   
+	   .btn-delete input-group-text btn-insert2{
+		   color : #e62e2e;
+	   }
+	   #addLocbtn {
+	   		border: 1px solid lightgray;
+	   }
 	</style>
     
     

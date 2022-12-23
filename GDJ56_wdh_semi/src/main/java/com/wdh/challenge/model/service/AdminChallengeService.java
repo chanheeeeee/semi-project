@@ -11,7 +11,8 @@ import java.util.Map;
 
 import com.wdh.challenge.model.dao.AdminChallengeDao;
 import com.wdh.challenge.model.vo.Challenge;
-import com.wdh.challenge.model.vo.ChallengeResult;
+import com.wdh.challenge.model.vo.Challenge2;
+import com.wdh.notice.model.vo.Notice;
 
 public class AdminChallengeService {
 	
@@ -46,8 +47,10 @@ public class AdminChallengeService {
 	public int deleteChallenge(int no) {
 		Connection conn=getConnection();
 		int result=dao.deleteChallenge(conn,no);
+		
 		if(result>0) commit(conn);
 		else rollback(conn);
+		
 		close(conn);
 		return result;
 	}
@@ -73,18 +76,19 @@ public class AdminChallengeService {
 		close(conn);
 		return result;
 	}
-	
-	public int selectChallengeResultCount() {
+	public int selectChallenge2Count() {
 		Connection conn=getConnection();
-		int result=dao.selectChallengeCount(conn);
+		int result=dao.selectChallenge2Count(conn);
 		close(conn);
 		return result;
 	}
-//	public List<ChallengeResult> searchChallengeResult(int cPage, int numPerpage) {
-//		Connection conn=getConnection();
-//		List<ChallengeResult> result=dao.searchChallengeResult(conn,cPage,numPerpage);
-//		close(conn);
-//		return result;
-//	}
+
+	public List<Challenge2> callengeMemberResult(int no) {
+		Connection conn=getConnection();
+		List<Challenge2> list=dao.callengeMemberResult(conn,no);
+		close(conn);
+		return list;
+	}
+	
 	
 	}

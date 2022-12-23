@@ -38,9 +38,6 @@ public class ReceiveMessageServlet extends HttpServlet {
 		
 		int readYn = new MemberService().readCount(mem_no);
 		
-		System.out.println(readYn);
-		
-		
 		response.setContentType("text/csv;charset=utf-8");
 		
 		response.getWriter().print(readYn);

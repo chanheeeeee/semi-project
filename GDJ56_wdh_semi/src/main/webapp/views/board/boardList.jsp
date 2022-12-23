@@ -19,7 +19,7 @@
 	 <h1 class="h2 pb-4"></h1>
 	 <h1 class="h2 pb-4"></h1>
 	 	<!-- 위치검색 -->
-	 	<input type="button" onclick="sample6_execDaumPostcode();" value="위치 추가"><br>
+	 	<input type="button" onclick="sample6_execDaumPostcode();" value="위치 추가" id="addLoc" class="btn btn-lg "><br>
 <!-- 	 	<input type="text" style="border:0 solid black;" id="bname" placeholder="지번"> 
 		<input type="text" style="border:0 solid black;" id="roadname" placeholder="도로명"> -->
 		
@@ -56,6 +56,7 @@
 					<li><label><input type="radio" name="purpose" value="취미">취미</label></li>
 					<li><label><input type="radio" name="purpose" value="친목">친목</label></li>
 					<li><label><input type="radio" name="purpose" value="다이어트">다이어트</label></li>
+					<li><label><input type="radio" name="purpose" value="건강">건강</label></li>
 				</ul>
 			</li>
 			
@@ -402,6 +403,10 @@ div>a{
 /*주소입력창*/
 #sample4_roadAddress{
 	width : 100px;
+}
+
+input#addLoc{
+	
 }
 </style>
 	

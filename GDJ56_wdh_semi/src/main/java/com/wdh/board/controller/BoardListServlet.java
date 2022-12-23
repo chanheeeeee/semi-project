@@ -82,8 +82,7 @@ public class BoardListServlet extends HttpServlet {
 			pageBar += "<a href='"+request.getRequestURL()+"?cPage="+pageNo+"'>🡺</a>";
 		}
 		
-		//String[] arrPageBar = pageBar.split(",");스플릿확인
-		//for(String p : arrPageBar) System.out.println(p);
+
 		
 		request.setAttribute("boards", list);
 		request.setAttribute("pageBar", pageBar);

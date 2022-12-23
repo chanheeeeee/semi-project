@@ -50,8 +50,7 @@ List<Challenge> challenge=(List<Challenge>)request.getAttribute("challenge");
 					<p>
 						신규 챌린지를
 						<button id="test_btn3" onclick="location.href='<%=request.getContextPath()%>/challenge/adminChallengeWrite.do'">등록</button>
-						&nbsp; / 선택된 항목을
-						<button id="test_btn3">삭제</button>
+						&nbsp;
 						합니다.
 					</p>
 				</div>

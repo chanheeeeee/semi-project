@@ -1,6 +1,8 @@
 package com.wdh.challenge.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,18 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.wdh.challenge.model.service.AdminChallengeService;
+import com.wdh.challenge.model.vo.Challenge2;
 
 /**
- * Servlet implementation class DeleteChallengeServlet
+ * Servlet implementation class AdminCallengeMemberResultServler
  */
-@WebServlet("/challenge/deleteChallenge.do")
-public class DeleteChallengeServlet extends HttpServlet {
+@WebServlet("/admin/callengeMemberResult.do")
+public class AdminCallengeMemberResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteChallengeServlet() {
+    public AdminCallengeMemberResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,24 +31,15 @@ public class DeleteChallengeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int challengeNo=Integer.parseInt(request.getParameter("challengeNo"));
+		int memberNo=Integer.parseInt(request.getParameter("memberNo"));
 		
-		int no=Integer.parseInt(request.getParameter("no"));
-		int result=new AdminChallengeService().deleteChallenge(no);
+		List<Challenge2> challenger=new AdminChallengeService().callengeMemberResult(challengeNo);
+		request.setAttribute("challenge", challenger);
 		
-		String msg="",loc="";
-		if(result>0) {
-			msg="등록된 챌린지가 삭제 되었습니다";
-			loc="/admin/adminChallenge.do";
-		}else {
-			msg="삭제 실패 하였습니다";
-			loc="/admin/adminChallenge.do?Challenge_No="+no;
-		}
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-		
-	
-	
+		request.getRequestDispatcher("/views/challenge/callengeMemberResult.jsp")
+		.forward(request, response);
 	}
 
 	/**
