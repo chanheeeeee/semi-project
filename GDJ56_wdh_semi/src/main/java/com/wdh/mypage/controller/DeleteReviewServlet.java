@@ -37,7 +37,9 @@ public class DeleteReviewServlet extends HttpServlet {
 		
 		int result = new MypageService().deleteReview(reviewboardNo);
 		
-		Board b=new BoardService2().selectBoard(reviewboardNo);
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		Board b=new BoardService2().selectBoard(boardNo);
         new BoardService1().updateGrade(b);
 		
 		String msg="", loc="";
